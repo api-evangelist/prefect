@@ -16,7 +16,7 @@ Prefect is a Python-native workflow orchestration tool for building, scheduling,
 ## Timestamps
 
 - **Created:** 2026-03-03 
-- **Modified:** 2026-03-03 
+- **Modified:** 2026-04-28
 
 ## APIs
 
@@ -36,6 +36,7 @@ The Prefect Cloud REST API provides programmatic access to Prefect Cloud for orc
 - [API Reference](https://app.prefect.cloud/api/docs)
 - [Authentication](https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys)
 - [Getting Started](https://docs.prefect.io/v3/get-started/quickstart)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/openapi/prefect-openapi.json)
 
 ### Prefect Server REST API
 The Prefect Server REST API is the self-hosted variant of the Prefect orchestration API for managing workflows, flow runs, task runs, deployments, and work pools. When running Prefect server locally, the API is available at http://localhost:4200/api and interactive documentation is served at the /docs endpoint. The API can be fully described with an OpenAPI 3.0 compliant document generated from the running server.
