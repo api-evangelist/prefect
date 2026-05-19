@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Workspace Access
+  description: 'Prefect Cloud API — Workspace Access. 1 operations. Lead operation: Read Actor Access. Self-contained Naftiko
+    capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Workspace Access
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-workspace-access
+    baseUri: ''
+    description: Prefect Cloud API — Workspace Access business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-access
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/access/
+      operations:
+      - name: readactoraccessapiaccountsaccountidworkspacesworkspaceidaccessget
+        method: GET
+        description: Read Actor Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-workspace-access-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Workspace Access. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/access
+      name: api-accounts-account-id-workspaces-workspace-id-access
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-access.
+      operations:
+      - method: GET
+        name: readactoraccessapiaccountsaccountidworkspacesworkspaceidaccessget
+        description: Read Actor Access
+        call: prefect-workspace-access.readactoraccessapiaccountsaccountidworkspacesworkspaceidaccessget
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-workspace-access-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Workspace Access. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: read-actor-access
+      description: Read Actor Access
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-workspace-access.readactoraccessapiaccountsaccountidworkspacesworkspaceidaccessget
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.

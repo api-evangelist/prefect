@@ -1,0 +1,728 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Assets
+  description: 'Prefect Cloud API — Assets. 12 operations. Lead operation: List Assets. Self-contained Naftiko capability
+    covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Assets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-assets
+    baseUri: ''
+    description: Prefect Cloud API — Assets business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-assets
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/assets/
+      operations:
+      - name: listassetsapiaccountsaccountidworkspacesworkspaceidassetsget
+        method: GET
+        description: List Assets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: prefix
+          in: query
+          type: string
+          description: Prefix to search assets keys for
+        - name: search
+          in: query
+          type: string
+          description: Substring to search assets keys for
+    - name: api-accounts-account_id-workspaces-workspace_id-assets-filter
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/assets/filter
+      operations:
+      - name: filterassetsapiaccountsaccountidworkspacesworkspaceidassetsfilterpost
+        method: POST
+        description: Filter Assets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-assets-filter-next
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/assets/filter/next
+      operations:
+      - name: filterassetspageapiaccountsaccountidworkspacesworkspaceidassetsfilternextget
+        method: GET
+        description: Filter Assets Page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: page-token
+          in: query
+          type: string
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-assets-key
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/assets/key
+      operations:
+      - name: readassetapiaccountsaccountidworkspacesworkspaceidassetskeyget
+        method: GET
+        description: Read Asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: key
+          in: query
+          type: string
+          required: true
+      - name: deleteassetapiaccountsaccountidworkspacesworkspaceidassetskeydelete
+        method: DELETE
+        description: Delete Asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: key
+          in: query
+          type: string
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-assets-latest-dependencies
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/assets/latest-dependencies
+      operations:
+      - name: latestdependenciesapiaccountsaccountidworkspacesworkspaceidassetslatestdependenciesget
+        method: GET
+        description: Latest Dependencies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-assets-materializations
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/assets/materializations
+      operations:
+      - name: listassetmaterializationsapiaccountsaccountidworkspacesworkspaceidassetsmaterializationsget
+        method: GET
+        description: List Asset Materializations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: key
+          in: query
+          type: string
+          description: The asset key to get materializations for
+          required: true
+        - name: since
+          in: query
+          type: string
+          description: Only return materializations on or after this timestamp
+        - name: until
+          in: query
+          type: string
+          description: Only return materializations on or before this timestamp
+        - name: sort
+          in: query
+          type: string
+          description: 'Sort order: ''asc'' or ''desc'''
+    - name: api-accounts-account_id-workspaces-workspace_id-assets-materializations-event_id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/assets/materializations/{event_id}
+      operations:
+      - name: readassetmaterializationapiaccountsaccountidworkspacesworkspaceidassetsmaterializationseventidget
+        method: GET
+        description: Read Asset Materialization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: event_id
+          in: path
+          type: string
+          description: The event ID of the materialization
+          required: true
+        - name: key
+          in: query
+          type: string
+          description: The asset key for validation
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-assets-materializations-event_id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/assets/materializations/{event_id}/upstream
+      operations:
+      - name: getupstreammaterializationsapiaccountsaccountidworkspacesworkspaceidassetsmaterializationseventidupstreamget
+        method: GET
+        description: Get Upstream Materializations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: event_id
+          in: path
+          type: string
+          description: The event ID of the focal materialization
+          required: true
+        - name: key
+          in: query
+          type: string
+          description: The asset key of the focal materialization
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-assets-neighbors
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/assets/neighbors
+      operations:
+      - name: getassetneighborsapiaccountsaccountidworkspacesworkspaceidassetsneighborsget
+        method: GET
+        description: Get Asset Neighbors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: key
+          in: query
+          type: string
+          description: The asset key to get neighbors for
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-assets-references
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/assets/references
+      operations:
+      - name: listassetreferencesapiaccountsaccountidworkspacesworkspaceidassetsreferencesget
+        method: GET
+        description: List Asset References
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: key
+          in: query
+          type: string
+          description: The asset key to get references for
+          required: true
+        - name: since
+          in: query
+          type: string
+          description: Only return references on or after this timestamp
+        - name: until
+          in: query
+          type: string
+          description: Only return references on or before this timestamp
+        - name: sort
+          in: query
+          type: string
+          description: 'Sort order: ''asc'' or ''desc'''
+    - name: api-accounts-account_id-workspaces-workspace_id-assets-references-event_id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/assets/references/{event_id}
+      operations:
+      - name: readassetreferenceapiaccountsaccountidworkspacesworkspaceidassetsreferenceseventidget
+        method: GET
+        description: Read Asset Reference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: event_id
+          in: path
+          type: string
+          description: The event ID of the downstream consumer
+          required: true
+        - name: key
+          in: query
+          type: string
+          description: The upstream asset key being referenced
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-assets-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Assets. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/assets
+      name: api-accounts-account-id-workspaces-workspace-id-assets
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-assets.
+      operations:
+      - method: GET
+        name: listassetsapiaccountsaccountidworkspacesworkspaceidassetsget
+        description: List Assets
+        call: prefect-assets.listassetsapiaccountsaccountidworkspacesworkspaceidassetsget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          prefix: rest.prefix
+          search: rest.search
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/assets/filter
+      name: api-accounts-account-id-workspaces-workspace-id-assets-filter
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-assets-filter.
+      operations:
+      - method: POST
+        name: filterassetsapiaccountsaccountidworkspacesworkspaceidassetsfilterpost
+        description: Filter Assets
+        call: prefect-assets.filterassetsapiaccountsaccountidworkspacesworkspaceidassetsfilterpost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/assets/filter/next
+      name: api-accounts-account-id-workspaces-workspace-id-assets-filter-next
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-assets-filter-next.
+      operations:
+      - method: GET
+        name: filterassetspageapiaccountsaccountidworkspacesworkspaceidassetsfilternextget
+        description: Filter Assets Page
+        call: prefect-assets.filterassetspageapiaccountsaccountidworkspacesworkspaceidassetsfilternextget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          page-token: rest.page-token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/assets/key
+      name: api-accounts-account-id-workspaces-workspace-id-assets-key
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-assets-key.
+      operations:
+      - method: GET
+        name: readassetapiaccountsaccountidworkspacesworkspaceidassetskeyget
+        description: Read Asset
+        call: prefect-assets.readassetapiaccountsaccountidworkspacesworkspaceidassetskeyget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteassetapiaccountsaccountidworkspacesworkspaceidassetskeydelete
+        description: Delete Asset
+        call: prefect-assets.deleteassetapiaccountsaccountidworkspacesworkspaceidassetskeydelete
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/assets/latest-dependencies
+      name: api-accounts-account-id-workspaces-workspace-id-assets-latest-dependencies
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-assets-latest-dependencies.
+      operations:
+      - method: GET
+        name: latestdependenciesapiaccountsaccountidworkspacesworkspaceidassetslatestdependenciesget
+        description: Latest Dependencies
+        call: prefect-assets.latestdependenciesapiaccountsaccountidworkspacesworkspaceidassetslatestdependenciesget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/assets/materializations
+      name: api-accounts-account-id-workspaces-workspace-id-assets-materializations
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-assets-materializations.
+      operations:
+      - method: GET
+        name: listassetmaterializationsapiaccountsaccountidworkspacesworkspaceidassetsmaterializationsget
+        description: List Asset Materializations
+        call: prefect-assets.listassetmaterializationsapiaccountsaccountidworkspacesworkspaceidassetsmaterializationsget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          key: rest.key
+          since: rest.since
+          until: rest.until
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/assets/materializations/{event-id}
+      name: api-accounts-account-id-workspaces-workspace-id-assets-materializations-event-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-assets-materializations-event_id.
+      operations:
+      - method: GET
+        name: readassetmaterializationapiaccountsaccountidworkspacesworkspaceidassetsmaterializationseventidget
+        description: Read Asset Materialization
+        call: prefect-assets.readassetmaterializationapiaccountsaccountidworkspacesworkspaceidassetsmaterializationseventidget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          event_id: rest.event_id
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/assets/materializations/{event-id}/upstream
+      name: api-accounts-account-id-workspaces-workspace-id-assets-materializations-event-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-assets-materializations-event_id.
+      operations:
+      - method: GET
+        name: getupstreammaterializationsapiaccountsaccountidworkspacesworkspaceidassetsmaterializationseventidupstreamget
+        description: Get Upstream Materializations
+        call: prefect-assets.getupstreammaterializationsapiaccountsaccountidworkspacesworkspaceidassetsmaterializationseventidupstreamget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          event_id: rest.event_id
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/assets/neighbors
+      name: api-accounts-account-id-workspaces-workspace-id-assets-neighbors
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-assets-neighbors.
+      operations:
+      - method: GET
+        name: getassetneighborsapiaccountsaccountidworkspacesworkspaceidassetsneighborsget
+        description: Get Asset Neighbors
+        call: prefect-assets.getassetneighborsapiaccountsaccountidworkspacesworkspaceidassetsneighborsget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/assets/references
+      name: api-accounts-account-id-workspaces-workspace-id-assets-references
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-assets-references.
+      operations:
+      - method: GET
+        name: listassetreferencesapiaccountsaccountidworkspacesworkspaceidassetsreferencesget
+        description: List Asset References
+        call: prefect-assets.listassetreferencesapiaccountsaccountidworkspacesworkspaceidassetsreferencesget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          key: rest.key
+          since: rest.since
+          until: rest.until
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/assets/references/{event-id}
+      name: api-accounts-account-id-workspaces-workspace-id-assets-references-event-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-assets-references-event_id.
+      operations:
+      - method: GET
+        name: readassetreferenceapiaccountsaccountidworkspacesworkspaceidassetsreferenceseventidget
+        description: Read Asset Reference
+        call: prefect-assets.readassetreferenceapiaccountsaccountidworkspacesworkspaceidassetsreferenceseventidget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          event_id: rest.event_id
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-assets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Assets. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-assets
+      description: List Assets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-assets.listassetsapiaccountsaccountidworkspacesworkspaceidassetsget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        prefix: tools.prefix
+        search: tools.search
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: filter-assets
+      description: Filter Assets
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-assets.filterassetsapiaccountsaccountidworkspacesworkspaceidassetsfilterpost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: filter-assets-page
+      description: Filter Assets Page
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-assets.filterassetspageapiaccountsaccountidworkspacesworkspaceidassetsfilternextget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        page-token: tools.page-token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-asset
+      description: Read Asset
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-assets.readassetapiaccountsaccountidworkspacesworkspaceidassetskeyget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        key: tools.key
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-asset
+      description: Delete Asset
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-assets.deleteassetapiaccountsaccountidworkspacesworkspaceidassetskeydelete
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        key: tools.key
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: latest-dependencies
+      description: Latest Dependencies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-assets.latestdependenciesapiaccountsaccountidworkspacesworkspaceidassetslatestdependenciesget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-asset-materializations
+      description: List Asset Materializations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-assets.listassetmaterializationsapiaccountsaccountidworkspacesworkspaceidassetsmaterializationsget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        key: tools.key
+        since: tools.since
+        until: tools.until
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-asset-materialization
+      description: Read Asset Materialization
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-assets.readassetmaterializationapiaccountsaccountidworkspacesworkspaceidassetsmaterializationseventidget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        event_id: tools.event_id
+        key: tools.key
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-upstream-materializations
+      description: Get Upstream Materializations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-assets.getupstreammaterializationsapiaccountsaccountidworkspacesworkspaceidassetsmaterializationseventidupstreamget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        event_id: tools.event_id
+        key: tools.key
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-asset-neighbors
+      description: Get Asset Neighbors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-assets.getassetneighborsapiaccountsaccountidworkspacesworkspaceidassetsneighborsget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        key: tools.key
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-asset-references
+      description: List Asset References
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-assets.listassetreferencesapiaccountsaccountidworkspacesworkspaceidassetsreferencesget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        key: tools.key
+        since: tools.since
+        until: tools.until
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-asset-reference
+      description: Read Asset Reference
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-assets.readassetreferenceapiaccountsaccountidworkspacesworkspaceidassetsreferenceseventidget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        event_id: tools.event_id
+        key: tools.key
+      outputParameters:
+      - type: object
+        mapping: $.

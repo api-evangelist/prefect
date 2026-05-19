@@ -1,0 +1,401 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Webhooks
+  description: 'Prefect Cloud API — Webhooks. 7 operations. Lead operation: Create Webhook. Self-contained Naftiko capability
+    covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Webhooks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-webhooks
+    baseUri: ''
+    description: Prefect Cloud API — Webhooks business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-webhooks
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/webhooks/
+      operations:
+      - name: createwebhookapiaccountsaccountidworkspacesworkspaceidwebhookspost
+        method: POST
+        description: Create Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-webhooks-filter
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/webhooks/filter
+      operations:
+      - name: querywebhooksapiaccountsaccountidworkspacesworkspaceidwebhooksfilterpost
+        method: POST
+        description: Query Webhooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-webhooks-webhook_id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/webhooks/{webhook_id}
+      operations:
+      - name: updatewebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidput
+        method: PUT
+        description: Update Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: webhook_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: partialupdatewebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidpatch
+        method: PATCH
+        description: Partial Update Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: webhook_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletewebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookiddelete
+        method: DELETE
+        description: Delete Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: webhook_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+      - name: readwebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidget
+        method: GET
+        description: Read Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: webhook_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-webhooks-webhook_id-rotate
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/webhooks/{webhook_id}/rotate
+      operations:
+      - name: rotatewebhookslugapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidrotatepost
+        method: POST
+        description: Rotate Webhook Slug
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: webhook_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-webhooks-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Webhooks. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/webhooks
+      name: api-accounts-account-id-workspaces-workspace-id-webhooks
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-webhooks.
+      operations:
+      - method: POST
+        name: createwebhookapiaccountsaccountidworkspacesworkspaceidwebhookspost
+        description: Create Webhook
+        call: prefect-webhooks.createwebhookapiaccountsaccountidworkspacesworkspaceidwebhookspost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/webhooks/filter
+      name: api-accounts-account-id-workspaces-workspace-id-webhooks-filter
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-webhooks-filter.
+      operations:
+      - method: POST
+        name: querywebhooksapiaccountsaccountidworkspacesworkspaceidwebhooksfilterpost
+        description: Query Webhooks
+        call: prefect-webhooks.querywebhooksapiaccountsaccountidworkspacesworkspaceidwebhooksfilterpost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/webhooks/{webhook-id}
+      name: api-accounts-account-id-workspaces-workspace-id-webhooks-webhook-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-webhooks-webhook_id.
+      operations:
+      - method: PUT
+        name: updatewebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidput
+        description: Update Webhook
+        call: prefect-webhooks.updatewebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidput
+        with:
+          account_id: rest.account_id
+          webhook_id: rest.webhook_id
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: partialupdatewebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidpatch
+        description: Partial Update Webhook
+        call: prefect-webhooks.partialupdatewebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidpatch
+        with:
+          account_id: rest.account_id
+          webhook_id: rest.webhook_id
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletewebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookiddelete
+        description: Delete Webhook
+        call: prefect-webhooks.deletewebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookiddelete
+        with:
+          webhook_id: rest.webhook_id
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: readwebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidget
+        description: Read Webhook
+        call: prefect-webhooks.readwebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidget
+        with:
+          webhook_id: rest.webhook_id
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/webhooks/{webhook-id}/rotate
+      name: api-accounts-account-id-workspaces-workspace-id-webhooks-webhook-id-rotate
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-webhooks-webhook_id-rotate.
+      operations:
+      - method: POST
+        name: rotatewebhookslugapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidrotatepost
+        description: Rotate Webhook Slug
+        call: prefect-webhooks.rotatewebhookslugapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidrotatepost
+        with:
+          webhook_id: rest.webhook_id
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-webhooks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Webhooks. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: create-webhook
+      description: Create Webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-webhooks.createwebhookapiaccountsaccountidworkspacesworkspaceidwebhookspost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: query-webhooks
+      description: Query Webhooks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: prefect-webhooks.querywebhooksapiaccountsaccountidworkspacesworkspaceidwebhooksfilterpost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-webhook
+      description: Update Webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-webhooks.updatewebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidput
+      with:
+        account_id: tools.account_id
+        webhook_id: tools.webhook_id
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: partial-update-webhook
+      description: Partial Update Webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-webhooks.partialupdatewebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidpatch
+      with:
+        account_id: tools.account_id
+        webhook_id: tools.webhook_id
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-webhook
+      description: Delete Webhook
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-webhooks.deletewebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookiddelete
+      with:
+        webhook_id: tools.webhook_id
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-webhook
+      description: Read Webhook
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-webhooks.readwebhookapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidget
+      with:
+        webhook_id: tools.webhook_id
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: rotate-webhook-slug
+      description: Rotate Webhook Slug
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-webhooks.rotatewebhookslugapiaccountsaccountidworkspacesworkspaceidwebhookswebhookidrotatepost
+      with:
+        webhook_id: tools.webhook_id
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.

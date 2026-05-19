@@ -1,0 +1,108 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API
+  description: 'Prefect Cloud API. 2 operations. Lead operation: Health Check. Self-contained Naftiko capability covering
+    one Prefect business surface.'
+  tags:
+  - Prefect
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-general
+    baseUri: ''
+    description: Prefect Cloud API business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-health
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/health
+      operations:
+      - name: healthcheckapiaccountsaccountidworkspacesworkspaceidhealthget
+        method: GET
+        description: Health Check
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-accounts-account_id-workspaces-workspace_id-templates-validate
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/templates/validate
+      operations:
+      - name: validatetemplateapiaccountsaccountidworkspacesworkspaceidtemplatesvalidatepost
+        method: POST
+        description: Validate Template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: prefect-general-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/health
+      name: api-accounts-account-id-workspaces-workspace-id-health
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-health.
+      operations:
+      - method: GET
+        name: healthcheckapiaccountsaccountidworkspacesworkspaceidhealthget
+        description: Health Check
+        call: prefect-general.healthcheckapiaccountsaccountidworkspacesworkspaceidhealthget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/templates/validate
+      name: api-accounts-account-id-workspaces-workspace-id-templates-validate
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-templates-validate.
+      operations:
+      - method: POST
+        name: validatetemplateapiaccountsaccountidworkspacesworkspaceidtemplatesvalidatepost
+        description: Validate Template
+        call: prefect-general.validatetemplateapiaccountsaccountidworkspacesworkspaceidtemplatesvalidatepost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-general-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: health-check
+      description: Health Check
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-general.healthcheckapiaccountsaccountidworkspacesworkspaceidhealthget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: validate-template
+      description: Validate Template
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: prefect-general.validatetemplateapiaccountsaccountidworkspacesworkspaceidtemplatesvalidatepost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

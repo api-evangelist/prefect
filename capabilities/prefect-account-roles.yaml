@@ -1,0 +1,217 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Account Roles
+  description: 'Prefect Cloud API — Account Roles. 4 operations. Lead operation: Read Account Roles. Self-contained Naftiko
+    capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Account Roles
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-account-roles
+    baseUri: ''
+    description: Prefect Cloud API — Account Roles business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-account_roles-filter
+      path: /api/accounts/{account_id}/account_roles/filter
+      operations:
+      - name: readaccountrolesapiaccountsaccountidaccountrolesfilterpost
+        method: POST
+        description: Read Account Roles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-account_roles-id
+      path: /api/accounts/{account_id}/account_roles/{id}
+      operations:
+      - name: readaccountroleapiaccountsaccountidaccountrolesidget
+        method: GET
+        description: Read Account Role
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+      - name: updateaccountroleapiaccountsaccountidaccountrolesidpatch
+        method: PATCH
+        description: Update Account Role
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteaccountroleapiaccountsaccountidaccountrolesiddelete
+        method: DELETE
+        description: Delete Account Role
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-account-roles-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Account Roles. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/account-roles/filter
+      name: api-accounts-account-id-account-roles-filter
+      description: REST surface for api-accounts-account_id-account_roles-filter.
+      operations:
+      - method: POST
+        name: readaccountrolesapiaccountsaccountidaccountrolesfilterpost
+        description: Read Account Roles
+        call: prefect-account-roles.readaccountrolesapiaccountsaccountidaccountrolesfilterpost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/account-roles/{id}
+      name: api-accounts-account-id-account-roles-id
+      description: REST surface for api-accounts-account_id-account_roles-id.
+      operations:
+      - method: GET
+        name: readaccountroleapiaccountsaccountidaccountrolesidget
+        description: Read Account Role
+        call: prefect-account-roles.readaccountroleapiaccountsaccountidaccountrolesidget
+        with:
+          id: rest.id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateaccountroleapiaccountsaccountidaccountrolesidpatch
+        description: Update Account Role
+        call: prefect-account-roles.updateaccountroleapiaccountsaccountidaccountrolesidpatch
+        with:
+          id: rest.id
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteaccountroleapiaccountsaccountidaccountrolesiddelete
+        description: Delete Account Role
+        call: prefect-account-roles.deleteaccountroleapiaccountsaccountidaccountrolesiddelete
+        with:
+          id: rest.id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-account-roles-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Account Roles. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: read-account-roles
+      description: Read Account Roles
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-account-roles.readaccountrolesapiaccountsaccountidaccountrolesfilterpost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-account-role
+      description: Read Account Role
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-account-roles.readaccountroleapiaccountsaccountidaccountrolesidget
+      with:
+        id: tools.id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-account-role
+      description: Update Account Role
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-account-roles.updateaccountroleapiaccountsaccountidaccountrolesidpatch
+      with:
+        id: tools.id
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-account-role
+      description: Delete Account Role
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-account-roles.deleteaccountroleapiaccountsaccountidaccountrolesiddelete
+      with:
+        id: tools.id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.

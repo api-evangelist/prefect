@@ -1,0 +1,242 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Workspace Bot Access
+  description: 'Prefect Cloud API — Workspace Bot Access. 4 operations. Lead operation: Upsert Workspace Bot Access. Self-contained
+    Naftiko capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Workspace Bot Access
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-workspace-bot-access
+    baseUri: ''
+    description: Prefect Cloud API — Workspace Bot Access business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-bot_access
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/bot_access/
+      operations:
+      - name: upsertworkspacebotaccessapiaccountsaccountidworkspacesworkspaceidbotaccesspost
+        method: POST
+        description: Upsert Workspace Bot Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-bot_access-filter
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/bot_access/filter
+      operations:
+      - name: readworkspacebotaccessesapiaccountsaccountidworkspacesworkspaceidbotaccessfilterpost
+        method: POST
+        description: Read Workspace Bot Accesses
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-bot_access-id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/bot_access/{id}
+      operations:
+      - name: readworkspacebotaccessapiaccountsaccountidworkspacesworkspaceidbotaccessidget
+        method: GET
+        description: Read Workspace Bot Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+      - name: deleteworkspacebotaccessapiaccountsaccountidworkspacesworkspaceidbotaccessiddelete
+        method: DELETE
+        description: Delete Workspace Bot Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-workspace-bot-access-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Workspace Bot Access. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/bot-access
+      name: api-accounts-account-id-workspaces-workspace-id-bot-access
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-bot_access.
+      operations:
+      - method: POST
+        name: upsertworkspacebotaccessapiaccountsaccountidworkspacesworkspaceidbotaccesspost
+        description: Upsert Workspace Bot Access
+        call: prefect-workspace-bot-access.upsertworkspacebotaccessapiaccountsaccountidworkspacesworkspaceidbotaccesspost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/bot-access/filter
+      name: api-accounts-account-id-workspaces-workspace-id-bot-access-filter
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-bot_access-filter.
+      operations:
+      - method: POST
+        name: readworkspacebotaccessesapiaccountsaccountidworkspacesworkspaceidbotaccessfilterpost
+        description: Read Workspace Bot Accesses
+        call: prefect-workspace-bot-access.readworkspacebotaccessesapiaccountsaccountidworkspacesworkspaceidbotaccessfilterpost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/bot-access/{id}
+      name: api-accounts-account-id-workspaces-workspace-id-bot-access-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-bot_access-id.
+      operations:
+      - method: GET
+        name: readworkspacebotaccessapiaccountsaccountidworkspacesworkspaceidbotaccessidget
+        description: Read Workspace Bot Access
+        call: prefect-workspace-bot-access.readworkspacebotaccessapiaccountsaccountidworkspacesworkspaceidbotaccessidget
+        with:
+          id: rest.id
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteworkspacebotaccessapiaccountsaccountidworkspacesworkspaceidbotaccessiddelete
+        description: Delete Workspace Bot Access
+        call: prefect-workspace-bot-access.deleteworkspacebotaccessapiaccountsaccountidworkspacesworkspaceidbotaccessiddelete
+        with:
+          id: rest.id
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-workspace-bot-access-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Workspace Bot Access. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: upsert-workspace-bot-access
+      description: Upsert Workspace Bot Access
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-workspace-bot-access.upsertworkspacebotaccessapiaccountsaccountidworkspacesworkspaceidbotaccesspost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-workspace-bot-accesses
+      description: Read Workspace Bot Accesses
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-workspace-bot-access.readworkspacebotaccessesapiaccountsaccountidworkspacesworkspaceidbotaccessfilterpost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-workspace-bot-access
+      description: Read Workspace Bot Access
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-workspace-bot-access.readworkspacebotaccessapiaccountsaccountidworkspacesworkspaceidbotaccessidget
+      with:
+        id: tools.id
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-workspace-bot-access
+      description: Delete Workspace Bot Access
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-workspace-bot-access.deleteworkspacebotaccessapiaccountsaccountidworkspacesworkspaceidbotaccessiddelete
+      with:
+        id: tools.id
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.

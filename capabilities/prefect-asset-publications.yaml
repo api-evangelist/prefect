@@ -1,0 +1,89 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Asset Publications
+  description: 'Prefect Cloud API — Asset Publications. 1 operations. Lead operation: Create Asset Publication. Self-contained
+    Naftiko capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Asset Publications
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-asset-publications
+    baseUri: ''
+    description: Prefect Cloud API — Asset Publications business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-asset-publications
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/asset-publications/
+      operations:
+      - name: createassetpublicationapiaccountsaccountidworkspacesworkspaceidassetpublicationspost
+        method: POST
+        description: Create Asset Publication
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-asset-publications-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Asset Publications. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/asset-publications
+      name: api-accounts-account-id-workspaces-workspace-id-asset-publications
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-asset-publications.
+      operations:
+      - method: POST
+        name: createassetpublicationapiaccountsaccountidworkspacesworkspaceidassetpublicationspost
+        description: Create Asset Publication
+        call: prefect-asset-publications.createassetpublicationapiaccountsaccountidworkspacesworkspaceidassetpublicationspost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-asset-publications-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Asset Publications. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: create-asset-publication
+      description: Create Asset Publication
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-asset-publications.createassetpublicationapiaccountsaccountidworkspacesworkspaceidassetpublicationspost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,367 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Invitations
+  description: 'Prefect Cloud API — Invitations. 7 operations. Lead operation: Create Invitation. Self-contained Naftiko capability
+    covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Invitations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-invitations
+    baseUri: ''
+    description: Prefect Cloud API — Invitations business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-invitations
+      path: /api/accounts/{account_id}/invitations/
+      operations:
+      - name: createinvitationapiaccountsaccountidinvitationspost
+        method: POST
+        description: Create Invitation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-invitations-count
+      path: /api/accounts/{account_id}/invitations/count
+      operations:
+      - name: countinvitationsapiaccountsaccountidinvitationscountpost
+        method: POST
+        description: Count Invitations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-invitations-filter
+      path: /api/accounts/{account_id}/invitations/filter
+      operations:
+      - name: readinvitationsapiaccountsaccountidinvitationsfilterpost
+        method: POST
+        description: Read Invitations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-invitations-id
+      path: /api/accounts/{account_id}/invitations/{id}
+      operations:
+      - name: readinvitationapiaccountsaccountidinvitationsidget
+        method: GET
+        description: Read Invitation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-invitations-id-revoke
+      path: /api/accounts/{account_id}/invitations/{id}/revoke
+      operations:
+      - name: revokeinvitationapiaccountsaccountidinvitationsidrevokepost
+        method: POST
+        description: Revoke Invitation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          required: true
+    - name: api-invitations-id-accept
+      path: /api/invitations/{id}/accept
+      operations:
+      - name: acceptinvitationapiinvitationsidacceptpost
+        method: POST
+        description: Accept Invitation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: invite_code
+          in: query
+          type: string
+          required: true
+    - name: api-invitations-id-reject
+      path: /api/invitations/{id}/reject
+      operations:
+      - name: rejectinvitationapiinvitationsidrejectpost
+        method: POST
+        description: Reject Invitation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: invite_code
+          in: query
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-invitations-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Invitations. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/invitations
+      name: api-accounts-account-id-invitations
+      description: REST surface for api-accounts-account_id-invitations.
+      operations:
+      - method: POST
+        name: createinvitationapiaccountsaccountidinvitationspost
+        description: Create Invitation
+        call: prefect-invitations.createinvitationapiaccountsaccountidinvitationspost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/invitations/count
+      name: api-accounts-account-id-invitations-count
+      description: REST surface for api-accounts-account_id-invitations-count.
+      operations:
+      - method: POST
+        name: countinvitationsapiaccountsaccountidinvitationscountpost
+        description: Count Invitations
+        call: prefect-invitations.countinvitationsapiaccountsaccountidinvitationscountpost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/invitations/filter
+      name: api-accounts-account-id-invitations-filter
+      description: REST surface for api-accounts-account_id-invitations-filter.
+      operations:
+      - method: POST
+        name: readinvitationsapiaccountsaccountidinvitationsfilterpost
+        description: Read Invitations
+        call: prefect-invitations.readinvitationsapiaccountsaccountidinvitationsfilterpost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/invitations/{id}
+      name: api-accounts-account-id-invitations-id
+      description: REST surface for api-accounts-account_id-invitations-id.
+      operations:
+      - method: GET
+        name: readinvitationapiaccountsaccountidinvitationsidget
+        description: Read Invitation
+        call: prefect-invitations.readinvitationapiaccountsaccountidinvitationsidget
+        with:
+          account_id: rest.account_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/invitations/{id}/revoke
+      name: api-accounts-account-id-invitations-id-revoke
+      description: REST surface for api-accounts-account_id-invitations-id-revoke.
+      operations:
+      - method: POST
+        name: revokeinvitationapiaccountsaccountidinvitationsidrevokepost
+        description: Revoke Invitation
+        call: prefect-invitations.revokeinvitationapiaccountsaccountidinvitationsidrevokepost
+        with:
+          account_id: rest.account_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/invitations/{id}/accept
+      name: api-invitations-id-accept
+      description: REST surface for api-invitations-id-accept.
+      operations:
+      - method: POST
+        name: acceptinvitationapiinvitationsidacceptpost
+        description: Accept Invitation
+        call: prefect-invitations.acceptinvitationapiinvitationsidacceptpost
+        with:
+          id: rest.id
+          invite_code: rest.invite_code
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/invitations/{id}/reject
+      name: api-invitations-id-reject
+      description: REST surface for api-invitations-id-reject.
+      operations:
+      - method: POST
+        name: rejectinvitationapiinvitationsidrejectpost
+        description: Reject Invitation
+        call: prefect-invitations.rejectinvitationapiinvitationsidrejectpost
+        with:
+          id: rest.id
+          invite_code: rest.invite_code
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-invitations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Invitations. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: create-invitation
+      description: Create Invitation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-invitations.createinvitationapiaccountsaccountidinvitationspost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: count-invitations
+      description: Count Invitations
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-invitations.countinvitationsapiaccountsaccountidinvitationscountpost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-invitations
+      description: Read Invitations
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-invitations.readinvitationsapiaccountsaccountidinvitationsfilterpost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-invitation
+      description: Read Invitation
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-invitations.readinvitationapiaccountsaccountidinvitationsidget
+      with:
+        account_id: tools.account_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: revoke-invitation
+      description: Revoke Invitation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-invitations.revokeinvitationapiaccountsaccountidinvitationsidrevokepost
+      with:
+        account_id: tools.account_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: accept-invitation
+      description: Accept Invitation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-invitations.acceptinvitationapiinvitationsidacceptpost
+      with:
+        id: tools.id
+        invite_code: tools.invite_code
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: reject-invitation
+      description: Reject Invitation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-invitations.rejectinvitationapiinvitationsidrejectpost
+      with:
+        id: tools.id
+        invite_code: tools.invite_code
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,625 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — UI
+  description: 'Prefect Cloud API — UI. 10 operations. Lead operation: Count Task Runs By Flow Run. Self-contained Naftiko
+    capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - UI
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-ui
+    baseUri: ''
+    description: Prefect Cloud API — UI business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-flow_runs-count-task-runs
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/flow_runs/count-task-runs
+      operations:
+      - name: counttaskrunsbyflowrunapiaccountsaccountidworkspacesworkspaceiduiflowrunscounttaskrunspost
+        method: POST
+        description: Count Task Runs By Flow Run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-flow_runs-history
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/flow_runs/history
+      operations:
+      - name: readflowrunhistoryapiaccountsaccountidworkspacesworkspaceiduiflowrunshistorypost
+        method: POST
+        description: Read Flow Run History
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-flow_runs-history-v2
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/flow_runs/history-v2
+      operations:
+      - name: readflowrunhistoryv2apiaccountsaccountidworkspacesworkspaceiduiflowrunshistoryv2post
+        method: POST
+        description: Read Flow Run History V2
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-flows-count-deployments
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/flows/count-deployments
+      operations:
+      - name: countdeploymentsbyflowapiaccountsaccountidworkspacesworkspaceiduiflowscountdeploymentspost
+        method: POST
+        description: Count Deployments By Flow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-flows-next-runs
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/flows/next-runs
+      operations:
+      - name: nextrunsbyflowapiaccountsaccountidworkspacesworkspaceiduiflowsnextrunspost
+        method: POST
+        description: Next Runs By Flow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-schemas-validate
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/schemas/validate
+      operations:
+      - name: validateobjapiaccountsaccountidworkspacesworkspaceiduischemasvalidatepost
+        method: POST
+        description: Validate Obj
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-schemas-validate_schema
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/schemas/validate_schema
+      operations:
+      - name: validateschemaapiaccountsaccountidworkspacesworkspaceiduischemasvalidateschemapost
+        method: POST
+        description: Validate Schema
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-task_runs-count
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/task_runs/count
+      operations:
+      - name: readtaskruncountsbystateapiaccountsaccountidworkspacesworkspaceiduitaskrunscountpost
+        method: POST
+        description: Read Task Run Counts By State
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-task_runs-dashboard-counts
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/task_runs/dashboard/counts
+      operations:
+      - name: readdashboardtaskruncountsapiaccountsaccountidworkspacesworkspaceiduitaskrunsdashboardcountspost
+        method: POST
+        description: Read Dashboard Task Run Counts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-work_pools-count-flow-runs
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/work_pools/count-flow-runs
+      operations:
+      - name: countflowrunsbyworkpoolapiaccountsaccountidworkspacesworkspaceiduiworkpoolscountflowrunspost
+        method: POST
+        description: Count Flow Runs By Work Pool
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-ui-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — UI. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/flow-runs/count-task-runs
+      name: api-accounts-account-id-workspaces-workspace-id-ui-flow-runs-count-task-runs
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-flow_runs-count-task-runs.
+      operations:
+      - method: POST
+        name: counttaskrunsbyflowrunapiaccountsaccountidworkspacesworkspaceiduiflowrunscounttaskrunspost
+        description: Count Task Runs By Flow Run
+        call: prefect-ui.counttaskrunsbyflowrunapiaccountsaccountidworkspacesworkspaceiduiflowrunscounttaskrunspost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/flow-runs/history
+      name: api-accounts-account-id-workspaces-workspace-id-ui-flow-runs-history
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-flow_runs-history.
+      operations:
+      - method: POST
+        name: readflowrunhistoryapiaccountsaccountidworkspacesworkspaceiduiflowrunshistorypost
+        description: Read Flow Run History
+        call: prefect-ui.readflowrunhistoryapiaccountsaccountidworkspacesworkspaceiduiflowrunshistorypost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/flow-runs/history-v2
+      name: api-accounts-account-id-workspaces-workspace-id-ui-flow-runs-history-v2
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-flow_runs-history-v2.
+      operations:
+      - method: POST
+        name: readflowrunhistoryv2apiaccountsaccountidworkspacesworkspaceiduiflowrunshistoryv2post
+        description: Read Flow Run History V2
+        call: prefect-ui.readflowrunhistoryv2apiaccountsaccountidworkspacesworkspaceiduiflowrunshistoryv2post
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/flows/count-deployments
+      name: api-accounts-account-id-workspaces-workspace-id-ui-flows-count-deployments
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-flows-count-deployments.
+      operations:
+      - method: POST
+        name: countdeploymentsbyflowapiaccountsaccountidworkspacesworkspaceiduiflowscountdeploymentspost
+        description: Count Deployments By Flow
+        call: prefect-ui.countdeploymentsbyflowapiaccountsaccountidworkspacesworkspaceiduiflowscountdeploymentspost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/flows/next-runs
+      name: api-accounts-account-id-workspaces-workspace-id-ui-flows-next-runs
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-flows-next-runs.
+      operations:
+      - method: POST
+        name: nextrunsbyflowapiaccountsaccountidworkspacesworkspaceiduiflowsnextrunspost
+        description: Next Runs By Flow
+        call: prefect-ui.nextrunsbyflowapiaccountsaccountidworkspacesworkspaceiduiflowsnextrunspost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/schemas/validate
+      name: api-accounts-account-id-workspaces-workspace-id-ui-schemas-validate
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-schemas-validate.
+      operations:
+      - method: POST
+        name: validateobjapiaccountsaccountidworkspacesworkspaceiduischemasvalidatepost
+        description: Validate Obj
+        call: prefect-ui.validateobjapiaccountsaccountidworkspacesworkspaceiduischemasvalidatepost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/schemas/validate-schema
+      name: api-accounts-account-id-workspaces-workspace-id-ui-schemas-validate-schema
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-schemas-validate_schema.
+      operations:
+      - method: POST
+        name: validateschemaapiaccountsaccountidworkspacesworkspaceiduischemasvalidateschemapost
+        description: Validate Schema
+        call: prefect-ui.validateschemaapiaccountsaccountidworkspacesworkspaceiduischemasvalidateschemapost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/task-runs/count
+      name: api-accounts-account-id-workspaces-workspace-id-ui-task-runs-count
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-task_runs-count.
+      operations:
+      - method: POST
+        name: readtaskruncountsbystateapiaccountsaccountidworkspacesworkspaceiduitaskrunscountpost
+        description: Read Task Run Counts By State
+        call: prefect-ui.readtaskruncountsbystateapiaccountsaccountidworkspacesworkspaceiduitaskrunscountpost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/task-runs/dashboard/counts
+      name: api-accounts-account-id-workspaces-workspace-id-ui-task-runs-dashboard-counts
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-task_runs-dashboard-counts.
+      operations:
+      - method: POST
+        name: readdashboardtaskruncountsapiaccountsaccountidworkspacesworkspaceiduitaskrunsdashboardcountspost
+        description: Read Dashboard Task Run Counts
+        call: prefect-ui.readdashboardtaskruncountsapiaccountsaccountidworkspacesworkspaceiduitaskrunsdashboardcountspost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/work-pools/count-flow-runs
+      name: api-accounts-account-id-workspaces-workspace-id-ui-work-pools-count-flow-runs
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-work_pools-count-flow-runs.
+      operations:
+      - method: POST
+        name: countflowrunsbyworkpoolapiaccountsaccountidworkspacesworkspaceiduiworkpoolscountflowrunspost
+        description: Count Flow Runs By Work Pool
+        call: prefect-ui.countflowrunsbyworkpoolapiaccountsaccountidworkspacesworkspaceiduiworkpoolscountflowrunspost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-ui-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — UI. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: count-task-runs-flow-run
+      description: Count Task Runs By Flow Run
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-ui.counttaskrunsbyflowrunapiaccountsaccountidworkspacesworkspaceiduiflowrunscounttaskrunspost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-flow-run-history
+      description: Read Flow Run History
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-ui.readflowrunhistoryapiaccountsaccountidworkspacesworkspaceiduiflowrunshistorypost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-flow-run-history-v2
+      description: Read Flow Run History V2
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-ui.readflowrunhistoryv2apiaccountsaccountidworkspacesworkspaceiduiflowrunshistoryv2post
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: count-deployments-flow
+      description: Count Deployments By Flow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-ui.countdeploymentsbyflowapiaccountsaccountidworkspacesworkspaceiduiflowscountdeploymentspost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: next-runs-flow
+      description: Next Runs By Flow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-ui.nextrunsbyflowapiaccountsaccountidworkspacesworkspaceiduiflowsnextrunspost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: validate-obj
+      description: Validate Obj
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: prefect-ui.validateobjapiaccountsaccountidworkspacesworkspaceiduischemasvalidatepost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: validate-schema
+      description: Validate Schema
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: prefect-ui.validateschemaapiaccountsaccountidworkspacesworkspaceiduischemasvalidateschemapost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-task-run-counts-state
+      description: Read Task Run Counts By State
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-ui.readtaskruncountsbystateapiaccountsaccountidworkspacesworkspaceiduitaskrunscountpost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-dashboard-task-run-counts
+      description: Read Dashboard Task Run Counts
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-ui.readdashboardtaskruncountsapiaccountsaccountidworkspacesworkspaceiduitaskrunsdashboardcountspost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: count-flow-runs-work-pool
+      description: Count Flow Runs By Work Pool
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-ui.countflowrunsbyworkpoolapiaccountsaccountidworkspacesworkspaceiduiworkpoolscountflowrunspost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

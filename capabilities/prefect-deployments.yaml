@@ -1,0 +1,1993 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Deployments
+  description: 'Prefect Cloud API — Deployments. 32 operations. Lead operation: Create Deployment. Self-contained Naftiko
+    capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Deployments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-deployments
+    baseUri: ''
+    description: Prefect Cloud API — Deployments business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/
+      operations:
+      - name: createdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentspost
+        method: POST
+        description: Create Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-bulk_delete
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/bulk_delete
+      operations:
+      - name: bulkdeletedeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentsbulkdeletepost
+        method: POST
+        description: Bulk Delete Deployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-count
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/count
+      operations:
+      - name: countdeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentscountpost
+        method: POST
+        description: Count Deployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-filter
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/filter
+      operations:
+      - name: readdeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentsfilterpost
+        method: POST
+        description: Read Deployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-get_scheduled_flow_r
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/get_scheduled_flow_runs
+      operations:
+      - name: getscheduledflowrunsfordeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentsgetscheduledflowrunspost
+        method: POST
+        description: Get Scheduled Flow Runs For Deployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-my-access
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/my-access
+      operations:
+      - name: readactorsdeploymentaccessapiaccountsaccountidworkspacesworkspaceiddeploymentsmyaccesspost
+        method: POST
+        description: Read Actors Deployment Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-name-flow_name-deplo
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/name/{flow_name}/{deployment_name}
+      operations:
+      - name: readdeploymentbynameapiaccountsaccountidworkspacesworkspaceiddeploymentsnameflownamedeploymentnameget
+        method: GET
+        description: Read Deployment By Name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: flow_name
+          in: path
+          type: string
+          description: The name of the flow
+          required: true
+        - name: deployment_name
+          in: path
+          type: string
+          description: The name of the deployment
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-paginate
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/paginate
+      operations:
+      - name: paginatedeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentspaginatepost
+        method: POST
+        description: Paginate Deployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}
+      operations:
+      - name: updatedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidpatch
+        method: PATCH
+        description: Update Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: readdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidget
+        method: GET
+        description: Read Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+      - name: deletedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsiddelete
+        method: DELETE
+        description: Delete Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-access
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/access
+      operations:
+      - name: readdeploymentaccessapiaccountsaccountidworkspacesworkspaceiddeploymentsidaccessget
+        method: GET
+        description: Read Deployment Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+      - name: setdeploymentaccessapiaccountsaccountidworkspacesworkspaceiddeploymentsidaccessput
+        method: PUT
+        description: Set Deployment Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-branch
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/branch
+      operations:
+      - name: branchfromdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidbranchpost
+        method: POST
+        description: Branch From Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-create_flow_run
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/create_flow_run
+      operations:
+      - name: createflowrunfromdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidcreateflowrunpost
+        method: POST
+        description: Create Flow Run From Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-create_flow_run-b
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/create_flow_run/bulk
+      operations:
+      - name: bulkcreateflowrunsfromdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidcreateflowrunbulkpost
+        method: POST
+        description: Bulk Create Flow Runs From Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-disable
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/disable
+      operations:
+      - name: disabledeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsiddisablepost
+        method: POST
+        description: Disable Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-enable
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/enable
+      operations:
+      - name: enabledeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidenablepost
+        method: POST
+        description: Enable Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-pause_deployment
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/pause_deployment
+      operations:
+      - name: pausedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidpausedeploymentpost
+        method: POST
+        description: Pause Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-resume_deployment
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/resume_deployment
+      operations:
+      - name: resumedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidresumedeploymentpost
+        method: POST
+        description: Resume Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-schedule
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/schedule
+      operations:
+      - name: scheduledeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulepost
+        method: POST
+        description: Schedule Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-schedules
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/schedules
+      operations:
+      - name: readdeploymentschedulesapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulesget
+        method: GET
+        description: Read Deployment Schedules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+      - name: createdeploymentschedulesapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulespost
+        method: POST
+        description: Create Deployment Schedules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-schedules-schedul
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/schedules/{schedule_id}
+      operations:
+      - name: updatedeploymentscheduleapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulesscheduleidpatch
+        method: PATCH
+        description: Update Deployment Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: schedule_id
+          in: path
+          type: string
+          description: The schedule id
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletedeploymentscheduleapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulesscheduleiddelete
+        method: DELETE
+        description: Delete Deployment Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: schedule_id
+          in: path
+          type: string
+          description: The schedule id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-set_schedule_acti
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/set_schedule_active
+      operations:
+      - name: resumedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidsetscheduleactivepost
+        method: POST
+        description: Resume Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-set_schedule_inac
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/set_schedule_inactive
+      operations:
+      - name: pausedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidsetscheduleinactivepost
+        method: POST
+        description: Pause Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-versions-paginate
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/versions/paginate
+      operations:
+      - name: paginatedeploymentversionsapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionspaginatepost
+        method: POST
+        description: Paginate Deployment Versions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-versions-version_
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/versions/{version_id}
+      operations:
+      - name: readdeploymentversionapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionsversionidget
+        method: GET
+        description: Read Deployment Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: version_id
+          in: path
+          type: string
+          description: The version id
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+      - name: deletedeploymentversionapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionsversioniddelete
+        method: DELETE
+        description: Delete Deployment Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: version_id
+          in: path
+          type: string
+          description: The version id
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-versions-version_
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/versions/{version_id}/promote
+      operations:
+      - name: promotedeploymentversionapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionsversionidpromotepost
+        method: POST
+        description: Promote Deployment Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: version_id
+          in: path
+          type: string
+          description: The version id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-deployments-id-work_queue_check
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/deployments/{id}/work_queue_check
+      operations:
+      - name: workqueuecheckfordeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidworkqueuecheckget
+        method: GET
+        description: Work Queue Check For Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The deployment id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+  exposes:
+  - type: rest
+    namespace: prefect-deployments-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Deployments. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments
+      name: api-accounts-account-id-workspaces-workspace-id-deployments
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments.
+      operations:
+      - method: POST
+        name: createdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentspost
+        description: Create Deployment
+        call: prefect-deployments.createdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentspost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/bulk-delete
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-bulk-delete
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-bulk_delete.
+      operations:
+      - method: POST
+        name: bulkdeletedeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentsbulkdeletepost
+        description: Bulk Delete Deployments
+        call: prefect-deployments.bulkdeletedeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentsbulkdeletepost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/count
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-count
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-count.
+      operations:
+      - method: POST
+        name: countdeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentscountpost
+        description: Count Deployments
+        call: prefect-deployments.countdeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentscountpost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/filter
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-filter
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-filter.
+      operations:
+      - method: POST
+        name: readdeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentsfilterpost
+        description: Read Deployments
+        call: prefect-deployments.readdeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentsfilterpost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/get-scheduled-flow-runs
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-get-scheduled-flow-r
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-get_scheduled_flow_r.
+      operations:
+      - method: POST
+        name: getscheduledflowrunsfordeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentsgetscheduledflowrunspost
+        description: Get Scheduled Flow Runs For Deployments
+        call: prefect-deployments.getscheduledflowrunsfordeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentsgetscheduledflowrunspost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/my-access
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-my-access
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-my-access.
+      operations:
+      - method: POST
+        name: readactorsdeploymentaccessapiaccountsaccountidworkspacesworkspaceiddeploymentsmyaccesspost
+        description: Read Actors Deployment Access
+        call: prefect-deployments.readactorsdeploymentaccessapiaccountsaccountidworkspacesworkspaceiddeploymentsmyaccesspost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/name/{flow-name}/{deployment-name}
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-name-flow-name-deplo
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-name-flow_name-deplo.
+      operations:
+      - method: GET
+        name: readdeploymentbynameapiaccountsaccountidworkspacesworkspaceiddeploymentsnameflownamedeploymentnameget
+        description: Read Deployment By Name
+        call: prefect-deployments.readdeploymentbynameapiaccountsaccountidworkspacesworkspaceiddeploymentsnameflownamedeploymentnameget
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          flow_name: rest.flow_name
+          deployment_name: rest.deployment_name
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/paginate
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-paginate
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-paginate.
+      operations:
+      - method: POST
+        name: paginatedeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentspaginatepost
+        description: Paginate Deployments
+        call: prefect-deployments.paginatedeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentspaginatepost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id.
+      operations:
+      - method: PATCH
+        name: updatedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidpatch
+        description: Update Deployment
+        call: prefect-deployments.updatedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidpatch
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          id: rest.id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: readdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidget
+        description: Read Deployment
+        call: prefect-deployments.readdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidget
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsiddelete
+        description: Delete Deployment
+        call: prefect-deployments.deletedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsiddelete
+        with:
+          id: rest.id
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/access
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-access
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-access.
+      operations:
+      - method: GET
+        name: readdeploymentaccessapiaccountsaccountidworkspacesworkspaceiddeploymentsidaccessget
+        description: Read Deployment Access
+        call: prefect-deployments.readdeploymentaccessapiaccountsaccountidworkspacesworkspaceiddeploymentsidaccessget
+        with:
+          id: rest.id
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: setdeploymentaccessapiaccountsaccountidworkspacesworkspaceiddeploymentsidaccessput
+        description: Set Deployment Access
+        call: prefect-deployments.setdeploymentaccessapiaccountsaccountidworkspacesworkspaceiddeploymentsidaccessput
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/branch
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-branch
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-branch.
+      operations:
+      - method: POST
+        name: branchfromdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidbranchpost
+        description: Branch From Deployment
+        call: prefect-deployments.branchfromdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidbranchpost
+        with:
+          id: rest.id
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/create-flow-run
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-create-flow-run
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-create_flow_run.
+      operations:
+      - method: POST
+        name: createflowrunfromdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidcreateflowrunpost
+        description: Create Flow Run From Deployment
+        call: prefect-deployments.createflowrunfromdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidcreateflowrunpost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          id: rest.id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/create-flow-run/bulk
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-create-flow-run-b
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-create_flow_run-b.
+      operations:
+      - method: POST
+        name: bulkcreateflowrunsfromdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidcreateflowrunbulkpost
+        description: Bulk Create Flow Runs From Deployment
+        call: prefect-deployments.bulkcreateflowrunsfromdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidcreateflowrunbulkpost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          id: rest.id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/disable
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-disable
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-disable.
+      operations:
+      - method: POST
+        name: disabledeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsiddisablepost
+        description: Disable Deployment
+        call: prefect-deployments.disabledeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsiddisablepost
+        with:
+          id: rest.id
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/enable
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-enable
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-enable.
+      operations:
+      - method: POST
+        name: enabledeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidenablepost
+        description: Enable Deployment
+        call: prefect-deployments.enabledeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidenablepost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          id: rest.id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/pause-deployment
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-pause-deployment
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-pause_deployment.
+      operations:
+      - method: POST
+        name: pausedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidpausedeploymentpost
+        description: Pause Deployment
+        call: prefect-deployments.pausedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidpausedeploymentpost
+        with:
+          id: rest.id
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/resume-deployment
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-resume-deployment
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-resume_deployment.
+      operations:
+      - method: POST
+        name: resumedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidresumedeploymentpost
+        description: Resume Deployment
+        call: prefect-deployments.resumedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidresumedeploymentpost
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/schedule
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-schedule
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-schedule.
+      operations:
+      - method: POST
+        name: scheduledeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulepost
+        description: Schedule Deployment
+        call: prefect-deployments.scheduledeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulepost
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/schedules
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-schedules
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-schedules.
+      operations:
+      - method: GET
+        name: readdeploymentschedulesapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulesget
+        description: Read Deployment Schedules
+        call: prefect-deployments.readdeploymentschedulesapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulesget
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdeploymentschedulesapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulespost
+        description: Create Deployment Schedules
+        call: prefect-deployments.createdeploymentschedulesapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulespost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          id: rest.id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/schedules/{schedule-id}
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-schedules-schedul
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-schedules-schedul.
+      operations:
+      - method: PATCH
+        name: updatedeploymentscheduleapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulesscheduleidpatch
+        description: Update Deployment Schedule
+        call: prefect-deployments.updatedeploymentscheduleapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulesscheduleidpatch
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          id: rest.id
+          schedule_id: rest.schedule_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedeploymentscheduleapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulesscheduleiddelete
+        description: Delete Deployment Schedule
+        call: prefect-deployments.deletedeploymentscheduleapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulesscheduleiddelete
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          schedule_id: rest.schedule_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/set-schedule-active
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-set-schedule-acti
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-set_schedule_acti.
+      operations:
+      - method: POST
+        name: resumedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidsetscheduleactivepost
+        description: Resume Deployment
+        call: prefect-deployments.resumedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidsetscheduleactivepost
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/set-schedule-inactive
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-set-schedule-inac
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-set_schedule_inac.
+      operations:
+      - method: POST
+        name: pausedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidsetscheduleinactivepost
+        description: Pause Deployment
+        call: prefect-deployments.pausedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidsetscheduleinactivepost
+        with:
+          id: rest.id
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/versions/paginate
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-versions-paginate
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-versions-paginate.
+      operations:
+      - method: POST
+        name: paginatedeploymentversionsapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionspaginatepost
+        description: Paginate Deployment Versions
+        call: prefect-deployments.paginatedeploymentversionsapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionspaginatepost
+        with:
+          id: rest.id
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/versions/{version-id}
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-versions-version
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-versions-version_.
+      operations:
+      - method: GET
+        name: readdeploymentversionapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionsversionidget
+        description: Read Deployment Version
+        call: prefect-deployments.readdeploymentversionapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionsversionidget
+        with:
+          id: rest.id
+          version_id: rest.version_id
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedeploymentversionapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionsversioniddelete
+        description: Delete Deployment Version
+        call: prefect-deployments.deletedeploymentversionapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionsversioniddelete
+        with:
+          id: rest.id
+          version_id: rest.version_id
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/versions/{version-id}/promote
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-versions-version
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-versions-version_.
+      operations:
+      - method: POST
+        name: promotedeploymentversionapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionsversionidpromotepost
+        description: Promote Deployment Version
+        call: prefect-deployments.promotedeploymentversionapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionsversionidpromotepost
+        with:
+          id: rest.id
+          version_id: rest.version_id
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/deployments/{id}/work-queue-check
+      name: api-accounts-account-id-workspaces-workspace-id-deployments-id-work-queue-check
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-deployments-id-work_queue_check.
+      operations:
+      - method: GET
+        name: workqueuecheckfordeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidworkqueuecheckget
+        description: Work Queue Check For Deployment
+        call: prefect-deployments.workqueuecheckfordeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidworkqueuecheckget
+        with:
+          id: rest.id
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-deployments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Deployments. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: create-deployment
+      description: Create Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.createdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentspost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: bulk-delete-deployments
+      description: Bulk Delete Deployments
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.bulkdeletedeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentsbulkdeletepost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: count-deployments
+      description: Count Deployments
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.countdeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentscountpost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-deployments
+      description: Read Deployments
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.readdeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentsfilterpost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-scheduled-flow-runs-deployments
+      description: Get Scheduled Flow Runs For Deployments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.getscheduledflowrunsfordeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentsgetscheduledflowrunspost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-actors-deployment-access
+      description: Read Actors Deployment Access
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.readactorsdeploymentaccessapiaccountsaccountidworkspacesworkspaceiddeploymentsmyaccesspost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-deployment-name
+      description: Read Deployment By Name
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-deployments.readdeploymentbynameapiaccountsaccountidworkspacesworkspaceiddeploymentsnameflownamedeploymentnameget
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        flow_name: tools.flow_name
+        deployment_name: tools.deployment_name
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: paginate-deployments
+      description: Paginate Deployments
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.paginatedeploymentsapiaccountsaccountidworkspacesworkspaceiddeploymentspaginatepost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-deployment
+      description: Update Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-deployments.updatedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidpatch
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        id: tools.id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-deployment
+      description: Read Deployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-deployments.readdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidget
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-deployment
+      description: Delete Deployment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-deployments.deletedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsiddelete
+      with:
+        id: tools.id
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-deployment-access
+      description: Read Deployment Access
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-deployments.readdeploymentaccessapiaccountsaccountidworkspacesworkspaceiddeploymentsidaccessget
+      with:
+        id: tools.id
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-deployment-access
+      description: Set Deployment Access
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-deployments.setdeploymentaccessapiaccountsaccountidworkspacesworkspaceiddeploymentsidaccessput
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: branch-deployment
+      description: Branch From Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.branchfromdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidbranchpost
+      with:
+        id: tools.id
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-flow-run-deployment
+      description: Create Flow Run From Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.createflowrunfromdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidcreateflowrunpost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        id: tools.id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: bulk-create-flow-runs-deployment
+      description: Bulk Create Flow Runs From Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.bulkcreateflowrunsfromdeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidcreateflowrunbulkpost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        id: tools.id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: disable-deployment
+      description: Disable Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.disabledeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsiddisablepost
+      with:
+        id: tools.id
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: enable-deployment
+      description: Enable Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.enabledeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidenablepost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        id: tools.id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pause-deployment
+      description: Pause Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.pausedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidpausedeploymentpost
+      with:
+        id: tools.id
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resume-deployment
+      description: Resume Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.resumedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidresumedeploymentpost
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: schedule-deployment
+      description: Schedule Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.scheduledeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulepost
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-deployment-schedules
+      description: Read Deployment Schedules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-deployments.readdeploymentschedulesapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulesget
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-deployment-schedules
+      description: Create Deployment Schedules
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.createdeploymentschedulesapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulespost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        id: tools.id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-deployment-schedule
+      description: Update Deployment Schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-deployments.updatedeploymentscheduleapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulesscheduleidpatch
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        id: tools.id
+        schedule_id: tools.schedule_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-deployment-schedule
+      description: Delete Deployment Schedule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-deployments.deletedeploymentscheduleapiaccountsaccountidworkspacesworkspaceiddeploymentsidschedulesscheduleiddelete
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        schedule_id: tools.schedule_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resume-deployment-2
+      description: Resume Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.resumedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidsetscheduleactivepost
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pause-deployment-2
+      description: Pause Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.pausedeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidsetscheduleinactivepost
+      with:
+        id: tools.id
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: paginate-deployment-versions
+      description: Paginate Deployment Versions
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.paginatedeploymentversionsapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionspaginatepost
+      with:
+        id: tools.id
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-deployment-version
+      description: Read Deployment Version
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-deployments.readdeploymentversionapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionsversionidget
+      with:
+        id: tools.id
+        version_id: tools.version_id
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-deployment-version
+      description: Delete Deployment Version
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-deployments.deletedeploymentversionapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionsversioniddelete
+      with:
+        id: tools.id
+        version_id: tools.version_id
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: promote-deployment-version
+      description: Promote Deployment Version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-deployments.promotedeploymentversionapiaccountsaccountidworkspacesworkspaceiddeploymentsidversionsversionidpromotepost
+      with:
+        id: tools.id
+        version_id: tools.version_id
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: work-queue-check-deployment
+      description: Work Queue Check For Deployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-deployments.workqueuecheckfordeploymentapiaccountsaccountidworkspacesworkspaceiddeploymentsidworkqueuecheckget
+      with:
+        id: tools.id
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.

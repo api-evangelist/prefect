@@ -1,0 +1,422 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Metrics
+  description: 'Prefect Cloud API — Metrics. 6 operations. Lead operation: Read Deployment Resource Peaks Endpoint. Self-contained
+    Naftiko capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Metrics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-metrics
+    baseUri: ''
+    description: Prefect Cloud API — Metrics business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-metrics-deployments-deployment_i
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/metrics/deployments/{deployment_id}/resource-peaks
+      operations:
+      - name: readdeploymentresourcepeaksendpointapiaccountsaccountidworkspacesworkspaceidmetricsdeploymentsdeploymentidresourcepeaksget
+        method: GET
+        description: Read Deployment Resource Peaks Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: deployment_id
+          in: path
+          type: string
+          description: The deployment ID
+          required: true
+        - name: start_time
+          in: query
+          type: string
+          description: Start of time range filter
+        - name: end_time
+          in: query
+          type: string
+          description: End of time range filter
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-metrics-flow-runs-flow_run_id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/metrics/flow-runs/{flow_run_id}
+      operations:
+      - name: readflowrunresourcemetricsapiaccountsaccountidworkspacesworkspaceidmetricsflowrunsflowrunidget
+        method: GET
+        description: Read Flow Run Resource Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: flow_run_id
+          in: path
+          type: string
+          description: The flow run ID
+          required: true
+        - name: metric_names
+          in: query
+          type: string
+          description: Filter to specific metric names
+        - name: start_time
+          in: query
+          type: string
+          description: Start of time range filter
+        - name: end_time
+          in: query
+          type: string
+          description: End of time range filter
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-metrics-flow-runs-flow_run_id-na
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/metrics/flow-runs/{flow_run_id}/names
+      operations:
+      - name: listavailableflowrunmetricsapiaccountsaccountidworkspacesworkspaceidmetricsflowrunsflowrunidnamesget
+        method: GET
+        description: List Available Flow Run Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: flow_run_id
+          in: path
+          type: string
+          description: The flow run ID
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-metrics-prefect-metric
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/metrics/prefect/{metric}
+      operations:
+      - name: readprefectmetrictimeseriesapiaccountsaccountidworkspacesworkspaceiduimetricsprefectmetricpost
+        method: POST
+        description: Read Prefect Metric Timeseries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: metric
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-metrics-prefect-metric-groupe
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/metrics/prefect/{metric}/grouped
+      operations:
+      - name: readprefectmetricgroupedapiaccountsaccountidworkspacesworkspaceiduimetricsprefectmetricgroupedpost
+        method: POST
+        description: Read Prefect Metric Grouped
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: metric
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-metrics-prefect-metric-timese
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/metrics/prefect/{metric}/timeseries
+      operations:
+      - name: readprefectmetrictimeseriesapiaccountsaccountidworkspacesworkspaceiduimetricsprefectmetrictimeseriespost
+        method: POST
+        description: Read Prefect Metric Timeseries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: metric
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-metrics-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Metrics. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/metrics/deployments/{deployment-id}/resource-peaks
+      name: api-accounts-account-id-workspaces-workspace-id-metrics-deployments-deployment-i
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-metrics-deployments-deployment_i.
+      operations:
+      - method: GET
+        name: readdeploymentresourcepeaksendpointapiaccountsaccountidworkspacesworkspaceidmetricsdeploymentsdeploymentidresourcepeaksget
+        description: Read Deployment Resource Peaks Endpoint
+        call: prefect-metrics.readdeploymentresourcepeaksendpointapiaccountsaccountidworkspacesworkspaceidmetricsdeploymentsdeploymentidresourcepeaksget
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          deployment_id: rest.deployment_id
+          start_time: rest.start_time
+          end_time: rest.end_time
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/metrics/flow-runs/{flow-run-id}
+      name: api-accounts-account-id-workspaces-workspace-id-metrics-flow-runs-flow-run-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-metrics-flow-runs-flow_run_id.
+      operations:
+      - method: GET
+        name: readflowrunresourcemetricsapiaccountsaccountidworkspacesworkspaceidmetricsflowrunsflowrunidget
+        description: Read Flow Run Resource Metrics
+        call: prefect-metrics.readflowrunresourcemetricsapiaccountsaccountidworkspacesworkspaceidmetricsflowrunsflowrunidget
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          flow_run_id: rest.flow_run_id
+          metric_names: rest.metric_names
+          start_time: rest.start_time
+          end_time: rest.end_time
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/metrics/flow-runs/{flow-run-id}/names
+      name: api-accounts-account-id-workspaces-workspace-id-metrics-flow-runs-flow-run-id-na
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-metrics-flow-runs-flow_run_id-na.
+      operations:
+      - method: GET
+        name: listavailableflowrunmetricsapiaccountsaccountidworkspacesworkspaceidmetricsflowrunsflowrunidnamesget
+        description: List Available Flow Run Metrics
+        call: prefect-metrics.listavailableflowrunmetricsapiaccountsaccountidworkspacesworkspaceidmetricsflowrunsflowrunidnamesget
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          flow_run_id: rest.flow_run_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/metrics/prefect/{metric}
+      name: api-accounts-account-id-workspaces-workspace-id-ui-metrics-prefect-metric
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-metrics-prefect-metric.
+      operations:
+      - method: POST
+        name: readprefectmetrictimeseriesapiaccountsaccountidworkspacesworkspaceiduimetricsprefectmetricpost
+        description: Read Prefect Metric Timeseries
+        call: prefect-metrics.readprefectmetrictimeseriesapiaccountsaccountidworkspacesworkspaceiduimetricsprefectmetricpost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          metric: rest.metric
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/metrics/prefect/{metric}/grouped
+      name: api-accounts-account-id-workspaces-workspace-id-ui-metrics-prefect-metric-groupe
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-metrics-prefect-metric-groupe.
+      operations:
+      - method: POST
+        name: readprefectmetricgroupedapiaccountsaccountidworkspacesworkspaceiduimetricsprefectmetricgroupedpost
+        description: Read Prefect Metric Grouped
+        call: prefect-metrics.readprefectmetricgroupedapiaccountsaccountidworkspacesworkspaceiduimetricsprefectmetricgroupedpost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          metric: rest.metric
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/metrics/prefect/{metric}/timeseries
+      name: api-accounts-account-id-workspaces-workspace-id-ui-metrics-prefect-metric-timese
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-metrics-prefect-metric-timese.
+      operations:
+      - method: POST
+        name: readprefectmetrictimeseriesapiaccountsaccountidworkspacesworkspaceiduimetricsprefectmetrictimeseriespost
+        description: Read Prefect Metric Timeseries
+        call: prefect-metrics.readprefectmetrictimeseriesapiaccountsaccountidworkspacesworkspaceiduimetricsprefectmetrictimeseriespost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          metric: rest.metric
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-metrics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Metrics. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: read-deployment-resource-peaks-endpoint
+      description: Read Deployment Resource Peaks Endpoint
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-metrics.readdeploymentresourcepeaksendpointapiaccountsaccountidworkspacesworkspaceidmetricsdeploymentsdeploymentidresourcepeaksget
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        deployment_id: tools.deployment_id
+        start_time: tools.start_time
+        end_time: tools.end_time
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-flow-run-resource-metrics
+      description: Read Flow Run Resource Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-metrics.readflowrunresourcemetricsapiaccountsaccountidworkspacesworkspaceidmetricsflowrunsflowrunidget
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        flow_run_id: tools.flow_run_id
+        metric_names: tools.metric_names
+        start_time: tools.start_time
+        end_time: tools.end_time
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-available-flow-run-metrics
+      description: List Available Flow Run Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-metrics.listavailableflowrunmetricsapiaccountsaccountidworkspacesworkspaceidmetricsflowrunsflowrunidnamesget
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        flow_run_id: tools.flow_run_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-prefect-metric-timeseries
+      description: Read Prefect Metric Timeseries
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-metrics.readprefectmetrictimeseriesapiaccountsaccountidworkspacesworkspaceiduimetricsprefectmetricpost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        metric: tools.metric
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-prefect-metric-grouped
+      description: Read Prefect Metric Grouped
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-metrics.readprefectmetricgroupedapiaccountsaccountidworkspacesworkspaceiduimetricsprefectmetricgroupedpost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        metric: tools.metric
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-prefect-metric-timeseries-2
+      description: Read Prefect Metric Timeseries
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-metrics.readprefectmetrictimeseriesapiaccountsaccountidworkspacesworkspaceiduimetricsprefectmetrictimeseriespost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        metric: tools.metric
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,679 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — SLAs
+  description: 'Prefect Cloud API — SLAs. 12 operations. Lead operation: Create Sla. Self-contained Naftiko capability covering
+    one Prefect business surface.'
+  tags:
+  - Prefect
+  - SLAs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-slas
+    baseUri: ''
+    description: Prefect Cloud API — SLAs business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-slas
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/slas/
+      operations:
+      - name: createslaapiaccountsaccountidworkspacesworkspaceidslaspost
+        method: POST
+        description: Create Sla
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-slas-apply-resource-slas-resourc
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/slas/apply-resource-slas/{resource_id}
+      operations:
+      - name: applyslasapiaccountsaccountidworkspacesworkspaceidslasapplyresourceslasresourceidpost
+        method: POST
+        description: Apply Slas
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: resource_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-slas-by-owner-owner_resource
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/slas/by-owner/{owner_resource}
+      operations:
+      - name: readslasbyownerresourceapiaccountsaccountidworkspacesworkspaceidslasbyownerownerresourcepost
+        method: POST
+        description: Read Slas By Owner Resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: owner_resource
+          in: path
+          type: string
+          required: true
+        - name: sort
+          in: query
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-slas-default
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/slas/default
+      operations:
+      - name: createdefaultslaapiaccountsaccountidworkspacesworkspaceidslasdefaultpost
+        method: POST
+        description: Create Default Sla
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-slas-default-list
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/slas/default/list
+      operations:
+      - name: readdefaultslalistapiaccountsaccountidworkspacesworkspaceidslasdefaultlistget
+        method: GET
+        description: Read Default Sla List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-slas-default-sla_severity
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/slas/default/{sla_severity}
+      operations:
+      - name: readdefaultslaapiaccountsaccountidworkspacesworkspaceidslasdefaultslaseverityget
+        method: GET
+        description: Read Default Sla
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sla_severity
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+      - name: deletedefaultslaapiaccountsaccountidworkspacesworkspaceidslasdefaultslaseveritydelete
+        method: DELETE
+        description: Delete Default Sla
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sla_severity
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-slas-filter
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/slas/filter
+      operations:
+      - name: readslasapiaccountsaccountidworkspacesworkspaceidslasfilterpost
+        method: POST
+        description: Read Slas
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: sort
+          in: query
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-slas-flow-runs
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/slas/flow-runs
+      operations:
+      - name: readflowrunsapiaccountsaccountidworkspacesworkspaceidslasflowrunspost
+        method: POST
+        description: Read Flow Runs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-slas-sla_id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/slas/{sla_id}
+      operations:
+      - name: readslaapiaccountsaccountidworkspacesworkspaceidslasslaidget
+        method: GET
+        description: Read Sla
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: sla_id
+          in: path
+          type: string
+          required: true
+      - name: updateslaapiaccountsaccountidworkspacesworkspaceidslasslaidpatch
+        method: PATCH
+        description: Update Sla
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: sla_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteslaapiaccountsaccountidworkspacesworkspaceidslasslaiddelete
+        method: DELETE
+        description: Delete Sla
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: sla_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-slas-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — SLAs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/slas
+      name: api-accounts-account-id-workspaces-workspace-id-slas
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-slas.
+      operations:
+      - method: POST
+        name: createslaapiaccountsaccountidworkspacesworkspaceidslaspost
+        description: Create Sla
+        call: prefect-slas.createslaapiaccountsaccountidworkspacesworkspaceidslaspost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/slas/apply-resource-slas/{resource-id}
+      name: api-accounts-account-id-workspaces-workspace-id-slas-apply-resource-slas-resourc
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-slas-apply-resource-slas-resourc.
+      operations:
+      - method: POST
+        name: applyslasapiaccountsaccountidworkspacesworkspaceidslasapplyresourceslasresourceidpost
+        description: Apply Slas
+        call: prefect-slas.applyslasapiaccountsaccountidworkspacesworkspaceidslasapplyresourceslasresourceidpost
+        with:
+          workspace_id: rest.workspace_id
+          resource_id: rest.resource_id
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/slas/by-owner/{owner-resource}
+      name: api-accounts-account-id-workspaces-workspace-id-slas-by-owner-owner-resource
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-slas-by-owner-owner_resource.
+      operations:
+      - method: POST
+        name: readslasbyownerresourceapiaccountsaccountidworkspacesworkspaceidslasbyownerownerresourcepost
+        description: Read Slas By Owner Resource
+        call: prefect-slas.readslasbyownerresourceapiaccountsaccountidworkspacesworkspaceidslasbyownerownerresourcepost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          owner_resource: rest.owner_resource
+          sort: rest.sort
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/slas/default
+      name: api-accounts-account-id-workspaces-workspace-id-slas-default
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-slas-default.
+      operations:
+      - method: POST
+        name: createdefaultslaapiaccountsaccountidworkspacesworkspaceidslasdefaultpost
+        description: Create Default Sla
+        call: prefect-slas.createdefaultslaapiaccountsaccountidworkspacesworkspaceidslasdefaultpost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/slas/default/list
+      name: api-accounts-account-id-workspaces-workspace-id-slas-default-list
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-slas-default-list.
+      operations:
+      - method: GET
+        name: readdefaultslalistapiaccountsaccountidworkspacesworkspaceidslasdefaultlistget
+        description: Read Default Sla List
+        call: prefect-slas.readdefaultslalistapiaccountsaccountidworkspacesworkspaceidslasdefaultlistget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/slas/default/{sla-severity}
+      name: api-accounts-account-id-workspaces-workspace-id-slas-default-sla-severity
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-slas-default-sla_severity.
+      operations:
+      - method: GET
+        name: readdefaultslaapiaccountsaccountidworkspacesworkspaceidslasdefaultslaseverityget
+        description: Read Default Sla
+        call: prefect-slas.readdefaultslaapiaccountsaccountidworkspacesworkspaceidslasdefaultslaseverityget
+        with:
+          sla_severity: rest.sla_severity
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedefaultslaapiaccountsaccountidworkspacesworkspaceidslasdefaultslaseveritydelete
+        description: Delete Default Sla
+        call: prefect-slas.deletedefaultslaapiaccountsaccountidworkspacesworkspaceidslasdefaultslaseveritydelete
+        with:
+          sla_severity: rest.sla_severity
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/slas/filter
+      name: api-accounts-account-id-workspaces-workspace-id-slas-filter
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-slas-filter.
+      operations:
+      - method: POST
+        name: readslasapiaccountsaccountidworkspacesworkspaceidslasfilterpost
+        description: Read Slas
+        call: prefect-slas.readslasapiaccountsaccountidworkspacesworkspaceidslasfilterpost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          sort: rest.sort
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/slas/flow-runs
+      name: api-accounts-account-id-workspaces-workspace-id-slas-flow-runs
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-slas-flow-runs.
+      operations:
+      - method: POST
+        name: readflowrunsapiaccountsaccountidworkspacesworkspaceidslasflowrunspost
+        description: Read Flow Runs
+        call: prefect-slas.readflowrunsapiaccountsaccountidworkspacesworkspaceidslasflowrunspost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/slas/{sla-id}
+      name: api-accounts-account-id-workspaces-workspace-id-slas-sla-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-slas-sla_id.
+      operations:
+      - method: GET
+        name: readslaapiaccountsaccountidworkspacesworkspaceidslasslaidget
+        description: Read Sla
+        call: prefect-slas.readslaapiaccountsaccountidworkspacesworkspaceidslasslaidget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          sla_id: rest.sla_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateslaapiaccountsaccountidworkspacesworkspaceidslasslaidpatch
+        description: Update Sla
+        call: prefect-slas.updateslaapiaccountsaccountidworkspacesworkspaceidslasslaidpatch
+        with:
+          workspace_id: rest.workspace_id
+          sla_id: rest.sla_id
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteslaapiaccountsaccountidworkspacesworkspaceidslasslaiddelete
+        description: Delete Sla
+        call: prefect-slas.deleteslaapiaccountsaccountidworkspacesworkspaceidslasslaiddelete
+        with:
+          workspace_id: rest.workspace_id
+          sla_id: rest.sla_id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-slas-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — SLAs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-sla
+      description: Create Sla
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-slas.createslaapiaccountsaccountidworkspacesworkspaceidslaspost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: apply-slas
+      description: Apply Slas
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-slas.applyslasapiaccountsaccountidworkspacesworkspaceidslasapplyresourceslasresourceidpost
+      with:
+        workspace_id: tools.workspace_id
+        resource_id: tools.resource_id
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-slas-owner-resource
+      description: Read Slas By Owner Resource
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-slas.readslasbyownerresourceapiaccountsaccountidworkspacesworkspaceidslasbyownerownerresourcepost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        owner_resource: tools.owner_resource
+        sort: tools.sort
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-default-sla
+      description: Create Default Sla
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-slas.createdefaultslaapiaccountsaccountidworkspacesworkspaceidslasdefaultpost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-default-sla-list
+      description: Read Default Sla List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-slas.readdefaultslalistapiaccountsaccountidworkspacesworkspaceidslasdefaultlistget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-default-sla
+      description: Read Default Sla
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-slas.readdefaultslaapiaccountsaccountidworkspacesworkspaceidslasdefaultslaseverityget
+      with:
+        sla_severity: tools.sla_severity
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-default-sla
+      description: Delete Default Sla
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-slas.deletedefaultslaapiaccountsaccountidworkspacesworkspaceidslasdefaultslaseveritydelete
+      with:
+        sla_severity: tools.sla_severity
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-slas
+      description: Read Slas
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-slas.readslasapiaccountsaccountidworkspacesworkspaceidslasfilterpost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        sort: tools.sort
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-flow-runs
+      description: Read Flow Runs
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-slas.readflowrunsapiaccountsaccountidworkspacesworkspaceidslasflowrunspost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-sla
+      description: Read Sla
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-slas.readslaapiaccountsaccountidworkspacesworkspaceidslasslaidget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        sla_id: tools.sla_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-sla
+      description: Update Sla
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-slas.updateslaapiaccountsaccountidworkspacesworkspaceidslasslaidpatch
+      with:
+        workspace_id: tools.workspace_id
+        sla_id: tools.sla_id
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-sla
+      description: Delete Sla
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-slas.deleteslaapiaccountsaccountidworkspacesworkspaceidslasslaiddelete
+      with:
+        workspace_id: tools.workspace_id
+        sla_id: tools.sla_id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.

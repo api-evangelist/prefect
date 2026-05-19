@@ -1,0 +1,151 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Account Images
+  description: 'Prefect Cloud API — Account Images. 3 operations. Lead operation: Get Account Image. Self-contained Naftiko
+    capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Account Images
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-account-images
+    baseUri: ''
+    description: Prefect Cloud API — Account Images business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-image
+      path: /api/accounts/{account_id}/image
+      operations:
+      - name: getaccountimageapiaccountsaccountidimageget
+        method: GET
+        description: Get Account Image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+      - name: uploadaccountimageapiaccountsaccountidimageput
+        method: PUT
+        description: Upload Account Image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteaccountimageapiaccountsaccountidimagedelete
+        method: DELETE
+        description: Delete Account Image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-account-images-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Account Images. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/image
+      name: api-accounts-account-id-image
+      description: REST surface for api-accounts-account_id-image.
+      operations:
+      - method: GET
+        name: getaccountimageapiaccountsaccountidimageget
+        description: Get Account Image
+        call: prefect-account-images.getaccountimageapiaccountsaccountidimageget
+        with:
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: uploadaccountimageapiaccountsaccountidimageput
+        description: Upload Account Image
+        call: prefect-account-images.uploadaccountimageapiaccountsaccountidimageput
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteaccountimageapiaccountsaccountidimagedelete
+        description: Delete Account Image
+        call: prefect-account-images.deleteaccountimageapiaccountsaccountidimagedelete
+        with:
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-account-images-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Account Images. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-account-image
+      description: Get Account Image
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-account-images.getaccountimageapiaccountsaccountidimageget
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upload-account-image
+      description: Upload Account Image
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-account-images.uploadaccountimageapiaccountsaccountidimageput
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-account-image
+      description: Delete Account Image
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-account-images.deleteaccountimageapiaccountsaccountidimagedelete
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.

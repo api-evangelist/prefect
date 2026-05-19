@@ -1,0 +1,549 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Automations
+  description: 'Prefect Cloud API — Automations. 10 operations. Lead operation: Create Automation. Self-contained Naftiko
+    capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Automations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-automations
+    baseUri: ''
+    description: Prefect Cloud API — Automations business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-automations
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/automations/
+      operations:
+      - name: createautomationapiaccountsaccountidworkspacesworkspaceidautomationspost
+        method: POST
+        description: Create Automation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-automations-count
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/automations/count
+      operations:
+      - name: countautomationsapiaccountsaccountidworkspacesworkspaceidautomationscountpost
+        method: POST
+        description: Count Automations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-automations-filter
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/automations/filter
+      operations:
+      - name: readautomationsapiaccountsaccountidworkspacesworkspaceidautomationsfilterpost
+        method: POST
+        description: Read Automations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-automations-owned-by-resource_id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/automations/owned-by/{resource_id}
+      operations:
+      - name: deleteautomationsownedbyresourceapiaccountsaccountidworkspacesworkspaceidautomationsownedbyresourceiddelete
+        method: DELETE
+        description: Delete Automations Owned By Resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: resource_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-automations-related-to-resource_
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/automations/related-to/{resource_id}
+      operations:
+      - name: readautomationsrelatedtoresourceapiaccountsaccountidworkspacesworkspaceidautomationsrelatedtoresourceidget
+        method: GET
+        description: Read Automations Related To Resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: resource_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-automations-templates-validate
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/automations/templates/validate
+      operations:
+      - name: validatetemplateapiaccountsaccountidworkspacesworkspaceidautomationstemplatesvalidatepost
+        method: POST
+        description: Validate Template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-automations-id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/automations/{id}
+      operations:
+      - name: updateautomationapiaccountsaccountidworkspacesworkspaceidautomationsidput
+        method: PUT
+        description: Update Automation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: patchautomationapiaccountsaccountidworkspacesworkspaceidautomationsidpatch
+        method: PATCH
+        description: Patch Automation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteautomationapiaccountsaccountidworkspacesworkspaceidautomationsiddelete
+        method: DELETE
+        description: Delete Automation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+      - name: readautomationapiaccountsaccountidworkspacesworkspaceidautomationsidget
+        method: GET
+        description: Read Automation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-automations-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Automations. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/automations
+      name: api-accounts-account-id-workspaces-workspace-id-automations
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-automations.
+      operations:
+      - method: POST
+        name: createautomationapiaccountsaccountidworkspacesworkspaceidautomationspost
+        description: Create Automation
+        call: prefect-automations.createautomationapiaccountsaccountidworkspacesworkspaceidautomationspost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/automations/count
+      name: api-accounts-account-id-workspaces-workspace-id-automations-count
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-automations-count.
+      operations:
+      - method: POST
+        name: countautomationsapiaccountsaccountidworkspacesworkspaceidautomationscountpost
+        description: Count Automations
+        call: prefect-automations.countautomationsapiaccountsaccountidworkspacesworkspaceidautomationscountpost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/automations/filter
+      name: api-accounts-account-id-workspaces-workspace-id-automations-filter
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-automations-filter.
+      operations:
+      - method: POST
+        name: readautomationsapiaccountsaccountidworkspacesworkspaceidautomationsfilterpost
+        description: Read Automations
+        call: prefect-automations.readautomationsapiaccountsaccountidworkspacesworkspaceidautomationsfilterpost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/automations/owned-by/{resource-id}
+      name: api-accounts-account-id-workspaces-workspace-id-automations-owned-by-resource-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-automations-owned-by-resource_id.
+      operations:
+      - method: DELETE
+        name: deleteautomationsownedbyresourceapiaccountsaccountidworkspacesworkspaceidautomationsownedbyresourceiddelete
+        description: Delete Automations Owned By Resource
+        call: prefect-automations.deleteautomationsownedbyresourceapiaccountsaccountidworkspacesworkspaceidautomationsownedbyresourceiddelete
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          resource_id: rest.resource_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/automations/related-to/{resource-id}
+      name: api-accounts-account-id-workspaces-workspace-id-automations-related-to-resource
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-automations-related-to-resource_.
+      operations:
+      - method: GET
+        name: readautomationsrelatedtoresourceapiaccountsaccountidworkspacesworkspaceidautomationsrelatedtoresourceidget
+        description: Read Automations Related To Resource
+        call: prefect-automations.readautomationsrelatedtoresourceapiaccountsaccountidworkspacesworkspaceidautomationsrelatedtoresourceidget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          resource_id: rest.resource_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/automations/templates/validate
+      name: api-accounts-account-id-workspaces-workspace-id-automations-templates-validate
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-automations-templates-validate.
+      operations:
+      - method: POST
+        name: validatetemplateapiaccountsaccountidworkspacesworkspaceidautomationstemplatesvalidatepost
+        description: Validate Template
+        call: prefect-automations.validatetemplateapiaccountsaccountidworkspacesworkspaceidautomationstemplatesvalidatepost
+        with:
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/automations/{id}
+      name: api-accounts-account-id-workspaces-workspace-id-automations-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-automations-id.
+      operations:
+      - method: PUT
+        name: updateautomationapiaccountsaccountidworkspacesworkspaceidautomationsidput
+        description: Update Automation
+        call: prefect-automations.updateautomationapiaccountsaccountidworkspacesworkspaceidautomationsidput
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchautomationapiaccountsaccountidworkspacesworkspaceidautomationsidpatch
+        description: Patch Automation
+        call: prefect-automations.patchautomationapiaccountsaccountidworkspacesworkspaceidautomationsidpatch
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteautomationapiaccountsaccountidworkspacesworkspaceidautomationsiddelete
+        description: Delete Automation
+        call: prefect-automations.deleteautomationapiaccountsaccountidworkspacesworkspaceidautomationsiddelete
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: readautomationapiaccountsaccountidworkspacesworkspaceidautomationsidget
+        description: Read Automation
+        call: prefect-automations.readautomationapiaccountsaccountidworkspacesworkspaceidautomationsidget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-automations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Automations. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: create-automation
+      description: Create Automation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-automations.createautomationapiaccountsaccountidworkspacesworkspaceidautomationspost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: count-automations
+      description: Count Automations
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-automations.countautomationsapiaccountsaccountidworkspacesworkspaceidautomationscountpost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-automations
+      description: Read Automations
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-automations.readautomationsapiaccountsaccountidworkspacesworkspaceidautomationsfilterpost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-automations-owned-resource
+      description: Delete Automations Owned By Resource
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-automations.deleteautomationsownedbyresourceapiaccountsaccountidworkspacesworkspaceidautomationsownedbyresourceiddelete
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        resource_id: tools.resource_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-automations-related-resource
+      description: Read Automations Related To Resource
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-automations.readautomationsrelatedtoresourceapiaccountsaccountidworkspacesworkspaceidautomationsrelatedtoresourceidget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        resource_id: tools.resource_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: validate-template
+      description: Validate Template
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: prefect-automations.validatetemplateapiaccountsaccountidworkspacesworkspaceidautomationstemplatesvalidatepost
+      with:
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-automation
+      description: Update Automation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-automations.updateautomationapiaccountsaccountidworkspacesworkspaceidautomationsidput
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: patch-automation
+      description: Patch Automation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-automations.patchautomationapiaccountsaccountidworkspacesworkspaceidautomationsidpatch
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-automation
+      description: Delete Automation
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-automations.deleteautomationapiaccountsaccountidworkspacesworkspaceidautomationsiddelete
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-automation
+      description: Read Automation
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-automations.readautomationapiaccountsaccountidworkspacesworkspaceidautomationsidget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,461 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Account Memberships
+  description: 'Prefect Cloud API — Account Memberships. 9 operations. Lead operation: Read Account Membership By Bot. Self-contained
+    Naftiko capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Account Memberships
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-account-memberships
+    baseUri: ''
+    description: Prefect Cloud API — Account Memberships business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-account_memberships-by-bot-bot_id
+      path: /api/accounts/{account_id}/account_memberships/by-bot/{bot_id}
+      operations:
+      - name: readaccountmembershipbybotapiaccountsaccountidaccountmembershipsbybotbotidget
+        method: GET
+        description: Read Account Membership By Bot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: bot_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-account_memberships-by-user-user_id
+      path: /api/accounts/{account_id}/account_memberships/by-user/{user_id}
+      operations:
+      - name: readaccountmembershipbyuserapiaccountsaccountidaccountmembershipsbyuseruseridget
+        method: GET
+        description: Read Account Membership By User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-account_memberships-count
+      path: /api/accounts/{account_id}/account_memberships/count
+      operations:
+      - name: countaccountmembershipsapiaccountsaccountidaccountmembershipscountpost
+        method: POST
+        description: Count Account Memberships
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-account_memberships-filter
+      path: /api/accounts/{account_id}/account_memberships/filter
+      operations:
+      - name: readaccountmembershipsapiaccountsaccountidaccountmembershipsfilterpost
+        method: POST
+        description: Read Account Memberships
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-account_memberships-set_active
+      path: /api/accounts/{account_id}/account_memberships/set_active
+      operations:
+      - name: bulksetaccountmembershipactiveapiaccountsaccountidaccountmembershipssetactivepost
+        method: POST
+        description: Bulk Set Account Membership Active
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-account_memberships-id
+      path: /api/accounts/{account_id}/account_memberships/{id}
+      operations:
+      - name: readaccountmembershipapiaccountsaccountidaccountmembershipsidget
+        method: GET
+        description: Read Account Membership
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+      - name: updateaccountmembershipapiaccountsaccountidaccountmembershipsidpatch
+        method: PATCH
+        description: Update Account Membership
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteaccountmembershipapiaccountsaccountidaccountmembershipsiddelete
+        method: DELETE
+        description: Delete Account Membership
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-account_memberships-id-active
+      path: /api/accounts/{account_id}/account_memberships/{id}/active
+      operations:
+      - name: toggleaccountmembershipactiveapiaccountsaccountidaccountmembershipsidactivepatch
+        method: PATCH
+        description: Toggle Account Membership Active
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-account-memberships-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Account Memberships. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/account-memberships/by-bot/{bot-id}
+      name: api-accounts-account-id-account-memberships-by-bot-bot-id
+      description: REST surface for api-accounts-account_id-account_memberships-by-bot-bot_id.
+      operations:
+      - method: GET
+        name: readaccountmembershipbybotapiaccountsaccountidaccountmembershipsbybotbotidget
+        description: Read Account Membership By Bot
+        call: prefect-account-memberships.readaccountmembershipbybotapiaccountsaccountidaccountmembershipsbybotbotidget
+        with:
+          bot_id: rest.bot_id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/account-memberships/by-user/{user-id}
+      name: api-accounts-account-id-account-memberships-by-user-user-id
+      description: REST surface for api-accounts-account_id-account_memberships-by-user-user_id.
+      operations:
+      - method: GET
+        name: readaccountmembershipbyuserapiaccountsaccountidaccountmembershipsbyuseruseridget
+        description: Read Account Membership By User
+        call: prefect-account-memberships.readaccountmembershipbyuserapiaccountsaccountidaccountmembershipsbyuseruseridget
+        with:
+          user_id: rest.user_id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/account-memberships/count
+      name: api-accounts-account-id-account-memberships-count
+      description: REST surface for api-accounts-account_id-account_memberships-count.
+      operations:
+      - method: POST
+        name: countaccountmembershipsapiaccountsaccountidaccountmembershipscountpost
+        description: Count Account Memberships
+        call: prefect-account-memberships.countaccountmembershipsapiaccountsaccountidaccountmembershipscountpost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/account-memberships/filter
+      name: api-accounts-account-id-account-memberships-filter
+      description: REST surface for api-accounts-account_id-account_memberships-filter.
+      operations:
+      - method: POST
+        name: readaccountmembershipsapiaccountsaccountidaccountmembershipsfilterpost
+        description: Read Account Memberships
+        call: prefect-account-memberships.readaccountmembershipsapiaccountsaccountidaccountmembershipsfilterpost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/account-memberships/set-active
+      name: api-accounts-account-id-account-memberships-set-active
+      description: REST surface for api-accounts-account_id-account_memberships-set_active.
+      operations:
+      - method: POST
+        name: bulksetaccountmembershipactiveapiaccountsaccountidaccountmembershipssetactivepost
+        description: Bulk Set Account Membership Active
+        call: prefect-account-memberships.bulksetaccountmembershipactiveapiaccountsaccountidaccountmembershipssetactivepost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/account-memberships/{id}
+      name: api-accounts-account-id-account-memberships-id
+      description: REST surface for api-accounts-account_id-account_memberships-id.
+      operations:
+      - method: GET
+        name: readaccountmembershipapiaccountsaccountidaccountmembershipsidget
+        description: Read Account Membership
+        call: prefect-account-memberships.readaccountmembershipapiaccountsaccountidaccountmembershipsidget
+        with:
+          id: rest.id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateaccountmembershipapiaccountsaccountidaccountmembershipsidpatch
+        description: Update Account Membership
+        call: prefect-account-memberships.updateaccountmembershipapiaccountsaccountidaccountmembershipsidpatch
+        with:
+          id: rest.id
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteaccountmembershipapiaccountsaccountidaccountmembershipsiddelete
+        description: Delete Account Membership
+        call: prefect-account-memberships.deleteaccountmembershipapiaccountsaccountidaccountmembershipsiddelete
+        with:
+          id: rest.id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/account-memberships/{id}/active
+      name: api-accounts-account-id-account-memberships-id-active
+      description: REST surface for api-accounts-account_id-account_memberships-id-active.
+      operations:
+      - method: PATCH
+        name: toggleaccountmembershipactiveapiaccountsaccountidaccountmembershipsidactivepatch
+        description: Toggle Account Membership Active
+        call: prefect-account-memberships.toggleaccountmembershipactiveapiaccountsaccountidaccountmembershipsidactivepatch
+        with:
+          id: rest.id
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-account-memberships-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Account Memberships. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: read-account-membership-bot
+      description: Read Account Membership By Bot
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-account-memberships.readaccountmembershipbybotapiaccountsaccountidaccountmembershipsbybotbotidget
+      with:
+        bot_id: tools.bot_id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-account-membership-user
+      description: Read Account Membership By User
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-account-memberships.readaccountmembershipbyuserapiaccountsaccountidaccountmembershipsbyuseruseridget
+      with:
+        user_id: tools.user_id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: count-account-memberships
+      description: Count Account Memberships
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-account-memberships.countaccountmembershipsapiaccountsaccountidaccountmembershipscountpost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-account-memberships
+      description: Read Account Memberships
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-account-memberships.readaccountmembershipsapiaccountsaccountidaccountmembershipsfilterpost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: bulk-set-account-membership-active
+      description: Bulk Set Account Membership Active
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-account-memberships.bulksetaccountmembershipactiveapiaccountsaccountidaccountmembershipssetactivepost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-account-membership
+      description: Read Account Membership
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-account-memberships.readaccountmembershipapiaccountsaccountidaccountmembershipsidget
+      with:
+        id: tools.id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-account-membership
+      description: Update Account Membership
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-account-memberships.updateaccountmembershipapiaccountsaccountidaccountmembershipsidpatch
+      with:
+        id: tools.id
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-account-membership
+      description: Delete Account Membership
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-account-memberships.deleteaccountmembershipapiaccountsaccountidaccountmembershipsiddelete
+      with:
+        id: tools.id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: toggle-account-membership-active
+      description: Toggle Account Membership Active
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-account-memberships.toggleaccountmembershipactiveapiaccountsaccountidaccountmembershipsidactivepatch
+      with:
+        id: tools.id
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

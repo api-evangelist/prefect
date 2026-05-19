@@ -1,0 +1,196 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Workspace Team Access
+  description: 'Prefect Cloud API — Workspace Team Access. 3 operations. Lead operation: Upsert Workspace Team Access. Self-contained
+    Naftiko capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Workspace Team Access
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-workspace-team-access
+    baseUri: ''
+    description: Prefect Cloud API — Workspace Team Access business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-team_access
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/team_access/
+      operations:
+      - name: upsertworkspaceteamaccessapiaccountsaccountidworkspacesworkspaceidteamaccessput
+        method: PUT
+        description: Upsert Workspace Team Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-team_access-filter
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/team_access/filter
+      operations:
+      - name: readworkspaceteamaccessesapiaccountsaccountidworkspacesworkspaceidteamaccessfilterpost
+        method: POST
+        description: Read Workspace Team Accesses
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-team_access-team_id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/team_access/{team_id}
+      operations:
+      - name: removeworkspaceteamaccessapiaccountsaccountidworkspacesworkspaceidteamaccessteamiddelete
+        method: DELETE
+        description: Remove Workspace Team Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: team_id
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-workspace-team-access-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Workspace Team Access. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/team-access
+      name: api-accounts-account-id-workspaces-workspace-id-team-access
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-team_access.
+      operations:
+      - method: PUT
+        name: upsertworkspaceteamaccessapiaccountsaccountidworkspacesworkspaceidteamaccessput
+        description: Upsert Workspace Team Access
+        call: prefect-workspace-team-access.upsertworkspaceteamaccessapiaccountsaccountidworkspacesworkspaceidteamaccessput
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/team-access/filter
+      name: api-accounts-account-id-workspaces-workspace-id-team-access-filter
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-team_access-filter.
+      operations:
+      - method: POST
+        name: readworkspaceteamaccessesapiaccountsaccountidworkspacesworkspaceidteamaccessfilterpost
+        description: Read Workspace Team Accesses
+        call: prefect-workspace-team-access.readworkspaceteamaccessesapiaccountsaccountidworkspacesworkspaceidteamaccessfilterpost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/team-access/{team-id}
+      name: api-accounts-account-id-workspaces-workspace-id-team-access-team-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-team_access-team_id.
+      operations:
+      - method: DELETE
+        name: removeworkspaceteamaccessapiaccountsaccountidworkspacesworkspaceidteamaccessteamiddelete
+        description: Remove Workspace Team Access
+        call: prefect-workspace-team-access.removeworkspaceteamaccessapiaccountsaccountidworkspacesworkspaceidteamaccessteamiddelete
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          team_id: rest.team_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-workspace-team-access-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Workspace Team Access. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: upsert-workspace-team-access
+      description: Upsert Workspace Team Access
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-workspace-team-access.upsertworkspaceteamaccessapiaccountsaccountidworkspacesworkspaceidteamaccessput
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-workspace-team-accesses
+      description: Read Workspace Team Accesses
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-workspace-team-access.readworkspaceteamaccessesapiaccountsaccountidworkspacesworkspaceidteamaccessfilterpost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-workspace-team-access
+      description: Remove Workspace Team Access
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-workspace-team-access.removeworkspaceteamaccessapiaccountsaccountidworkspacesworkspaceidteamaccessteamiddelete
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        team_id: tools.team_id
+      outputParameters:
+      - type: object
+        mapping: $.

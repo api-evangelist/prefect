@@ -1,0 +1,638 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Work Queues
+  description: 'Prefect Cloud API — Work Queues. 10 operations. Lead operation: Create Work Queue. Self-contained Naftiko
+    capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Work Queues
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-work-queues
+    baseUri: ''
+    description: Prefect Cloud API — Work Queues business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-work_queues
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/work_queues/
+      operations:
+      - name: createworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuespost
+        method: POST
+        description: Create Work Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-work_queues-filter
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/work_queues/filter
+      operations:
+      - name: readworkqueuesapiaccountsaccountidworkspacesworkspaceidworkqueuesfilterpost
+        method: POST
+        description: Read Work Queues
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-work_queues-name-name
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/work_queues/name/{name}
+      operations:
+      - name: readworkqueuebynameapiaccountsaccountidworkspacesworkspaceidworkqueuesnamenameget
+        method: GET
+        description: Read Work Queue By Name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: name
+          in: path
+          type: string
+          description: The work queue name
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-work_queues-paginate
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/work_queues/paginate
+      operations:
+      - name: paginateworkqueuesapiaccountsaccountidworkspacesworkspaceidworkqueuespaginatepost
+        method: POST
+        description: Paginate Work Queues
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-work_queues-id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/work_queues/{id}
+      operations:
+      - name: updateworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuesidpatch
+        method: PATCH
+        description: Update Work Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The work queue id
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: readworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuesidget
+        method: GET
+        description: Read Work Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The work queue id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+      - name: deleteworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuesiddelete
+        method: DELETE
+        description: Delete Work Queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The work queue id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-work_queues-id-concurrency_statu
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/work_queues/{id}/concurrency_status
+      operations:
+      - name: readworkqueueconcurrencystatusapiaccountsaccountidworkspacesworkspaceidworkqueuesidconcurrencystatuspost
+        method: POST
+        description: Read Work Queue Concurrency Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The work queue id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-work_queues-id-get_runs
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/work_queues/{id}/get_runs
+      operations:
+      - name: readworkqueuerunsapiaccountsaccountidworkspacesworkspaceidworkqueuesidgetrunspost
+        method: POST
+        description: Read Work Queue Runs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The work queue id
+          required: true
+        - name: x-prefect-ui
+          in: header
+          type: string
+          description: A header to indicate this request came from the Prefect UI.
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-work_queues-id-status
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/work_queues/{id}/status
+      operations:
+      - name: readworkqueuestatusapiaccountsaccountidworkspacesworkspaceidworkqueuesidstatusget
+        method: GET
+        description: Read Work Queue Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The work queue id
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+  exposes:
+  - type: rest
+    namespace: prefect-work-queues-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Work Queues. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/work-queues
+      name: api-accounts-account-id-workspaces-workspace-id-work-queues
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-work_queues.
+      operations:
+      - method: POST
+        name: createworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuespost
+        description: Create Work Queue
+        call: prefect-work-queues.createworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuespost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/work-queues/filter
+      name: api-accounts-account-id-workspaces-workspace-id-work-queues-filter
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-work_queues-filter.
+      operations:
+      - method: POST
+        name: readworkqueuesapiaccountsaccountidworkspacesworkspaceidworkqueuesfilterpost
+        description: Read Work Queues
+        call: prefect-work-queues.readworkqueuesapiaccountsaccountidworkspacesworkspaceidworkqueuesfilterpost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/work-queues/name/{name}
+      name: api-accounts-account-id-workspaces-workspace-id-work-queues-name-name
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-work_queues-name-name.
+      operations:
+      - method: GET
+        name: readworkqueuebynameapiaccountsaccountidworkspacesworkspaceidworkqueuesnamenameget
+        description: Read Work Queue By Name
+        call: prefect-work-queues.readworkqueuebynameapiaccountsaccountidworkspacesworkspaceidworkqueuesnamenameget
+        with:
+          workspace_id: rest.workspace_id
+          name: rest.name
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/work-queues/paginate
+      name: api-accounts-account-id-workspaces-workspace-id-work-queues-paginate
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-work_queues-paginate.
+      operations:
+      - method: POST
+        name: paginateworkqueuesapiaccountsaccountidworkspacesworkspaceidworkqueuespaginatepost
+        description: Paginate Work Queues
+        call: prefect-work-queues.paginateworkqueuesapiaccountsaccountidworkspacesworkspaceidworkqueuespaginatepost
+        with:
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/work-queues/{id}
+      name: api-accounts-account-id-workspaces-workspace-id-work-queues-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-work_queues-id.
+      operations:
+      - method: PATCH
+        name: updateworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuesidpatch
+        description: Update Work Queue
+        call: prefect-work-queues.updateworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuesidpatch
+        with:
+          id: rest.id
+          workspace_id: rest.workspace_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: readworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuesidget
+        description: Read Work Queue
+        call: prefect-work-queues.readworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuesidget
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuesiddelete
+        description: Delete Work Queue
+        call: prefect-work-queues.deleteworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuesiddelete
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/work-queues/{id}/concurrency-status
+      name: api-accounts-account-id-workspaces-workspace-id-work-queues-id-concurrency-statu
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-work_queues-id-concurrency_statu.
+      operations:
+      - method: POST
+        name: readworkqueueconcurrencystatusapiaccountsaccountidworkspacesworkspaceidworkqueuesidconcurrencystatuspost
+        description: Read Work Queue Concurrency Status
+        call: prefect-work-queues.readworkqueueconcurrencystatusapiaccountsaccountidworkspacesworkspaceidworkqueuesidconcurrencystatuspost
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/work-queues/{id}/get-runs
+      name: api-accounts-account-id-workspaces-workspace-id-work-queues-id-get-runs
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-work_queues-id-get_runs.
+      operations:
+      - method: POST
+        name: readworkqueuerunsapiaccountsaccountidworkspacesworkspaceidworkqueuesidgetrunspost
+        description: Read Work Queue Runs
+        call: prefect-work-queues.readworkqueuerunsapiaccountsaccountidworkspacesworkspaceidworkqueuesidgetrunspost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          id: rest.id
+          x-prefect-ui: rest.x-prefect-ui
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/work-queues/{id}/status
+      name: api-accounts-account-id-workspaces-workspace-id-work-queues-id-status
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-work_queues-id-status.
+      operations:
+      - method: GET
+        name: readworkqueuestatusapiaccountsaccountidworkspacesworkspaceidworkqueuesidstatusget
+        description: Read Work Queue Status
+        call: prefect-work-queues.readworkqueuestatusapiaccountsaccountidworkspacesworkspaceidworkqueuesidstatusget
+        with:
+          workspace_id: rest.workspace_id
+          id: rest.id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-work-queues-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Work Queues. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: create-work-queue
+      description: Create Work Queue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-work-queues.createworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuespost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-work-queues
+      description: Read Work Queues
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-work-queues.readworkqueuesapiaccountsaccountidworkspacesworkspaceidworkqueuesfilterpost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-work-queue-name
+      description: Read Work Queue By Name
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-work-queues.readworkqueuebynameapiaccountsaccountidworkspacesworkspaceidworkqueuesnamenameget
+      with:
+        workspace_id: tools.workspace_id
+        name: tools.name
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: paginate-work-queues
+      description: Paginate Work Queues
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-work-queues.paginateworkqueuesapiaccountsaccountidworkspacesworkspaceidworkqueuespaginatepost
+      with:
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-work-queue
+      description: Update Work Queue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-work-queues.updateworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuesidpatch
+      with:
+        id: tools.id
+        workspace_id: tools.workspace_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-work-queue
+      description: Read Work Queue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-work-queues.readworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuesidget
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-work-queue
+      description: Delete Work Queue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-work-queues.deleteworkqueueapiaccountsaccountidworkspacesworkspaceidworkqueuesiddelete
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-work-queue-concurrency-status
+      description: Read Work Queue Concurrency Status
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-work-queues.readworkqueueconcurrencystatusapiaccountsaccountidworkspacesworkspaceidworkqueuesidconcurrencystatuspost
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-work-queue-runs
+      description: Read Work Queue Runs
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-work-queues.readworkqueuerunsapiaccountsaccountidworkspacesworkspaceidworkqueuesidgetrunspost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        id: tools.id
+        x-prefect-ui: tools.x-prefect-ui
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-work-queue-status
+      description: Read Work Queue Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-work-queues.readworkqueuestatusapiaccountsaccountidworkspacesworkspaceidworkqueuesidstatusget
+      with:
+        workspace_id: tools.workspace_id
+        id: tools.id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.

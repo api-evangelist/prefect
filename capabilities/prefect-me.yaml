@@ -1,0 +1,758 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Me
+  description: 'Prefect Cloud API — Me. 19 operations. Lead operation: Read My Profile. Self-contained Naftiko capability
+    covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Me
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-me
+    baseUri: ''
+    description: Prefect Cloud API — Me business capability. Self-contained, no shared references.
+    resources:
+    - name: api-me
+      path: /api/me/
+      operations:
+      - name: readmyprofileapimeget
+        method: GET
+        description: Read My Profile
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-me-accounts
+      path: /api/me/accounts
+      operations:
+      - name: readmyaccountsapimeaccountsget
+        method: GET
+        description: Read My Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-me-accounts-has_permission
+      path: /api/me/accounts/has_permission
+      operations:
+      - name: readmyaccountswithpermissionapimeaccountshaspermissionget
+        method: GET
+        description: Read My Accounts With Permission
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: permission
+          in: query
+          type: string
+          required: true
+    - name: api-me-accounts-account_id
+      path: /api/me/accounts/{account_id}
+      operations:
+      - name: leaveaccountapimeaccountsaccountiddelete
+        method: DELETE
+        description: Leave Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-me-accounts-account_id-has_permission
+      path: /api/me/accounts/{account_id}/has_permission
+      operations:
+      - name: checkmyaccountpermissionsapimeaccountsaccountidhaspermissionget
+        method: GET
+        description: Check My Account Permissions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: permission
+          in: query
+          type: string
+          required: true
+    - name: api-me-accounts-account_id-permissions
+      path: /api/me/accounts/{account_id}/permissions
+      operations:
+      - name: readmyaccountpermissionsapimeaccountsaccountidpermissionsget
+        method: GET
+        description: Read My Account Permissions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-me-api_keys
+      path: /api/me/api_keys
+      operations:
+      - name: readmyapikeysapimeapikeysget
+        method: GET
+        description: Read My Api Keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: query
+          type: string
+    - name: api-me-api_keys-filter
+      path: /api/me/api_keys/filter
+      operations:
+      - name: filtermyapikeysapimeapikeysfilterpost
+        method: POST
+        description: Filter My Api Keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-me-organizations
+      path: /api/me/organizations
+      operations:
+      - name: readmyorganizationsapimeorganizationsget
+        method: GET
+        description: Read My Organizations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-me-profile-image
+      path: /api/me/profile-image
+      operations:
+      - name: uploadmyprofileimageapimeprofileimageput
+        method: PUT
+        description: Upload My Profile Image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletemyprofileimageapimeprofileimagedelete
+        method: DELETE
+        description: Delete My Profile Image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-me-profile-image-reset
+      path: /api/me/profile-image/reset
+      operations:
+      - name: resetmyprofileimageapimeprofileimageresetpost
+        method: POST
+        description: Reset My Profile Image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-me-sessions
+      path: /api/me/sessions
+      operations:
+      - name: readmysessionsapimesessionsget
+        method: GET
+        description: Read My Sessions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-me-sessions-filter
+      path: /api/me/sessions/filter
+      operations:
+      - name: filtermysessionsapimesessionsfilterpost
+        method: POST
+        description: Filter My Sessions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-me-sessions-session_id-terminate
+      path: /api/me/sessions/{session_id}/terminate
+      operations:
+      - name: terminatemysessionapimesessionssessionidterminatepost
+        method: POST
+        description: Terminate My Session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+    - name: api-me-workspaces
+      path: /api/me/workspaces
+      operations:
+      - name: readmyworkspacesapimeworkspacesget
+        method: GET
+        description: Read My Workspaces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-me-workspaces-workspace_id
+      path: /api/me/workspaces/{workspace_id}
+      operations:
+      - name: leaveworkspaceapimeworkspacesworkspaceiddelete
+        method: DELETE
+        description: Leave Workspace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+    - name: api-me-workspaces-workspace_id-has_scope
+      path: /api/me/workspaces/{workspace_id}/has_scope
+      operations:
+      - name: checkmyworkspacescopesapimeworkspacesworkspaceidhasscopeget
+        method: GET
+        description: Check My Workspace Scopes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: scope
+          in: query
+          type: string
+          required: true
+    - name: api-me-workspaces-workspace_id-scopes
+      path: /api/me/workspaces/{workspace_id}/scopes
+      operations:
+      - name: readmyworkspacescopesapimeworkspacesworkspaceidscopesget
+        method: GET
+        description: Read My Workspace Scopes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-me-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Me. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/me
+      name: api-me
+      description: REST surface for api-me.
+      operations:
+      - method: GET
+        name: readmyprofileapimeget
+        description: Read My Profile
+        call: prefect-me.readmyprofileapimeget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/accounts
+      name: api-me-accounts
+      description: REST surface for api-me-accounts.
+      operations:
+      - method: GET
+        name: readmyaccountsapimeaccountsget
+        description: Read My Accounts
+        call: prefect-me.readmyaccountsapimeaccountsget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/accounts/has-permission
+      name: api-me-accounts-has-permission
+      description: REST surface for api-me-accounts-has_permission.
+      operations:
+      - method: GET
+        name: readmyaccountswithpermissionapimeaccountshaspermissionget
+        description: Read My Accounts With Permission
+        call: prefect-me.readmyaccountswithpermissionapimeaccountshaspermissionget
+        with:
+          permission: rest.permission
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/accounts/{account-id}
+      name: api-me-accounts-account-id
+      description: REST surface for api-me-accounts-account_id.
+      operations:
+      - method: DELETE
+        name: leaveaccountapimeaccountsaccountiddelete
+        description: Leave Account
+        call: prefect-me.leaveaccountapimeaccountsaccountiddelete
+        with:
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/accounts/{account-id}/has-permission
+      name: api-me-accounts-account-id-has-permission
+      description: REST surface for api-me-accounts-account_id-has_permission.
+      operations:
+      - method: GET
+        name: checkmyaccountpermissionsapimeaccountsaccountidhaspermissionget
+        description: Check My Account Permissions
+        call: prefect-me.checkmyaccountpermissionsapimeaccountsaccountidhaspermissionget
+        with:
+          account_id: rest.account_id
+          permission: rest.permission
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/accounts/{account-id}/permissions
+      name: api-me-accounts-account-id-permissions
+      description: REST surface for api-me-accounts-account_id-permissions.
+      operations:
+      - method: GET
+        name: readmyaccountpermissionsapimeaccountsaccountidpermissionsget
+        description: Read My Account Permissions
+        call: prefect-me.readmyaccountpermissionsapimeaccountsaccountidpermissionsget
+        with:
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/api-keys
+      name: api-me-api-keys
+      description: REST surface for api-me-api_keys.
+      operations:
+      - method: GET
+        name: readmyapikeysapimeapikeysget
+        description: Read My Api Keys
+        call: prefect-me.readmyapikeysapimeapikeysget
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/api-keys/filter
+      name: api-me-api-keys-filter
+      description: REST surface for api-me-api_keys-filter.
+      operations:
+      - method: POST
+        name: filtermyapikeysapimeapikeysfilterpost
+        description: Filter My Api Keys
+        call: prefect-me.filtermyapikeysapimeapikeysfilterpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/organizations
+      name: api-me-organizations
+      description: REST surface for api-me-organizations.
+      operations:
+      - method: GET
+        name: readmyorganizationsapimeorganizationsget
+        description: Read My Organizations
+        call: prefect-me.readmyorganizationsapimeorganizationsget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/profile-image
+      name: api-me-profile-image
+      description: REST surface for api-me-profile-image.
+      operations:
+      - method: PUT
+        name: uploadmyprofileimageapimeprofileimageput
+        description: Upload My Profile Image
+        call: prefect-me.uploadmyprofileimageapimeprofileimageput
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletemyprofileimageapimeprofileimagedelete
+        description: Delete My Profile Image
+        call: prefect-me.deletemyprofileimageapimeprofileimagedelete
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/profile-image/reset
+      name: api-me-profile-image-reset
+      description: REST surface for api-me-profile-image-reset.
+      operations:
+      - method: POST
+        name: resetmyprofileimageapimeprofileimageresetpost
+        description: Reset My Profile Image
+        call: prefect-me.resetmyprofileimageapimeprofileimageresetpost
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/sessions
+      name: api-me-sessions
+      description: REST surface for api-me-sessions.
+      operations:
+      - method: GET
+        name: readmysessionsapimesessionsget
+        description: Read My Sessions
+        call: prefect-me.readmysessionsapimesessionsget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/sessions/filter
+      name: api-me-sessions-filter
+      description: REST surface for api-me-sessions-filter.
+      operations:
+      - method: POST
+        name: filtermysessionsapimesessionsfilterpost
+        description: Filter My Sessions
+        call: prefect-me.filtermysessionsapimesessionsfilterpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/sessions/{session-id}/terminate
+      name: api-me-sessions-session-id-terminate
+      description: REST surface for api-me-sessions-session_id-terminate.
+      operations:
+      - method: POST
+        name: terminatemysessionapimesessionssessionidterminatepost
+        description: Terminate My Session
+        call: prefect-me.terminatemysessionapimesessionssessionidterminatepost
+        with:
+          session_id: rest.session_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/workspaces
+      name: api-me-workspaces
+      description: REST surface for api-me-workspaces.
+      operations:
+      - method: GET
+        name: readmyworkspacesapimeworkspacesget
+        description: Read My Workspaces
+        call: prefect-me.readmyworkspacesapimeworkspacesget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/workspaces/{workspace-id}
+      name: api-me-workspaces-workspace-id
+      description: REST surface for api-me-workspaces-workspace_id.
+      operations:
+      - method: DELETE
+        name: leaveworkspaceapimeworkspacesworkspaceiddelete
+        description: Leave Workspace
+        call: prefect-me.leaveworkspaceapimeworkspacesworkspaceiddelete
+        with:
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/workspaces/{workspace-id}/has-scope
+      name: api-me-workspaces-workspace-id-has-scope
+      description: REST surface for api-me-workspaces-workspace_id-has_scope.
+      operations:
+      - method: GET
+        name: checkmyworkspacescopesapimeworkspacesworkspaceidhasscopeget
+        description: Check My Workspace Scopes
+        call: prefect-me.checkmyworkspacescopesapimeworkspacesworkspaceidhasscopeget
+        with:
+          workspace_id: rest.workspace_id
+          scope: rest.scope
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/me/workspaces/{workspace-id}/scopes
+      name: api-me-workspaces-workspace-id-scopes
+      description: REST surface for api-me-workspaces-workspace_id-scopes.
+      operations:
+      - method: GET
+        name: readmyworkspacescopesapimeworkspacesworkspaceidscopesget
+        description: Read My Workspace Scopes
+        call: prefect-me.readmyworkspacescopesapimeworkspacesworkspaceidscopesget
+        with:
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-me-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Me. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: read-my-profile
+      description: Read My Profile
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-me.readmyprofileapimeget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-my-accounts
+      description: Read My Accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-me.readmyaccountsapimeaccountsget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-my-accounts-permission
+      description: Read My Accounts With Permission
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-me.readmyaccountswithpermissionapimeaccountshaspermissionget
+      with:
+        permission: tools.permission
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: leave-account
+      description: Leave Account
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-me.leaveaccountapimeaccountsaccountiddelete
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-my-account-permissions
+      description: Check My Account Permissions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-me.checkmyaccountpermissionsapimeaccountsaccountidhaspermissionget
+      with:
+        account_id: tools.account_id
+        permission: tools.permission
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-my-account-permissions
+      description: Read My Account Permissions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-me.readmyaccountpermissionsapimeaccountsaccountidpermissionsget
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-my-api-keys
+      description: Read My Api Keys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-me.readmyapikeysapimeapikeysget
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: filter-my-api-keys
+      description: Filter My Api Keys
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-me.filtermyapikeysapimeapikeysfilterpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-my-organizations
+      description: Read My Organizations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-me.readmyorganizationsapimeorganizationsget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upload-my-profile-image
+      description: Upload My Profile Image
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-me.uploadmyprofileimageapimeprofileimageput
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-my-profile-image
+      description: Delete My Profile Image
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-me.deletemyprofileimageapimeprofileimagedelete
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: reset-my-profile-image
+      description: Reset My Profile Image
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-me.resetmyprofileimageapimeprofileimageresetpost
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-my-sessions
+      description: Read My Sessions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-me.readmysessionsapimesessionsget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: filter-my-sessions
+      description: Filter My Sessions
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-me.filtermysessionsapimesessionsfilterpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: terminate-my-session
+      description: Terminate My Session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-me.terminatemysessionapimesessionssessionidterminatepost
+      with:
+        session_id: tools.session_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-my-workspaces
+      description: Read My Workspaces
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-me.readmyworkspacesapimeworkspacesget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: leave-workspace
+      description: Leave Workspace
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-me.leaveworkspaceapimeworkspacesworkspaceiddelete
+      with:
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-my-workspace-scopes
+      description: Check My Workspace Scopes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-me.checkmyworkspacescopesapimeworkspacesworkspaceidhasscopeget
+      with:
+        workspace_id: tools.workspace_id
+        scope: tools.scope
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-my-workspace-scopes
+      description: Read My Workspace Scopes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-me.readmyworkspacescopesapimeworkspacesworkspaceidscopesget
+      with:
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.

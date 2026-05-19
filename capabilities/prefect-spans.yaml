@@ -1,0 +1,693 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Spans
+  description: 'Prefect Cloud API — Spans. 9 operations. Lead operation: Read Workspace Observed States. Self-contained Naftiko
+    capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Spans
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-spans
+    baseUri: ''
+    description: Prefect Cloud API — Spans business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-observed-states
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/observed-states
+      operations:
+      - name: readworkspaceobservedstatesapiaccountsaccountidworkspacesworkspaceidobservedstatesget
+        method: GET
+        description: Read Workspace Observed States
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: query
+          in: query
+          type: string
+          description: Prefix search query for state type or name
+        - name: order_by
+          in: query
+          type: string
+          description: Order results by name (alphabetically) or recency (most recently seen first)
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of results to return
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-spans-lookup-run_id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/spans/lookup/{run_id}
+      operations:
+      - name: lookupspanbyrunidapiaccountsaccountidworkspacesworkspaceidspanslookuprunidget
+        method: GET
+        description: Lookup Span By Run Id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: run_id
+          in: path
+          type: string
+          description: The run ID to lookup span information for
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-spans-span_id-observed-tags
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/spans/{span_id}/observed-tags
+      operations:
+      - name: readspanobservedtagsapiaccountsaccountidworkspacesworkspaceidspansspanidobservedtagsget
+        method: GET
+        description: Read Span Observed Tags
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: span_id
+          in: path
+          type: string
+          description: The span ID to query observed tags for
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: query
+          in: query
+          type: string
+          description: Prefix search query for tag names
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-traces-trace_id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}
+      operations:
+      - name: readspansapiaccountsaccountidworkspacesworkspaceidtracestraceidget
+        method: GET
+        description: Read Spans
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: trace_id
+          in: path
+          type: string
+          description: The trace ID to query spans for
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: parent_span_id
+          in: query
+          type: string
+          description: Filter by parent span ID (None = all spans)
+        - name: depth
+          in: query
+          type: string
+          description: Filter by depth level (None = all depths)
+        - name: entities
+          in: query
+          type: string
+          description: Filter by entity types (e.g., 'flow-run', 'task-run', 'artifact')
+        - name: state_types
+          in: query
+          type: string
+          description: Filter by state types (e.g., 'COMPLETED', 'RUNNING', 'FAILED')
+        - name: state_names
+          in: query
+          type: string
+          description: Filter by state names (e.g., 'Completed', 'Running', 'Failed')
+        - name: tags
+          in: query
+          type: string
+          description: Filter by tags (OR logic - span matches if it has ANY of the specified tags)
+        - name: query
+          in: query
+          type: string
+          description: Text search query across span content (space=OR, -/!=NOT, quotes=phrases)
+        - name: limit
+          in: query
+          type: integer
+          description: Number of results to return
+        - name: cursor
+          in: query
+          type: string
+          description: Pagination cursor from previous response
+        - name: direction
+          in: query
+          type: string
+          description: Pagination direction
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-traces-trace_id-context-span_id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}/context/{span_id}
+      operations:
+      - name: readspancontextapiaccountsaccountidworkspacesworkspaceidtracestraceidcontextspanidget
+        method: GET
+        description: Read Span Context
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: trace_id
+          in: path
+          type: string
+          description: The trace containing the span
+          required: true
+        - name: span_id
+          in: path
+          type: string
+          description: The target span to get context for
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: context_size
+          in: query
+          type: integer
+          description: Number of siblings before/after to include
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-traces-trace_id-observed-states
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}/observed-states
+      operations:
+      - name: readtraceobservedstatesapiaccountsaccountidworkspacesworkspaceidtracestraceidobservedstatesget
+        method: GET
+        description: Read Trace Observed States
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: trace_id
+          in: path
+          type: string
+          description: The trace ID to query observed states for
+          required: true
+        - name: query
+          in: query
+          type: string
+          description: Prefix search query for state type or name
+        - name: order_by
+          in: query
+          type: string
+          description: Order results by name (alphabetically) or recency (most recently seen first)
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of results to return
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-traces-trace_id-observed-tags
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}/observed-tags
+      operations:
+      - name: readtraceobservedtagsapiaccountsaccountidworkspacesworkspaceidtracestraceidobservedtagsget
+        method: GET
+        description: Read Trace Observed Tags
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: trace_id
+          in: path
+          type: string
+          description: The trace ID to query observed tags for
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: query
+          in: query
+          type: string
+          description: Prefix search query for tag names
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-traces-trace_id-spans
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}/spans
+      operations:
+      - name: readspansbyidsapiaccountsaccountidworkspacesworkspaceidtracestraceidspansget
+        method: GET
+        description: Read Spans By Ids
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: trace_id
+          in: path
+          type: string
+          description: The trace containing the spans
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: ids
+          in: query
+          type: array
+          description: List of span IDs to retrieve. Only returns spans that exist and belong to the specified trace.
+        - name: x-prefect-api-version
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-traces-trace_id-spans-span_id
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}/spans/{span_id}
+      operations:
+      - name: readsinglespanapiaccountsaccountidworkspacesworkspaceidtracestraceidspansspanidget
+        method: GET
+        description: Read Single Span
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: trace_id
+          in: path
+          type: string
+          description: The trace containing the span
+          required: true
+        - name: span_id
+          in: path
+          type: string
+          description: The span ID to retrieve
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+  exposes:
+  - type: rest
+    namespace: prefect-spans-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Spans. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/observed-states
+      name: api-accounts-account-id-workspaces-workspace-id-observed-states
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-observed-states.
+      operations:
+      - method: GET
+        name: readworkspaceobservedstatesapiaccountsaccountidworkspacesworkspaceidobservedstatesget
+        description: Read Workspace Observed States
+        call: prefect-spans.readworkspaceobservedstatesapiaccountsaccountidworkspacesworkspaceidobservedstatesget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          query: rest.query
+          order_by: rest.order_by
+          limit: rest.limit
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/spans/lookup/{run-id}
+      name: api-accounts-account-id-workspaces-workspace-id-spans-lookup-run-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-spans-lookup-run_id.
+      operations:
+      - method: GET
+        name: lookupspanbyrunidapiaccountsaccountidworkspacesworkspaceidspanslookuprunidget
+        description: Lookup Span By Run Id
+        call: prefect-spans.lookupspanbyrunidapiaccountsaccountidworkspacesworkspaceidspanslookuprunidget
+        with:
+          workspace_id: rest.workspace_id
+          run_id: rest.run_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/spans/{span-id}/observed-tags
+      name: api-accounts-account-id-workspaces-workspace-id-spans-span-id-observed-tags
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-spans-span_id-observed-tags.
+      operations:
+      - method: GET
+        name: readspanobservedtagsapiaccountsaccountidworkspacesworkspaceidspansspanidobservedtagsget
+        description: Read Span Observed Tags
+        call: prefect-spans.readspanobservedtagsapiaccountsaccountidworkspacesworkspaceidspansspanidobservedtagsget
+        with:
+          workspace_id: rest.workspace_id
+          span_id: rest.span_id
+          account_id: rest.account_id
+          query: rest.query
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/traces/{trace-id}
+      name: api-accounts-account-id-workspaces-workspace-id-traces-trace-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-traces-trace_id.
+      operations:
+      - method: GET
+        name: readspansapiaccountsaccountidworkspacesworkspaceidtracestraceidget
+        description: Read Spans
+        call: prefect-spans.readspansapiaccountsaccountidworkspacesworkspaceidtracestraceidget
+        with:
+          workspace_id: rest.workspace_id
+          trace_id: rest.trace_id
+          account_id: rest.account_id
+          parent_span_id: rest.parent_span_id
+          depth: rest.depth
+          entities: rest.entities
+          state_types: rest.state_types
+          state_names: rest.state_names
+          tags: rest.tags
+          query: rest.query
+          limit: rest.limit
+          cursor: rest.cursor
+          direction: rest.direction
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/traces/{trace-id}/context/{span-id}
+      name: api-accounts-account-id-workspaces-workspace-id-traces-trace-id-context-span-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-traces-trace_id-context-span_id.
+      operations:
+      - method: GET
+        name: readspancontextapiaccountsaccountidworkspacesworkspaceidtracestraceidcontextspanidget
+        description: Read Span Context
+        call: prefect-spans.readspancontextapiaccountsaccountidworkspacesworkspaceidtracestraceidcontextspanidget
+        with:
+          workspace_id: rest.workspace_id
+          trace_id: rest.trace_id
+          span_id: rest.span_id
+          account_id: rest.account_id
+          context_size: rest.context_size
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/traces/{trace-id}/observed-states
+      name: api-accounts-account-id-workspaces-workspace-id-traces-trace-id-observed-states
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-traces-trace_id-observed-states.
+      operations:
+      - method: GET
+        name: readtraceobservedstatesapiaccountsaccountidworkspacesworkspaceidtracestraceidobservedstatesget
+        description: Read Trace Observed States
+        call: prefect-spans.readtraceobservedstatesapiaccountsaccountidworkspacesworkspaceidtracestraceidobservedstatesget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          trace_id: rest.trace_id
+          query: rest.query
+          order_by: rest.order_by
+          limit: rest.limit
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/traces/{trace-id}/observed-tags
+      name: api-accounts-account-id-workspaces-workspace-id-traces-trace-id-observed-tags
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-traces-trace_id-observed-tags.
+      operations:
+      - method: GET
+        name: readtraceobservedtagsapiaccountsaccountidworkspacesworkspaceidtracestraceidobservedtagsget
+        description: Read Trace Observed Tags
+        call: prefect-spans.readtraceobservedtagsapiaccountsaccountidworkspacesworkspaceidtracestraceidobservedtagsget
+        with:
+          workspace_id: rest.workspace_id
+          trace_id: rest.trace_id
+          account_id: rest.account_id
+          query: rest.query
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/traces/{trace-id}/spans
+      name: api-accounts-account-id-workspaces-workspace-id-traces-trace-id-spans
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-traces-trace_id-spans.
+      operations:
+      - method: GET
+        name: readspansbyidsapiaccountsaccountidworkspacesworkspaceidtracestraceidspansget
+        description: Read Spans By Ids
+        call: prefect-spans.readspansbyidsapiaccountsaccountidworkspacesworkspaceidtracestraceidspansget
+        with:
+          workspace_id: rest.workspace_id
+          trace_id: rest.trace_id
+          account_id: rest.account_id
+          ids: rest.ids
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/traces/{trace-id}/spans/{span-id}
+      name: api-accounts-account-id-workspaces-workspace-id-traces-trace-id-spans-span-id
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-traces-trace_id-spans-span_id.
+      operations:
+      - method: GET
+        name: readsinglespanapiaccountsaccountidworkspacesworkspaceidtracestraceidspansspanidget
+        description: Read Single Span
+        call: prefect-spans.readsinglespanapiaccountsaccountidworkspacesworkspaceidtracestraceidspansspanidget
+        with:
+          workspace_id: rest.workspace_id
+          trace_id: rest.trace_id
+          span_id: rest.span_id
+          account_id: rest.account_id
+          x-prefect-api-version: rest.x-prefect-api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-spans-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Spans. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: read-workspace-observed-states
+      description: Read Workspace Observed States
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-spans.readworkspaceobservedstatesapiaccountsaccountidworkspacesworkspaceidobservedstatesget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        query: tools.query
+        order_by: tools.order_by
+        limit: tools.limit
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lookup-span-run-id
+      description: Lookup Span By Run Id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-spans.lookupspanbyrunidapiaccountsaccountidworkspacesworkspaceidspanslookuprunidget
+      with:
+        workspace_id: tools.workspace_id
+        run_id: tools.run_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-span-observed-tags
+      description: Read Span Observed Tags
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-spans.readspanobservedtagsapiaccountsaccountidworkspacesworkspaceidspansspanidobservedtagsget
+      with:
+        workspace_id: tools.workspace_id
+        span_id: tools.span_id
+        account_id: tools.account_id
+        query: tools.query
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-spans
+      description: Read Spans
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-spans.readspansapiaccountsaccountidworkspacesworkspaceidtracestraceidget
+      with:
+        workspace_id: tools.workspace_id
+        trace_id: tools.trace_id
+        account_id: tools.account_id
+        parent_span_id: tools.parent_span_id
+        depth: tools.depth
+        entities: tools.entities
+        state_types: tools.state_types
+        state_names: tools.state_names
+        tags: tools.tags
+        query: tools.query
+        limit: tools.limit
+        cursor: tools.cursor
+        direction: tools.direction
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-span-context
+      description: Read Span Context
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-spans.readspancontextapiaccountsaccountidworkspacesworkspaceidtracestraceidcontextspanidget
+      with:
+        workspace_id: tools.workspace_id
+        trace_id: tools.trace_id
+        span_id: tools.span_id
+        account_id: tools.account_id
+        context_size: tools.context_size
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-trace-observed-states
+      description: Read Trace Observed States
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-spans.readtraceobservedstatesapiaccountsaccountidworkspacesworkspaceidtracestraceidobservedstatesget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        trace_id: tools.trace_id
+        query: tools.query
+        order_by: tools.order_by
+        limit: tools.limit
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-trace-observed-tags
+      description: Read Trace Observed Tags
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-spans.readtraceobservedtagsapiaccountsaccountidworkspacesworkspaceidtracestraceidobservedtagsget
+      with:
+        workspace_id: tools.workspace_id
+        trace_id: tools.trace_id
+        account_id: tools.account_id
+        query: tools.query
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-spans-ids
+      description: Read Spans By Ids
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-spans.readspansbyidsapiaccountsaccountidworkspacesworkspaceidtracestraceidspansget
+      with:
+        workspace_id: tools.workspace_id
+        trace_id: tools.trace_id
+        account_id: tools.account_id
+        ids: tools.ids
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-single-span
+      description: Read Single Span
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-spans.readsinglespanapiaccountsaccountidworkspacesworkspaceidtracestraceidspansspanidget
+      with:
+        workspace_id: tools.workspace_id
+        trace_id: tools.trace_id
+        span_id: tools.span_id
+        account_id: tools.account_id
+        x-prefect-api-version: tools.x-prefect-api-version
+      outputParameters:
+      - type: object
+        mapping: $.

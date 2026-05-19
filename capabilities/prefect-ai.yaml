@@ -1,0 +1,88 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — AI
+  description: 'Prefect Cloud API — AI. 1 operations. Lead operation: Summarize Flow Run Logs. Self-contained Naftiko capability
+    covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - AI
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-ai
+    baseUri: ''
+    description: Prefect Cloud API — AI business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-logs-ai-flow_run_logs-flow_run_i
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/logs/ai/flow_run_logs/{flow_run_id}
+      operations:
+      - name: summarizeflowrunlogsapiaccountsaccountidworkspacesworkspaceidlogsaiflowrunlogsflowrunidget
+        method: GET
+        description: Summarize Flow Run Logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: flow_run_id
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-ai-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — AI. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/logs/ai/flow-run-logs/{flow-run-id}
+      name: api-accounts-account-id-workspaces-workspace-id-logs-ai-flow-run-logs-flow-run-i
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-logs-ai-flow_run_logs-flow_run_i.
+      operations:
+      - method: GET
+        name: summarizeflowrunlogsapiaccountsaccountidworkspacesworkspaceidlogsaiflowrunlogsflowrunidget
+        description: Summarize Flow Run Logs
+        call: prefect-ai.summarizeflowrunlogsapiaccountsaccountidworkspacesworkspaceidlogsaiflowrunlogsflowrunidget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          flow_run_id: rest.flow_run_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-ai-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — AI. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: summarize-flow-run-logs
+      description: Summarize Flow Run Logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-ai.summarizeflowrunlogsapiaccountsaccountidworkspacesworkspaceidlogsaiflowrunlogsflowrunidget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        flow_run_id: tools.flow_run_id
+      outputParameters:
+      - type: object
+        mapping: $.

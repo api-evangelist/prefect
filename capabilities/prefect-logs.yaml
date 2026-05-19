@@ -1,0 +1,518 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Logs
+  description: 'Prefect Cloud API — Logs. 7 operations. Lead operation: Download Flow Run Logs. Self-contained Naftiko capability
+    covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Logs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-logs
+    baseUri: ''
+    description: Prefect Cloud API — Logs business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-flow_runs-id-download-logs-csv
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/flow_runs/{id}/download-logs-csv
+      operations:
+      - name: downloadflowrunlogsapiaccountsaccountidworkspacesworkspaceidflowrunsiddownloadlogscsvget
+        method: GET
+        description: Download Flow Run Logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The flow run id
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-flow_runs-id-logs
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/flow_runs/{id}/logs
+      operations:
+      - name: getflowrunlogsapiaccountsaccountidworkspacesworkspaceidflowrunsidlogsget
+        method: GET
+        description: Get Flow Run Logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: level_ge
+          in: query
+          type: string
+        - name: level_le
+          in: query
+          type: string
+        - name: offset
+          in: query
+          type: integer
+        - name: sort
+          in: query
+          type: string
+        - name: since
+          in: query
+          type: string
+          description: Only include logs with a timestamp at or after this time
+        - name: until
+          in: query
+          type: string
+          description: Only include logs with a timestamp at or before this time
+        - name: task_runs
+          in: query
+          type: string
+          description: Comma-separated list of task run IDs to filter by
+        - name: task_runs_is_null
+          in: query
+          type: string
+          description: If true, only include logs without a task run ID
+        - name: loggers
+          in: query
+          type: string
+          description: Comma-separated list of logger names to filter by
+        - name: text_query
+          in: query
+          type: string
+          description: Text search query string
+        - name: limit
+          in: query
+          type: integer
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+        - name: if-none-match
+          in: header
+          type: string
+    - name: api-accounts-account_id-workspaces-workspace_id-flow_runs-id-logs-download
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/flow_runs/{id}/logs/download
+      operations:
+      - name: downloadflowrunlogsapiaccountsaccountidworkspacesworkspaceidflowrunsidlogsdownloadget
+        method: GET
+        description: Download Flow Run Logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The flow run id
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-logs
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/logs/
+      operations:
+      - name: createlogsapiaccountsaccountidworkspacesworkspaceidlogspost
+        method: POST
+        description: Create Logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-logs-filter
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/logs/filter
+      operations:
+      - name: readlogsapiaccountsaccountidworkspacesworkspaceidlogsfilterpost
+        method: POST
+        description: Read Logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-workspaces-workspace_id-observed-loggers
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/observed-loggers
+      operations:
+      - name: readworkspaceobservedloggersapiaccountsaccountidworkspacesworkspaceidobservedloggersget
+        method: GET
+        description: Read Workspace Observed Loggers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: query
+          in: query
+          type: string
+          description: Prefix search query for logger names
+        - name: order_by
+          in: query
+          type: string
+          description: Order results by name (alphabetically) or recency (most recently seen first)
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of results to return
+    - name: api-accounts-account_id-workspaces-workspace_id-traces-trace_id-observed-loggers
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}/observed-loggers
+      operations:
+      - name: readtraceobservedloggersapiaccountsaccountidworkspacesworkspaceidtracestraceidobservedloggersget
+        method: GET
+        description: Read Trace Observed Loggers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: trace_id
+          in: path
+          type: string
+          description: The trace ID to query observed loggers for
+          required: true
+        - name: query
+          in: query
+          type: string
+          description: Prefix search query for logger names
+        - name: order_by
+          in: query
+          type: string
+          description: Order results by name (alphabetically) or recency (most recently seen first)
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of results to return
+  exposes:
+  - type: rest
+    namespace: prefect-logs-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Logs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/flow-runs/{id}/download-logs-csv
+      name: api-accounts-account-id-workspaces-workspace-id-flow-runs-id-download-logs-csv
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-flow_runs-id-download-logs-csv.
+      operations:
+      - method: GET
+        name: downloadflowrunlogsapiaccountsaccountidworkspacesworkspaceidflowrunsiddownloadlogscsvget
+        description: Download Flow Run Logs
+        call: prefect-logs.downloadflowrunlogsapiaccountsaccountidworkspacesworkspaceidflowrunsiddownloadlogscsvget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/flow-runs/{id}/logs
+      name: api-accounts-account-id-workspaces-workspace-id-flow-runs-id-logs
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-flow_runs-id-logs.
+      operations:
+      - method: GET
+        name: getflowrunlogsapiaccountsaccountidworkspacesworkspaceidflowrunsidlogsget
+        description: Get Flow Run Logs
+        call: prefect-logs.getflowrunlogsapiaccountsaccountidworkspacesworkspaceidflowrunsidlogsget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          id: rest.id
+          level_ge: rest.level_ge
+          level_le: rest.level_le
+          offset: rest.offset
+          sort: rest.sort
+          since: rest.since
+          until: rest.until
+          task_runs: rest.task_runs
+          task_runs_is_null: rest.task_runs_is_null
+          loggers: rest.loggers
+          text_query: rest.text_query
+          limit: rest.limit
+          if-none-match: rest.if-none-match
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/flow-runs/{id}/logs/download
+      name: api-accounts-account-id-workspaces-workspace-id-flow-runs-id-logs-download
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-flow_runs-id-logs-download.
+      operations:
+      - method: GET
+        name: downloadflowrunlogsapiaccountsaccountidworkspacesworkspaceidflowrunsidlogsdownloadget
+        description: Download Flow Run Logs
+        call: prefect-logs.downloadflowrunlogsapiaccountsaccountidworkspacesworkspaceidflowrunsidlogsdownloadget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/logs
+      name: api-accounts-account-id-workspaces-workspace-id-logs
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-logs.
+      operations:
+      - method: POST
+        name: createlogsapiaccountsaccountidworkspacesworkspaceidlogspost
+        description: Create Logs
+        call: prefect-logs.createlogsapiaccountsaccountidworkspacesworkspaceidlogspost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/logs/filter
+      name: api-accounts-account-id-workspaces-workspace-id-logs-filter
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-logs-filter.
+      operations:
+      - method: POST
+        name: readlogsapiaccountsaccountidworkspacesworkspaceidlogsfilterpost
+        description: Read Logs
+        call: prefect-logs.readlogsapiaccountsaccountidworkspacesworkspaceidlogsfilterpost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/observed-loggers
+      name: api-accounts-account-id-workspaces-workspace-id-observed-loggers
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-observed-loggers.
+      operations:
+      - method: GET
+        name: readworkspaceobservedloggersapiaccountsaccountidworkspacesworkspaceidobservedloggersget
+        description: Read Workspace Observed Loggers
+        call: prefect-logs.readworkspaceobservedloggersapiaccountsaccountidworkspacesworkspaceidobservedloggersget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          query: rest.query
+          order_by: rest.order_by
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/traces/{trace-id}/observed-loggers
+      name: api-accounts-account-id-workspaces-workspace-id-traces-trace-id-observed-loggers
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-traces-trace_id-observed-loggers.
+      operations:
+      - method: GET
+        name: readtraceobservedloggersapiaccountsaccountidworkspacesworkspaceidtracestraceidobservedloggersget
+        description: Read Trace Observed Loggers
+        call: prefect-logs.readtraceobservedloggersapiaccountsaccountidworkspacesworkspaceidtracestraceidobservedloggersget
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          trace_id: rest.trace_id
+          query: rest.query
+          order_by: rest.order_by
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-logs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Logs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: download-flow-run-logs
+      description: Download Flow Run Logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-logs.downloadflowrunlogsapiaccountsaccountidworkspacesworkspaceidflowrunsiddownloadlogscsvget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-flow-run-logs
+      description: Get Flow Run Logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-logs.getflowrunlogsapiaccountsaccountidworkspacesworkspaceidflowrunsidlogsget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        id: tools.id
+        level_ge: tools.level_ge
+        level_le: tools.level_le
+        offset: tools.offset
+        sort: tools.sort
+        since: tools.since
+        until: tools.until
+        task_runs: tools.task_runs
+        task_runs_is_null: tools.task_runs_is_null
+        loggers: tools.loggers
+        text_query: tools.text_query
+        limit: tools.limit
+        if-none-match: tools.if-none-match
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: download-flow-run-logs-2
+      description: Download Flow Run Logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-logs.downloadflowrunlogsapiaccountsaccountidworkspacesworkspaceidflowrunsidlogsdownloadget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-logs
+      description: Create Logs
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-logs.createlogsapiaccountsaccountidworkspacesworkspaceidlogspost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-logs
+      description: Read Logs
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-logs.readlogsapiaccountsaccountidworkspacesworkspaceidlogsfilterpost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-workspace-observed-loggers
+      description: Read Workspace Observed Loggers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-logs.readworkspaceobservedloggersapiaccountsaccountidworkspacesworkspaceidobservedloggersget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        query: tools.query
+        order_by: tools.order_by
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-trace-observed-loggers
+      description: Read Trace Observed Loggers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-logs.readtraceobservedloggersapiaccountsaccountidworkspacesworkspaceidtracestraceidobservedloggersget
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        trace_id: tools.trace_id
+        query: tools.query
+        order_by: tools.order_by
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.

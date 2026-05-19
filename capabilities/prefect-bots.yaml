@@ -1,0 +1,419 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Bots
+  description: 'Prefect Cloud API — Bots. 8 operations. Lead operation: Create Bot. Self-contained Naftiko capability covering
+    one Prefect business surface.'
+  tags:
+  - Prefect
+  - Bots
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-bots
+    baseUri: ''
+    description: Prefect Cloud API — Bots business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-bots
+      path: /api/accounts/{account_id}/bots/
+      operations:
+      - name: createbotapiaccountsaccountidbotspost
+        method: POST
+        description: Create Bot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-bots-filter
+      path: /api/accounts/{account_id}/bots/filter
+      operations:
+      - name: readbotsapiaccountsaccountidbotsfilterpost
+        method: POST
+        description: Read Bots
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-accounts-account_id-bots-id
+      path: /api/accounts/{account_id}/bots/{id}
+      operations:
+      - name: readbotapiaccountsaccountidbotsidget
+        method: GET
+        description: Read Bot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+      - name: updatebotapiaccountsaccountidbotsidpatch
+        method: PATCH
+        description: Update Bot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletebotapiaccountsaccountidbotsiddelete
+        method: DELETE
+        description: Delete Bot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-bots-id-delete_bot_api_key-api_key_id
+      path: /api/accounts/{account_id}/bots/{id}/delete_bot_api_key/{api_key_id}
+      operations:
+      - name: deletebotapikeyapiaccountsaccountidbotsiddeletebotapikeyapikeyiddelete
+        method: DELETE
+        description: Delete Bot Api Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: api_key_id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-bots-id-read_bot_api_keys
+      path: /api/accounts/{account_id}/bots/{id}/read_bot_api_keys
+      operations:
+      - name: readbotapikeysapiaccountsaccountidbotsidreadbotapikeysget
+        method: GET
+        description: Read Bot Api Keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-bots-id-rotate_api_key
+      path: /api/accounts/{account_id}/bots/{id}/rotate_api_key
+      operations:
+      - name: rotateapikeyapiaccountsaccountidbotsidrotateapikeypost
+        method: POST
+        description: Rotate Api Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: prefect-bots-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Bots. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/bots
+      name: api-accounts-account-id-bots
+      description: REST surface for api-accounts-account_id-bots.
+      operations:
+      - method: POST
+        name: createbotapiaccountsaccountidbotspost
+        description: Create Bot
+        call: prefect-bots.createbotapiaccountsaccountidbotspost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/bots/filter
+      name: api-accounts-account-id-bots-filter
+      description: REST surface for api-accounts-account_id-bots-filter.
+      operations:
+      - method: POST
+        name: readbotsapiaccountsaccountidbotsfilterpost
+        description: Read Bots
+        call: prefect-bots.readbotsapiaccountsaccountidbotsfilterpost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/bots/{id}
+      name: api-accounts-account-id-bots-id
+      description: REST surface for api-accounts-account_id-bots-id.
+      operations:
+      - method: GET
+        name: readbotapiaccountsaccountidbotsidget
+        description: Read Bot
+        call: prefect-bots.readbotapiaccountsaccountidbotsidget
+        with:
+          id: rest.id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatebotapiaccountsaccountidbotsidpatch
+        description: Update Bot
+        call: prefect-bots.updatebotapiaccountsaccountidbotsidpatch
+        with:
+          id: rest.id
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletebotapiaccountsaccountidbotsiddelete
+        description: Delete Bot
+        call: prefect-bots.deletebotapiaccountsaccountidbotsiddelete
+        with:
+          id: rest.id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/bots/{id}/delete-bot-api-key/{api-key-id}
+      name: api-accounts-account-id-bots-id-delete-bot-api-key-api-key-id
+      description: REST surface for api-accounts-account_id-bots-id-delete_bot_api_key-api_key_id.
+      operations:
+      - method: DELETE
+        name: deletebotapikeyapiaccountsaccountidbotsiddeletebotapikeyapikeyiddelete
+        description: Delete Bot Api Key
+        call: prefect-bots.deletebotapikeyapiaccountsaccountidbotsiddeletebotapikeyapikeyiddelete
+        with:
+          id: rest.id
+          api_key_id: rest.api_key_id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/bots/{id}/read-bot-api-keys
+      name: api-accounts-account-id-bots-id-read-bot-api-keys
+      description: REST surface for api-accounts-account_id-bots-id-read_bot_api_keys.
+      operations:
+      - method: GET
+        name: readbotapikeysapiaccountsaccountidbotsidreadbotapikeysget
+        description: Read Bot Api Keys
+        call: prefect-bots.readbotapikeysapiaccountsaccountidbotsidreadbotapikeysget
+        with:
+          id: rest.id
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/bots/{id}/rotate-api-key
+      name: api-accounts-account-id-bots-id-rotate-api-key
+      description: REST surface for api-accounts-account_id-bots-id-rotate_api_key.
+      operations:
+      - method: POST
+        name: rotateapikeyapiaccountsaccountidbotsidrotateapikeypost
+        description: Rotate Api Key
+        call: prefect-bots.rotateapikeyapiaccountsaccountidbotsidrotateapikeypost
+        with:
+          id: rest.id
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-bots-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Bots. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-bot
+      description: Create Bot
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-bots.createbotapiaccountsaccountidbotspost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-bots
+      description: Read Bots
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-bots.readbotsapiaccountsaccountidbotsfilterpost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-bot
+      description: Read Bot
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-bots.readbotapiaccountsaccountidbotsidget
+      with:
+        id: tools.id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-bot
+      description: Update Bot
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: prefect-bots.updatebotapiaccountsaccountidbotsidpatch
+      with:
+        id: tools.id
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-bot
+      description: Delete Bot
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-bots.deletebotapiaccountsaccountidbotsiddelete
+      with:
+        id: tools.id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-bot-api-key
+      description: Delete Bot Api Key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-bots.deletebotapikeyapiaccountsaccountidbotsiddeletebotapikeyapikeyiddelete
+      with:
+        id: tools.id
+        api_key_id: tools.api_key_id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-bot-api-keys
+      description: Read Bot Api Keys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-bots.readbotapikeysapiaccountsaccountidbotsidreadbotapikeysget
+      with:
+        id: tools.id
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: rotate-api-key
+      description: Rotate Api Key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-bots.rotateapikeyapiaccountsaccountidbotsidrotateapikeypost
+      with:
+        id: tools.id
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

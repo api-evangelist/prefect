@@ -1,0 +1,153 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Schemas
+  description: 'Prefect Cloud API — Schemas. 2 operations. Lead operation: Validate Obj. Self-contained Naftiko capability
+    covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Schemas
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-schemas
+    baseUri: ''
+    description: Prefect Cloud API — Schemas business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-schemas-validate
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/schemas/validate
+      operations:
+      - name: validateobjapiaccountsaccountidworkspacesworkspaceiduischemasvalidatepost
+        method: POST
+        description: Validate Obj
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-accounts-account_id-workspaces-workspace_id-ui-schemas-validate_schema
+      path: /api/accounts/{account_id}/workspaces/{workspace_id}/ui/schemas/validate_schema
+      operations:
+      - name: validateschemaapiaccountsaccountidworkspacesworkspaceiduischemasvalidateschemapost
+        method: POST
+        description: Validate Schema
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: x-prefect-api-version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-schemas-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Schemas. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/schemas/validate
+      name: api-accounts-account-id-workspaces-workspace-id-ui-schemas-validate
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-schemas-validate.
+      operations:
+      - method: POST
+        name: validateobjapiaccountsaccountidworkspacesworkspaceiduischemasvalidatepost
+        description: Validate Obj
+        call: prefect-schemas.validateobjapiaccountsaccountidworkspacesworkspaceiduischemasvalidatepost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/workspaces/{workspace-id}/ui/schemas/validate-schema
+      name: api-accounts-account-id-workspaces-workspace-id-ui-schemas-validate-schema
+      description: REST surface for api-accounts-account_id-workspaces-workspace_id-ui-schemas-validate_schema.
+      operations:
+      - method: POST
+        name: validateschemaapiaccountsaccountidworkspacesworkspaceiduischemasvalidateschemapost
+        description: Validate Schema
+        call: prefect-schemas.validateschemaapiaccountsaccountidworkspacesworkspaceiduischemasvalidateschemapost
+        with:
+          account_id: rest.account_id
+          workspace_id: rest.workspace_id
+          x-prefect-api-version: rest.x-prefect-api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-schemas-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Schemas. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: validate-obj
+      description: Validate Obj
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: prefect-schemas.validateobjapiaccountsaccountidworkspacesworkspaceiduischemasvalidatepost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: validate-schema
+      description: Validate Schema
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: prefect-schemas.validateschemaapiaccountsaccountidworkspacesworkspaceiduischemasvalidateschemapost
+      with:
+        account_id: tools.account_id
+        workspace_id: tools.workspace_id
+        x-prefect-api-version: tools.x-prefect-api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

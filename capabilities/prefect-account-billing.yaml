@@ -1,0 +1,398 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Account Billing
+  description: 'Prefect Cloud API — Account Billing. 8 operations. Lead operation: Cancel Org Subscription At Period End.
+    Self-contained Naftiko capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Account Billing
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-account-billing
+    baseUri: ''
+    description: Prefect Cloud API — Account Billing business capability. Self-contained, no shared references.
+    resources:
+    - name: api-billing-account_id-cancel_org_subscription
+      path: /api/billing/{account_id}/cancel_org_subscription
+      operations:
+      - name: cancelorgsubscriptionatperiodendapibillingaccountidcancelorgsubscriptionpost
+        method: POST
+        description: Cancel Org Subscription At Period End
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-billing-account_id-create_billing_portal_session
+      path: /api/billing/{account_id}/create_billing_portal_session
+      operations:
+      - name: createbillingportalsessionapibillingaccountidcreatebillingportalsessionpost
+        method: POST
+        description: Create Billing Portal Session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-billing-account_id-details
+      path: /api/billing/{account_id}/details
+      operations:
+      - name: getbillingdetailsapibillingaccountiddetailsget
+        method: GET
+        description: Get Billing Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-billing-account_id-manage_subscription
+      path: /api/billing/{account_id}/manage_subscription
+      operations:
+      - name: managesubscriptionapibillingaccountidmanagesubscriptionpost
+        method: POST
+        description: Manage Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-billing-account_id-subscribe
+      path: /api/billing/{account_id}/subscribe
+      operations:
+      - name: getcheckoutlinkapibillingaccountidsubscribepost
+        method: POST
+        description: Get Checkout Link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-billing-account_id-subscription_restrictions
+      path: /api/billing/{account_id}/subscription_restrictions
+      operations:
+      - name: getsubscriptionrestrictionsapibillingaccountidsubscriptionrestrictionsget
+        method: GET
+        description: Get Subscription Restrictions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-billing-account_id-update_slots
+      path: /api/billing/{account_id}/update_slots
+      operations:
+      - name: updateslotsapibillingaccountidupdateslotspost
+        method: POST
+        description: Update Slots
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-billing-account_id-validate_subscription_status
+      path: /api/billing/{account_id}/validate_subscription_status
+      operations:
+      - name: validatesubscriptionstatusapibillingaccountidvalidatesubscriptionstatuspost
+        method: POST
+        description: Validate Subscription Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: prefect-account-billing-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Account Billing. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/billing/{account-id}/cancel-org-subscription
+      name: api-billing-account-id-cancel-org-subscription
+      description: REST surface for api-billing-account_id-cancel_org_subscription.
+      operations:
+      - method: POST
+        name: cancelorgsubscriptionatperiodendapibillingaccountidcancelorgsubscriptionpost
+        description: Cancel Org Subscription At Period End
+        call: prefect-account-billing.cancelorgsubscriptionatperiodendapibillingaccountidcancelorgsubscriptionpost
+        with:
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/billing/{account-id}/create-billing-portal-session
+      name: api-billing-account-id-create-billing-portal-session
+      description: REST surface for api-billing-account_id-create_billing_portal_session.
+      operations:
+      - method: POST
+        name: createbillingportalsessionapibillingaccountidcreatebillingportalsessionpost
+        description: Create Billing Portal Session
+        call: prefect-account-billing.createbillingportalsessionapibillingaccountidcreatebillingportalsessionpost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/billing/{account-id}/details
+      name: api-billing-account-id-details
+      description: REST surface for api-billing-account_id-details.
+      operations:
+      - method: GET
+        name: getbillingdetailsapibillingaccountiddetailsget
+        description: Get Billing Details
+        call: prefect-account-billing.getbillingdetailsapibillingaccountiddetailsget
+        with:
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/billing/{account-id}/manage-subscription
+      name: api-billing-account-id-manage-subscription
+      description: REST surface for api-billing-account_id-manage_subscription.
+      operations:
+      - method: POST
+        name: managesubscriptionapibillingaccountidmanagesubscriptionpost
+        description: Manage Subscription
+        call: prefect-account-billing.managesubscriptionapibillingaccountidmanagesubscriptionpost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/billing/{account-id}/subscribe
+      name: api-billing-account-id-subscribe
+      description: REST surface for api-billing-account_id-subscribe.
+      operations:
+      - method: POST
+        name: getcheckoutlinkapibillingaccountidsubscribepost
+        description: Get Checkout Link
+        call: prefect-account-billing.getcheckoutlinkapibillingaccountidsubscribepost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/billing/{account-id}/subscription-restrictions
+      name: api-billing-account-id-subscription-restrictions
+      description: REST surface for api-billing-account_id-subscription_restrictions.
+      operations:
+      - method: GET
+        name: getsubscriptionrestrictionsapibillingaccountidsubscriptionrestrictionsget
+        description: Get Subscription Restrictions
+        call: prefect-account-billing.getsubscriptionrestrictionsapibillingaccountidsubscriptionrestrictionsget
+        with:
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/billing/{account-id}/update-slots
+      name: api-billing-account-id-update-slots
+      description: REST surface for api-billing-account_id-update_slots.
+      operations:
+      - method: POST
+        name: updateslotsapibillingaccountidupdateslotspost
+        description: Update Slots
+        call: prefect-account-billing.updateslotsapibillingaccountidupdateslotspost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/billing/{account-id}/validate-subscription-status
+      name: api-billing-account-id-validate-subscription-status
+      description: REST surface for api-billing-account_id-validate_subscription_status.
+      operations:
+      - method: POST
+        name: validatesubscriptionstatusapibillingaccountidvalidatesubscriptionstatuspost
+        description: Validate Subscription Status
+        call: prefect-account-billing.validatesubscriptionstatusapibillingaccountidvalidatesubscriptionstatuspost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-account-billing-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Account Billing. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: cancel-org-subscription-period-end
+      description: Cancel Org Subscription At Period End
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-account-billing.cancelorgsubscriptionatperiodendapibillingaccountidcancelorgsubscriptionpost
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-billing-portal-session
+      description: Create Billing Portal Session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-account-billing.createbillingportalsessionapibillingaccountidcreatebillingportalsessionpost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-billing-details
+      description: Get Billing Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-account-billing.getbillingdetailsapibillingaccountiddetailsget
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: manage-subscription
+      description: Manage Subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-account-billing.managesubscriptionapibillingaccountidmanagesubscriptionpost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-checkout-link
+      description: Get Checkout Link
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: prefect-account-billing.getcheckoutlinkapibillingaccountidsubscribepost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-subscription-restrictions
+      description: Get Subscription Restrictions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-account-billing.getsubscriptionrestrictionsapibillingaccountidsubscriptionrestrictionsget
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-slots
+      description: Update Slots
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: prefect-account-billing.updateslotsapibillingaccountidupdateslotspost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: validate-subscription-status
+      description: Validate Subscription Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: prefect-account-billing.validatesubscriptionstatusapibillingaccountidvalidatesubscriptionstatuspost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

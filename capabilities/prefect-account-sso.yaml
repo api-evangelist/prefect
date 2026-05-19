@@ -1,0 +1,253 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Prefect Cloud API — Account SSO
+  description: 'Prefect Cloud API — Account SSO. 5 operations. Lead operation: Read Dsync Setup Url. Self-contained Naftiko
+    capability covering one Prefect business surface.'
+  tags:
+  - Prefect
+  - Account SSO
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PREFECT_API_KEY: PREFECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: prefect-account-sso
+    baseUri: ''
+    description: Prefect Cloud API — Account SSO business capability. Self-contained, no shared references.
+    resources:
+    - name: api-accounts-account_id-sso-dsync_setup_url
+      path: /api/accounts/{account_id}/sso/dsync_setup_url
+      operations:
+      - name: readdsyncsetupurlapiaccountsaccountidssodsyncsetupurlget
+        method: GET
+        description: Read Dsync Setup Url
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-sso-integrations
+      path: /api/accounts/{account_id}/sso/integrations
+      operations:
+      - name: integrationsapiaccountsaccountidssointegrationsget
+        method: GET
+        description: Integrations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-sso-integrations-integration_id
+      path: /api/accounts/{account_id}/sso/integrations/{integration_id}
+      operations:
+      - name: removeintegrationapiaccountsaccountidssointegrationsintegrationiddelete
+        method: DELETE
+        description: Remove Integration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: integration_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-sso-setup_url
+      path: /api/accounts/{account_id}/sso/setup_url
+      operations:
+      - name: readssosetupurlapiaccountsaccountidssosetupurlget
+        method: GET
+        description: Read Sso Setup Url
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+    - name: api-accounts-account_id-sso-validate
+      path: /api/accounts/{account_id}/sso/validate
+      operations:
+      - name: validateapiaccountsaccountidssovalidatepost
+        method: POST
+        description: Validate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: prefect-account-sso-rest
+    port: 8080
+    description: REST adapter for Prefect Cloud API — Account SSO. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/accounts/{account-id}/sso/dsync-setup-url
+      name: api-accounts-account-id-sso-dsync-setup-url
+      description: REST surface for api-accounts-account_id-sso-dsync_setup_url.
+      operations:
+      - method: GET
+        name: readdsyncsetupurlapiaccountsaccountidssodsyncsetupurlget
+        description: Read Dsync Setup Url
+        call: prefect-account-sso.readdsyncsetupurlapiaccountsaccountidssodsyncsetupurlget
+        with:
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/sso/integrations
+      name: api-accounts-account-id-sso-integrations
+      description: REST surface for api-accounts-account_id-sso-integrations.
+      operations:
+      - method: GET
+        name: integrationsapiaccountsaccountidssointegrationsget
+        description: Integrations
+        call: prefect-account-sso.integrationsapiaccountsaccountidssointegrationsget
+        with:
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/sso/integrations/{integration-id}
+      name: api-accounts-account-id-sso-integrations-integration-id
+      description: REST surface for api-accounts-account_id-sso-integrations-integration_id.
+      operations:
+      - method: DELETE
+        name: removeintegrationapiaccountsaccountidssointegrationsintegrationiddelete
+        description: Remove Integration
+        call: prefect-account-sso.removeintegrationapiaccountsaccountidssointegrationsintegrationiddelete
+        with:
+          account_id: rest.account_id
+          integration_id: rest.integration_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/sso/setup-url
+      name: api-accounts-account-id-sso-setup-url
+      description: REST surface for api-accounts-account_id-sso-setup_url.
+      operations:
+      - method: GET
+        name: readssosetupurlapiaccountsaccountidssosetupurlget
+        description: Read Sso Setup Url
+        call: prefect-account-sso.readssosetupurlapiaccountsaccountidssosetupurlget
+        with:
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/accounts/{account-id}/sso/validate
+      name: api-accounts-account-id-sso-validate
+      description: REST surface for api-accounts-account_id-sso-validate.
+      operations:
+      - method: POST
+        name: validateapiaccountsaccountidssovalidatepost
+        description: Validate
+        call: prefect-account-sso.validateapiaccountsaccountidssovalidatepost
+        with:
+          account_id: rest.account_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: prefect-account-sso-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Prefect Cloud API — Account SSO. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: read-dsync-setup-url
+      description: Read Dsync Setup Url
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-account-sso.readdsyncsetupurlapiaccountsaccountidssodsyncsetupurlget
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: integrations
+      description: Integrations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-account-sso.integrationsapiaccountsaccountidssointegrationsget
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-integration
+      description: Remove Integration
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: prefect-account-sso.removeintegrationapiaccountsaccountidssointegrationsintegrationiddelete
+      with:
+        account_id: tools.account_id
+        integration_id: tools.integration_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-sso-setup-url
+      description: Read Sso Setup Url
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: prefect-account-sso.readssosetupurlapiaccountsaccountidssosetupurlget
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: validate
+      description: Validate
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: prefect-account-sso.validateapiaccountsaccountidssovalidatepost
+      with:
+        account_id: tools.account_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
