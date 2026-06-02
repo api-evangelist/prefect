@@ -1,0 +1,998 @@
+asyncapi: '2.6.0'
+info:
+  title: Prefect Cloud Webhooks and Events
+  version: '1.0.0'
+  description: >-
+    AsyncAPI 2.6 description of Prefect Cloud's webhook and event-streaming
+    surfaces. Prefect Cloud exposes two complementary asynchronous surfaces:
+
+      1. Inbound webhooks. Each Prefect Cloud webhook is rooted at
+         `https://api.prefect.cloud/hooks/<opaque-slug>` and accepts GET, HEAD,
+         and DELETE requests (for static templates) or POST, PUT, and PATCH
+         requests (when the webhook reads a request body). On receipt, Prefect
+         renders a Jinja2 template against the request method, headers, and
+         body and emits a Prefect Event into the workspace event stream. The
+         emitted event is automatically annotated with `occurred`, `id`, and a
+         related resource that points to the receiving webhook.
+
+      2. Outbound notifications driven by Automations. Automations match a
+         trigger condition against the event stream and execute one of the
+         sixteen documented action types. The external-facing actions are
+         `send-notification` (delivered through a configured Slack, Microsoft
+         Teams, or Email block) and `call-webhook` (HTTP delivery to a
+         customer-configured URL). The remaining fourteen action types are
+         internal control-plane operations against flow runs, deployments,
+         work pools, work queues, and other automations.
+
+    Every fired automation also re-enters the event stream as
+    `prefect.automation.triggered`, `prefect.automation.resolved`,
+    `prefect.automation.action.triggered`, `prefect.automation.action.executed`,
+    and `prefect.automation.action.failed` events, allowing downstream
+    automations or external consumers (via webhooks) to observe automation
+    lifecycle.
+
+    Event names and event-resource conventions in this document are taken
+    verbatim from the Prefect documentation; payload shapes for end-user
+    notification channels and for the `call-webhook` action are intentionally
+    left open because the public documentation does not specify them.
+  contact:
+    name: Prefect Documentation
+    url: https://docs.prefect.io/v3/concepts/automations
+  license:
+    name: Proprietary - Prefect Technologies, Inc.
+    url: https://www.prefect.io/legal/terms
+  x-source-references:
+    - https://docs.prefect.io/v3/concepts/webhooks
+    - https://docs.prefect.io/v3/concepts/automations
+    - https://docs.prefect.io/v3/concepts/automations#webhooks
+    - https://docs.prefect.io/v3/concepts/events
+    - https://docs.prefect.io/v3/api-ref/events
+
+defaultContentType: application/json
+
+servers:
+  prefectCloudWebhookIngress:
+    url: api.prefect.cloud
+    protocol: https
+    description: >-
+      Prefect Cloud webhook ingress. Each workspace webhook receives HTTP
+      requests at `https://api.prefect.cloud/hooks/<slug>`, where `<slug>` is
+      an opaque, randomly generated identifier assigned by Prefect at webhook
+      creation. The slug cannot be customized but may be rotated. Successful
+      processing returns `204 No Content`; template or processing errors
+      return `400 Bad Request` and emit a `prefect-cloud.webhook.failed`
+      event in the workspace event feed.
+  subscriber:
+    url: '{endpointUrl}'
+    protocol: https
+    description: >-
+      Customer-hosted HTTPS endpoint that Prefect Cloud calls when an
+      automation runs the `call-webhook` action, or that a customer integrates
+      with to receive `send-notification` deliveries through configured Slack,
+      Microsoft Teams, or Email blocks. Concrete payload and header shapes are
+      determined by the configured automation block and are not specified by
+      public Prefect documentation.
+    variables:
+      endpointUrl:
+        description: Fully qualified HTTPS URL of the subscriber endpoint.
+        default: https://example.com/prefect/webhook
+
+channels:
+
+  # ------------------------------------------------------------------
+  # Inbound: HTTP request received at a Prefect Cloud webhook slug.
+  # ------------------------------------------------------------------
+  'hooks/{webhookSlug}':
+    description: >-
+      Inbound webhook endpoint. External systems POST, PUT, PATCH, GET, HEAD,
+      or DELETE here; Prefect renders the webhook's Jinja2 template against
+      the request method, headers (Authorization header is stripped), and
+      body (JSON, form-encoded, or string) to produce a Prefect Event.
+    parameters:
+      webhookSlug:
+        description: >-
+          Opaque, randomly generated webhook identifier assigned by Prefect
+          Cloud at creation time (example shape: `AERylZ_uewzpDx-8fcweHQ`).
+        schema:
+          type: string
+    publish:
+      operationId: receiveInboundWebhookRequest
+      summary: External system delivers an HTTP request to a workspace webhook slug.
+      message:
+        $ref: '#/components/messages/InboundWebhookRequest'
+
+  # ------------------------------------------------------------------
+  # Event stream: events emitted into the Prefect workspace event feed.
+  # ------------------------------------------------------------------
+  events/prefect-cloud.webhook.failed:
+    description: >-
+      Emitted when a received webhook request fails template rendering or
+      validation. Visible in the workspace event feed.
+    subscribe:
+      operationId: onPrefectCloudWebhookFailed
+      summary: prefect-cloud.webhook.failed event.
+      message:
+        $ref: '#/components/messages/PrefectCloudWebhookFailed'
+
+  events/prefect.flow-run.state:
+    description: >-
+      Flow run state-transition events. The state name is interpolated into
+      the event name (for example `prefect.flow-run.Completed`,
+      `prefect.flow-run.Failed`).
+    subscribe:
+      operationId: onPrefectFlowRunStateChanged
+      summary: prefect.flow-run.{state} event.
+      message:
+        $ref: '#/components/messages/PrefectFlowRunStateChanged'
+
+  events/prefect.flow-run.heartbeat:
+    description: Periodic liveness signal emitted by a running flow run.
+    subscribe:
+      operationId: onPrefectFlowRunHeartbeat
+      summary: prefect.flow-run.heartbeat event.
+      message:
+        $ref: '#/components/messages/PrefectFlowRunHeartbeat'
+
+  events/prefect.flow-run.pull-step.executed:
+    description: A deployment pull step executed successfully for a flow run.
+    subscribe:
+      operationId: onPrefectFlowRunPullStepExecuted
+      summary: prefect.flow-run.pull-step.executed event.
+      message:
+        $ref: '#/components/messages/PrefectFlowRunPullStepExecuted'
+
+  events/prefect.flow-run.pull-step.failed:
+    description: A deployment pull step failed for a flow run.
+    subscribe:
+      operationId: onPrefectFlowRunPullStepFailed
+      summary: prefect.flow-run.pull-step.failed event.
+      message:
+        $ref: '#/components/messages/PrefectFlowRunPullStepFailed'
+
+  events/prefect.task-run.state:
+    description: >-
+      Task run state-transition events. The state name is interpolated into
+      the event name (for example `prefect.task-run.Completed`).
+    subscribe:
+      operationId: onPrefectTaskRunStateChanged
+      summary: prefect.task-run.{state} event.
+      message:
+        $ref: '#/components/messages/PrefectTaskRunStateChanged'
+
+  events/prefect.deployment.created:
+    description: A deployment was created.
+    subscribe:
+      operationId: onPrefectDeploymentCreated
+      summary: prefect.deployment.created event.
+      message:
+        $ref: '#/components/messages/PrefectDeploymentCreated'
+
+  events/prefect.deployment.updated:
+    description: A deployment was updated.
+    subscribe:
+      operationId: onPrefectDeploymentUpdated
+      summary: prefect.deployment.updated event.
+      message:
+        $ref: '#/components/messages/PrefectDeploymentUpdated'
+
+  events/prefect.deployment.deleted:
+    description: A deployment was deleted.
+    subscribe:
+      operationId: onPrefectDeploymentDeleted
+      summary: prefect.deployment.deleted event.
+      message:
+        $ref: '#/components/messages/PrefectDeploymentDeleted'
+
+  events/prefect.deployment.status:
+    description: >-
+      Deployment status change events; status name is interpolated into the
+      event name.
+    subscribe:
+      operationId: onPrefectDeploymentStatusChanged
+      summary: prefect.deployment.{status} event.
+      message:
+        $ref: '#/components/messages/PrefectDeploymentStatusChanged'
+
+  events/prefect.work-pool.status:
+    description: Work pool status-change events.
+    subscribe:
+      operationId: onPrefectWorkPoolStatusChanged
+      summary: prefect.work-pool.{status} event.
+      message:
+        $ref: '#/components/messages/PrefectWorkPoolStatusChanged'
+
+  events/prefect.work-pool.updated:
+    description: A work pool was updated.
+    subscribe:
+      operationId: onPrefectWorkPoolUpdated
+      summary: prefect.work-pool.updated event.
+      message:
+        $ref: '#/components/messages/PrefectWorkPoolUpdated'
+
+  events/prefect.work-queue.status:
+    description: Work queue status-change events.
+    subscribe:
+      operationId: onPrefectWorkQueueStatusChanged
+      summary: prefect.work-queue.{status} event.
+      message:
+        $ref: '#/components/messages/PrefectWorkQueueStatusChanged'
+
+  events/prefect.work-queue.updated:
+    description: A work queue was updated.
+    subscribe:
+      operationId: onPrefectWorkQueueUpdated
+      summary: prefect.work-queue.updated event.
+      message:
+        $ref: '#/components/messages/PrefectWorkQueueUpdated'
+
+  events/prefect.worker.started:
+    description: A worker started polling a work pool.
+    subscribe:
+      operationId: onPrefectWorkerStarted
+      summary: prefect.worker.started event.
+      message:
+        $ref: '#/components/messages/PrefectWorkerStarted'
+
+  events/prefect.worker.stopped:
+    description: A worker stopped polling a work pool.
+    subscribe:
+      operationId: onPrefectWorkerStopped
+      summary: prefect.worker.stopped event.
+      message:
+        $ref: '#/components/messages/PrefectWorkerStopped'
+
+  events/prefect.worker.submitted-flow-run:
+    description: A worker submitted a flow run for execution.
+    subscribe:
+      operationId: onPrefectWorkerSubmittedFlowRun
+      summary: prefect.worker.submitted-flow-run event.
+      message:
+        $ref: '#/components/messages/PrefectWorkerSubmittedFlowRun'
+
+  events/prefect.worker.executed-flow-run:
+    description: A worker completed execution of a flow run.
+    subscribe:
+      operationId: onPrefectWorkerExecutedFlowRun
+      summary: prefect.worker.executed-flow-run event.
+      message:
+        $ref: '#/components/messages/PrefectWorkerExecutedFlowRun'
+
+  events/prefect.runner.cancelled-flow-run:
+    description: A runner cancelled a flow run.
+    subscribe:
+      operationId: onPrefectRunnerCancelledFlowRun
+      summary: prefect.runner.cancelled-flow-run event.
+      message:
+        $ref: '#/components/messages/PrefectRunnerCancelledFlowRun'
+
+  events/prefect.artifact.created:
+    description: A Prefect artifact was created.
+    subscribe:
+      operationId: onPrefectArtifactCreated
+      summary: prefect.artifact.created event.
+      message:
+        $ref: '#/components/messages/PrefectArtifactCreated'
+
+  events/prefect.artifact.updated:
+    description: A Prefect artifact was updated.
+    subscribe:
+      operationId: onPrefectArtifactUpdated
+      summary: prefect.artifact.updated event.
+      message:
+        $ref: '#/components/messages/PrefectArtifactUpdated'
+
+  events/prefect.asset.referenced:
+    description: An asset was referenced.
+    subscribe:
+      operationId: onPrefectAssetReferenced
+      summary: prefect.asset.referenced event.
+      message:
+        $ref: '#/components/messages/PrefectAssetReferenced'
+
+  events/prefect.asset.materialization.succeeded:
+    description: Materialization of an asset succeeded.
+    subscribe:
+      operationId: onPrefectAssetMaterializationSucceeded
+      summary: prefect.asset.materialization.succeeded event.
+      message:
+        $ref: '#/components/messages/PrefectAssetMaterializationSucceeded'
+
+  events/prefect.asset.materialization.failed:
+    description: Materialization of an asset failed.
+    subscribe:
+      operationId: onPrefectAssetMaterializationFailed
+      summary: prefect.asset.materialization.failed event.
+      message:
+        $ref: '#/components/messages/PrefectAssetMaterializationFailed'
+
+  events/prefect.concurrency-limit.acquired:
+    description: A concurrency limit slot was acquired.
+    subscribe:
+      operationId: onPrefectConcurrencyLimitAcquired
+      summary: prefect.concurrency-limit.acquired event.
+      message:
+        $ref: '#/components/messages/PrefectConcurrencyLimitAcquired'
+
+  events/prefect.concurrency-limit.released:
+    description: A concurrency limit slot was released.
+    subscribe:
+      operationId: onPrefectConcurrencyLimitReleased
+      summary: prefect.concurrency-limit.released event.
+      message:
+        $ref: '#/components/messages/PrefectConcurrencyLimitReleased'
+
+  events/prefect.block.write-method.called:
+    description: A Prefect block write-method was invoked.
+    subscribe:
+      operationId: onPrefectBlockWriteMethodCalled
+      summary: prefect.block.write-method.called event.
+      message:
+        $ref: '#/components/messages/PrefectBlockWriteMethodCalled'
+
+  events/prefect.block.loaded:
+    description: A Prefect block was loaded for use.
+    subscribe:
+      operationId: onPrefectBlockLoaded
+      summary: prefect.block.{type}.loaded event.
+      message:
+        $ref: '#/components/messages/PrefectBlockLoaded'
+
+  events/prefect.automation.triggered:
+    description: An automation matched a trigger condition.
+    subscribe:
+      operationId: onPrefectAutomationTriggered
+      summary: prefect.automation.triggered event.
+      message:
+        $ref: '#/components/messages/PrefectAutomationTriggered'
+
+  events/prefect.automation.resolved:
+    description: An automation's triggered condition resolved.
+    subscribe:
+      operationId: onPrefectAutomationResolved
+      summary: prefect.automation.resolved event.
+      message:
+        $ref: '#/components/messages/PrefectAutomationResolved'
+
+  events/prefect.automation.action.triggered:
+    description: An automation action was triggered.
+    subscribe:
+      operationId: onPrefectAutomationActionTriggered
+      summary: prefect.automation.action.triggered event.
+      message:
+        $ref: '#/components/messages/PrefectAutomationActionTriggered'
+
+  events/prefect.automation.action.executed:
+    description: An automation action executed successfully.
+    subscribe:
+      operationId: onPrefectAutomationActionExecuted
+      summary: prefect.automation.action.executed event.
+      message:
+        $ref: '#/components/messages/PrefectAutomationActionExecuted'
+
+  events/prefect.automation.action.failed:
+    description: An automation action failed during execution.
+    subscribe:
+      operationId: onPrefectAutomationActionFailed
+      summary: prefect.automation.action.failed event.
+      message:
+        $ref: '#/components/messages/PrefectAutomationActionFailed'
+
+  events/prefect-cloud.automation:
+    description: >-
+      Prefect Cloud automation audit/lifecycle events emitted under the
+      `prefect-cloud.automation.*` namespace.
+    subscribe:
+      operationId: onPrefectCloudAutomation
+      summary: prefect-cloud.automation.* event.
+      message:
+        $ref: '#/components/messages/PrefectCloudAutomationEvent'
+
+  events/prefect-cloud.incident:
+    description: >-
+      Prefect Cloud incident-management lifecycle events emitted under the
+      `prefect-cloud.incident.*` namespace.
+    subscribe:
+      operationId: onPrefectCloudIncident
+      summary: prefect-cloud.incident.* event.
+      message:
+        $ref: '#/components/messages/PrefectCloudIncidentEvent'
+
+  events/prefect.workspace.transfer.started:
+    description: A workspace transfer was started.
+    subscribe:
+      operationId: onPrefectWorkspaceTransferStarted
+      summary: prefect.workspace.transfer.started event.
+      message:
+        $ref: '#/components/messages/PrefectWorkspaceTransferStarted'
+
+  events/prefect.workspace.transfer.completed:
+    description: A workspace transfer completed.
+    subscribe:
+      operationId: onPrefectWorkspaceTransferCompleted
+      summary: prefect.workspace.transfer.completed event.
+      message:
+        $ref: '#/components/messages/PrefectWorkspaceTransferCompleted'
+
+  events/prefect.docker.container.status:
+    description: Docker container status events emitted by Prefect integrations.
+    subscribe:
+      operationId: onPrefectDockerContainerStatus
+      summary: prefect.docker.container.{status} event.
+      message:
+        $ref: '#/components/messages/PrefectDockerContainerStatus'
+
+  events/prefect.kubernetes.pod.phase:
+    description: Kubernetes pod phase events emitted by Prefect integrations.
+    subscribe:
+      operationId: onPrefectKubernetesPodPhase
+      summary: prefect.kubernetes.pod.{phase} event.
+      message:
+        $ref: '#/components/messages/PrefectKubernetesPodPhase'
+
+  events/prefect.ecs.task.status:
+    description: Amazon ECS task status events emitted by Prefect integrations.
+    subscribe:
+      operationId: onPrefectEcsTaskStatus
+      summary: prefect.ecs.task.{status} event.
+      message:
+        $ref: '#/components/messages/PrefectEcsTaskStatus'
+
+  # ------------------------------------------------------------------
+  # Outbound automation actions toward external systems.
+  # ------------------------------------------------------------------
+  outbound/send-notification:
+    description: >-
+      Outbound notification delivered by the `send-notification` automation
+      action through a configured notification block. Block types documented
+      by Prefect are Slack, Microsoft Teams, and Email. Exact body shape is
+      defined by the chosen block.
+    subscribe:
+      operationId: onAutomationSendNotification
+      summary: send-notification automation action.
+      message:
+        $ref: '#/components/messages/AutomationSendNotification'
+
+  outbound/call-webhook:
+    description: >-
+      Outbound HTTP webhook delivery emitted by the `call-webhook` automation
+      action to a customer-configured URL. The public Prefect documentation
+      lists `call-webhook` as one of the sixteen action types but does not
+      specify the exact request method, headers, or body, so the payload is
+      modeled as an open object.
+    subscribe:
+      operationId: onAutomationCallWebhook
+      summary: call-webhook automation action.
+      message:
+        $ref: '#/components/messages/AutomationCallWebhook'
+
+components:
+
+  messages:
+
+    InboundWebhookRequest:
+      name: inbound_webhook_request
+      title: Inbound Webhook Request
+      summary: HTTP request received at a Prefect Cloud webhook slug.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/InboundWebhookRequest'
+
+    PrefectCloudWebhookFailed:
+      name: prefect-cloud.webhook.failed
+      title: Prefect Cloud Webhook Failed
+      summary: Emitted when a received webhook request fails processing.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectFlowRunStateChanged:
+      name: prefect.flow-run.state
+      title: Prefect Flow Run State Changed
+      summary: A flow run transitioned to a new state.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectFlowRunHeartbeat:
+      name: prefect.flow-run.heartbeat
+      title: Prefect Flow Run Heartbeat
+      summary: Periodic liveness signal emitted by a running flow run.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectFlowRunPullStepExecuted:
+      name: prefect.flow-run.pull-step.executed
+      title: Prefect Flow Run Pull Step Executed
+      summary: A deployment pull step executed successfully for a flow run.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectFlowRunPullStepFailed:
+      name: prefect.flow-run.pull-step.failed
+      title: Prefect Flow Run Pull Step Failed
+      summary: A deployment pull step failed for a flow run.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectTaskRunStateChanged:
+      name: prefect.task-run.state
+      title: Prefect Task Run State Changed
+      summary: A task run transitioned to a new state.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectDeploymentCreated:
+      name: prefect.deployment.created
+      title: Prefect Deployment Created
+      summary: A deployment was created.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectDeploymentUpdated:
+      name: prefect.deployment.updated
+      title: Prefect Deployment Updated
+      summary: A deployment was updated.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectDeploymentDeleted:
+      name: prefect.deployment.deleted
+      title: Prefect Deployment Deleted
+      summary: A deployment was deleted.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectDeploymentStatusChanged:
+      name: prefect.deployment.status
+      title: Prefect Deployment Status Changed
+      summary: A deployment's status changed.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectWorkPoolStatusChanged:
+      name: prefect.work-pool.status
+      title: Prefect Work Pool Status Changed
+      summary: A work pool's status changed.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectWorkPoolUpdated:
+      name: prefect.work-pool.updated
+      title: Prefect Work Pool Updated
+      summary: A work pool was updated.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectWorkQueueStatusChanged:
+      name: prefect.work-queue.status
+      title: Prefect Work Queue Status Changed
+      summary: A work queue's status changed.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectWorkQueueUpdated:
+      name: prefect.work-queue.updated
+      title: Prefect Work Queue Updated
+      summary: A work queue was updated.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectWorkerStarted:
+      name: prefect.worker.started
+      title: Prefect Worker Started
+      summary: A worker started polling a work pool.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectWorkerStopped:
+      name: prefect.worker.stopped
+      title: Prefect Worker Stopped
+      summary: A worker stopped polling a work pool.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectWorkerSubmittedFlowRun:
+      name: prefect.worker.submitted-flow-run
+      title: Prefect Worker Submitted Flow Run
+      summary: A worker submitted a flow run for execution.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectWorkerExecutedFlowRun:
+      name: prefect.worker.executed-flow-run
+      title: Prefect Worker Executed Flow Run
+      summary: A worker completed execution of a flow run.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectRunnerCancelledFlowRun:
+      name: prefect.runner.cancelled-flow-run
+      title: Prefect Runner Cancelled Flow Run
+      summary: A runner cancelled a flow run.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectArtifactCreated:
+      name: prefect.artifact.created
+      title: Prefect Artifact Created
+      summary: A Prefect artifact was created.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectArtifactUpdated:
+      name: prefect.artifact.updated
+      title: Prefect Artifact Updated
+      summary: A Prefect artifact was updated.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectAssetReferenced:
+      name: prefect.asset.referenced
+      title: Prefect Asset Referenced
+      summary: An asset was referenced by a flow or task run.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectAssetMaterializationSucceeded:
+      name: prefect.asset.materialization.succeeded
+      title: Prefect Asset Materialization Succeeded
+      summary: Materialization of an asset succeeded.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectAssetMaterializationFailed:
+      name: prefect.asset.materialization.failed
+      title: Prefect Asset Materialization Failed
+      summary: Materialization of an asset failed.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectConcurrencyLimitAcquired:
+      name: prefect.concurrency-limit.acquired
+      title: Prefect Concurrency Limit Acquired
+      summary: A concurrency limit slot was acquired.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectConcurrencyLimitReleased:
+      name: prefect.concurrency-limit.released
+      title: Prefect Concurrency Limit Released
+      summary: A concurrency limit slot was released.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectBlockWriteMethodCalled:
+      name: prefect.block.write-method.called
+      title: Prefect Block Write Method Called
+      summary: A Prefect block write-method was invoked.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectBlockLoaded:
+      name: prefect.block.loaded
+      title: Prefect Block Loaded
+      summary: A Prefect block was loaded for use.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectAutomationTriggered:
+      name: prefect.automation.triggered
+      title: Prefect Automation Triggered
+      summary: An automation matched a trigger condition.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectAutomationResolved:
+      name: prefect.automation.resolved
+      title: Prefect Automation Resolved
+      summary: An automation's triggered condition resolved.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectAutomationActionTriggered:
+      name: prefect.automation.action.triggered
+      title: Prefect Automation Action Triggered
+      summary: An automation action was triggered.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectAutomationActionExecuted:
+      name: prefect.automation.action.executed
+      title: Prefect Automation Action Executed
+      summary: An automation action executed successfully.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectAutomationActionFailed:
+      name: prefect.automation.action.failed
+      title: Prefect Automation Action Failed
+      summary: An automation action failed during execution.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectCloudAutomationEvent:
+      name: prefect-cloud.automation
+      title: Prefect Cloud Automation Event
+      summary: Cloud-side automation lifecycle/audit event.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectCloudIncidentEvent:
+      name: prefect-cloud.incident
+      title: Prefect Cloud Incident Event
+      summary: Cloud-side incident-management lifecycle event.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectWorkspaceTransferStarted:
+      name: prefect.workspace.transfer.started
+      title: Prefect Workspace Transfer Started
+      summary: A workspace transfer was started.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectWorkspaceTransferCompleted:
+      name: prefect.workspace.transfer.completed
+      title: Prefect Workspace Transfer Completed
+      summary: A workspace transfer completed.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectDockerContainerStatus:
+      name: prefect.docker.container.status
+      title: Prefect Docker Container Status
+      summary: Docker container status event emitted by Prefect integrations.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectKubernetesPodPhase:
+      name: prefect.kubernetes.pod.phase
+      title: Prefect Kubernetes Pod Phase
+      summary: Kubernetes pod phase event emitted by Prefect integrations.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    PrefectEcsTaskStatus:
+      name: prefect.ecs.task.status
+      title: Prefect ECS Task Status
+      summary: Amazon ECS task status event emitted by Prefect integrations.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PrefectEvent'
+
+    AutomationSendNotification:
+      name: send-notification
+      title: Automation Send Notification
+      summary: >-
+        Outbound notification delivered through a configured notification
+        block (Slack, Microsoft Teams, or Email).
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AutomationNotificationDelivery'
+
+    AutomationCallWebhook:
+      name: call-webhook
+      title: Automation Call Webhook
+      summary: >-
+        Outbound HTTP webhook delivery emitted by the `call-webhook` automation
+        action.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AutomationWebhookDelivery'
+
+  schemas:
+
+    InboundWebhookRequest:
+      type: object
+      description: >-
+        HTTP request as received at `https://api.prefect.cloud/hooks/<slug>`.
+        Prefect makes the method, headers (with the Authorization header
+        removed), and parsed body available to the Jinja2 template that the
+        webhook owner has configured. The template must produce, at minimum,
+        an `event` name and `resource["prefect.resource.id"]` value; Prefect
+        fills in `occurred`, `id`, and the related webhook resource. A
+        successful request returns 204 No Content; failures return 400 and
+        emit `prefect-cloud.webhook.failed`.
+      properties:
+        method:
+          type: string
+          description: Uppercased HTTP method (GET, HEAD, DELETE, POST, PUT, PATCH).
+          enum:
+            - GET
+            - HEAD
+            - DELETE
+            - POST
+            - PUT
+            - PATCH
+        headers:
+          type: object
+          description: >-
+            Case-insensitive map of request headers. The `Authorization`
+            header is stripped by Prefect before being exposed to templates.
+          additionalProperties:
+            type: string
+        body:
+          description: >-
+            Request body. `application/json` is parsed to an object/array,
+            `application/x-www-form-urlencoded` is parsed to a key-value map,
+            other content types are attempted as JSON first and then fall
+            back to a raw string.
+          oneOf:
+            - type: object
+              additionalProperties: true
+            - type: array
+              items: {}
+            - type: string
+
+    PrefectEvent:
+      type: object
+      description: >-
+        Prefect Event envelope as documented in the Events concept and Events
+        API reference. Required fields are `occurred`, `event`, `resource`,
+        and `id`; optional fields are `related`, `payload`, and `follows`.
+      required:
+        - occurred
+        - event
+        - resource
+        - id
+      properties:
+        occurred:
+          type: string
+          format: date-time
+          description: When the event happened.
+        event:
+          type: string
+          description: >-
+            Dot-delimited event name following the
+            `[namespace].[resource-type].[action]` convention.
+        id:
+          type: string
+          description: Client-provided identifier of this event.
+        resource:
+          $ref: '#/components/schemas/PrefectEventResource'
+        related:
+          type: array
+          description: Additional resources involved in this event.
+          items:
+            $ref: '#/components/schemas/PrefectEventRelatedResource'
+        payload:
+          type: object
+          description: Open-ended set of data describing what happened.
+          additionalProperties: true
+        follows:
+          type: string
+          description: Event ID of a known prior occurrence this event follows.
+
+    PrefectEventResource:
+      type: object
+      description: >-
+        Primary resource an event concerns. Identified by the required
+        `prefect.resource.id` dot-delimited label. Additional labels are
+        permitted and may be used as aggregation keys.
+      required:
+        - prefect.resource.id
+      properties:
+        prefect.resource.id:
+          type: string
+          description: >-
+            Dot-delimited resource identifier (for example
+            `prefect.flow-run.e3755d32-cec5-42ca-9bcd-af236e308ba6`,
+            `prefect-cloud.automation.<id>.action.0`, or an author-defined
+            value like `acme.user.kiki.elt_script_1`).
+      additionalProperties:
+        type: string
+
+    PrefectEventRelatedResource:
+      type: object
+      description: >-
+        Related resource entry. Carries `prefect.resource.id` and typically
+        `prefect.resource.role` (for example `triggering-event` or
+        `automation-triggered-event`).
+      required:
+        - prefect.resource.id
+      properties:
+        prefect.resource.id:
+          type: string
+          description: Dot-delimited identifier of the related resource.
+        prefect.resource.role:
+          type: string
+          description: Role this related resource plays in the event.
+      additionalProperties:
+        type: string
+
+    AutomationNotificationDelivery:
+      type: object
+      description: >-
+        Outbound notification rendered by the `send-notification` automation
+        action and delivered through a configured Slack, Microsoft Teams, or
+        Email block. The exact transport payload is determined by the block
+        implementation and is not specified in the public Prefect
+        documentation; this schema therefore captures only the documented
+        envelope semantics and leaves the body open.
+      properties:
+        block_type:
+          type: string
+          description: Notification block type used to deliver the message.
+          enum:
+            - slack
+            - microsoft-teams
+            - email
+        body:
+          type: object
+          description: >-
+            Block-specific message body. Shape is determined by the
+            configured notification block; not specified in the public
+            Prefect documentation.
+          additionalProperties: true
+        triggering_event:
+          $ref: '#/components/schemas/PrefectEvent'
+        automation_triggered_event:
+          $ref: '#/components/schemas/PrefectEvent'
+
+    AutomationWebhookDelivery:
+      type: object
+      description: >-
+        Outbound webhook delivery produced by the `call-webhook` automation
+        action. The action is documented as one of the sixteen automation
+        action types; its exact HTTP method, headers, and body are not
+        specified in the public Prefect documentation, so this schema is left
+        open.
+      additionalProperties: true
+
+  securitySchemes:
+
+    prefectApiKey:
+      type: httpApiKey
+      in: header
+      name: Authorization
+      description: >-
+        Prefect Cloud API key bearer token used to authenticate calls to the
+        Prefect Cloud REST API (`Authorization: Bearer <api-key>`), including
+        the endpoints used to create and manage webhooks and automations.
+
+    webhookServiceAccountAuth:
+      type: httpApiKey
+      in: header
+      name: Authorization
+      description: >-
+        Optional service-account credential enforced on inbound webhook
+        requests in Pro/Enterprise tiers. Callers include
+        `Authorization: Bearer <api-key>`; Prefect validates and then strips
+        the header before exposing the request to the Jinja2 template.
