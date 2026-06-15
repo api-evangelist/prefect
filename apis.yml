@@ -1,256 +1,137 @@
 aid: prefect
 name: Prefect
 segments:
-- Workflows
-description: Prefect is a Python-native workflow orchestration tool for building, scheduling, and monitoring data pipelines
-  with fault tolerance. Prefect provides a hybrid execution model where the cloud control plane coordinates workflows while
-  code and data remain in customer infrastructure, offering both a managed cloud platform and a self-hosted open-source server.
+  - Workflows
+description: >-
+  Prefect is a Python-native workflow orchestration tool for building, scheduling, and monitoring data pipelines with
+  fault tolerance. Prefect provides a hybrid execution model where the cloud control plane coordinates workflows while
+  code and data remain in customer infrastructure, offering both a managed cloud platform and a self-hosted open-source
+  server.
 type: Index
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-- Automation
-- Data Pipelines
-- Orchestration
-- Python
-- Workflows
+  - Automation
+  - Data Pipelines
+  - Orchestration
+  - Python
+  - Workflows
 created: '2026-03-03'
 modified: '2026-05-30'
 url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-- aid: prefect:prefect-cloud-rest-api
-  name: Prefect Cloud REST API
-  description: The Prefect Cloud REST API provides programmatic access to Prefect Cloud for orchestrating and managing workflows,
-    deployments, flow runs, task runs, artifacts, and automations. The API follows RESTful conventions with pluralized collection
-    names, snake_case route names, and supports an OpenAPI 3.0 compliant specification. Clients authenticate using API keys
-    passed as Bearer tokens in request headers.
-  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
-  tags:
-  - Automations
-  - Deployments
-  - Flow Runs
-  - Orchestration
-  - REST API
-  - Task Runs
-  - Workflows
-  properties:
-  - type: Documentation
-    url: https://docs.prefect.io/v3/api-ref/rest-api
-  - type: APIReference
-    url: https://app.prefect.cloud/api/docs
-  - type: Authentication
-    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
-  - type: GettingStarted
-    url: https://docs.prefect.io/v3/get-started/quickstart
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/openapi/prefect-openapi.json
-  - type: AsyncAPI
-    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
-  - type: NaftikoCapability
-    url: capabilities/prefect-general.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-ai.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-account-billing.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-account-images.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-account-memberships.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-account-roles.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-account-sso.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-accounts.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-artifacts.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-asset-publications.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-asset-subscriptions.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-assets.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-automations.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-available-assets.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-block-capabilities.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-block-documents.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-block-schemas.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-block-types.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-bots.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-collections.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-concurrency-limits.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-concurrency-limits-v2.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-deployments.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-download.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-event-publications.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-event-subscriptions.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-events.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-flow-run-states.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-flow-runs.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-flows.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-invitations.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-logs.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-managed-automations.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-me.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-metrics.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-pins.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-rate-limits.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-resources.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-root.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-slas.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-savedsearches.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-schemas.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-spans.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-task-run-states.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-task-runs.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-task-workers.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-teams.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-ui.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-users.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-variables.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-webhooks.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-work-pools.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-work-queues.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-workspace-access.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-workspace-bot-access.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-workspace-invitations.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-workspace-rate-limit-allocations.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-workspace-roles.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-workspace-scopes.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-workspace-team-access.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-workspace-user-access.yaml
-  - type: NaftikoCapability
-    url: capabilities/prefect-workspaces.yaml
-- aid: prefect:prefect-server-rest-api
-  name: Prefect Server REST API
-  description: The Prefect Server REST API is the self-hosted variant of the Prefect orchestration API for managing workflows,
-    flow runs, task runs, deployments, and work pools. When running Prefect server locally, the API is available at http://localhost:4200/api
-    and interactive documentation is served at the /docs endpoint. The API can be fully described with an OpenAPI 3.0 compliant
-    document generated from the running server.
-  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
-  tags:
-  - Open Source
-  - Orchestration
-  - REST API
-  - Self-Hosted
-  - Workflows
-  properties:
-  - type: Documentation
-    url: https://docs.prefect.io/v3/api-ref/rest-api
-  - type: APIReference
-    url: https://docs.prefect.io/latest/api-ref/rest-api-reference/
-  - type: GettingStarted
-    url: https://docs.prefect.io/v3/get-started/quickstart
-  - type: GitHubRepository
-    url: https://github.com/PrefectHQ/prefect
-- aid: prefect:prefect-python-sdk
-  name: Prefect Python SDK
-  description: The Prefect Python SDK is used to build, test, and execute workflows against the Prefect API. It provides decorators
-    such as @flow and @task for defining workflows, along with programmatic interfaces for deployments, scheduling, state
-    management, concurrency, caching, and retries. The SDK requires Python 3.10 or higher and includes a PrefectClient class
-    for direct interaction with the REST API.
-  humanURL: https://docs.prefect.io/v3/api-ref/python
-  tags:
-  - Orchestration
-  - Python
-  - SDK
-  - Workflows
-  properties:
-  - type: Documentation
-    url: https://docs.prefect.io/v3/api-ref/python
-  - type: GettingStarted
-    url: https://docs.prefect.io/v3/get-started/quickstart
-  - type: GitHubRepository
-    url: https://github.com/PrefectHQ/prefect
+  - aid: prefect:prefect-cloud-rest-api
+    name: Prefect Cloud REST API
+    description: >-
+      The Prefect Cloud REST API provides programmatic access to Prefect Cloud for orchestrating and managing workflows,
+      deployments, flow runs, task runs, artifacts, and automations. The API follows RESTful conventions with pluralized
+      collection names, snake_case route names, and supports an OpenAPI 3.0 compliant specification. Clients
+      authenticate using API keys passed as Bearer tokens in request headers.
+    humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+    tags:
+      - Automations
+      - Deployments
+      - Flow Runs
+      - Orchestration
+      - REST API
+      - Task Runs
+      - Workflows
+    properties:
+      - type: Documentation
+        url: https://docs.prefect.io/v3/api-ref/rest-api
+      - type: APIReference
+        url: https://app.prefect.cloud/api/docs
+      - type: Authentication
+        url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+      - type: GettingStarted
+        url: https://docs.prefect.io/v3/get-started/quickstart
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/openapi/prefect-openapi.json
+      - type: AsyncAPI
+        url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+  - aid: prefect:prefect-server-rest-api
+    name: Prefect Server REST API
+    description: >-
+      The Prefect Server REST API is the self-hosted variant of the Prefect orchestration API for managing workflows,
+      flow runs, task runs, deployments, and work pools. When running Prefect server locally, the API is available at
+      http://localhost:4200/api and interactive documentation is served at the /docs endpoint. The API can be fully
+      described with an OpenAPI 3.0 compliant document generated from the running server.
+    humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+    tags:
+      - Open Source
+      - Orchestration
+      - REST API
+      - Self-Hosted
+      - Workflows
+    properties:
+      - type: Documentation
+        url: https://docs.prefect.io/v3/api-ref/rest-api
+      - type: APIReference
+        url: https://docs.prefect.io/latest/api-ref/rest-api-reference/
+      - type: GettingStarted
+        url: https://docs.prefect.io/v3/get-started/quickstart
+      - type: GitHubRepository
+        url: https://github.com/PrefectHQ/prefect
+  - aid: prefect:prefect-python-sdk
+    name: Prefect Python SDK
+    description: >-
+      The Prefect Python SDK is used to build, test, and execute workflows against the Prefect API. It provides
+      decorators such as @flow and @task for defining workflows, along with programmatic interfaces for deployments,
+      scheduling, state management, concurrency, caching, and retries. The SDK requires Python 3.10 or higher and
+      includes a PrefectClient class for direct interaction with the REST API.
+    humanURL: https://docs.prefect.io/v3/api-ref/python
+    tags:
+      - Orchestration
+      - Python
+      - SDK
+      - Workflows
+    properties:
+      - type: Documentation
+        url: https://docs.prefect.io/v3/api-ref/python
+      - type: GettingStarted
+        url: https://docs.prefect.io/v3/get-started/quickstart
+      - type: GitHubRepository
+        url: https://github.com/PrefectHQ/prefect
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
 common:
-- type: LinkedIn
-  url: https://www.linkedin.com/company/prefect
-- type: Portal
-  url: https://www.prefect.io
-- type: GettingStarted
-  url: https://docs.prefect.io/v3/get-started/quickstart
-- type: Blog
-  url: https://www.prefect.io/blog
-- type: Pricing
-  url: https://www.prefect.io/pricing
-- type: SignUp
-  url: https://app.prefect.cloud/
-- type: Support
-  url: https://www.prefect.io/support
-- type: Community
-  url: https://www.prefect.io/community
-- type: ChangeLog
-  url: https://www.prefect.io/changelog
-- type: StatusPage
-  url: https://status.prefect.io/
-- type: Security
-  url: https://www.prefect.io/security
-- type: TermsOfService
-  url: https://www.prefect.io/legal/terms
-- type: PrivacyPolicy
-  url: https://www.prefect.io/privacy-policy
-- type: GitHubOrganization
-  url: https://github.com/PrefectHQ
-- type: Integrations
-  url: https://docs.prefect.io/integrations/integrations
-- type: Login
-  url: https://app.prefect.cloud/
-- name: MCP Server
-  url: https://github.com/PrefectHQ/prefect-mcp-server
-  type: MCPServer
-- type: LLMsTxt
-  url: https://docs.prefect.io/llms.txt
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/prefect
+  - type: Portal
+    url: https://www.prefect.io
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: Blog
+    url: https://www.prefect.io/blog
+  - type: Pricing
+    url: https://www.prefect.io/pricing
+  - type: SignUp
+    url: https://app.prefect.cloud/
+  - type: Support
+    url: https://www.prefect.io/support
+  - type: Community
+    url: https://www.prefect.io/community
+  - type: ChangeLog
+    url: https://www.prefect.io/changelog
+  - type: StatusPage
+    url: https://status.prefect.io/
+  - type: Security
+    url: https://www.prefect.io/security
+  - type: TermsOfService
+    url: https://www.prefect.io/legal/terms
+  - type: PrivacyPolicy
+    url: https://www.prefect.io/privacy-policy
+  - type: GitHubOrganization
+    url: https://github.com/PrefectHQ
+  - type: Integrations
+    url: https://docs.prefect.io/integrations/integrations
+  - type: Login
+    url: https://app.prefect.cloud/
+  - name: MCP Server
+    url: https://github.com/PrefectHQ/prefect-mcp-server
+    type: MCPServer
+  - type: LLMsTxt
+    url: https://docs.prefect.io/llms.txt
