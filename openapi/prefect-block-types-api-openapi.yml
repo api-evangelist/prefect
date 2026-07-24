@@ -1,0 +1,973 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Block types API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Block types
+  description: Interact with a Workspace's Block types.
+  externalDocs:
+    description: Securely store typed configuration
+    url: https://docs.prefect.io/v3/develop/blocks
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/block_types/:
+    post:
+      tags:
+      - Block types
+      summary: Create Block Type
+      description: 'Create a new block type
+
+
+        Required workspace scopes: `manage_blocks`'
+      operationId: create_block_type_api_accounts__account_id__workspaces__workspace_id__block_types__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlockTypeCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlockType'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/block_types/{id}:
+    get:
+      tags:
+      - Block types
+      summary: Read Block Type By Id
+      description: 'Get a block type by ID.
+
+
+        Required workspace scopes: `see_blocks`'
+      operationId: read_block_type_by_id_api_accounts__account_id__workspaces__workspace_id__block_types__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The block type ID
+          title: Id
+        description: The block type ID
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlockType'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Block types
+      summary: Update Block Type
+      description: 'Update a block type.
+
+
+        Required workspace scopes: `manage_blocks`'
+      operationId: update_block_type_api_accounts__account_id__workspaces__workspace_id__block_types__id__patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The block type ID
+          title: Id
+        description: The block type ID
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlockTypeUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Block types
+      summary: Delete Block Type
+      description: '
+
+
+        Required workspace scopes: `manage_blocks`'
+      operationId: delete_block_type_api_accounts__account_id__workspaces__workspace_id__block_types__id__delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The block type ID
+          title: Id
+        description: The block type ID
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/block_types/slug/{slug}:
+    get:
+      tags:
+      - Block types
+      summary: Read Block Type By Slug
+      description: 'Get a block type by name.
+
+
+        Required workspace scopes: `see_blocks`'
+      operationId: read_block_type_by_slug_api_accounts__account_id__workspaces__workspace_id__block_types_slug__slug__get
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The block type name
+          title: Slug
+        description: The block type name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlockType'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/block_types/filter:
+    post:
+      tags:
+      - Block types
+      summary: Read Block Types
+      description: 'Gets all block types. Optionally limit return with limit and offset.
+
+
+        Required workspace scopes: `see_blocks`'
+      operationId: read_block_types_api_accounts__account_id__workspaces__workspace_id__block_types_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_block_types_api_accounts__account_id__workspaces__workspace_id__block_types_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BlockType'
+                title: Response Read Block Types Api Accounts  Account Id  Workspaces  Workspace Id  Block Types Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/block_types/slug/{slug}/block_documents:
+    get:
+      tags:
+      - Block types
+      summary: Read Block Documents For Block Type
+      description: '
+
+
+        Required workspace scopes: `see_blocks`'
+      operationId: read_block_documents_for_block_type_api_accounts__account_id__workspaces__workspace_id__block_types_slug__slug__block_documents_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: slug
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The block type name
+          title: Slug
+        description: The block type name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: include_secrets
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to include sensitive values in the block document.
+          default: false
+          title: Include Secrets
+        description: Whether to include sensitive values in the block document.
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BlockDocument'
+                title: Response Read Block Documents For Block Type Api Accounts  Account Id  Workspaces  Workspace Id  Block Types Slug  Slug  Block Documents Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/block_types/slug/{slug}/block_documents/name/{block_document_name}:
+    get:
+      tags:
+      - Block types
+      summary: Read Block Document By Name For Block Type
+      description: '
+
+
+        Required workspace scopes: `see_blocks`'
+      operationId: read_block_document_by_name_for_block_type_api_accounts__account_id__workspaces__workspace_id__block_types_slug__slug__block_documents_name__block_document_name__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: slug
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The block type name
+          title: Slug
+        description: The block type name
+      - name: block_document_name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The block type name
+          title: Block Document Name
+        description: The block type name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: include_secrets
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to include sensitive values in the block document.
+          default: false
+          title: Include Secrets
+        description: Whether to include sensitive values in the block document.
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlockDocument'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/block_types/install_system_block_types:
+    post:
+      tags:
+      - Block types
+      summary: Install System Block Types
+      description: '
+
+
+        Required workspace scopes: `manage_blocks`'
+      operationId: install_system_block_types_api_accounts__account_id__workspaces__workspace_id__block_types_install_system_block_types_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    BlockTypeCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: A block type's name
+        slug:
+          type: string
+          maxLength: 5000
+          title: Slug
+          description: A block type's slug
+        logo_url:
+          anyOf:
+          - type: string
+            maxLength: 2083
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Logo Url
+          description: Web URL for the block type's logo
+        documentation_url:
+          anyOf:
+          - type: string
+            maxLength: 2083
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Documentation Url
+          description: Web URL for the block type's documentation
+        description:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Description
+          description: A short blurb about the corresponding block's intended use
+        code_example:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Code Example
+          description: A code snippet demonstrating use of the corresponding block
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - slug
+      title: BlockTypeCreate
+      description: Data used by the Prefect REST API to create a block type.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    BlockSchemaFilterCapabilities:
+      properties:
+        all_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: All
+          description: A list of block capabilities. Block entities will be returned only if an associated block schema has a superset of the defined capabilities.
+          examples:
+          - - write-storage
+            - read-storage
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilterCapabilities
+      description: Filter by `BlockSchema.capabilities`
+    Body_read_block_types_api_accounts__account_id__workspaces__workspace_id__block_types_filter_post:
+      properties:
+        block_types:
+          anyOf:
+          - $ref: '#/components/schemas/BlockTypeFilter'
+          - type: 'null'
+        block_schemas:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilter'
+          - type: 'null'
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_block_types_api_accounts__account_id__workspaces__workspace_id__block_types_filter_post
+    BlockSchemaFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of IDs to include
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilterId
+      description: Filter by BlockSchema.id
+    BlockTypeUpdate:
+      properties:
+        logo_url:
+          anyOf:
+          - type: string
+            maxLength: 2083
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Logo Url
+        documentation_url:
+          anyOf:
+          - type: string
+            maxLength: 2083
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Documentation Url
+        description:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Description
+        code_example:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Code Example
+      additionalProperties: false
+      type: object
+      title: BlockTypeUpdate
+      description: Data used by the Prefect REST API to update a block type.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
+    BlockSchemaFilterVersion:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of block schema versions.
+          examples:
+          - - 2.0.0
+            - 2.1.0
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilterVersion
+      description: Filter by `BlockSchema.capabilities`
+    BlockSchemaFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        block_type_id:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterBlockTypeId'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.block_type_id`
+        block_capabilities:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterCapabilities'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.capabilities`
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterId'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.id`
+        version:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterVersion'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.version`
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilter
+      description: Filter BlockSchemas
+    BlockSchema:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        checksum:
+          type: string
+          title: Checksum
+          description: The block schema's unique checksum
+        fields:
+          additionalProperties: true
+          type: object
+          title: Fields
+          description: The block schema's field schema
+        block_type_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Block Type Id
+          description: A block type ID
+        block_type:
+          anyOf:
+          - $ref: '#/components/schemas/BlockType'
+          - type: 'null'
+          description: The associated block type
+        capabilities:
+          items:
+            type: string
+          type: array
+          title: Capabilities
+          description: A list of Block capabilities
+        version:
+          type: string
+          title: Version
+          description: Human readable identifier for the block schema
+          default: non-versioned
+      type: object
+      required:
+      - checksum
+      - block_type_id
+      title: BlockSchema
+      description: An ORM representation of a block schema.
+    BlockTypeFilterName:
+      properties:
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: BlockTypeFilterName
+      description: Filter by `BlockType.name`
+    BlockSchemaFilterBlockTypeId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of block type ids to include
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilterBlockTypeId
+      description: Filter by `BlockSchema.block_type_id`.
+    BlockTypeFilterSlug:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of slugs to match
+      additionalProperties: false
+      type: object
+      title: BlockTypeFilterSlug
+      description: Filter by `BlockType.slug`
+    BlockTypeFilter:
+      properties:
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/BlockTypeFilterName'
+          - type: 'null'
+          description: Filter criteria for `BlockType.name`
+        slug:
+          anyOf:
+          - $ref: '#/components/schemas/BlockTypeFilterSlug'
+          - type: 'null'
+          description: Filter criteria for `BlockType.slug`
+      additionalProperties: false
+      type: object
+      title: BlockTypeFilter
+      description: Filter BlockTypes
+    BlockType:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        name:
+          type: string
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: A block type's name
+        slug:
+          type: string
+          title: Slug
+          description: A block type's slug
+        logo_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Logo Url
+          description: Web URL for the block type's logo
+        documentation_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Documentation Url
+          description: Web URL for the block type's documentation
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A short blurb about the corresponding block's intended use
+        code_example:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code Example
+          description: A code snippet demonstrating use of the corresponding block
+        is_protected:
+          type: boolean
+          title: Is Protected
+          description: Protected block types cannot be modified via API.
+          default: false
+      type: object
+      required:
+      - name
+      - slug
+      title: BlockType
+      description: An ORM representation of a block type
+    BlockDocument:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        name:
+          anyOf:
+          - type: string
+            pattern: ^[^/%&><]+$
+          - type: 'null'
+          title: Name
+          description: The block document's name. Not required for anonymous block documents.
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
+          description: The block document's data
+        block_schema_id:
+          type: string
+          format: uuid
+          title: Block Schema Id
+          description: A block schema ID
+        block_schema:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchema'
+          - type: 'null'
+          description: The associated block schema
+        block_type_id:
+          type: string
+          format: uuid
+          title: Block Type Id
+          description: A block type ID
+        block_type_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Block Type Name
+          description: A block type name
+        block_type:
+          anyOf:
+          - $ref: '#/components/schemas/BlockType'
+          - type: 'null'
+          description: The associated block type
+        block_document_references:
+          additionalProperties:
+            additionalProperties: true
+            type: object
+          type: object
+          title: Block Document References
+          description: Record of the block document's references
+        is_anonymous:
+          type: boolean
+          title: Is Anonymous
+          description: Whether the block is anonymous (anonymous blocks are usually created by Prefect automatically)
+          default: false
+      type: object
+      required:
+      - block_schema_id
+      - block_type_id
+      title: BlockDocument
+      description: An ORM representation of a block document.

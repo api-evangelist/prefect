@@ -1,0 +1,853 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Resources API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Resources
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/resources/hierarchy/filter:
+    post:
+      tags:
+      - Resources
+      summary: Read Resources Hierarchy
+      operationId: read_resources_hierarchy_api_accounts__account_id__workspaces__workspace_id__resources_hierarchy_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_resources_hierarchy_api_accounts__account_id__workspaces__workspace_id__resources_hierarchy_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/resources/filter:
+    post:
+      tags:
+      - Resources
+      summary: Filter Workspace Resources
+      description: 'Returns resources matching the filter referenced in events during
+
+        the specified time period.'
+      operationId: filter_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_filter_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourcePage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/resources/filter/next:
+    get:
+      tags:
+      - Resources
+      summary: Read Resources Page
+      description: 'Returns the next page of Resources for a previous query against the given Account and
+
+        Workspace, and the URL to request the next page (if there are more results).'
+      operationId: read_resources_page_api_accounts__account_id__workspaces__workspace_id__resources_filter_next_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: page-token
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Page-Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourcePage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/resources/filter/count:
+    post:
+      tags:
+      - Resources
+      summary: Get Filtered Resources Count
+      operationId: get_filtered_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_filter_count_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_get_filtered_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_filter_count_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/resources/related:
+    post:
+      tags:
+      - Resources
+      summary: Filter Related Workspace Resources
+      description: 'Returns resources that interacted with resources matching the filter during
+
+        the specified time period.'
+      operationId: filter_related_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_related_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_filter_related_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_related_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelatedResourcePage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/resources/related/next:
+    get:
+      tags:
+      - Resources
+      summary: Read Related Resources Page
+      description: 'Returns the next page of Resources for a previous query against the given Account and
+
+        Workspace, and the URL to request the next page (if there are more results).'
+      operationId: read_related_resources_page_api_accounts__account_id__workspaces__workspace_id__resources_related_next_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: page-token
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Page-Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelatedResourcePage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/resources/related/count:
+    post:
+      tags:
+      - Resources
+      summary: Get Related Resources Count
+      operationId: get_related_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_related_count_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_get_related_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_related_count_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/resources/hidden-resources:
+    get:
+      tags:
+      - Resources
+      summary: Get Hidden Resources
+      operationId: get_hidden_resources_api_accounts__account_id__workspaces__workspace_id__resources_hidden_resources_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceExclusions'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/resources/hidden-resources/add:
+    post:
+      tags:
+      - Resources
+      summary: Hide Resource Path
+      operationId: hide_resource_path_api_accounts__account_id__workspaces__workspace_id__resources_hidden_resources_add_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceExclusionList'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: boolean
+                title: Response Hide Resource Path Api Accounts  Account Id  Workspaces  Workspace Id  Resources Hidden Resources Add Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/resources/hidden-resources/delete:
+    post:
+      tags:
+      - Resources
+      summary: Remove Resource Exclusion
+      operationId: remove_resource_exclusion_api_accounts__account_id__workspaces__workspace_id__resources_hidden_resources_delete_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceExclusionList'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: boolean
+                title: Response Remove Resource Exclusion Api Accounts  Account Id  Workspaces  Workspace Id  Resources Hidden Resources Delete Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Body_get_related_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_related_count_post:
+      properties:
+        filter:
+          $ref: '#/components/schemas/EventLineageRelatedFilter'
+          description: Additional optional filter criteria to narrow down the set of Events
+      type: object
+      title: Body_get_related_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_related_count_post
+    Body_filter_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of events to return with each page
+          default: 50
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/EventLineageFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down the set of Resources
+      type: object
+      title: Body_filter_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_filter_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_filter_related_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_related_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of events to return with each page
+          default: 50
+        filter:
+          $ref: '#/components/schemas/EventLineageRelatedFilter'
+          description: Additional optional filter criteria to narrow down the set of Events
+      type: object
+      title: Body_filter_related_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_related_post
+    Resource:
+      additionalProperties:
+        type: string
+      type: object
+      title: Resource
+      description: An observable business object of interest to the user
+    RelatedResourceResult:
+      properties:
+        direction:
+          type: string
+          enum:
+          - upstream
+          - downstream
+          title: Direction
+          description: The direction of the interaction
+        resources:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Resources
+          description: The Resources that were interacted with
+      type: object
+      required:
+      - direction
+      - resources
+      title: RelatedResourceResult
+    EventOrder:
+      type: string
+      enum:
+      - ASC
+      - DESC
+      title: EventOrder
+    Body_read_resources_hierarchy_api_accounts__account_id__workspaces__workspace_id__resources_hierarchy_filter_post:
+      properties:
+        depth:
+          type: integer
+          minimum: 0.0
+          title: Depth
+          description: The depth of the hierarchy to return
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of events to return with each page
+          default: 50
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/EventLineageFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down the set of Resources
+      type: object
+      required:
+      - depth
+      title: Body_read_resources_hierarchy_api_accounts__account_id__workspaces__workspace_id__resources_hierarchy_filter_post
+    EventLineageFilter:
+      properties:
+        id:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id
+          description: Only include events for resources with these IDs
+        id_prefix:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id Prefix
+          description: Only include events for resources with IDs starting with these prefixes
+        labels:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - type: 'null'
+          description: Only include events for related resources with these labels
+        exclude_id:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Exclude Id
+          description: Exclude events for resources with these IDs
+        exclude_id_prefix:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Exclude Id Prefix
+          description: Exclude events for resources with IDs starting with these prefixes
+        occurred:
+          $ref: '#/components/schemas/LineageResourceOccurredFilter'
+          description: Filter criteria for when events related to matching resources occurred
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 200.0
+            minimum: 0.0
+          - type: 'null'
+          title: Limit
+          description: The maximum number of events to return
+        offset:
+          anyOf:
+          - type: integer
+            maximum: 5000.0
+            minimum: 0.0
+          - type: 'null'
+          title: Offset
+          description: The number of events to skip
+        order:
+          $ref: '#/components/schemas/EventOrder'
+          description: The order to return filtered resources
+          default: DESC
+        scope:
+          $ref: '#/components/schemas/EventScopeFilter'
+          description: Filter criteria for the events' workspace
+        group_level:
+          anyOf:
+          - type: integer
+            minimum: 1.0
+          - type: 'null'
+          title: Group Level
+          description: The number of levels to group by
+      additionalProperties: false
+      type: object
+      title: EventLineageFilter
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EventLineageRelatedFilter:
+      properties:
+        id:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id
+          description: Only include events for resources with these IDs
+        id_prefix:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id Prefix
+          description: Only include events for resources with IDs starting with these prefixes
+        labels:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - type: 'null'
+          description: Only include events for related resources with these labels
+        exclude_id:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Exclude Id
+          description: Exclude events for resources with these IDs
+        exclude_id_prefix:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Exclude Id Prefix
+          description: Exclude events for resources with IDs starting with these prefixes
+        occurred:
+          $ref: '#/components/schemas/LineageResourceOccurredFilter'
+          description: Filter criteria for when events related to matching resources occurred
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 200.0
+            minimum: 0.0
+          - type: 'null'
+          title: Limit
+          description: The maximum number of events to return
+        offset:
+          anyOf:
+          - type: integer
+            maximum: 5000.0
+            minimum: 0.0
+          - type: 'null'
+          title: Offset
+          description: The number of events to skip
+        order:
+          $ref: '#/components/schemas/EventOrder'
+          description: The order to return filtered resources
+          default: DESC
+        scope:
+          $ref: '#/components/schemas/EventScopeFilter'
+          description: Filter criteria for the events' workspace
+        group_level:
+          anyOf:
+          - type: integer
+            minimum: 1.0
+          - type: 'null'
+          title: Group Level
+          description: The number of levels to group by
+        direction:
+          $ref: '#/components/schemas/EventDirection'
+          description: The direction of the relationship to filter on
+          default: downstream
+        related_role:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Related Role
+          description: Include only related resources with these roles
+        exclude_related_role:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Exclude Related Role
+          description: Exclude related resources with these roles
+      additionalProperties: false
+      type: object
+      title: EventLineageRelatedFilter
+    ResourceExclusions:
+      properties:
+        paths:
+          items:
+            type: string
+          type: array
+          title: Paths
+          description: The paths of the resources to exclude
+      type: object
+      required:
+      - paths
+      title: ResourceExclusions
+    Body_get_filtered_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_filter_count_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of events to return with each page
+          default: 50
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/EventLineageFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down the set of Resources
+      type: object
+      title: Body_get_filtered_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_filter_count_post
+    EventScopeFilter:
+      properties:
+        account:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Account
+          description: Only include events for this account
+        workspace:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace
+          description: Only include events for these workspaces
+      additionalProperties: false
+      type: object
+      title: EventScopeFilter
+    EventDirection:
+      type: string
+      enum:
+      - downstream
+      - upstream
+      title: EventDirection
+    ResourceExclusionList:
+      properties:
+        paths:
+          items:
+            type: string
+          type: array
+          title: Paths
+          description: The paths of the resources to exclude
+      type: object
+      required:
+      - paths
+      title: ResourceExclusionList
+    ResourcePage:
+      properties:
+        resources:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Resources
+          description: The Resources matching the query
+        total:
+          type: integer
+          title: Total
+          description: The total number of matching Resources
+        next_page:
+          anyOf:
+          - type: string
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Next Page
+          description: The URL for the next page of results, if there are more
+      type: object
+      required:
+      - resources
+      - total
+      - next_page
+      title: ResourcePage
+      description: 'A single page of resources returned from the API, with an optional link to the
+
+        next page of results'
+    LineageResourceOccurredFilter:
+      properties:
+        since:
+          type: string
+          format: date-time
+          title: Since
+        until:
+          type: string
+          format: date-time
+          title: Until
+          description: Only include events prior to this time (inclusive)
+      additionalProperties: false
+      type: object
+      title: LineageResourceOccurredFilter
+    RelatedResourcePage:
+      properties:
+        resources:
+          items:
+            $ref: '#/components/schemas/RelatedResourceResult'
+          type: array
+          title: Resources
+          description: The Resources that were interacted with
+        total:
+          type: integer
+          title: Total
+          description: The total number of matching Resources
+        next_page:
+          anyOf:
+          - type: string
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Next Page
+          description: The URL for the next page of results, if there are more
+      type: object
+      required:
+      - resources
+      - total
+      - next_page
+      title: RelatedResourcePage

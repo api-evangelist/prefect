@@ -1,0 +1,968 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Spans API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Spans
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}:
+    get:
+      tags:
+      - Spans
+      summary: Read Spans
+      description: 'Get spans with cursor-based pagination for efficient browsing.
+
+
+        Use cases:
+
+        - Initial page load (depth=0 for root spans)
+
+        - Expand a node (parent_span_id=X for children)
+
+        - Browse all spans at specific depth
+
+        - Filter by state types/names
+
+        - Paginate through large result sets (both directions)
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: read_spans_api_accounts__account_id__workspaces__workspace_id__traces__trace_id__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: trace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The trace ID to query spans for
+          title: Trace Id
+        description: The trace ID to query spans for
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: parent_span_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Filter by parent span ID (None = all spans)
+          title: Parent Span Id
+        description: Filter by parent span ID (None = all spans)
+      - name: depth
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          description: Filter by depth level (None = all depths)
+          title: Depth
+        description: Filter by depth level (None = all depths)
+      - name: entities
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter by entity types (e.g., 'flow-run', 'task-run', 'artifact')
+          title: Entities
+        description: Filter by entity types (e.g., 'flow-run', 'task-run', 'artifact')
+      - name: state_types
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter by state types (e.g., 'COMPLETED', 'RUNNING', 'FAILED')
+          title: State Types
+        description: Filter by state types (e.g., 'COMPLETED', 'RUNNING', 'FAILED')
+      - name: state_names
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter by state names (e.g., 'Completed', 'Running', 'Failed')
+          title: State Names
+        description: Filter by state names (e.g., 'Completed', 'Running', 'Failed')
+      - name: tags
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter by tags (OR logic - span matches if it has ANY of the specified tags)
+          title: Tags
+        description: Filter by tags (OR logic - span matches if it has ANY of the specified tags)
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 200
+          - type: 'null'
+          description: Text search query across span content (space=OR, -/!=NOT, quotes=phrases)
+          title: Query
+        description: Text search query across span content (space=OR, -/!=NOT, quotes=phrases)
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 1000
+          minimum: 1
+          description: Number of results to return
+          default: 100
+          title: Limit
+        description: Number of results to return
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Pagination cursor from previous response
+          title: Cursor
+        description: Pagination cursor from previous response
+      - name: direction
+        in: query
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+          description: Pagination direction
+          default: asc
+          title: Direction
+        description: Pagination direction
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpansResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}/context/{span_id}:
+    get:
+      tags:
+      - Spans
+      summary: Read Span Context
+      description: 'Get full context window for detailed span view.
+
+
+        Returns:
+
+        - spans: All ancestors + siblings in context window
+
+        - target_span_id: The requested span ID
+
+        - has_more_before/after: Pagination indicators
+
+
+        Use case: When user clicks on a span or loads a deep link URL
+
+
+        The frontend receives a flat list of spans and can:
+
+        - Build the tree structure from parent relationships
+
+        - Highlight the target span
+
+        - Show pagination controls based on has_more flags
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: read_span_context_api_accounts__account_id__workspaces__workspace_id__traces__trace_id__context__span_id__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: trace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The trace containing the span
+          title: Trace Id
+        description: The trace containing the span
+      - name: span_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The target span to get context for
+          title: Span Id
+        description: The target span to get context for
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: context_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          description: Number of siblings before/after to include
+          default: 10
+          title: Context Size
+        description: Number of siblings before/after to include
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpansResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}/observed-states:
+    get:
+      tags:
+      - Spans
+      summary: Read Trace Observed States
+      description: "Get observed state type/name combinations used in a specific trace.\n\nReturns distinct state combinations used in the trace.\nUseful for showing what states were actually used in a flow run and\nproviding autocomplete/filtering options.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID to analyze\n    query: Optional prefix search on state_type or state_name\n    order_by: Order by name (alphabetically) or recency (most recent first)\n    limit: Maximum number of results\n\nReturns:\n    List of ObservedState objects\n\nRequired workspace scopes: `see_flows`"
+      operationId: read_trace_observed_states_api_accounts__account_id__workspaces__workspace_id__traces__trace_id__observed_states_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: trace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The trace ID to query observed states for
+          title: Trace Id
+        description: The trace ID to query observed states for
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 100
+          - type: 'null'
+          description: Prefix search query for state type or name
+          title: Query
+        description: Prefix search query for state type or name
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ObservedStateSort'
+          description: Order results by name (alphabetically) or recency (most recently seen first)
+          default: LAST_SEEN_DESC
+        description: Order results by name (alphabetically) or recency (most recently seen first)
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          description: Maximum number of results to return
+          default: 100
+          title: Limit
+        description: Maximum number of results to return
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObservedState'
+                title: Response Read Trace Observed States Api Accounts  Account Id  Workspaces  Workspace Id  Traces  Trace Id  Observed States Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}/observed-tags:
+    get:
+      tags:
+      - Spans
+      summary: Read Trace Observed Tags
+      description: "Get all observed tags and their counts for a specific trace.\n\nReturns all tags used in spans within the trace with their occurrence counts.\nUseful for showing what tags were used in a flow run and their frequency.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID to analyze\n\nReturns:\n    List of ObservedTag objects with tag names and counts\n\nRequired workspace scopes: `see_flows`"
+      operationId: read_trace_observed_tags_api_accounts__account_id__workspaces__workspace_id__traces__trace_id__observed_tags_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: trace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The trace ID to query observed tags for
+          title: Trace Id
+        description: The trace ID to query observed tags for
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 100
+          - type: 'null'
+          description: Prefix search query for tag names
+          title: Query
+        description: Prefix search query for tag names
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObservedTag'
+                title: Response Read Trace Observed Tags Api Accounts  Account Id  Workspaces  Workspace Id  Traces  Trace Id  Observed Tags Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}/spans/{span_id}:
+    get:
+      tags:
+      - Spans
+      summary: Read Single Span
+      description: "Get a single span by ID within a specific trace.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID containing the span\n    span_id: The span ID to retrieve\n\nReturns:\n    SpanResponse with has_children and child_count computed\n\nRaises:\n    HTTPException: 404 if span not found or doesn't belong to trace\n\nRequired workspace scopes: `see_flows`"
+      operationId: read_single_span_api_accounts__account_id__workspaces__workspace_id__traces__trace_id__spans__span_id__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: trace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The trace containing the span
+          title: Trace Id
+        description: The trace containing the span
+      - name: span_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The span ID to retrieve
+          title: Span Id
+        description: The span ID to retrieve
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpanResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}/spans:
+    get:
+      tags:
+      - Spans
+      summary: Read Spans By Ids
+      description: "Get multiple spans by IDs within a specific trace.\n\nReturns only spans that exist and belong to the specified trace.\nEmpty IDs list or no matches returns empty list.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID containing the spans\n    ids: List of span IDs to retrieve\n\nReturns:\n    List of SpanResponse objects with has_children and child_count computed\n\nRaises:\n    HTTPException: 404 if trace doesn't exist\n\nRequired workspace scopes: `see_flows`"
+      operationId: read_spans_by_ids_api_accounts__account_id__workspaces__workspace_id__traces__trace_id__spans_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: trace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The trace containing the spans
+          title: Trace Id
+        description: The trace containing the spans
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: ids
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: List of span IDs to retrieve. Only returns spans that exist and belong to the specified trace.
+          default: []
+          title: Ids
+        description: List of span IDs to retrieve. Only returns spans that exist and belong to the specified trace.
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SpanResponse'
+                title: Response Read Spans By Ids Api Accounts  Account Id  Workspaces  Workspace Id  Traces  Trace Id  Spans Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/spans/lookup/{run_id}:
+    get:
+      tags:
+      - Spans
+      summary: Lookup Span By Run Id
+      description: "Look up trace and span information for a given run ID.\n\nTreats the run_id as a span_id and returns the trace_id and span_id\nof the found span. This is useful for navigating from a child run ID\nto its trace view.\n\nArgs:\n    workspace_id: The workspace ID\n    run_id: The run ID to look up (treated as span_id)\n\nReturns:\n    SpanIdentifierResponse containing trace_id and span_id\n\nRaises:\n    HTTPException: 404 if span not found\n\nRequired workspace scopes: `see_flows`"
+      operationId: lookup_span_by_run_id_api_accounts__account_id__workspaces__workspace_id__spans_lookup__run_id__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The run ID to lookup span information for
+          title: Run Id
+        description: The run ID to lookup span information for
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpanIdentifierResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/spans/{span_id}/observed-tags:
+    get:
+      tags:
+      - Spans
+      summary: Read Span Observed Tags
+      description: "Get all observed tags and their counts for a specific span and all its descendants.\n\nUses a recursive query to find all descendant spans, then aggregates tags\nfrom the target span and all its children recursively.\n\nArgs:\n    workspace_id: The workspace ID\n    span_id: The span ID to analyze (includes this span + all descendants)\n\nReturns:\n    List of ObservedTag objects with tag names and occurrence counts\n\nRequired workspace scopes: `see_flows`"
+      operationId: read_span_observed_tags_api_accounts__account_id__workspaces__workspace_id__spans__span_id__observed_tags_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: span_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The span ID to query observed tags for
+          title: Span Id
+        description: The span ID to query observed tags for
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 100
+          - type: 'null'
+          description: Prefix search query for tag names
+          title: Query
+        description: Prefix search query for tag names
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObservedTag'
+                title: Response Read Span Observed Tags Api Accounts  Account Id  Workspaces  Workspace Id  Spans  Span Id  Observed Tags Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/observed-states:
+    get:
+      tags:
+      - Spans
+      summary: Read Workspace Observed States
+      description: "Get observed state type/name combinations for a workspace.\n\nReturns distinct state combinations across all traces in the workspace.\nResults are filtered by workspace retention policy.\nUseful for providing autocomplete/filtering options in the UI.\n\nArgs:\n    account_id: The account ID\n    workspace_id: The workspace ID\n    query: Optional prefix search on state_type or state_name\n    order_by: Order by name (alphabetically) or recency (most recent first)\n    limit: Maximum number of results\n\nReturns:\n    List of ObservedState objects\n\nRequired workspace scopes: `see_flows`"
+      operationId: read_workspace_observed_states_api_accounts__account_id__workspaces__workspace_id__observed_states_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 100
+          - type: 'null'
+          description: Prefix search query for state type or name
+          title: Query
+        description: Prefix search query for state type or name
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ObservedStateSort'
+          description: Order results by name (alphabetically) or recency (most recently seen first)
+          default: LAST_SEEN_DESC
+        description: Order results by name (alphabetically) or recency (most recently seen first)
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Maximum number of results to return
+          default: 200
+          title: Limit
+        description: Maximum number of results to return
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObservedState'
+                title: Response Read Workspace Observed States Api Accounts  Account Id  Workspaces  Workspace Id  Observed States Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SpanResponse:
+      properties:
+        span_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Span Id
+        trace_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Id
+        parent_span_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Parent Span Id
+        path:
+          items:
+            type: string
+          type: array
+          title: Path
+        start_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Time
+        running_time:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Running Time
+        published:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Published
+        name:
+          type: string
+          title: Name
+        span_type:
+          type: string
+          title: Span Type
+        state_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Type
+        state_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Name
+        version:
+          type: integer
+          title: Version
+        attributes:
+          additionalProperties: true
+          type: object
+          title: Attributes
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        has_children:
+          type: boolean
+          title: Has Children
+          description: Whether this span has any child spans
+          default: false
+        child_count:
+          type: integer
+          title: Child Count
+          description: Number of child spans
+          default: 0
+        child_state_counts:
+          additionalProperties:
+            additionalProperties:
+              type: integer
+            type: object
+          type: object
+          title: Child State Counts
+          description: Child span counts grouped by child span type and state name.
+      type: object
+      required:
+      - span_id
+      - trace_id
+      - start_time
+      - end_time
+      - name
+      - span_type
+      - state_type
+      - state_name
+      - version
+      - attributes
+      title: SpanResponse
+      description: Span with additional computed fields for API responses.
+    SpanIdentifierResponse:
+      properties:
+        trace_id:
+          type: string
+          format: uuid
+          title: Trace Id
+          description: The trace ID containing this span
+        span_id:
+          type: string
+          format: uuid
+          title: Span Id
+          description: The span ID
+      type: object
+      required:
+      - trace_id
+      - span_id
+      title: SpanIdentifierResponse
+      description: Response containing trace_id and span_id for a span lookup.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SpansResponse:
+      properties:
+        spans:
+          items:
+            $ref: '#/components/schemas/SpanResponse'
+          type: array
+          title: Spans
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+        prev_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev Cursor
+      type: object
+      required:
+      - spans
+      title: SpansResponse
+      description: Unified response for both list and context endpoints.
+    ObservedStateSort:
+      type: string
+      enum:
+      - NAME_ASC
+      - LAST_SEEN_DESC
+      title: ObservedStateSort
+      description: Defines observed state sorting options.
+    ObservedTag:
+      properties:
+        tag:
+          type: string
+          title: Tag
+          description: The tag name
+        count:
+          type: integer
+          title: Count
+          description: Number of spans with this tag in the trace
+      type: object
+      required:
+      - tag
+      - count
+      title: ObservedTag
+      description: An observed tag from spans within a trace.
+    ObservedState:
+      properties:
+        state_type:
+          type: string
+          title: State Type
+          description: The state type (e.g., 'COMPLETED', 'FAILED')
+        state_name:
+          type: string
+          title: State Name
+          description: The state name (e.g., 'Completed', 'Failed', 'Cancelled')
+        first_seen:
+          type: string
+          format: date-time
+          title: First Seen
+          description: When this state combination was first observed
+        last_seen:
+          type: string
+          format: date-time
+          title: Last Seen
+          description: When this state combination was last observed
+      type: object
+      required:
+      - state_type
+      - state_name
+      - first_seen
+      - last_seen
+      title: ObservedState
+      description: An observed state type/name combination from spans.

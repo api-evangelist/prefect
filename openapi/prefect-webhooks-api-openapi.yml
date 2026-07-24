@@ -1,0 +1,688 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Webhooks API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Webhooks
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/webhooks/:
+    post:
+      tags:
+      - Webhooks
+      summary: Create Webhook
+      operationId: create_webhook_api_accounts__account_id__workspaces__workspace_id__webhooks__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/webhooks/{webhook_id}:
+    put:
+      tags:
+      - Webhooks
+      summary: Update Webhook
+      operationId: update_webhook_api_accounts__account_id__workspaces__workspace_id__webhooks__webhook_id__put
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: webhook_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Webhooks
+      summary: Partial Update Webhook
+      operationId: partial_update_webhook_api_accounts__account_id__workspaces__workspace_id__webhooks__webhook_id__patch
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: webhook_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookPartialUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Webhooks
+      summary: Delete Webhook
+      operationId: delete_webhook_api_accounts__account_id__workspaces__workspace_id__webhooks__webhook_id__delete
+      parameters:
+      - name: webhook_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Webhooks
+      summary: Read Webhook
+      operationId: read_webhook_api_accounts__account_id__workspaces__workspace_id__webhooks__webhook_id__get
+      parameters:
+      - name: webhook_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/webhooks/filter:
+    post:
+      tags:
+      - Webhooks
+      summary: Query Webhooks
+      operationId: query_webhooks_api_accounts__account_id__workspaces__workspace_id__webhooks_filter_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_query_webhooks_api_accounts__account_id__workspaces__workspace_id__webhooks_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WebhookRead'
+                title: Response Query Webhooks Api Accounts  Account Id  Workspaces  Workspace Id  Webhooks Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/webhooks/{webhook_id}/rotate:
+    post:
+      tags:
+      - Webhooks
+      summary: Rotate Webhook Slug
+      operationId: rotate_webhook_slug_api_accounts__account_id__workspaces__workspace_id__webhooks__webhook_id__rotate_post
+      parameters:
+      - name: webhook_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    WebhookRead:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the webhook
+        description:
+          type: string
+          title: Description
+          description: A longer description of the webhook
+          default: ''
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether the webhook is enabled
+          default: true
+        service_account_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Service Account Id
+          description: The Service Account to which this webhook belongs
+        template:
+          type: string
+          maxLength: 30000
+          title: Template
+          description: The template which translates the incoming HTTP headers and body into a Prefect Event
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        account:
+          type: string
+          format: uuid
+          title: Account
+          description: The Account to which this webhook belongs
+        workspace:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace
+          description: The Workspace to which this webhook belongs
+        slug:
+          type: string
+          title: Slug
+          description: The slug of the webhook, used in the URL
+        service_account:
+          anyOf:
+          - $ref: '#/components/schemas/BotPartial'
+          - type: 'null'
+          description: The Service Account to which this webhook belongs
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - template
+      - account
+      - workspace
+      - service_account
+      title: WebhookRead
+    WebhookSort:
+      type: string
+      enum:
+      - CREATED_ASC
+      - CREATED_DESC
+      - UPDATED_ASC
+      - UPDATED_DESC
+      - NAME_ASC
+      - NAME_DESC
+      - KEY_EXPIRATION_ASC
+      - KEY_EXPIRATION_DESC
+      title: WebhookSort
+      description: Defines webhook sorting options.
+    BotPartial:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+          description: The actor id associated with this bot.
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+          description: The bot's account id. Bots can only belong to one account.
+        name:
+          type: string
+          title: Name
+          description: The name of the bot.
+        api_key:
+          $ref: '#/components/schemas/APIKey'
+          description: The API Key the bot owns.
+      type: object
+      required:
+      - actor_id
+      - account_id
+      - name
+      - api_key
+      title: BotPartial
+      description: An ORM representation of a Bot
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Webhook:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the webhook
+        description:
+          type: string
+          title: Description
+          description: A longer description of the webhook
+          default: ''
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether the webhook is enabled
+          default: true
+        service_account_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Service Account Id
+          description: The Service Account to which this webhook belongs
+        template:
+          type: string
+          maxLength: 30000
+          title: Template
+          description: The template which translates the incoming HTTP headers and body into a Prefect Event
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        account:
+          type: string
+          format: uuid
+          title: Account
+          description: The Account to which this webhook belongs
+        workspace:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace
+          description: The Workspace to which this webhook belongs
+        slug:
+          type: string
+          title: Slug
+          description: The slug of the webhook, used in the URL
+      type: object
+      required:
+      - name
+      - template
+      - account
+      - workspace
+      title: Webhook
+      description: Defines an inbound webhook to receive events from external systems
+    WebhookPartialUpdate:
+      properties:
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether the webhook is enabled
+          default: true
+      additionalProperties: false
+      type: object
+      title: WebhookPartialUpdate
+      description: Defines an inbound webhook to receive events from external systems
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_query_webhooks_api_accounts__account_id__workspaces__workspace_id__webhooks_filter_post:
+      properties:
+        sort:
+          $ref: '#/components/schemas/WebhookSort'
+          default: NAME_ASC
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_query_webhooks_api_accounts__account_id__workspaces__workspace_id__webhooks_filter_post
+    APIKey:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+        name:
+          type: string
+          title: Name
+          description: The name of the api key.
+        expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expiration
+          description: The time at which the api key expires. If `None`, the api key will not expire.
+        hash:
+          type: string
+          title: Hash
+        masked_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Masked Key
+          description: Masked API key showing prefix and last 4 characters (e.g., pnu_...a1b2).
+      type: object
+      required:
+      - actor_id
+      - name
+      - hash
+      title: APIKey
+      description: An ORM representation of an APIKey
+    WebhookUpdate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the webhook
+        description:
+          type: string
+          maxLength: 5000
+          title: Description
+          description: A longer description of the webhook
+          default: ''
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether the webhook is enabled
+          default: true
+        service_account_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Service Account Id
+          description: The Service Account to which this webhook belongs
+        template:
+          type: string
+          maxLength: 30000
+          title: Template
+          description: The template which translates the incoming HTTP headers and body into a Prefect Event
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - template
+      title: WebhookUpdate
+      description: Defines an inbound webhook to receive events from external systems
+    WebhookCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the webhook
+        description:
+          type: string
+          maxLength: 5000
+          title: Description
+          description: A longer description of the webhook
+          default: ''
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether the webhook is enabled
+          default: true
+        service_account_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Service Account Id
+          description: The Service Account to which this webhook belongs
+        template:
+          type: string
+          maxLength: 30000
+          title: Template
+          description: The template which translates the incoming HTTP headers and body into a Prefect Event
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - template
+      title: WebhookCreate
+      description: Defines an inbound webhook to receive events from external systems

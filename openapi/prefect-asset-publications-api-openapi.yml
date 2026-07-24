@@ -1,0 +1,174 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Asset Publications API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Asset Publications
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/asset-publications/:
+    post:
+      tags:
+      - Asset Publications
+      summary: Create Asset Publication
+      operationId: create_asset_publication_api_accounts__account_id__workspaces__workspace_id__asset_publications__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetPublicationCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AssetPublicationCreate:
+      properties:
+        resource_ids:
+          items:
+            type: string
+          type: array
+          title: Resource Ids
+      type: object
+      required:
+      - resource_ids
+      title: AssetPublicationCreate
+      description: 'POST body for creating an asset publication.
+
+
+        The caller provides literal asset keys; the server constructs the underlying
+
+        PublicationCreate with the correct event patterns and resource spec so the
+
+        publication is visible to the Available Assets browse experience.'
+    PublicationResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+        enabled:
+          type: boolean
+          title: Enabled
+        event:
+          items:
+            type: string
+          type: array
+          title: Event
+        resource:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Resource
+        related:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Related
+        created:
+          type: string
+          format: date-time
+          title: Created
+        updated:
+          type: string
+          format: date-time
+          title: Updated
+        subscriber_count:
+          type: integer
+          title: Subscriber Count
+          default: 0
+      type: object
+      required:
+      - id
+      - account_id
+      - workspace_id
+      - enabled
+      - event
+      - created
+      - updated
+      title: PublicationResponse
+      description: Response model for a publication.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'

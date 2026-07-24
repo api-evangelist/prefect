@@ -1,0 +1,404 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Workspace Roles API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Workspace Roles
+  description: View and define Roles within a Workspace.
+  externalDocs:
+    description: 'Manage workspaces: control access'
+    url: https://docs.prefect.io/v3/manage/cloud/workspaces#control-access
+paths:
+  /api/accounts/{account_id}/workspace_roles/:
+    post:
+      tags:
+      - Workspace Roles
+      summary: Create Workspace Role
+      description: 'Create a custom workspace role.
+
+
+        Required account permissions: `create:workspace_role`'
+      operationId: create_workspace_role_api_accounts__account_id__workspace_roles__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceRoleCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceRole'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspace_roles/{id}:
+    patch:
+      tags:
+      - Workspace Roles
+      summary: Update Workspace Role
+      description: 'Update a custom workspace role.
+
+
+        Required account permissions: `update:workspace_role`'
+      operationId: update_workspace_role_api_accounts__account_id__workspace_roles__id__patch
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceRoleUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Workspace Roles
+      summary: Delete Workspace Role
+      description: 'Delete a custom workspace role.
+
+
+        Required account permissions: `delete:workspace_role`'
+      operationId: delete_workspace_role_api_accounts__account_id__workspace_roles__id__delete
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Workspace Roles
+      summary: Read Workspace Role
+      description: 'Read a workspace role.
+
+
+        Required account permissions: `read:workspace_role`'
+      operationId: read_workspace_role_api_accounts__account_id__workspace_roles__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceRole'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspace_roles/filter:
+    post:
+      tags:
+      - Workspace Roles
+      summary: Read Workspace Roles
+      description: 'Query for workspace roles.
+
+
+        Required account permissions: `read:workspace_role`'
+      operationId: read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceRole'
+                title: Response Read Workspace Roles Api Accounts  Account Id  Workspace Roles Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    WorkspaceRoleFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include workspace roles matching these names
+      additionalProperties: false
+      type: object
+      title: WorkspaceRoleFilterName
+    WorkspaceRoleFilter:
+      properties:
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceRoleFilterName'
+          - type: 'null'
+          description: Filter criteria for WorkspaceRole.name
+        is_global:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Global
+          description: "\n        If True, only return global built-in roles. If False,\n        only return workspace roles from this account. Defaults to `None`, which includes both.\n        "
+      additionalProperties: false
+      type: object
+      title: WorkspaceRoleFilter
+    WorkspaceRole:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        account_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Account Id
+          description: The account id
+        name:
+          type: string
+          title: Name
+          description: The workspace role name
+        description:
+          type: string
+          maxLength: 140
+          title: Description
+          description: A short description of the role.
+          default: ''
+        permissions:
+          items:
+            type: string
+          type: array
+          title: Permissions
+          description: The workspace role's permissions
+          deprecated: true
+        scopes:
+          items:
+            type: string
+          type: array
+          title: Scopes
+          description: The workspace role's scopes.
+        inherited_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Inherited Role Id
+          description: An optional built-in workspace role id from which this workspace role inherits.
+      type: object
+      required:
+      - account_id
+      - name
+      title: WorkspaceRole
+      description: An ORM representation of a WorkspaceRole
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    WorkspaceRoleCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The workspace role name
+        description:
+          type: string
+          maxLength: 140
+          title: Description
+          description: A short description of the role.
+          default: ''
+        scopes:
+          items:
+            type: string
+          type: array
+          title: Scopes
+          description: The workspace role's scopes.
+        inherited_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Inherited Role Id
+          description: An optional built-in workspace role id from which this workspace role inherits.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: WorkspaceRoleCreate
+      description: Data used by the api to create a workspace role
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    WorkspaceRoleUpdate:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Name
+          description: The workspace role name.
+        description:
+          anyOf:
+          - type: string
+            maxLength: 140
+          - type: 'null'
+          title: Description
+          description: A short description of the role.
+        scopes:
+          items:
+            type: string
+          type: array
+          title: Scopes
+          description: The workspace role's scopes.
+        inherited_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Inherited Role Id
+          description: An optional built-in workspace role id from which this workspace role inherits.
+      additionalProperties: false
+      type: object
+      title: WorkspaceRoleUpdate
+      description: Data used by the api to update a workspace role
+    Body_read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        workspace_roles:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceRoleFilter'
+          - type: 'null'
+      type: object
+      title: Body_read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post

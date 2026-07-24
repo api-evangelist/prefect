@@ -1,0 +1,353 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Account Roles API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Account Roles
+  description: View and define user Roles within an Account.
+  externalDocs:
+    description: Manage account roles
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/manage-roles#manage-account-roles
+paths:
+  /api/accounts/{account_id}/account_roles/{id}:
+    get:
+      tags:
+      - Account Roles
+      summary: Read Account Role
+      description: 'Get an Account Role by id.
+
+
+        Required account permissions: `read:account_role`'
+      operationId: read_account_role_api_accounts__account_id__account_roles__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountRole'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Account Roles
+      summary: Update Account Role
+      description: 'Update an account role by id.
+
+
+        Required account permissions: `update:account_role`'
+      operationId: update_account_role_api_accounts__account_id__account_roles__id__patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountRoleUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Account Roles
+      summary: Delete Account Role
+      description: 'Delete an account role by id.
+
+
+        Required account permissions: `delete:account_role`'
+      operationId: delete_account_role_api_accounts__account_id__account_roles__id__delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/account_roles/filter:
+    post:
+      tags:
+      - Account Roles
+      summary: Read Account Roles
+      description: 'Query for account roles.
+
+
+        Required account permissions: `read:account_role`'
+      operationId: read_account_roles_api_accounts__account_id__account_roles_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_account_roles_api_accounts__account_id__account_roles_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountRole'
+                title: Response Read Account Roles Api Accounts  Account Id  Account Roles Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AccountRoleFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include account roles matching these names
+      additionalProperties: false
+      type: object
+      title: AccountRoleFilterName
+    AccountPermission:
+      type: string
+      enum:
+      - read:account
+      - update:account
+      - delete:account
+      - read:account_membership
+      - update:account_membership
+      - delete:account_membership
+      - create:account_role
+      - read:account_role
+      - update:account_role
+      - delete:account_role
+      - add:account_member
+      - read:sso
+      - administrate:sso
+      - bypass:sso
+      - read:billing
+      - update:billing
+      - create:bot
+      - read:bot
+      - update:bot
+      - delete:bot
+      - create:team
+      - read:team
+      - update:team
+      - delete:team
+      - create:invitation
+      - read:invitation
+      - update:invitation
+      - create:workspace_invitation
+      - read:workspace_invitation
+      - update:workspace_invitation
+      - administrate:workspace
+      - create:workspace
+      - read:workspace
+      - delete:workspace
+      - create:workspace_role
+      - read:workspace_role
+      - update:workspace_role
+      - delete:workspace_role
+      - create:audit_event
+      - read:audit_event
+      - update:ip_allowlist
+      - read:ip_allowlist
+      - read:mex-storage
+      - update:mex-storage
+      - delete:mex-storage
+      - read:integrations
+      - update:integrations
+      title: AccountPermission
+      description: Enumerates possible permissions over an account
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AccountRole:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        account_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Account Id
+          description: The account id associated with the role. If `None`, the role is a globally available default not associated with a specific account.
+        name:
+          type: string
+          title: Name
+          description: The name of the account role.
+        permissions:
+          items:
+            $ref: '#/components/schemas/AccountPermission'
+          type: array
+          title: Permissions
+          description: The list of account permissions held by this role. Defines the actions account members assigned this role are allowed to take.
+        is_system_role:
+          type: boolean
+          title: Is System Role
+          description: Whether the role is a system role.
+          default: false
+      type: object
+      required:
+      - name
+      - permissions
+      title: AccountRole
+    AccountRoleFilter:
+      properties:
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/AccountRoleFilterName'
+          - type: 'null'
+          description: Filter criteria for AccountRole.name
+      additionalProperties: false
+      type: object
+      title: AccountRoleFilter
+    Body_read_account_roles_api_accounts__account_id__account_roles_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        account_roles:
+          anyOf:
+          - $ref: '#/components/schemas/AccountRoleFilter'
+          - type: 'null'
+      type: object
+      title: Body_read_account_roles_api_accounts__account_id__account_roles_filter_post
+    AccountRoleUpdate:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Name
+          description: The name of the account role.
+        permissions:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AccountPermission'
+            type: array
+          - type: 'null'
+          title: Permissions
+          description: The list of account permissions held by this role. Defines the actions account members assigned this role are allowed to take.
+      additionalProperties: false
+      type: object
+      title: AccountRoleUpdate
+      description: Data used by API to update an account role

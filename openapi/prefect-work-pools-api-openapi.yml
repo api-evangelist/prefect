@@ -1,0 +1,4414 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Work Pools API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Work Pools
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/configuration/preview:
+    post:
+      tags:
+      - Work Pools
+      summary: Preview Work Pool Configuration
+      operationId: preview_work_pool_configuration_api_accounts__account_id__workspaces__workspace_id__work_pools_configuration_preview_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_preview_work_pool_configuration_api_accounts__account_id__workspaces__workspace_id__work_pools_configuration_preview_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/:
+    post:
+      tags:
+      - Work Pools
+      summary: Create Work Pool
+      description: 'Creates a new work pool. If a work pool with the same
+
+        name already exists, an error will be raised.
+
+
+        Required workspace scopes: `write_work_pools`'
+      operationId: create_work_pool_api_accounts__account_id__workspaces__workspace_id__work_pools__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkPoolCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkPoolResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{name}:
+    get:
+      tags:
+      - Work Pools
+      summary: Read Work Pool
+      description: 'Read a work pool by name
+
+
+        Required workspace scopes: `see_work_pools`'
+      operationId: read_work_pool_api_accounts__account_id__workspaces__workspace_id__work_pools__name__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Name
+        description: The work pool name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkPoolResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Work Pools
+      summary: Update Work Pool
+      description: 'Update a work pool
+
+
+        Required workspace scopes: `write_work_pools`'
+      operationId: update_work_pool_api_accounts__account_id__workspaces__workspace_id__work_pools__name__patch
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Name
+        description: The work pool name
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkPoolUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Work Pools
+      summary: Delete Work Pool
+      description: 'Delete a work pool
+
+
+        Required workspace scopes: `manage_work_pools`'
+      operationId: delete_work_pool_api_accounts__account_id__workspaces__workspace_id__work_pools__name__delete
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Name
+        description: The work pool name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/filter:
+    post:
+      tags:
+      - Work Pools
+      summary: Read Work Pools
+      description: 'Read multiple work pools
+
+
+        Required workspace scopes: `see_work_pools`'
+      operationId: read_work_pools_api_accounts__account_id__workspaces__workspace_id__work_pools_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_work_pools_api_accounts__account_id__workspaces__workspace_id__work_pools_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkPoolResponse'
+                title: Response Read Work Pools Api Accounts  Account Id  Workspaces  Workspace Id  Work Pools Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/paginate:
+    post:
+      tags:
+      - Work Pools
+      summary: Paginate Work Pools
+      description: 'Paginated query for work pools.
+
+
+        Required workspace scopes: `see_work_pools`'
+      operationId: paginate_work_pools_api_accounts__account_id__workspaces__workspace_id__work_pools_paginate_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_paginate_work_pools_api_accounts__account_id__workspaces__workspace_id__work_pools_paginate_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkPoolPaginationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/count:
+    post:
+      tags:
+      - Work Pools
+      summary: Count Work Pools
+      description: 'Count work pools
+
+
+        Required workspace scopes: `see_work_pools`'
+      operationId: count_work_pools_api_accounts__account_id__workspaces__workspace_id__work_pools_count_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_count_work_pools_api_accounts__account_id__workspaces__workspace_id__work_pools_count_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: integer
+                title: Response Count Work Pools Api Accounts  Account Id  Workspaces  Workspace Id  Work Pools Count Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{name}/get_scheduled_flow_runs:
+    post:
+      tags:
+      - Work Pools
+      summary: Get Scheduled Flow Runs
+      description: 'Load scheduled runs for a worker
+
+
+        Required workspace scopes: `see_work_queues`'
+      operationId: get_scheduled_flow_runs_api_accounts__account_id__workspaces__workspace_id__work_pools__name__get_scheduled_flow_runs_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Name
+        description: The work pool name
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_get_scheduled_flow_runs_api_accounts__account_id__workspaces__workspace_id__work_pools__name__get_scheduled_flow_runs_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkerFlowRunResponse'
+                title: Response Get Scheduled Flow Runs Api Accounts  Account Id  Workspaces  Workspace Id  Work Pools  Name  Get Scheduled Flow Runs Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{name}/access:
+    get:
+      tags:
+      - Work Pools
+      summary: Read Work Pool Access
+      description: 'Read access controls for a work_pool.
+
+
+        Required workspace scopes: `see_work_pools`'
+      operationId: read_work_pool_access_api_accounts__account_id__workspaces__workspace_id__work_pools__name__access_get
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Name
+        description: The work pool name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkPoolAccessControl'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - Work Pools
+      summary: Set Work Pool Access
+      description: 'Set access controls for a work_pool.
+
+        The given access controls will replace any existing access controls.
+
+
+        Required workspace scopes: `manage_work_pools`'
+      operationId: set_work_pool_access_api_accounts__account_id__workspaces__workspace_id__work_pools__name__access_put
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Name
+        description: The work pool name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_set_work_pool_access_api_accounts__account_id__workspaces__workspace_id__work_pools__name__access_put'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/my-access:
+    post:
+      tags:
+      - Work Pools
+      summary: Read Actors Work Pool Access
+      description: 'Read access controls for a set of work pools and return the resolved
+
+        access levels for the current actor.
+
+
+        Required workspace scopes: `see_work_pools`'
+      operationId: read_actors_work_pool_access_api_accounts__account_id__workspaces__workspace_id__work_pools_my_access_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_actors_work_pool_access_api_accounts__account_id__workspaces__workspace_id__work_pools_my_access_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+                title: Response Read Actors Work Pool Access Api Accounts  Account Id  Workspaces  Workspace Id  Work Pools My Access Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{work_pool_name}/queues:
+    post:
+      tags:
+      - Work Pools
+      summary: Create Work Queue
+      description: 'Creates a new work pool queue. If a work pool queue with the same
+
+        name already exists, an error will be raised.
+
+
+        Required workspace scopes: `write_work_queues`'
+      operationId: create_work_queue_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__queues_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: work_pool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Work Pool Name
+        description: The work pool name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkQueueCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkQueueResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{work_pool_name}/queues/{name}:
+    get:
+      tags:
+      - Work Pools
+      summary: Read Work Queue
+      description: 'Read a work pool queue
+
+
+        Required workspace scopes: `see_work_queues`'
+      operationId: read_work_queue_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__queues__name__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: work_pool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Work Pool Name
+        description: The work pool name
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool queue name
+          title: Name
+        description: The work pool queue name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkQueueResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Work Pools
+      summary: Update Work Queue
+      description: 'Update a work pool queue
+
+
+        Required workspace scopes: `write_work_queues`'
+      operationId: update_work_queue_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__queues__name__patch
+      parameters:
+      - name: work_pool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Work Pool Name
+        description: The work pool name
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool queue name
+          title: Name
+        description: The work pool queue name
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkQueueUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Work Pools
+      summary: Delete Work Queue
+      description: 'Delete a work pool queue
+
+
+        Required workspace scopes: `manage_work_queues`'
+      operationId: delete_work_queue_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__queues__name__delete
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: work_pool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Work Pool Name
+        description: The work pool name
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool queue name
+          title: Name
+        description: The work pool queue name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{work_pool_name}/queues/filter:
+    post:
+      tags:
+      - Work Pools
+      summary: Read Work Queues
+      description: 'Read all work pool queues
+
+
+        Required workspace scopes: `see_work_queues`'
+      operationId: read_work_queues_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__queues_filter_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: work_pool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Work Pool Name
+        description: The work pool name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_work_queues_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__queues_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkQueueResponse'
+                title: Response Read Work Queues Api Accounts  Account Id  Workspaces  Workspace Id  Work Pools  Work Pool Name  Queues Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{work_pool_name}/queues/paginate:
+    post:
+      tags:
+      - Work Pools
+      summary: Paginate Work Queues
+      description: 'Pagination query for work pool queues
+
+
+        Required workspace scopes: `see_work_queues`'
+      operationId: paginate_work_queues_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__queues_paginate_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: work_pool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Work Pool Name
+        description: The work pool name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_paginate_work_queues_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__queues_paginate_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkQueuePaginatedResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{work_pool_name}/workers/heartbeat:
+    post:
+      tags:
+      - Work Pools
+      summary: Worker Heartbeat
+      description: '
+
+
+        Required workspace scopes: `write_workers`'
+      operationId: worker_heartbeat_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers_heartbeat_post
+      parameters:
+      - name: work_pool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Work Pool Name
+        description: The work pool name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_worker_heartbeat_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers_heartbeat_post'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{work_pool_name}/workers/filter:
+    post:
+      tags:
+      - Work Pools
+      summary: Read Workers
+      description: 'Read all worker processes
+
+
+        Required workspace scopes: `see_workers`'
+      operationId: read_workers_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers_filter_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: work_pool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Work Pool Name
+        description: The work pool name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_workers_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Worker'
+                title: Response Read Workers Api Accounts  Account Id  Workspaces  Workspace Id  Work Pools  Work Pool Name  Workers Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{work_pool_name}/workers/paginate:
+    post:
+      tags:
+      - Work Pools
+      summary: Paginate Workers
+      description: 'Read all worker processes
+
+
+        Required workspace scopes: `see_workers`'
+      operationId: paginate_workers_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers_paginate_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: work_pool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Work Pool Name
+        description: The work pool name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_paginate_workers_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers_paginate_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkerPaginatedResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{work_pool_name}/workers/{worker_id}:
+    get:
+      tags:
+      - Work Pools
+      summary: Read Worker
+      description: 'Read a single worker process
+
+
+        Required workspace scopes: `see_workers`'
+      operationId: read_worker_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers__worker_id__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: work_pool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Work Pool Name
+        description: The work pool name
+      - name: worker_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The worker process id
+          title: Worker Id
+        description: The worker process id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Worker'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{work_pool_name}/workers/{name}:
+    delete:
+      tags:
+      - Work Pools
+      summary: Delete Worker
+      description: 'Delete a work pool''s worker
+
+
+        Required workspace scopes: `manage_workers`'
+      operationId: delete_worker_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers__name__delete
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: work_pool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Work Pool Name
+        description: The work pool name
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool's worker name
+          title: Name
+        description: The work pool's worker name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/work_pools/{name}/concurrency_status:
+    post:
+      tags:
+      - Work Pools
+      summary: Read Work Pool Concurrency Status
+      description: 'Get the concurrency status of a work pool, including per-queue breakdown
+
+        and flow run details for each slot holder.
+
+
+        Required workspace scopes: `see_work_queues`,`see_work_pools`'
+      operationId: read_work_pool_concurrency_status_api_accounts__account_id__workspaces__workspace_id__work_pools__name__concurrency_status_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The work pool name
+          title: Name
+        description: The work pool name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_work_pool_concurrency_status_api_accounts__account_id__workspaces__workspace_id__work_pools__name__concurrency_status_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkPoolConcurrencyStatusPage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/ui/work_pools/count-flow-runs:
+    post:
+      tags:
+      - Work Pools
+      summary: Count Flow Runs By Work Pool
+      description: 'Get flow run counts grouped by work pool id.
+
+
+        Returns a mapping of work_pool_id to the number of flow runs matching the
+
+        optional filter. Work pools with no matching runs are included with a count
+
+        of zero.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: count_flow_runs_by_work_pool_api_accounts__account_id__workspaces__workspace_id__ui_work_pools_count_flow_runs_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_count_flow_runs_by_work_pool_api_accounts__account_id__workspaces__workspace_id__ui_work_pools_count_flow_runs_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                propertyNames:
+                  format: uuid
+                title: Response Count Flow Runs By Work Pool Api Accounts  Account Id  Workspaces  Workspace Id  Ui Work Pools Count Flow Runs Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Body_read_actors_work_pool_access_api_accounts__account_id__workspaces__workspace_id__work_pools_my_access_post:
+      properties:
+        work_pool_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Work Pool Ids
+          default: []
+        work_pool_names:
+          items:
+            type: string
+          type: array
+          title: Work Pool Names
+          default: []
+      type: object
+      title: Body_read_actors_work_pool_access_api_accounts__account_id__workspaces__workspace_id__work_pools_my_access_post
+    FlowRunFilterNextScheduledStartTime:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include flow runs with a next_scheduled_start_time or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include flow runs with a next_scheduled_start_time at or after this time
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterNextScheduledStartTime
+      description: Filter by `FlowRun.next_scheduled_start_time`.
+    WorkPoolFilterType:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work pool types to include
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilterType
+      description: Filter by `WorkPool.type`.
+    FlowRunFilterParentTaskRunId:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run parent_task_run_ids to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include flow runs without parent_task_run_id
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterParentTaskRunId
+      description: Filter by `FlowRun.parent_task_run_id`.
+    WorkPoolSort:
+      type: string
+      enum:
+      - NAME_ASC
+      - NAME_DESC
+      title: WorkPoolSort
+      description: Defines work pool sorting options.
+    WorkerStatus:
+      type: string
+      enum:
+      - ONLINE
+      - OFFLINE
+      title: WorkerStatus
+      description: Enumeration of worker statuses.
+    FlowRunFilterStateName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run state names to include
+        not_any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of flow run state names to exclude
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterStateName
+    FlowRunFilterTags:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        all_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: All
+          description: A list of tags. Flow runs will be returned only if their tags are a superset of the list
+          examples:
+          - - tag-1
+            - tag-2
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of tags. Flow runs will be returned if their tags contain any of the tags in the list
+          examples:
+          - - tag-1
+            - tag-2
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include flow runs without tags
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterTags
+      description: Filter by `FlowRun.tags`.
+    WorkQueueFilterCreatedBy:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+          description: A list of creator IDs to include
+        type_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Type
+          description: A list of creator types to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include work queues without a creator
+      additionalProperties: false
+      type: object
+      title: WorkQueueFilterCreatedBy
+      description: Filter by `WorkQueue.created_by`.
+    WorkPoolFilterCreatedBy:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+          description: A list of creator IDs to include
+        type_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Type
+          description: A list of creator types to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include work pools without a creator
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilterCreatedBy
+      description: Filter by `WorkPool.created_by`.
+    FlowRunSlotSummary:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        state_type:
+          anyOf:
+          - $ref: '#/components/schemas/StateType'
+          - type: 'null'
+        state_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Name
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        state_timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: State Timestamp
+        time_in_current_state:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Time In Current State
+      type: object
+      required:
+      - id
+      - name
+      - state_type
+      - state_name
+      - start_time
+      - state_timestamp
+      - time_in_current_state
+      title: FlowRunSlotSummary
+      description: Summary of a flow run holding a concurrency slot.
+    FlowRunFilterStateType:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/StateType'
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run state types to include
+        not_any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/StateType'
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of flow run state types to exclude
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterStateType
+      description: Filter by `FlowRun.state_type`.
+    Flow:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        name:
+          type: string
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: The name of the flow
+          examples:
+          - '1'
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: A list of flow tags
+          examples:
+          - - tag-1
+            - tag-2
+        labels:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: boolean
+              - type: integer
+              - type: number
+              - type: string
+            type: object
+          - type: 'null'
+          title: Labels
+          description: A dictionary of key-value labels. Values can be strings, numbers, or booleans.
+          examples:
+          - key: value1
+            key2: 42
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/CreatedBy'
+          - type: 'null'
+          description: Information about the creator of this flow.
+        updated_by:
+          anyOf:
+          - $ref: '#/components/schemas/UpdatedBy'
+          - type: 'null'
+          description: Information about the updater of this flow.
+      type: object
+      required:
+      - name
+      title: Flow
+      description: An ORM representation of flow data.
+    WorkPoolCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: The name of the work pool.
+        description:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Description
+          description: The work pool description.
+        type:
+          type: string
+          maxLength: 5000
+          title: Type
+          description: The work pool type.
+          default: prefect-agent
+        base_job_template:
+          additionalProperties: true
+          type: object
+          title: Base Job Template
+          description: The work pool's base job template.
+        is_paused:
+          type: boolean
+          title: Is Paused
+          description: Pausing the work pool stops the delivery of all work.
+          default: false
+        concurrency_limit:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Concurrency Limit
+          description: A concurrency limit for the work pool.
+        storage_configuration:
+          $ref: '#/components/schemas/WorkPoolStorageConfiguration'
+          description: The storage configuration for the work pool.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: WorkPoolCreate
+      description: Data used by the Orion API to create a work pool.
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
+    Body_count_flow_runs_by_work_pool_api_accounts__account_id__workspaces__workspace_id__ui_work_pools_count_flow_runs_post:
+      properties:
+        work_pool_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Work Pool Ids
+          max_items: 200
+        flow_runs:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilter'
+          - type: 'null'
+      type: object
+      required:
+      - work_pool_ids
+      title: Body_count_flow_runs_by_work_pool_api_accounts__account_id__workspaces__workspace_id__ui_work_pools_count_flow_runs_post
+    FlowRunFilterFlowId:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run flow ids to include
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterFlowId
+      description: Filter by `FlowRun.flow_id`.
+    WorkPoolStatus:
+      type: string
+      enum:
+      - READY
+      - NOT_READY
+      - PAUSED
+      title: WorkPoolStatus
+      description: Enumeration of work pool statuses.
+    FlowRunFilterDeploymentVersionId:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        deployment_id:
+          type: string
+          format: uuid
+          title: Deployment Id
+          description: The deployment id to filter by
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run deployment version ids to include
+      additionalProperties: false
+      type: object
+      required:
+      - deployment_id
+      title: FlowRunFilterDeploymentVersionId
+      description: Filter by `FlowRun.deployment_version_id`.
+    StateType:
+      type: string
+      enum:
+      - SCHEDULED
+      - PENDING
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      - CANCELLED
+      - CRASHED
+      - PAUSED
+      - CANCELLING
+      title: StateType
+      description: Enumeration of state types.
+    ObjectActorAccess:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+            const: '*'
+          title: Id
+          description: The actor id.
+        name:
+          type: string
+          title: Name
+          description: The actor name.
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+          description: The actor email if they're a user, otherwise None.
+        type:
+          type: string
+          enum:
+          - user
+          - service_account
+          - team
+          - '*'
+          title: Type
+          description: The actor type.
+      type: object
+      required:
+      - id
+      - name
+      - email
+      - type
+      title: ObjectActorAccess
+      description: Data describing an actor with object-level access.
+    WorkQueueFilterUpdatedBy:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+          description: A list of updater IDs to include
+        type_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Type
+          description: A list of updater types to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include work queues without an updater
+      additionalProperties: false
+      type: object
+      title: WorkQueueFilterUpdatedBy
+      description: Filter by `WorkQueue.updated_by`.
+    WorkPoolFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterId'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.id`
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterName'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.name`
+        type:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterType'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.type`
+        paused:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterPaused'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.is_paused`
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterStatus'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.status`
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterCreatedBy'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.created_by`
+        updated_by:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterUpdatedBy'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.updated_by`
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilter
+    WorkPoolStorageConfiguration:
+      properties:
+        bundle_upload_step:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Bundle Upload Step
+          description: The step to use for uploading bundles to storage.
+        bundle_execution_step:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Bundle Execution Step
+          description: The step to use for executing bundles.
+        default_result_storage_block_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Result Storage Block Id
+          description: The block document ID of the default result storage block.
+      type: object
+      title: WorkPoolStorageConfiguration
+      description: A representation of a work pool's storage configuration
+    FlowRunFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run ids to include
+        not_any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of flow run ids to exclude
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterId
+      description: Filter by FlowRun.id.
+    WorkerFlowRunResponse:
+      properties:
+        work_pool_id:
+          type: string
+          format: uuid
+          title: Work Pool Id
+        work_queue_id:
+          type: string
+          format: uuid
+          title: Work Queue Id
+        flow_run:
+          $ref: '#/components/schemas/FlowRunWithRunTimeField'
+      type: object
+      required:
+      - work_pool_id
+      - work_queue_id
+      - flow_run
+      title: WorkerFlowRunResponse
+    WorkPoolFilterUpdatedBy:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+          description: A list of updater IDs to include
+        type_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Type
+          description: A list of updater types to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include work pools without an updater
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilterUpdatedBy
+      description: Filter by `WorkPool.updated_by`.
+    Body_set_work_pool_access_api_accounts__account_id__workspaces__workspace_id__work_pools__name__access_put:
+      properties:
+        access_control:
+          $ref: '#/components/schemas/ReplaceWorkPoolAccess'
+      type: object
+      required:
+      - access_control
+      title: Body_set_work_pool_access_api_accounts__account_id__workspaces__workspace_id__work_pools__name__access_put
+    WorkPoolFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work pool names to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example, passing 'my-pool' will match 'my-pool', 'my-pool-1', and 'MY-POOL'.
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilterName
+      description: Filter by `WorkPool.name`.
+    Body_count_work_pools_api_accounts__account_id__workspaces__workspace_id__work_pools_count_post:
+      properties:
+        work_pools:
+          $ref: '#/components/schemas/WorkPoolFilter'
+      type: object
+      title: Body_count_work_pools_api_accounts__account_id__workspaces__workspace_id__work_pools_count_post
+    WorkQueueFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work queue ids to include
+      additionalProperties: false
+      type: object
+      title: WorkQueueFilterId
+      description: Filter by `WorkQueue.id`.
+    WorkQueueFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueFilterId'
+          - type: 'null'
+          description: Filter criteria for `WorkQueue.id`
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueFilterName'
+          - type: 'null'
+          description: Filter criteria for `WorkQueue.name`
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueFilterCreatedBy'
+          - type: 'null'
+          description: Filter criteria for `WorkQueue.created_by`
+        updated_by:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueFilterUpdatedBy'
+          - type: 'null'
+          description: Filter criteria for `WorkQueue.updated_by`
+      additionalProperties: false
+      type: object
+      title: WorkQueueFilter
+      description: 'Filter work queues. Only work queues matching all criteria will be
+
+        returned'
+    Body_read_work_queues_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__queues_filter_post:
+      properties:
+        work_queues:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueFilter'
+          - type: 'null'
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_work_queues_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__queues_filter_post
+    VersionInfo:
+      properties:
+        type:
+          type: string
+          title: Type
+          description: The type of version info.
+        version:
+          type: string
+          title: Version
+          description: The version of the deployment.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - version
+      title: VersionInfo
+    FlowRunFilterStartTime:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include flow runs starting at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include flow runs starting at or after this time
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only return flow runs without a start time
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterStartTime
+      description: Filter by `FlowRun.start_time`.
+    Body_read_work_pools_api_accounts__account_id__workspaces__workspace_id__work_pools_filter_post:
+      properties:
+        work_pools:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilter'
+          - type: 'null'
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        sort:
+          $ref: '#/components/schemas/WorkPoolSort'
+          default: NAME_ASC
+        exclude_base_job_template:
+          type: boolean
+          title: Exclude Base Job Template
+          description: If True, exclude base_job_template from responses to reduce payload size. Use when listing work pools and the full template is not needed.
+          default: false
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_work_pools_api_accounts__account_id__workspaces__workspace_id__work_pools_filter_post
+    WorkQueueConcurrencyStatusDetail:
+      properties:
+        queue_id:
+          type: string
+          format: uuid
+          title: Queue Id
+        queue_name:
+          type: string
+          title: Queue Name
+        active_slots:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Active Slots
+        concurrency_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Concurrency Limit
+        flow_runs:
+          items:
+            $ref: '#/components/schemas/FlowRunSlotSummary'
+          type: array
+          title: Flow Runs
+        flow_run_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Flow Run Count
+      type: object
+      required:
+      - queue_id
+      - queue_name
+      - active_slots
+      - concurrency_limit
+      - flow_runs
+      - flow_run_count
+      title: WorkQueueConcurrencyStatusDetail
+      description: Concurrency status for a single work queue within a work pool.
+    FlowRunPolicy:
+      properties:
+        max_retries:
+          type: integer
+          title: Max Retries
+          description: The maximum number of retries. Field is not used. Please use `retries` instead.
+          default: 0
+          deprecated: true
+        retry_delay_seconds:
+          type: number
+          title: Retry Delay Seconds
+          description: The delay between retries. Field is not used. Please use `retry_delay` instead.
+          default: 0
+          deprecated: true
+        retries:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Retries
+          description: The number of retries.
+        retry_delay:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Retry Delay
+          description: The delay time between retries, in seconds.
+        pause_keys:
+          anyOf:
+          - items: {}
+            type: array
+            uniqueItems: true
+          - type: 'null'
+          title: Pause Keys
+          description: Tracks pauses this run has observed.
+        resuming:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Resuming
+          description: Indicates if this run is resuming from a pause.
+          default: false
+        retry_type:
+          anyOf:
+          - type: string
+            enum:
+            - in_process
+            - reschedule
+          - type: 'null'
+          title: Retry Type
+          description: The type of retry this run is undergoing.
+      type: object
+      title: FlowRunPolicy
+      description: Defines of how a flow run should retry.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ? Body_read_work_pool_concurrency_status_api_accounts__account_id__workspaces__workspace_id__work_pools__name__concurrency_status_post
+    : properties:
+        page:
+          type: integer
+          minimum: 1.0
+          title: Page
+          default: 1
+        flow_run_limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Flow Run Limit
+          default: 10
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_work_pool_concurrency_status_api_accounts__account_id__workspaces__workspace_id__work_pools__name__concurrency_status_post
+    FlowRunFilterIdempotencyKey:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run idempotency keys to include
+        not_any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of flow run idempotency keys to exclude
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterIdempotencyKey
+      description: Filter by FlowRun.idempotency_key.
+    FlowRunFilterWorkQueueId:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run work queue ids to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include flow runs without work queue ids
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterWorkQueueId
+      description: Filter by `FlowRun.work_queue_id`.
+    FlowRunFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterId'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.id`
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterName'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.name`
+        tags:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterTags'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.tags`
+        flow_id:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterFlowId'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.flow_id`
+        deployment_id:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterDeploymentId'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.deployment_id`
+        deployment_version_id:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterDeploymentVersionId'
+          - type: 'null'
+          description: Filter criteria for the deployment version of flow runs
+        deployment_version_info:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterDeploymentVersionInfo'
+          - type: 'null'
+          description: Filter criteria for the deployment version info of flow runs
+        work_queue_id:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterWorkQueueId'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.work_queue_id`
+        work_queue_name:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterWorkQueueName'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.work_queue_name
+        state:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterState'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.state`
+        flow_version:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterFlowVersion'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.flow_version`
+        start_time:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterStartTime'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.start_time`
+        expected_start_time:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterExpectedStartTime'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.expected_start_time`
+        next_scheduled_start_time:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterNextScheduledStartTime'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.next_scheduled_start_time`
+        end_time:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterEndTime'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.end_time`
+        parent_flow_run_id:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterParentFlowRunId'
+          - type: 'null'
+          description: Filter criteria for subflows of the given flow runs
+        parent_task_run_id:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterParentTaskRunId'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.parent_task_run_id`
+        idempotency_key:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterIdempotencyKey'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.idempotency_key`
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterCreatedBy'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.created_by`
+      additionalProperties: false
+      type: object
+      title: FlowRunFilter
+      description: Filter flow runs. Only flow runs matching all criteria will be returned
+    FlowRunFilterDeploymentVersionInfo:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        deployment_id:
+          type: string
+          format: uuid
+          title: Deployment Id
+          description: The deployment id to filter by
+        any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/VersionInfo'
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run deployment version infos to include
+      additionalProperties: false
+      type: object
+      required:
+      - deployment_id
+      title: FlowRunFilterDeploymentVersionInfo
+      description: Filter by `FlowRun.deployment_version_info`.
+    CreatedBy:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+          description: The id of the creator of the object.
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+          description: The type of the creator of the object.
+        display_value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Value
+          description: The display value for the creator.
+      type: object
+      title: CreatedBy
+    WorkQueuePaginatedResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/WorkQueueResponse'
+          type: array
+          title: Results
+        count:
+          type: integer
+          title: Count
+        limit:
+          type: integer
+          title: Limit
+        pages:
+          type: integer
+          title: Pages
+        page:
+          type: integer
+          title: Page
+      type: object
+      required:
+      - results
+      - count
+      - limit
+      - pages
+      - page
+      title: WorkQueuePaginatedResponse
+    WorkerFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        last_heartbeat_time:
+          anyOf:
+          - $ref: '#/components/schemas/WorkerFilterLastHeartbeatTime'
+          - type: 'null'
+          description: Filter criteria for `Worker.last_heartbeat_time`
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/WorkerFilterStatus'
+          - type: 'null'
+          description: Filter criteria for `Worker.status`
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/WorkerFilterName'
+          - type: 'null'
+          description: Filter criteria for `Worker.name`
+      additionalProperties: false
+      type: object
+      title: WorkerFilter
+    WorkQueueResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        name:
+          type: string
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: The name of the work queue.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: An optional description for the work queue.
+          default: ''
+        is_paused:
+          type: boolean
+          title: Is Paused
+          description: Whether or not the work queue is paused.
+          default: false
+        concurrency_limit:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Concurrency Limit
+          description: An optional concurrency limit for the work queue.
+        priority:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Priority
+          description: The queue's priority. Lower values are higher priority (1 is the highest).
+          default: 1
+        work_pool_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Work Pool Id
+          description: The work pool with which the queue is associated.
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/QueueFilter'
+          - type: 'null'
+          description: 'DEPRECATED: Filter criteria for the work queue.'
+          deprecated: true
+        last_polled:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Polled
+          description: The last time an agent polled this queue for work.
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueStatus'
+          - type: 'null'
+          description: The work queue's current status.
+        work_pool:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPool'
+          - type: 'null'
+          description: The work pool with which the queue is associated.
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/CreatedBy'
+          - type: 'null'
+          description: Information about the creator of this work queue.
+        updated_by:
+          anyOf:
+          - $ref: '#/components/schemas/UpdatedBy'
+          - type: 'null'
+          description: Information about the updater of this work queue.
+        active_slots:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Active Slots
+          description: The number of active concurrency slots for the work queue.
+        work_pool_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Work Pool Name
+          description: The name of the work pool the work pool resides within.
+      type: object
+      required:
+      - name
+      title: WorkQueueResponse
+    WorkerSort:
+      type: string
+      enum:
+      - NAME_ASC
+      - NAME_DESC
+      - LAST_HEARTBEAT_ASC
+      - LAST_HEARTBEAT_DESC
+      - STATUS_ASC
+      - STATUS_DESC
+      - CLIENT_VERSION_ASC
+      - CLIENT_VERSION_DESC
+      title: WorkerSort
+      description: Defines flow sorting options.
+    ? Body_paginate_work_queues_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__queues_paginate_post
+    : properties:
+        work_queues:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueFilter'
+          - type: 'null'
+        page:
+          type: integer
+          minimum: 1.0
+          title: Page
+          default: 1
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_paginate_work_queues_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__queues_paginate_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    WorkPoolUpdate:
+      properties:
+        description:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Description
+        is_paused:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Paused
+        base_job_template:
+          additionalProperties: true
+          type: object
+          title: Base Job Template
+        concurrency_limit:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Concurrency Limit
+        storage_configuration:
+          $ref: '#/components/schemas/WorkPoolStorageConfiguration'
+          description: The storage configuration for the work pool.
+      additionalProperties: false
+      type: object
+      title: WorkPoolUpdate
+      description: Data used by the Prefect REST API to update a work pool.
+    QueueFilter:
+      properties:
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Only include flow runs with these tags in the work queue.
+        deployment_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Deployment Ids
+          description: Only include flow runs from these deployments in the work queue.
+      type: object
+      title: QueueFilter
+      description: Filter criteria definition for a work queue.
+    WorkPoolAccessControl:
+      properties:
+        manage_actors:
+          items:
+            $ref: '#/components/schemas/ObjectActorAccess'
+          type: array
+          title: Manage Actors
+          description: A list of actors with access to manage the deployment.
+        run_actors:
+          items:
+            $ref: '#/components/schemas/ObjectActorAccess'
+          type: array
+          title: Run Actors
+          description: A list of actors with access to run the deployment.
+        view_actors:
+          items:
+            $ref: '#/components/schemas/ObjectActorAccess'
+          type: array
+          title: View Actors
+          description: A list of actors with access to view the deployment.
+      type: object
+      title: WorkPoolAccessControl
+      description: A representation of the access control for a deployment.
+    FlowRunFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run names to include
+          examples:
+          - - my-flow-run-1
+            - my-flow-run-2
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterName
+      description: Filter by `FlowRun.name`.
+    StateDetails:
+      properties:
+        flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Flow Run Id
+        task_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Run Id
+        child_flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Child Flow Run Id
+        scheduled_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Scheduled Time
+        cache_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cache Key
+        cache_expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Cache Expiration
+        deferred:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Deferred
+        untrackable_result:
+          type: boolean
+          title: Untrackable Result
+          default: false
+        pause_timeout:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Pause Timeout
+        pause_reschedule:
+          type: boolean
+          title: Pause Reschedule
+          default: false
+        pause_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pause Key
+        run_input_keyset:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Run Input Keyset
+        refresh_cache:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Refresh Cache
+        retriable:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Retriable
+        transition_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Transition Id
+        task_parameters_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Parameters Id
+        traceparent:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Traceparent
+        deployment_concurrency_lease_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Deployment Concurrency Lease Id
+      type: object
+      title: StateDetails
+    WorkQueueStatus:
+      type: string
+      enum:
+      - READY
+      - NOT_READY
+      - PAUSED
+      title: WorkQueueStatus
+      description: Enumeration of work queue statuses.
+    FlowRunFilterWorkQueueName:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work queue names to include
+          examples:
+          - - work_queue_1
+            - work_queue_2
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include flow runs without work queue names
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterWorkQueueName
+      description: Filter by `FlowRun.work_queue_name`.
+    WorkQueue:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        name:
+          type: string
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: The name of the work queue.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: An optional description for the work queue.
+          default: ''
+        is_paused:
+          type: boolean
+          title: Is Paused
+          description: Whether or not the work queue is paused.
+          default: false
+        concurrency_limit:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Concurrency Limit
+          description: An optional concurrency limit for the work queue.
+        priority:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Priority
+          description: The queue's priority. Lower values are higher priority (1 is the highest).
+          default: 1
+        work_pool_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Work Pool Id
+          description: The work pool with which the queue is associated.
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/QueueFilter'
+          - type: 'null'
+          description: 'DEPRECATED: Filter criteria for the work queue.'
+          deprecated: true
+        last_polled:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Polled
+          description: The last time an agent polled this queue for work.
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueStatus'
+          - type: 'null'
+          description: The current status of the work queue.
+        work_pool:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPool'
+          - type: 'null'
+          description: The work pool with which the queue is associated.
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/CreatedBy'
+          - type: 'null'
+          description: Information about the creator of this work queue.
+        updated_by:
+          anyOf:
+          - $ref: '#/components/schemas/UpdatedBy'
+          - type: 'null'
+          description: Information about the updater of this work queue.
+      type: object
+      required:
+      - name
+      title: WorkQueue
+      description: An ORM representation of a work queue
+    WorkPoolConcurrencyStatusPage:
+      properties:
+        active_slots:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Active Slots
+        concurrency_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Concurrency Limit
+        queues:
+          items:
+            $ref: '#/components/schemas/WorkQueueConcurrencyStatusDetail'
+          type: array
+          title: Queues
+        pool_slots:
+          items:
+            $ref: '#/components/schemas/FlowRunSlotSummary'
+          type: array
+          title: Pool Slots
+        count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Count
+        limit:
+          type: integer
+          title: Limit
+        pages:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Pages
+        page:
+          type: integer
+          title: Page
+      type: object
+      required:
+      - active_slots
+      - concurrency_limit
+      - queues
+      - pool_slots
+      - count
+      - limit
+      - pages
+      - page
+      title: WorkPoolConcurrencyStatusPage
+      description: Paginated concurrency status for a work pool.
+    ReplaceWorkPoolAccess:
+      properties:
+        manage_actor_ids:
+          items:
+            anyOf:
+            - type: string
+              format: uuid
+            - type: string
+              const: '*'
+          type: array
+          title: Manage Actor Ids
+          description: The list of actor IDs to grant `manage` access to.
+        run_actor_ids:
+          items:
+            anyOf:
+            - type: string
+              format: uuid
+            - type: string
+              const: '*'
+          type: array
+          title: Run Actor Ids
+          description: The list of actor IDs to grant `run` access to.
+        view_actor_ids:
+          items:
+            anyOf:
+            - type: string
+              format: uuid
+            - type: string
+              const: '*'
+          type: array
+          title: View Actor Ids
+          description: The list of actor IDs to grant `view` access to.
+        manage_team_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Manage Team Ids
+          description: The list of team IDs to grant `manage` access to.
+        run_team_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Run Team Ids
+          description: The list of team IDs to grant `run` access to.
+        view_team_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: View Team Ids
+          description: The list of team IDs to grant `view` access to.
+      additionalProperties: false
+      type: object
+      required:
+      - manage_actor_ids
+      - run_actor_ids
+      - view_actor_ids
+      title: ReplaceWorkPoolAccess
+      description: Data used to replace the existing work pool access.
+    WorkerFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of worker names to include
+          examples:
+          - - my-worker-1
+            - my-worker-2
+        not_any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of worker names to exclude
+          examples:
+          - - my-worker-3
+            - my-worker-4
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: Fuzzy-match for worker name
+      additionalProperties: false
+      type: object
+      title: WorkerFilterName
+      description: Filter by `Worker.name`.
+    WorkPool:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        name:
+          type: string
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: The name of the work pool.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A description of the work pool.
+        type:
+          type: string
+          title: Type
+          description: The work pool type.
+        base_job_template:
+          additionalProperties: true
+          type: object
+          title: Base Job Template
+          description: The work pool's base job template.
+        is_paused:
+          type: boolean
+          title: Is Paused
+          description: Pausing the work pool stops the delivery of all work.
+          default: false
+        concurrency_limit:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Concurrency Limit
+          description: A concurrency limit for the work pool.
+        is_push_pool:
+          type: boolean
+          title: Is Push Pool
+          description: Whether or not the work pool is a push pool. Push pools are not polled by workers to deliver work.
+          default: false
+        is_mex_pool:
+          type: boolean
+          title: Is Mex Pool
+          description: Whether or not the work pool is a managed pool. Managed pools execute work within Prefect Cloud.
+          default: false
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolStatus'
+          - type: 'null'
+          description: The current status of the work pool.
+        default_queue_id:
+          type: string
+          format: uuid
+          title: Default Queue Id
+          description: The id of the pool's default queue.
+        storage_configuration:
+          $ref: '#/components/schemas/WorkPoolStorageConfiguration'
+          description: The storage configuration for the work pool.
+        last_polled:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Polled
+          description: The last time a worker polled this work pool for work.
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/CreatedBy'
+          - type: 'null'
+          description: Information about the creator of this work pool.
+        updated_by:
+          anyOf:
+          - $ref: '#/components/schemas/UpdatedBy'
+          - type: 'null'
+          description: Information about the updater of this work pool.
+      type: object
+      required:
+      - name
+      - type
+      - default_queue_id
+      title: WorkPool
+      description: An ORM representation of a work pool
+    WorkPoolFilterStatus:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/WorkPoolStatus'
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work pool statuses to include
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilterStatus
+      description: Filter by `WorkPool.status`.
+    FlowRunFilterParentFlowRunId:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of parent flow run ids to include
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterParentFlowRunId
+    Worker:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        name:
+          type: string
+          title: Name
+          description: The name of the worker.
+        work_pool_id:
+          type: string
+          format: uuid
+          title: Work Pool Id
+          description: The work pool with which the queue is associated.
+        last_heartbeat_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Heartbeat Time
+          description: The last time the worker process sent a heartbeat.
+        status:
+          $ref: '#/components/schemas/WorkerStatus'
+          description: Current status of the worker.
+          default: OFFLINE
+        heartbeat_interval_seconds:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Heartbeat Interval Seconds
+          description: The number of seconds to expect between heartbeats sent by the worker.
+        client_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Version
+          description: The version of the Prefect client used to create the worker.
+        metadata_:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: The metadata of the client that is running the worker.
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/CreatedBy'
+          - type: 'null'
+          description: Optional information about the creator of this worker.
+      type: object
+      required:
+      - name
+      - work_pool_id
+      title: Worker
+      description: An ORM representation of a worker
+    WorkPoolFilterPaused:
+      properties:
+        eq_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Eq
+          description: Only returns where work pool is/is not paused
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilterPaused
+      description: Filter by `WorkPool.is_paused`.
+    State:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        type:
+          $ref: '#/components/schemas/StateType'
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+          examples:
+          - Run started
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+          description: Data associated with the state, e.g. a result. Content must be storable as JSON.
+        state_details:
+          $ref: '#/components/schemas/StateDetails'
+      type: object
+      required:
+      - type
+      title: State
+      description: Represents the state of a run.
+    FlowRunFilterExpectedStartTime:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include flow runs scheduled to start at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include flow runs scheduled to start at or after this time
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterExpectedStartTime
+      description: Filter by `FlowRun.expected_start_time`.
+    CancelledBy:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+          description: The id of the actor that cancelled the object.
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+          description: The type of the actor that cancelled the object.
+        display_value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Value
+          description: The display value for the actor that cancelled.
+      type: object
+      title: CancelledBy
+    FlowRunFilterCreatedBy:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+          description: A list of creator IDs to include
+        type_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Type
+          description: A list of creator types to include. For example, 'DEPLOYMENT' for scheduled runs or 'AUTOMATION' for runs triggered by automations.
+          examples:
+          - - DEPLOYMENT
+            - AUTOMATION
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include flow runs without a creator
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterCreatedBy
+      description: Filter by `FlowRun.created_by`.
+    FlowRunFilterDeploymentId:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run deployment ids to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include flow runs without deployment ids
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterDeploymentId
+      description: Filter by `FlowRun.deployment_id`.
+    Body_read_workers_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers_filter_post:
+      properties:
+        workers:
+          anyOf:
+          - $ref: '#/components/schemas/WorkerFilter'
+          - type: 'null'
+        sort:
+          $ref: '#/components/schemas/WorkerSort'
+          default: LAST_HEARTBEAT_DESC
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_workers_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers_filter_post
+    WorkPoolResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        name:
+          type: string
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: The name of the work pool.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A description of the work pool.
+        type:
+          type: string
+          title: Type
+          description: The work pool type.
+        base_job_template:
+          additionalProperties: true
+          type: object
+          title: Base Job Template
+          description: The work pool's base job template.
+        is_paused:
+          type: boolean
+          title: Is Paused
+          description: Pausing the work pool stops the delivery of all work.
+          default: false
+        concurrency_limit:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Concurrency Limit
+          description: A concurrency limit for the work pool.
+        is_push_pool:
+          type: boolean
+          title: Is Push Pool
+          description: Whether or not the work pool is a push pool. Push pools are not polled by workers to deliver work.
+          default: false
+        is_mex_pool:
+          type: boolean
+          title: Is Mex Pool
+          description: Whether or not the work pool is a managed pool. Managed pools execute work within Prefect Cloud.
+          default: false
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolStatus'
+          - type: 'null'
+          description: The current status of the work pool.
+        default_queue_id:
+          type: string
+          format: uuid
+          title: Default Queue Id
+          description: The id of the pool's default queue.
+        storage_configuration:
+          $ref: '#/components/schemas/WorkPoolStorageConfiguration'
+          description: The storage configuration for the work pool.
+        last_polled:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Polled
+          description: The last time a worker polled this work pool for work.
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/CreatedBy'
+          - type: 'null'
+          description: Information about the creator of this work pool.
+        updated_by:
+          anyOf:
+          - $ref: '#/components/schemas/UpdatedBy'
+          - type: 'null'
+          description: Information about the updater of this work pool.
+        active_slots:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Active Slots
+          description: The number of active concurrency slots for the work pool.
+      type: object
+      required:
+      - name
+      - type
+      - default_queue_id
+      title: WorkPoolResponse
+    WorkerFilterStatus:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/WorkerStatus'
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of worker statuses to include
+        not_any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/WorkerStatus'
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of worker statuses to exclude
+      additionalProperties: false
+      type: object
+      title: WorkerFilterStatus
+      description: Filter by `Worker.status`.
+    FlowRunFilterFlowVersion:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run flow_versions to include
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterFlowVersion
+      description: Filter by `FlowRun.flow_version`.
+    ? Body_get_scheduled_flow_runs_api_accounts__account_id__workspaces__workspace_id__work_pools__name__get_scheduled_flow_runs_post
+    : properties:
+        work_queue_names:
+          items:
+            type: string
+          type: array
+          title: Work Queue Names
+          description: The names of work pool queues
+        scheduled_before:
+          type: string
+          format: date-time
+          title: Scheduled Before
+          description: The maximum time to look for scheduled flow runs
+        scheduled_after:
+          type: string
+          format: date-time
+          title: Scheduled After
+          description: The minimum time to look for scheduled flow runs
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_get_scheduled_flow_runs_api_accounts__account_id__workspaces__workspace_id__work_pools__name__get_scheduled_flow_runs_post
+    WorkerPaginatedResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Worker'
+          type: array
+          title: Results
+        count:
+          type: integer
+          title: Count
+        limit:
+          type: integer
+          title: Limit
+        pages:
+          type: integer
+          title: Pages
+        page:
+          type: integer
+          title: Page
+      type: object
+      required:
+      - results
+      - count
+      - limit
+      - pages
+      - page
+      title: WorkerPaginatedResponse
+    WorkQueueUpdate:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 5000
+            pattern: ^[^/%&><]+$
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Description
+        is_paused:
+          type: boolean
+          title: Is Paused
+          description: Whether or not the work queue is paused.
+          default: false
+        concurrency_limit:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Concurrency Limit
+        priority:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Priority
+        last_polled:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Polled
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/QueueFilter'
+          - type: 'null'
+          description: 'DEPRECATED: Filter criteria for the work queue.'
+          deprecated: true
+      additionalProperties: false
+      type: object
+      title: WorkQueueUpdate
+      description: Data used by the Orion API to update a work queue.
+    WorkPoolFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work pool ids to include
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilterId
+      description: Filter by `WorkPool.id`.
+    UpdatedBy:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+          description: The id of the updater of the object.
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+          description: The type of the updater of the object.
+        display_value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Value
+          description: The display value for the updater.
+      type: object
+      title: UpdatedBy
+    FlowRunFilterState:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        type:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterStateType'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.state_type`
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterStateName'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.state_name`
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterState
+    WorkQueueCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: The name of the work queue.
+        description:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Description
+          description: An optional description for the work queue.
+          default: ''
+        is_paused:
+          type: boolean
+          title: Is Paused
+          description: Whether or not the work queue is paused.
+          default: false
+        concurrency_limit:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Concurrency Limit
+          description: The work queue's concurrency limit.
+        priority:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Priority
+          description: The queue's priority. Lower values are higher priority (1 is the highest).
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/QueueFilter'
+          - type: 'null'
+          description: 'DEPRECATED: Filter criteria for the work queue.'
+          deprecated: true
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: WorkQueueCreate
+      description: Data used by the Prefect REST API to create a work queue.
+    FlowRunWithRunTimeField:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        name:
+          type: string
+          title: Name
+          description: The name of the flow run. Defaults to a random slug if not specified.
+          examples:
+          - my-flow-run
+        flow_id:
+          type: string
+          format: uuid
+          title: Flow Id
+          description: The id of the flow being run.
+        flow_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Flow Version
+          description: The version of the flow executed in this flow run.
+          examples:
+          - '1.0'
+        state_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: State Id
+          description: The id of the flow run's current state.
+        deployment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Deployment Id
+          description: The deployment associated with this flow run
+        deployment_version_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Deployment Version Id
+          description: The deployment version associated with this flow run.
+        deployment_version_info:
+          anyOf:
+          - $ref: '#/components/schemas/VersionInfo'
+          - type: 'null'
+          description: The version info of the deployment associated with this flow run.
+        deployment_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Deployment Version
+          description: The version of the deployment associated with this flow run.
+          examples:
+          - '1.0'
+        work_queue_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Work Queue Name
+          description: The work queue that handled this flow run.
+        parameters:
+          additionalProperties: true
+          type: object
+          title: Parameters
+          description: Parameters for the flow run.
+        idempotency_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Idempotency Key
+          description: An optional idempotency key for the flow run. Used to ensure the same flow run is not created multiple times.
+        context:
+          additionalProperties: true
+          type: object
+          title: Context
+          description: Additional context for the flow run.
+          examples:
+          - my_var: my_val
+        empirical_policy:
+          $ref: '#/components/schemas/FlowRunPolicy'
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: A list of tags on the flow run
+          examples:
+          - - tag-1
+            - tag-2
+        labels:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: boolean
+              - type: integer
+              - type: number
+              - type: string
+            type: object
+          - type: 'null'
+          title: Labels
+          description: A dictionary of key-value labels. Values can be strings, numbers, or booleans.
+          examples:
+          - key: value1
+            key2: 42
+        parent_task_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Parent Task Run Id
+          description: If the flow run is a subflow, the id of the 'dummy' task in the parent flow used to track subflow state.
+        state_type:
+          anyOf:
+          - $ref: '#/components/schemas/StateType'
+          - type: 'null'
+          description: The type of the current flow run state.
+        state_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Name
+          description: The name of the current flow run state.
+        state_timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: State Timestamp
+          description: The timestamp of the current flow run state.
+        run_count:
+          type: integer
+          title: Run Count
+          description: The number of times the flow run was executed.
+          default: 0
+        expected_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expected Start Time
+          description: The flow run's expected start time.
+        next_scheduled_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Next Scheduled Start Time
+          description: The next time the flow run is scheduled to start.
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+          description: The actual start time.
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+          description: The actual end time.
+        total_run_time:
+          type: number
+          title: Total Run Time
+          description: Total run time. If the flow run was executed multiple times, the time of each run will be summed.
+          default: 0.0
+        estimated_start_time_delta:
+          type: number
+          title: Estimated Start Time Delta
+          description: The difference between actual and expected start time.
+          default: 0.0
+        auto_scheduled:
+          type: boolean
+          title: Auto Scheduled
+          description: Whether or not the flow run was automatically scheduled.
+          default: false
+        infrastructure_document_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Infrastructure Document Id
+          description: The block document defining infrastructure to use this flow run.
+        infrastructure_pid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Infrastructure Pid
+          description: The id of the flow run as returned by an infrastructure block.
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/CreatedBy'
+          - type: 'null'
+          description: Optional information about the creator of this flow run.
+        cancelled_by:
+          anyOf:
+          - $ref: '#/components/schemas/CancelledBy'
+          - type: 'null'
+          description: Optional information about the actor that cancelled this flow run.
+        work_queue_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Work Queue Id
+          description: The id of the run's work pool queue.
+        work_queue:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueue'
+          - type: 'null'
+          description: The work queue that handled this flow run.
+        flow:
+          anyOf:
+          - $ref: '#/components/schemas/Flow'
+          - type: 'null'
+          description: The flow queue that handled this flow run.
+        state:
+          anyOf:
+          - $ref: '#/components/schemas/State'
+          - type: 'null'
+          description: The current state of the flow run.
+        job_variables:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Job Variables
+          description: Variables used as overrides in the base job template.
+        estimated_run_time:
+          type: number
+          title: Estimated Run Time
+          description: A real-time estimate of the total run time.
+          default: 0.0
+      type: object
+      required:
+      - flow_id
+      title: FlowRunWithRunTimeField
+    WorkQueueFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work queue names to include
+          examples:
+          - - wq-1
+            - wq-2
+        startswith_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Startswith
+          description: A list of case-insensitive starts-with matches. For example,  passing 'marvin' will match 'marvin', and 'Marvin-robot', but not 'sad-marvin'.
+          examples:
+          - - marvin
+            - Marvin-robot
+      additionalProperties: false
+      type: object
+      title: WorkQueueFilterName
+      description: Filter by `WorkQueue.name`.
+    ? Body_preview_work_pool_configuration_api_accounts__account_id__workspaces__workspace_id__work_pools_configuration_preview_post
+    : properties:
+        base_job_template:
+          title: Base Job Template
+        type:
+          type: string
+          title: Type
+      type: object
+      required:
+      - base_job_template
+      - type
+      title: Body_preview_work_pool_configuration_api_accounts__account_id__workspaces__workspace_id__work_pools_configuration_preview_post
+    FlowRunFilterEndTime:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include flow runs ending at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include flow runs ending at or after this time
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only return flow runs without an end time
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterEndTime
+      description: Filter by `FlowRun.end_time`.
+    ? Body_worker_heartbeat_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers_heartbeat_post
+    : properties:
+        name:
+          type: string
+          title: Name
+          description: The worker process name
+        heartbeat_interval_seconds:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Heartbeat Interval Seconds
+          description: The worker's heartbeat interval in seconds
+        return_id:
+          type: boolean
+          title: Return Id
+          description: Whether to return the worker ID. If False, returns 204.
+          default: false
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: The worker's metadata
+      type: object
+      required:
+      - name
+      title: Body_worker_heartbeat_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers_heartbeat_post
+    WorkPoolPaginationResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/WorkPoolResponse'
+          type: array
+          title: Results
+        count:
+          type: integer
+          title: Count
+        limit:
+          type: integer
+          title: Limit
+        pages:
+          type: integer
+          title: Pages
+        page:
+          type: integer
+          title: Page
+      type: object
+      required:
+      - results
+      - count
+      - limit
+      - pages
+      - page
+      title: WorkPoolPaginationResponse
+    WorkerFilterLastHeartbeatTime:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include processes whose last heartbeat was at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include processes whose last heartbeat was at or after this time
+      additionalProperties: false
+      type: object
+      title: WorkerFilterLastHeartbeatTime
+      description: Filter by `Worker.last_heartbeat_time`.
+    ? Body_paginate_workers_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers_paginate_post
+    : properties:
+        workers:
+          anyOf:
+          - $ref: '#/components/schemas/WorkerFilter'
+          - type: 'null'
+        sort:
+          $ref: '#/components/schemas/WorkerSort'
+          default: LAST_HEARTBEAT_DESC
+        page:
+          type: integer
+          minimum: 1.0
+          title: Page
+          default: 1
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_paginate_workers_api_accounts__account_id__workspaces__workspace_id__work_pools__work_pool_name__workers_paginate_post
+    Body_paginate_work_pools_api_accounts__account_id__workspaces__workspace_id__work_pools_paginate_post:
+      properties:
+        work_pools:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilter'
+          - type: 'null'
+        page:
+          type: integer
+          minimum: 1.0
+          title: Page
+          default: 1
+        sort:
+          $ref: '#/components/schemas/WorkPoolSort'
+          default: NAME_ASC
+        include_base_job_template:
+          type: boolean
+          title: Include Base Job Template
+          description: If True, include base_job_template in responses. Defaults to False to reduce payload size when the full template is not needed.
+          default: false
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_paginate_work_pools_api_accounts__account_id__workspaces__workspace_id__work_pools_paginate_post

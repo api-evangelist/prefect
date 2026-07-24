@@ -1,0 +1,278 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Available Assets API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Available Assets
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/available-assets/:
+    get:
+      tags:
+      - Available Assets
+      summary: List Available Assets Endpoint
+      operationId: list_available_assets_endpoint_api_accounts__account_id__workspaces__workspace_id__available_assets__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailableAssetsPage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AvailableAssetsPage:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AvailableAsset'
+          type: array
+          title: Results
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - results
+      title: AvailableAssetsPage
+      description: Paginated list of available assets with an opaque cursor for the next page.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LatestMaterialization:
+      properties:
+        event_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Event Id
+        occurred:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Occurred
+        flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Flow Run Id
+        task_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Run Id
+        originating_workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Originating Workspace Id
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+        by_tools:
+          items:
+            type: string
+          type: array
+          title: By Tools
+        status:
+          anyOf:
+          - type: string
+            enum:
+            - succeeded
+            - failed
+          - type: 'null'
+          title: Status
+      type: object
+      title: LatestMaterialization
+    LatestReference:
+      properties:
+        event_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Event Id
+        occurred:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Occurred
+        flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Flow Run Id
+        task_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Run Id
+        originating_workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Originating Workspace Id
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+      type: object
+      title: LatestReference
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AssetProperties:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          default: ''
+        url:
+          type: string
+          maxLength: 5000
+          title: Url
+          default: ''
+        description:
+          type: string
+          title: Description
+          default: ''
+        owners:
+          items:
+            type: string
+          type: array
+          title: Owners
+      type: object
+      title: AssetProperties
+    AssetCatalogItem:
+      properties:
+        key:
+          type: string
+          title: Key
+        properties:
+          $ref: '#/components/schemas/AssetProperties'
+        last_seen:
+          type: string
+          format: date-time
+          title: Last Seen
+        latest_reference:
+          $ref: '#/components/schemas/LatestReference'
+        latest_materialization:
+          $ref: '#/components/schemas/LatestMaterialization'
+      type: object
+      required:
+      - key
+      - last_seen
+      title: AssetCatalogItem
+    AvailableAsset:
+      properties:
+        key:
+          type: string
+          title: Key
+        publication_id:
+          type: string
+          format: uuid
+          title: Publication Id
+        publishing_workspace_id:
+          type: string
+          format: uuid
+          title: Publishing Workspace Id
+        publication_event:
+          items:
+            type: string
+          type: array
+          title: Publication Event
+        publication_enabled:
+          type: boolean
+          title: Publication Enabled
+        asset:
+          anyOf:
+          - $ref: '#/components/schemas/AssetCatalogItem'
+          - type: 'null'
+      type: object
+      required:
+      - key
+      - publication_id
+      - publishing_workspace_id
+      - publication_event
+      - publication_enabled
+      title: AvailableAsset
+      description: 'A single asset key from a cross-workspace publication, optionally
+
+        enriched with ClickHouse metadata.'

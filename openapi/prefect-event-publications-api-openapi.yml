@@ -1,0 +1,515 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Event Publications API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Event Publications
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/event-publications/:
+    post:
+      tags:
+      - Event Publications
+      summary: Create Publication
+      operationId: create_publication_api_accounts__account_id__workspaces__workspace_id__event_publications__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicationCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Event Publications
+      summary: List Publications
+      operationId: list_publications_api_accounts__account_id__workspaces__workspace_id__event_publications__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: resource_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Resource Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 200
+          title: Limit
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationPage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/event-publications/{publication_id}:
+    get:
+      tags:
+      - Event Publications
+      summary: Read Publication
+      operationId: read_publication_api_accounts__account_id__workspaces__workspace_id__event_publications__publication_id__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: publication_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Publication Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Event Publications
+      summary: Update Publication
+      operationId: update_publication_api_accounts__account_id__workspaces__workspace_id__event_publications__publication_id__patch
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: publication_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Publication Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicationUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Event Publications
+      summary: Delete Publication
+      operationId: delete_publication_api_accounts__account_id__workspaces__workspace_id__event_publications__publication_id__delete
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: publication_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Publication Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/event-publications/{publication_id}/subscriptions:
+    get:
+      tags:
+      - Event Publications
+      summary: List Publication Subscribers
+      operationId: list_publication_subscribers_api_accounts__account_id__workspaces__workspace_id__event_publications__publication_id__subscriptions_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: publication_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Publication Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 200
+          title: Limit
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationSubscriberPage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PublicationUpdate:
+      properties:
+        enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enabled
+        event:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Event
+        resource:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Resource
+        related:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Related
+      type: object
+      title: PublicationUpdate
+      description: PATCH body — all fields optional, only provided fields are updated.
+    PublicationResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+        enabled:
+          type: boolean
+          title: Enabled
+        event:
+          items:
+            type: string
+          type: array
+          title: Event
+        resource:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Resource
+        related:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Related
+        created:
+          type: string
+          format: date-time
+          title: Created
+        updated:
+          type: string
+          format: date-time
+          title: Updated
+        subscriber_count:
+          type: integer
+          title: Subscriber Count
+          default: 0
+      type: object
+      required:
+      - id
+      - account_id
+      - workspace_id
+      - enabled
+      - event
+      - created
+      - updated
+      title: PublicationResponse
+      description: Response model for a publication.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PublicationPage:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PublicationResponse'
+          type: array
+          title: Results
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - results
+      title: PublicationPage
+      description: Paginated list of publications with an opaque cursor for the next page.
+    PublicationCreate:
+      properties:
+        event:
+          items:
+            type: string
+          type: array
+          title: Event
+        resource:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Resource
+        related:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Related
+      type: object
+      required:
+      - event
+      title: PublicationCreate
+      description: POST body for creating a publication.
+    PublicationSubscriberPage:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PublicationSubscriber'
+          type: array
+          title: Results
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - results
+      title: PublicationSubscriberPage
+      description: Paginated list of subscribers to a publication.
+    PublicationSubscriber:
+      properties:
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+        subscription_id:
+          type: string
+          format: uuid
+          title: Subscription Id
+        enabled:
+          type: boolean
+          title: Enabled
+      type: object
+      required:
+      - workspace_id
+      - subscription_id
+      - enabled
+      title: PublicationSubscriber
+      description: Summary of a workspace that subscribes to a publication.
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'

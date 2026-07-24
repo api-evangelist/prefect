@@ -1,0 +1,486 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Invitations API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Invitations
+  description: Manage account invitations.
+  externalDocs:
+    description: 'Manage workspaces: control access'
+    url: https://docs.prefect.io/v3/manage/cloud/workspaces#control-access
+paths:
+  /api/accounts/{account_id}/invitations/:
+    post:
+      tags:
+      - Invitations
+      summary: Create Invitation
+      description: 'Invite user(s) to an account.
+
+        Any PENDING invitations for the same user to the account will be revoked.
+
+
+        Required account permissions: `create:invitation`'
+      operationId: create_invitation_api_accounts__account_id__invitations__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/InvitationCreate'
+              title: Invitations
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InvitationReadResponse'
+                title: Response Create Invitation Api Accounts  Account Id  Invitations  Post
+              examples:
+                created:
+                  summary: Invite created
+                  value:
+                    id: 5d27e5e2-cbf3-4ce4-bc60-86d072c11079
+                    email: user@test.io
+                    account_id: c119fa5f-005d-4775-880f-5e3fa7e1184e
+                    account_role_id: 156aa4b6-b322-4fc3-8a8b-dc85a5bf4288
+                    status: PENDING
+                    expiration: '2026-05-08T22:16:52.438292Z'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/invitations/{id}:
+    get:
+      tags:
+      - Invitations
+      summary: Read Invitation
+      description: 'Get an invitation by id
+
+
+        Required account permissions: `read:invitation`'
+      operationId: read_invitation_api_accounts__account_id__invitations__id__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitationReadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/invitations/filter:
+    post:
+      tags:
+      - Invitations
+      summary: Read Invitations
+      description: 'Query for invitations
+
+
+        Required account permissions: `read:invitation`'
+      operationId: read_invitations_api_accounts__account_id__invitations_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_invitations_api_accounts__account_id__invitations_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InvitationReadResponse'
+                title: Response Read Invitations Api Accounts  Account Id  Invitations Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/invitations/count:
+    post:
+      tags:
+      - Invitations
+      summary: Count Invitations
+      description: 'Query for invitations count
+
+
+        Required account permissions: `read:invitation`'
+      operationId: count_invitations_api_accounts__account_id__invitations_count_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_count_invitations_api_accounts__account_id__invitations_count_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: integer
+                title: Response Count Invitations Api Accounts  Account Id  Invitations Count Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/invitations/{id}/revoke:
+    post:
+      tags:
+      - Invitations
+      summary: Revoke Invitation
+      description: 'Delete an invitation by id
+
+
+        Required account permissions: `update:invitation`'
+      operationId: revoke_invitation_api_accounts__account_id__invitations__id__revoke_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/invitations/{id}/accept:
+    post:
+      tags:
+      - Invitations
+      summary: Accept Invitation
+      description: Accept an invitation
+      operationId: accept_invitation_api_invitations__id__accept_post
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: invite_code
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Invite Code
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/invitations/{id}/reject:
+    post:
+      tags:
+      - Invitations
+      summary: Reject Invitation
+      description: Reject an invitation
+      operationId: reject_invitation_api_invitations__id__reject_post
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: invite_code
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Invite Code
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    InvitationFilterExpiration:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include invitations expiring at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include invitations expiring at or after this time
+      additionalProperties: false
+      type: object
+      title: InvitationFilterExpiration
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InvitationStatus:
+      type: string
+      enum:
+      - ACCEPTED
+      - PENDING
+      - REJECTED
+      - REVOKED
+      title: InvitationStatus
+      description: Enumeration of Invitation status
+    Body_read_invitations_api_accounts__account_id__invitations_filter_post:
+      properties:
+        invitations:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilter'
+          - type: 'null'
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+      type: object
+      title: Body_read_invitations_api_accounts__account_id__invitations_filter_post
+    InvitationCreate:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+          description: The email of the user to invite
+        account_role_id:
+          type: string
+          format: uuid
+          title: Account Role Id
+          description: The role id to assign the user
+      additionalProperties: false
+      type: object
+      required:
+      - email
+      - account_role_id
+      title: InvitationCreate
+      description: Data used by the api to create an invitation
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_count_invitations_api_accounts__account_id__invitations_count_post:
+      properties:
+        invitations:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilter'
+          - type: 'null'
+      type: object
+      title: Body_count_invitations_api_accounts__account_id__invitations_count_post
+    InvitationFilterStatus:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/InvitationStatus'
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of invitation statuses to include
+      additionalProperties: false
+      type: object
+      title: InvitationFilterStatus
+    InvitationFilterEmail:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of invitation emails to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: InvitationFilterEmail
+    InvitationReadResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        email:
+          type: string
+          format: email
+          title: Email
+          description: The email of the user to invite
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+          description: The account id
+        account_role_id:
+          type: string
+          format: uuid
+          title: Account Role Id
+          description: The role id to assign the user
+        status:
+          $ref: '#/components/schemas/InvitationStatus'
+          description: The invitation status
+        expiration:
+          type: string
+          format: date-time
+          title: Expiration
+          description: The expiration time of the invite
+      additionalProperties: false
+      type: object
+      required:
+      - email
+      - account_id
+      - account_role_id
+      - status
+      - expiration
+      title: InvitationReadResponse
+      description: Data returned by the api when reading an invitation
+    InvitationFilter:
+      properties:
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterStatus'
+          - type: 'null'
+          description: Filter criteria for Invitation.status
+        expiration:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterExpiration'
+          - type: 'null'
+          description: Filter criteria for Invitation.expiration
+        email:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterEmail'
+          - type: 'null'
+          description: Filter criteria for Invitation.email
+      additionalProperties: false
+      type: object
+      title: InvitationFilter

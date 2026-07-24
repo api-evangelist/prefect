@@ -1,0 +1,911 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Logs API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Logs
+  description: Interact with a Workspace's Logs.
+  externalDocs:
+    description: Configure logging
+    url: https://docs.prefect.io/v3/develop/logging#configure-logging
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/logs/:
+    post:
+      tags:
+      - Logs
+      summary: Create Logs
+      description: 'Create new logs from the provided schema.
+
+
+        Required workspace scopes: `run_flows`'
+      operationId: create_logs_api_accounts__account_id__workspaces__workspace_id__logs__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LogCreate'
+              title: Logs
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/logs/filter:
+    post:
+      tags:
+      - Logs
+      summary: Read Logs
+      description: 'Query for logs.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: read_logs_api_accounts__account_id__workspaces__workspace_id__logs_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_logs_api_accounts__account_id__workspaces__workspace_id__logs_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log'
+                title: Response Read Logs Api Accounts  Account Id  Workspaces  Workspace Id  Logs Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/flow_runs/{id}/logs:
+    get:
+      tags:
+      - Logs
+      summary: Get Flow Run Logs
+      description: 'Returns a page of logs for a flow run
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: get_flow_run_logs_api_accounts__account_id__workspaces__workspace_id__flow_runs__id__logs_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: level_ge
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          title: Level Ge
+      - name: level_le
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          title: Level Le
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: sort
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/LogSort'
+          default: TIMESTAMP_ASC
+      - name: since
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          description: Only include logs with a timestamp at or after this time
+          title: Since
+        description: Only include logs with a timestamp at or after this time
+      - name: until
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          description: Only include logs with a timestamp at or before this time
+          title: Until
+        description: Only include logs with a timestamp at or before this time
+      - name: task_runs
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of task run IDs to filter by
+          title: Task Runs
+        description: Comma-separated list of task run IDs to filter by
+      - name: task_runs_is_null
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: If true, only include logs without a task run ID
+          title: Task Runs Is Null
+        description: If true, only include logs without a task run ID
+      - name: loggers
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of logger names to filter by
+          title: Loggers
+        description: Comma-separated list of logger names to filter by
+      - name: text_query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 200
+          - type: 'null'
+          description: Text search query string
+          title: Text Query
+        description: Text search query string
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+          title: Limit
+        description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      - name: if-none-match
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: If-None-Match
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/flow_runs/{id}/download-logs-csv:
+    get:
+      tags:
+      - Logs
+      summary: Download Flow Run Logs
+      description: 'Download all flow run logs as a CSV file, collecting all logs until there are no more logs to retrieve.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: download_flow_run_logs_api_accounts__account_id__workspaces__workspace_id__flow_runs__id__download_logs_csv_get
+      deprecated: true
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The flow run id
+          title: Id
+        description: The flow run id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/flow_runs/{id}/logs/download:
+    get:
+      tags:
+      - Logs
+      summary: Download Flow Run Logs
+      description: 'Download all flow run logs as a CSV file, collecting all logs until there are no more logs to retrieve.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: download_flow_run_logs_api_accounts__account_id__workspaces__workspace_id__flow_runs__id__logs_download_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The flow run id
+          title: Id
+        description: The flow run id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/traces/{trace_id}/observed-loggers:
+    get:
+      tags:
+      - Logs
+      summary: Read Trace Observed Loggers
+      description: "Get observed logger names used in a specific trace.\n\nReturns distinct logger names used in the trace with their usage counts\nand first/last seen timestamps. Useful for showing what loggers were\nactive in a flow run and providing autocomplete/filtering options.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID to analyze\n    query: Optional prefix search on logger name\n    order_by: Order by name (alphabetically) or recency (most recent first)\n    limit: Maximum number of results\n\nReturns:\n    List of ObservedLogger objects\n\nRequired workspace scopes: `see_flows`"
+      operationId: read_trace_observed_loggers_api_accounts__account_id__workspaces__workspace_id__traces__trace_id__observed_loggers_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: trace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The trace ID to query observed loggers for
+          title: Trace Id
+        description: The trace ID to query observed loggers for
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 100
+          - type: 'null'
+          description: Prefix search query for logger names
+          title: Query
+        description: Prefix search query for logger names
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ObservedLoggerSort'
+          description: Order results by name (alphabetically) or recency (most recently seen first)
+          default: LAST_SEEN_DESC
+        description: Order results by name (alphabetically) or recency (most recently seen first)
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Maximum number of results to return
+          default: 100
+          title: Limit
+        description: Maximum number of results to return
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObservedLogger'
+                title: Response Read Trace Observed Loggers Api Accounts  Account Id  Workspaces  Workspace Id  Traces  Trace Id  Observed Loggers Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/observed-loggers:
+    get:
+      tags:
+      - Logs
+      summary: Read Workspace Observed Loggers
+      description: "Get observed logger names for a workspace.\n\nReturns distinct logger names across all traces in the workspace.\nResults are filtered by workspace retention policy.\nUseful for providing autocomplete/filtering options in the UI.\n\nArgs:\n    account_id: The account ID\n    workspace_id: The workspace ID\n    query: Optional prefix search on logger name\n    order_by: Order by name (alphabetically) or recency (most recent first)\n    limit: Maximum number of results\n\nReturns:\n    List of ObservedLogger objects\n\nRequired workspace scopes: `see_flows`"
+      operationId: read_workspace_observed_loggers_api_accounts__account_id__workspaces__workspace_id__observed_loggers_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 100
+          - type: 'null'
+          description: Prefix search query for logger names
+          title: Query
+        description: Prefix search query for logger names
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ObservedLoggerSort'
+          description: Order results by name (alphabetically) or recency (most recently seen first)
+          default: LAST_SEEN_DESC
+        description: Order results by name (alphabetically) or recency (most recently seen first)
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Maximum number of results to return
+          default: 200
+          title: Limit
+        description: Maximum number of results to return
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObservedLogger'
+                title: Response Read Workspace Observed Loggers Api Accounts  Account Id  Workspaces  Workspace Id  Observed Loggers Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    LogFilterLoggers:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of logger names to include
+          examples:
+          - - prefect.flow_runs
+            - prefect.task_runs
+      additionalProperties: false
+      type: object
+      title: LogFilterLoggers
+      description: Filter by `Log.name` (logger name).
+    LogFilterTaskRunId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of task run IDs to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include logs without a task run id
+      additionalProperties: false
+      type: object
+      title: LogFilterTaskRunId
+      description: Filter by `Log.task_run_id`.
+    Log:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        name:
+          type: string
+          title: Name
+          description: The logger name.
+        level:
+          type: integer
+          title: Level
+          description: The log level.
+        message:
+          type: string
+          title: Message
+          description: The log message.
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+          description: The log timestamp.
+        flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Flow Run Id
+          description: The flow run ID associated with the log.
+        task_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Run Id
+          description: The task run ID associated with the log.
+        worker_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Worker Id
+          description: The worker ID associated with the log.
+      type: object
+      required:
+      - name
+      - level
+      - message
+      - timestamp
+      title: Log
+      description: An ORM representation of log data.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LogFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        level:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterLevel'
+          - type: 'null'
+          description: Filter criteria for `Log.level`
+        timestamp:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterTimestamp'
+          - type: 'null'
+          description: Filter criteria for `Log.timestamp`
+        flow_run_id:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterFlowRunId'
+          - type: 'null'
+          description: Filter criteria for `Log.flow_run_id`
+        task_run_id:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterTaskRunId'
+          - type: 'null'
+          description: Filter criteria for `Log.task_run_id`
+        worker_id:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterWorkerId'
+          - type: 'null'
+          description: Filter criteria for `Log.worker_id`
+        loggers:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterLoggers'
+          - type: 'null'
+          description: Filter criteria for `Log.name` (logger name)
+        text:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterTextSearch'
+          - type: 'null'
+          description: Filter criteria for text search across log content
+      additionalProperties: false
+      type: object
+      title: LogFilter
+      description: Filter logs. Only logs matching all criteria will be returned
+    LogFilterWorkerId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of worker IDs to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include logs without a worker id
+        not_any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of worker IDs to exclude
+      additionalProperties: false
+      type: object
+      title: LogFilterWorkerId
+      description: Filter by `Log.worker_id`.
+    LogSort:
+      type: string
+      enum:
+      - TIMESTAMP_ASC
+      - TIMESTAMP_DESC
+      title: LogSort
+      description: Defines log sorting options.
+    LogFilterTimestamp:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include logs with a timestamp at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include logs with a timestamp at or after this time
+      additionalProperties: false
+      type: object
+      title: LogFilterTimestamp
+      description: Filter by `Log.timestamp`.
+    ObservedLogger:
+      properties:
+        logger_name:
+          type: string
+          title: Logger Name
+          description: The logger name
+        count:
+          type: integer
+          title: Count
+          description: Number of log entries from this logger
+        first_seen:
+          type: string
+          format: date-time
+          title: First Seen
+          description: When this logger was first observed
+        last_seen:
+          type: string
+          format: date-time
+          title: Last Seen
+          description: When this logger was last observed
+      type: object
+      required:
+      - logger_name
+      - count
+      - first_seen
+      - last_seen
+      title: ObservedLogger
+      description: An observed logger name from logs.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
+    LogFilterLevel:
+      properties:
+        ge_:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Ge
+          description: Include logs with a level greater than or equal to this level
+          examples:
+          - 20
+        le_:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Le
+          description: Include logs with a level less than or equal to this level
+          examples:
+          - 50
+      additionalProperties: false
+      type: object
+      title: LogFilterLevel
+      description: Filter by `Log.level`.
+    Body_read_logs_api_accounts__account_id__workspaces__workspace_id__logs_filter_post:
+      properties:
+        offset:
+          type: integer
+          maximum: 20000.0
+          minimum: 0.0
+          title: Offset
+          default: 0
+        logs:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilter'
+          - type: 'null'
+        sort:
+          $ref: '#/components/schemas/LogSort'
+          default: TIMESTAMP_ASC
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_logs_api_accounts__account_id__workspaces__workspace_id__logs_filter_post
+    LogFilterFlowRunId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run IDs to include
+      additionalProperties: false
+      type: object
+      title: LogFilterFlowRunId
+      description: Filter by `Log.flow_run_id`.
+    ObservedLoggerSort:
+      type: string
+      enum:
+      - NAME_ASC
+      - LAST_SEEN_DESC
+      title: ObservedLoggerSort
+      description: Defines observed logger sorting options.
+    LogCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The logger name.
+        level:
+          type: integer
+          title: Level
+          description: The log level.
+        message:
+          type: string
+          maxLength: 25000
+          title: Message
+          description: The log message.
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+          description: The log timestamp.
+        flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Flow Run Id
+        task_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Run Id
+        worker_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Worker Id
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - level
+      - message
+      - timestamp
+      title: LogCreate
+      description: Data used by the Prefect REST API to create a log.
+    LogFilterTextSearch:
+      properties:
+        query:
+          type: string
+          maxLength: 200
+          title: Query
+          description: Text search query string
+          examples:
+          - error
+          - error -debug
+          - '"connection timeout"'
+          - +required -excluded
+      additionalProperties: false
+      type: object
+      required:
+      - query
+      title: LogFilterTextSearch
+      description: Filter by text search across log content.

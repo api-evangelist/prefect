@@ -1,0 +1,1032 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Concurrency Limits V2 API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Concurrency Limits V2
+  description: Interact with a Workspace's Global Concurrency Limits.
+  externalDocs:
+    description: Apply global concurrency and rate limits
+    url: https://docs.prefect.io/v3/develop/global-concurrency-limits
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/v2/concurrency_limits/:
+    post:
+      tags:
+      - Concurrency Limits V2
+      summary: Create Concurrency Limit V2
+      description: '
+
+
+        Required workspace scopes: `manage_concurrency_limits`'
+      operationId: create_concurrency_limit_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConcurrencyLimitV2Create'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConcurrencyLimitV2'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/v2/concurrency_limits/{id_or_name}:
+    get:
+      tags:
+      - Concurrency Limits V2
+      summary: Read Concurrency Limit V2
+      description: '
+
+
+        Required workspace scopes: `see_concurrency_limits`'
+      operationId: read_concurrency_limit_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits__id_or_name__get
+      parameters:
+      - name: id_or_name
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          description: The ID or name of the concurrency limit
+          title: Id Or Name
+        description: The ID or name of the concurrency limit
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalConcurrencyLimitResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Concurrency Limits V2
+      summary: Update Concurrency Limit V2
+      description: '
+
+
+        Required workspace scopes: `manage_concurrency_limits`'
+      operationId: update_concurrency_limit_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits__id_or_name__patch
+      parameters:
+      - name: id_or_name
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          description: The ID or name of the concurrency limit
+          title: Id Or Name
+        description: The ID or name of the concurrency limit
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConcurrencyLimitV2Update'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Concurrency Limits V2
+      summary: Delete Concurrency Limit V2
+      description: '
+
+
+        Required workspace scopes: `manage_concurrency_limits`'
+      operationId: delete_concurrency_limit_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits__id_or_name__delete
+      parameters:
+      - name: id_or_name
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          description: The ID or name of the concurrency limit
+          title: Id Or Name
+        description: The ID or name of the concurrency limit
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/v2/concurrency_limits/filter:
+    post:
+      tags:
+      - Concurrency Limits V2
+      summary: Read All Concurrency Limits V2
+      description: '
+
+
+        Required workspace scopes: `see_concurrency_limits`'
+      operationId: read_all_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_all_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GlobalConcurrencyLimitResponse'
+                title: Response Read All Concurrency Limits V2 Api Accounts  Account Id  Workspaces  Workspace Id  V2 Concurrency Limits Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/v2/concurrency_limits/paginate:
+    post:
+      tags:
+      - Concurrency Limits V2
+      summary: Paginate Concurrency Limits V2
+      description: 'Pagination query for concurrency limits.
+
+
+        Required workspace scopes: `see_concurrency_limits`'
+      operationId: paginate_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_paginate_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_paginate_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_paginate_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConcurrencyLimitV2PaginationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/v2/concurrency_limits/increment:
+    post:
+      tags:
+      - Concurrency Limits V2
+      summary: Bulk Increment Active Slots
+      description: '
+
+
+        Required workspace scopes: `manage_concurrency_limits`'
+      operationId: bulk_increment_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_bulk_increment_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MinimalConcurrencyLimitResponse'
+                title: Response Bulk Increment Active Slots Api Accounts  Account Id  Workspaces  Workspace Id  V2 Concurrency Limits Increment Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/v2/concurrency_limits/increment-with-lease:
+    post:
+      tags:
+      - Concurrency Limits V2
+      summary: Bulk Increment Active Slots With Lease
+      description: '
+
+
+        Required workspace scopes: `manage_concurrency_limits`'
+      operationId: bulk_increment_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_with_lease_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_bulk_increment_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_with_lease_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConcurrencyLimitWithLeaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/v2/concurrency_limits/decrement:
+    post:
+      tags:
+      - Concurrency Limits V2
+      summary: Bulk Decrement Active Slots
+      description: '
+
+
+        Required workspace scopes: `manage_concurrency_limits`'
+      operationId: bulk_decrement_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_bulk_decrement_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MinimalConcurrencyLimitResponse'
+                title: Response Bulk Decrement Active Slots Api Accounts  Account Id  Workspaces  Workspace Id  V2 Concurrency Limits Decrement Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/v2/concurrency_limits/decrement-with-lease:
+    post:
+      tags:
+      - Concurrency Limits V2
+      summary: Bulk Decrement Active Slots With Lease
+      description: '
+
+
+        Required workspace scopes: `manage_concurrency_limits`'
+      operationId: bulk_decrement_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_with_lease_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_bulk_decrement_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_with_lease_post'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/v2/concurrency_limits/leases/{lease_id}/renew:
+    post:
+      tags:
+      - Concurrency Limits V2
+      summary: Renew Concurrency Lease
+      description: '
+
+
+        Required workspace scopes: `manage_concurrency_limits`'
+      operationId: renew_concurrency_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_leases__lease_id__renew_post
+      parameters:
+      - name: lease_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The ID of the lease to renew
+          title: Lease Id
+        description: The ID of the lease to renew
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_renew_concurrency_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_leases__lease_id__renew_post'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Body_bulk_decrement_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_post:
+      properties:
+        slots:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Slots
+        names:
+          items:
+            type: string
+            pattern: ^[^/%&><]+$
+          type: array
+          title: Names
+          min_items: 1
+        occupancy_seconds:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Occupancy Seconds
+        create_if_missing:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Create If Missing
+          deprecated: true
+      type: object
+      required:
+      - slots
+      - names
+      title: Body_bulk_decrement_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_post
+    Body_read_all_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_filter_post:
+      properties:
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_all_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_filter_post
+    ConcurrencyLimitV2Create:
+      properties:
+        active:
+          type: boolean
+          title: Active
+          description: Whether the concurrency limit is active.
+          default: true
+        name:
+          type: string
+          maxLength: 5000
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: The name of the concurrency limit.
+        limit:
+          type: integer
+          minimum: 0.0
+          title: Limit
+          description: The concurrency limit.
+        active_slots:
+          type: integer
+          minimum: 0.0
+          title: Active Slots
+          description: The number of active slots.
+          default: 0
+        denied_slots:
+          type: integer
+          minimum: 0.0
+          title: Denied Slots
+          description: The number of denied slots.
+          default: 0
+        slot_decay_per_second:
+          type: number
+          maximum: 1000000.0
+          minimum: 0.0
+          title: Slot Decay Per Second
+          description: The decay rate for active slots when used as a rate limit.
+          default: 0
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - limit
+      title: ConcurrencyLimitV2Create
+      description: Data used by the Orion API to create a v2 concurrency limit.
+    ? Body_renew_concurrency_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_leases__lease_id__renew_post
+    : properties:
+        lease_duration:
+          type: number
+          maximum: 86400.0
+          minimum: 60.0
+          title: Lease Duration
+          description: The duration of the lease in seconds.
+          default: 300
+      type: object
+      title: Body_renew_concurrency_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_leases__lease_id__renew_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ConcurrencyLimitV2PaginationResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/GlobalConcurrencyLimitResponse'
+          type: array
+          title: Results
+        count:
+          type: integer
+          title: Count
+        limit:
+          type: integer
+          title: Limit
+        pages:
+          type: integer
+          title: Pages
+        page:
+          type: integer
+          title: Page
+      type: object
+      required:
+      - results
+      - count
+      - limit
+      - pages
+      - page
+      title: ConcurrencyLimitV2PaginationResponse
+    ConcurrencyLimitV2:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        active:
+          type: boolean
+          title: Active
+          description: Whether the concurrency limit is active.
+          default: true
+        name:
+          type: string
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: The name of the concurrency limit.
+        limit:
+          type: integer
+          minimum: 0.0
+          title: Limit
+          description: The concurrency limit.
+        active_slots:
+          type: integer
+          title: Active Slots
+          description: The number of active slots.
+          default: 0
+        denied_slots:
+          type: integer
+          title: Denied Slots
+          description: The number of denied slots.
+          default: 0
+        slot_decay_per_second:
+          type: number
+          title: Slot Decay Per Second
+          description: The decay rate for active slots when used as a rate limit.
+          default: 0
+        avg_slot_occupancy_seconds:
+          type: number
+          title: Avg Slot Occupancy Seconds
+          description: The average amount of time a slot is occupied.
+          default: 2.0
+      type: object
+      required:
+      - name
+      - limit
+      title: ConcurrencyLimitV2
+      description: An ORM representation of a v2 concurrency limit.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_bulk_increment_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_post:
+      properties:
+        slots:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Slots
+        names:
+          items:
+            type: string
+            pattern: ^[^/%&><]+$
+          type: array
+          title: Names
+          min_items: 1
+        mode:
+          type: string
+          enum:
+          - concurrency
+          - rate_limit
+          title: Mode
+          default: concurrency
+        create_if_missing:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Create If Missing
+          deprecated: true
+      type: object
+      required:
+      - slots
+      - names
+      title: Body_bulk_increment_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_post
+    ConcurrencyLimitV2Update:
+      properties:
+        active:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Active
+        name:
+          anyOf:
+          - type: string
+            maxLength: 5000
+            pattern: ^[^/%&><]+$
+          - type: 'null'
+          title: Name
+        limit:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Limit
+        active_slots:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Active Slots
+        denied_slots:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Denied Slots
+        slot_decay_per_second:
+          anyOf:
+          - type: number
+            maximum: 1000000.0
+            minimum: 0.0
+          - type: 'null'
+          title: Slot Decay Per Second
+      additionalProperties: false
+      type: object
+      title: ConcurrencyLimitV2Update
+      description: Data used by the Orion API to update a v2 concurrency limit.
+    ? Body_paginate_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_paginate_post
+    : properties:
+        page:
+          type: integer
+          minimum: 1.0
+          title: Page
+          default: 1
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_paginate_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_paginate_post
+    ? Body_bulk_decrement_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_with_lease_post
+    : properties:
+        lease_id:
+          type: string
+          format: uuid
+          title: Lease Id
+          description: The ID of the lease to use for decrementing active slots.
+      type: object
+      required:
+      - lease_id
+      title: Body_bulk_decrement_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_with_lease_post
+    ConcurrencyLeaseHolder:
+      properties:
+        type:
+          type: string
+          enum:
+          - flow_run
+          - task_run
+          - deployment
+          title: Type
+        id:
+          type: string
+          format: uuid
+          title: Id
+      additionalProperties: false
+      type: object
+      required:
+      - type
+      - id
+      title: ConcurrencyLeaseHolder
+      description: Model for validating concurrency lease holder information.
+    ? Body_bulk_increment_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_with_lease_post
+    : properties:
+        slots:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Slots
+        names:
+          items:
+            type: string
+            pattern: ^[^/%&><]+$
+          type: array
+          title: Names
+          min_items: 1
+        mode:
+          type: string
+          enum:
+          - concurrency
+          - rate_limit
+          title: Mode
+          default: concurrency
+        lease_duration:
+          type: number
+          maximum: 86400.0
+          minimum: 60.0
+          title: Lease Duration
+          description: The duration of the lease in seconds.
+          default: 300
+        holder:
+          anyOf:
+          - $ref: '#/components/schemas/ConcurrencyLeaseHolder'
+          - type: 'null'
+          description: The holder of the lease with type (flow_run, task_run, or deployment) and id.
+      type: object
+      required:
+      - slots
+      - names
+      title: Body_bulk_increment_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_with_lease_post
+    GlobalConcurrencyLimitResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        active:
+          type: boolean
+          title: Active
+          description: Whether the global concurrency limit is active.
+          default: true
+        name:
+          type: string
+          title: Name
+          description: The name of the global concurrency limit.
+        limit:
+          type: integer
+          title: Limit
+          description: The concurrency limit.
+        active_slots:
+          type: integer
+          title: Active Slots
+          description: The number of active slots.
+        slot_decay_per_second:
+          type: number
+          title: Slot Decay Per Second
+          description: The decay rate for active slots when used as a rate limit.
+          default: 0.0
+      type: object
+      required:
+      - name
+      - limit
+      - active_slots
+      title: GlobalConcurrencyLimitResponse
+      description: A response object for global concurrency limits.
+    MinimalConcurrencyLimitResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - id
+      - name
+      - limit
+      title: MinimalConcurrencyLimitResponse
+    ConcurrencyLimitWithLeaseResponse:
+      properties:
+        lease_id:
+          type: string
+          format: uuid
+          title: Lease Id
+        limits:
+          items:
+            $ref: '#/components/schemas/MinimalConcurrencyLimitResponse'
+          type: array
+          title: Limits
+      type: object
+      required:
+      - lease_id
+      - limits
+      title: ConcurrencyLimitWithLeaseResponse

@@ -1,0 +1,677 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Bots API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Bots
+  description: Manage bots (service accounts) within an Account
+  externalDocs:
+    description: Manage service accounts
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/service-accounts
+paths:
+  /api/accounts/{account_id}/bots/:
+    post:
+      tags:
+      - Bots
+      summary: Create Bot
+      description: 'Create a Bot
+
+
+        Required account permissions: `create:bot`'
+      operationId: create_bot_api_accounts__account_id__bots__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BotCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BotCreateResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/bots/{id}:
+    get:
+      tags:
+      - Bots
+      summary: Read Bot
+      description: 'Get a bot by id.
+
+
+        Required account permissions: `read:bot`'
+      operationId: read_bot_api_accounts__account_id__bots__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BotReadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Bots
+      summary: Update Bot
+      description: 'Update a bot by id.
+
+
+        Required account permissions: `update:bot`'
+      operationId: update_bot_api_accounts__account_id__bots__id__patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BotUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Bots
+      summary: Delete Bot
+      description: 'Delete a bot by id.
+
+
+        Required account permissions: `delete:bot`'
+      operationId: delete_bot_api_accounts__account_id__bots__id__delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/bots/filter:
+    post:
+      tags:
+      - Bots
+      summary: Read Bots
+      description: 'Query for bots.
+
+
+        Required account permissions: `read:bot`'
+      operationId: read_bots_api_accounts__account_id__bots_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_bots_api_accounts__account_id__bots_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BotReadResponse'
+                title: Response Read Bots Api Accounts  Account Id  Bots Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/bots/{id}/rotate_api_key:
+    post:
+      tags:
+      - Bots
+      summary: Rotate Api Key
+      description: 'Rotate the api key for a Bot.
+
+
+        Required account permissions: `update:bot`'
+      operationId: rotate_api_key_api_accounts__account_id__bots__id__rotate_api_key_post
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/BotRotateAPIKey'
+              - type: 'null'
+              title: Bot Rotate Key
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BotCreateResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/bots/{id}/read_bot_api_keys:
+    get:
+      tags:
+      - Bots
+      summary: Read Bot Api Keys
+      description: 'Get a bot''s api keys by id.
+
+
+        Required account permissions: `read:bot`'
+      operationId: read_bot_api_keys_api_accounts__account_id__bots__id__read_bot_api_keys_get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BotAPIKeyReadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/bots/{id}/delete_bot_api_key/{api_key_id}:
+    delete:
+      tags:
+      - Bots
+      summary: Delete Bot Api Key
+      description: 'Delete a bot''s api key by id.
+
+
+        Required account permissions: `update:bot`'
+      operationId: delete_bot_api_key_api_accounts__account_id__bots__id__delete_bot_api_key__api_key_id__delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: api_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Api Key Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    BotFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of bot names to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: BotFilterName
+    BotReadResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+          description: The actor id associated with this bot.
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+          description: The bot's account id. Bots can only belong to one account.
+        name:
+          type: string
+          title: Name
+          description: The name of the bot.
+        account_role_name:
+          type: string
+          title: Account Role Name
+          description: The name of the role of the bot's account membership.
+        api_key:
+          $ref: '#/components/schemas/APIKeyReadResponse'
+          description: API Key associated with the bot
+      additionalProperties: false
+      type: object
+      required:
+      - actor_id
+      - account_id
+      - name
+      - account_role_name
+      - api_key
+      title: BotReadResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    APIKeyReadResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        name:
+          type: string
+          title: Name
+          description: The name of the api key.
+        expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expiration
+          description: The time at which the api key expires. If `None`, the api key will not expire.
+        masked_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Masked Key
+          description: Masked API key showing prefix and last 4 characters (e.g., pnu_...a1b2).
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: APIKeyReadResponse
+      description: Data returned by the api when reading api_keys
+    Body_read_bots_api_accounts__account_id__bots_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        service_accounts:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilter'
+          - type: 'null'
+      type: object
+      title: Body_read_bots_api_accounts__account_id__bots_filter_post
+    BotCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the bot.
+        api_key_expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Api Key Expiration
+          description: The time at which bot's api key expires. If `None`, the api key will not expire.
+        account_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Account Role Id
+          description: The account role id to assign the bot. If `None` the bot will be assignedthe MEMBER role by `models.bots.create_bot`
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: BotCreate
+      description: Data used by the api to create a bot
+    APIKeyCreateResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        name:
+          type: string
+          title: Name
+          description: The name of the api key.
+        expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expiration
+          description: The time at which the api key expires. If `None`, the api key will not expire.
+        key:
+          type: string
+          title: Key
+          description: The Prefect API Key.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - key
+      title: APIKeyCreateResponse
+      description: Data returned by the api after creating a new api_key. This includes an un-hashed api key.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BotUpdate:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Name
+          description: The name of the bot.
+        account_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Account Role Id
+          description: The account role id to assign the bot.
+      additionalProperties: false
+      type: object
+      title: BotUpdate
+      description: Data used by the api to update a bot
+    BotRotateAPIKey:
+      properties:
+        api_key_expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Api Key Expiration
+          description: The time at which the bot's new api key (the one created by calling this endpoint) will expire. If `None`, the api key will not expire.
+        old_key_expires_in_seconds:
+          anyOf:
+          - type: integer
+            maximum: 172800.0
+            minimum: 0.0
+          - type: 'null'
+          title: Old Key Expires In Seconds
+          description: Provide this field to set an expiration for the currently active api key. If not provided or provided Null, the current key will be deleted. If provided, it cannot be more than 48 hours (172800 seconds) in the future.
+      additionalProperties: false
+      type: object
+      title: BotRotateAPIKey
+      description: Data used by the api to rotate a bot's api key
+    BotFilter:
+      properties:
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilterId'
+          - type: 'null'
+          description: Filter criteria for Bot.id
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilterName'
+          - type: 'null'
+          description: Filter criteria for Bot.name
+      additionalProperties: false
+      type: object
+      title: BotFilter
+    BotAPIKeyReadResponse:
+      properties:
+        active_key:
+          $ref: '#/components/schemas/APIKeyReadResponse'
+          description: The key currently in use by the bot.
+        rotating_keys:
+          items:
+            $ref: '#/components/schemas/APIKeyReadResponse'
+          type: array
+          title: Rotating Keys
+          description: The bot's rotating keys. These keys will expire in 48 hours or less. They can be deleted at any time.
+      type: object
+      required:
+      - active_key
+      - rotating_keys
+      title: BotAPIKeyReadResponse
+      description: Data returned by the API when listing a bot's api keys.
+    BotCreateResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+          description: The actor id associated with this bot.
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+          description: The bot's account id. Bots can only belong to one account.
+        name:
+          type: string
+          title: Name
+          description: The name of the bot.
+        account_role_name:
+          type: string
+          title: Account Role Name
+          description: The name of the role of the bot's account membership.
+        api_key:
+          $ref: '#/components/schemas/APIKeyCreateResponse'
+          description: API Key associated with the bot.
+      additionalProperties: false
+      type: object
+      required:
+      - actor_id
+      - account_id
+      - name
+      - account_role_name
+      - api_key
+      title: BotCreateResponse
+    BotFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of bot ids to include
+      additionalProperties: false
+      type: object
+      title: BotFilterId

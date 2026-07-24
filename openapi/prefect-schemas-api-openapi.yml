@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Schemas API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Schemas
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/ui/schemas/validate:
+    post:
+      tags:
+      - Schemas
+      summary: Validate Obj
+      operationId: validate_obj_api_accounts__account_id__workspaces__workspace_id__ui_schemas_validate_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_validate_obj_api_accounts__account_id__workspaces__workspace_id__ui_schemas_validate_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/ui/schemas/validate_schema:
+    post:
+      tags:
+      - Schemas
+      summary: Validate Schema
+      operationId: validate_schema_api_accounts__account_id__workspaces__workspace_id__ui_schemas_validate_schema_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              title: Schema
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_validate_obj_api_accounts__account_id__workspaces__workspace_id__ui_schemas_validate_post:
+      properties:
+        schema:
+          additionalProperties: true
+          type: object
+          title: Schema
+        values:
+          additionalProperties: true
+          type: object
+          title: Values
+      type: object
+      required:
+      - schema
+      - values
+      title: Body_validate_obj_api_accounts__account_id__workspaces__workspace_id__ui_schemas_validate_post

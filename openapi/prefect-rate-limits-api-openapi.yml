@@ -1,0 +1,699 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Rate Limits API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Rate Limits
+paths:
+  /api/accounts/{account_id}/rate-limits/status:
+    get:
+      tags:
+      - Rate Limits
+      summary: Read Rate Limit Status
+      description: 'Check whether the account is currently exceeding any rate limits.
+
+
+        Returns a list of bucket names that are currently exceeded. The frontend
+
+        uses this to display a warning banner. The exceeded status auto-clears
+
+        ~15 minutes after the last denied request.
+
+
+        Required account permissions: `read:account`'
+      operationId: read_rate_limit_status_api_accounts__account_id__rate_limits_status_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitStatusResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/rate-limits/usage:
+    get:
+      tags:
+      - Rate Limits
+      summary: Read Rate Limit Usage
+      description: 'Read rate limit usage for a given account.
+
+
+        Required account permissions: `read:account`'
+      operationId: read_rate_limit_usage_api_accounts__account_id__rate_limits_usage_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: since
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          description: The start date of the usage period
+          title: Since
+        description: The start date of the usage period
+      - name: until
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          description: The end date of the usage period
+          title: Until
+        description: The end date of the usage period
+      - name: keys
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          description: The keys to query usage for
+          title: Keys
+        description: The keys to query usage for
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitUsageResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/rate-limits/usage/download:
+    get:
+      tags:
+      - Rate Limits
+      summary: Download Rate Limit Usage
+      description: 'Download rate limit usage for a given account as a CSV file.
+
+
+        Required account permissions: `read:account`'
+      operationId: download_rate_limit_usage_api_accounts__account_id__rate_limits_usage_download_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: since
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          description: The start date of the usage period
+          title: Since
+        description: The start date of the usage period
+      - name: until
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          description: The end date of the usage period
+          title: Until
+        description: The end date of the usage period
+      - name: keys
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          description: The keys to query usage for
+          title: Keys
+        description: The keys to query usage for
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/rate-limits/orchestration-api:
+    get:
+      tags:
+      - Rate Limits
+      summary: Read Orchestration Api Grouped Usage
+      description: 'Read orchestration API rate limit usage grouped by a dimension over time.
+
+
+        Required account permissions: `read:account`'
+      operationId: read_orchestration_api_grouped_usage_api_accounts__account_id__rate_limits_orchestration_api_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          description: Start time of the usage period (inclusive)
+          title: Since
+        description: Start time of the usage period (inclusive)
+      - name: until
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          description: End time of the usage period (inclusive)
+          title: Until
+        description: End time of the usage period (inclusive)
+      - name: group_by
+        in: query
+        required: true
+        schema:
+          type: string
+          description: The dimension to group usage by (e.g., workspace_id, api_key_name)
+          title: Group By
+        description: The dimension to group usage by (e.g., workspace_id, api_key_name)
+      - name: workspace_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Filter by workspace ID
+          title: Workspace Id
+        description: Filter by workspace ID
+      - name: api_key_name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by API key name
+          title: Api Key Name
+        description: Filter by API key name
+      - name: actor_name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by actor name
+          title: Actor Name
+        description: Filter by actor name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitGroupedUsageResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/rate-limits/events:
+    get:
+      tags:
+      - Rate Limits
+      summary: Read Events Grouped Usage
+      description: 'Read events rate limit usage grouped by a dimension over time.
+
+
+        Required account permissions: `read:account`'
+      operationId: read_events_grouped_usage_api_accounts__account_id__rate_limits_events_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          description: Start time of the usage period (inclusive)
+          title: Since
+        description: Start time of the usage period (inclusive)
+      - name: until
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          description: End time of the usage period (inclusive)
+          title: Until
+        description: End time of the usage period (inclusive)
+      - name: group_by
+        in: query
+        required: true
+        schema:
+          type: string
+          description: The dimension to group usage by (e.g., workspace_id, event_name)
+          title: Group By
+        description: The dimension to group usage by (e.g., workspace_id, event_name)
+      - name: workspace_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Filter by workspace ID
+          title: Workspace Id
+        description: Filter by workspace ID
+      - name: api_key_name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by API key name
+          title: Api Key Name
+        description: Filter by API key name
+      - name: actor_name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by actor name
+          title: Actor Name
+        description: Filter by actor name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitGroupedUsageResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/rate-limits/api-key-names:
+    get:
+      tags:
+      - Rate Limits
+      summary: List Api Key Names
+      description: 'List distinct API key names from rate limit usage data.
+
+
+        Returns API key names ordered by most recently seen, with optional
+
+        fuzzy search filtering.
+
+
+        Required account permissions: `read:account`'
+      operationId: list_api_key_names_api_accounts__account_id__rate_limits_api_key_names_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          description: Start time of the search period (inclusive)
+          title: Since
+        description: Start time of the search period (inclusive)
+      - name: until
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          description: End time of the search period (inclusive)
+          title: Until
+        description: End time of the search period (inclusive)
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Fuzzy search string (case-insensitive substring match)
+          title: Search
+        description: Fuzzy search string (case-insensitive substring match)
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 250
+          minimum: 1
+          description: Maximum number of results to return
+          default: 50
+          title: Limit
+        description: Maximum number of results to return
+      - name: keys
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter to specific rate limit keys (e.g., orchestration-api, logs-and-events)
+          title: Keys
+        description: Filter to specific rate limit keys (e.g., orchestration-api, logs-and-events)
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistinctValuesResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/rate-limits/actor-names:
+    get:
+      tags:
+      - Rate Limits
+      summary: List Actor Names
+      description: 'List distinct actor names from rate limit usage data.
+
+
+        Returns actor names (users and service accounts) ordered by most recently
+
+        seen, with optional fuzzy search filtering.
+
+
+        Required account permissions: `read:account`'
+      operationId: list_actor_names_api_accounts__account_id__rate_limits_actor_names_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          description: Start time of the search period (inclusive)
+          title: Since
+        description: Start time of the search period (inclusive)
+      - name: until
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          description: End time of the search period (inclusive)
+          title: Until
+        description: End time of the search period (inclusive)
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Fuzzy search string (case-insensitive substring match)
+          title: Search
+        description: Fuzzy search string (case-insensitive substring match)
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 250
+          minimum: 1
+          description: Maximum number of results to return
+          default: 50
+          title: Limit
+        description: Maximum number of results to return
+      - name: keys
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter to specific rate limit keys (e.g., orchestration-api, logs-and-events)
+          title: Keys
+        description: Filter to specific rate limit keys (e.g., orchestration-api, logs-and-events)
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistinctValuesResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RateLimitGroupedUsageByGroup:
+      properties:
+        requested:
+          items:
+            type: integer
+          type: array
+          title: Requested
+          description: Tokens requested per minute
+        granted:
+          items:
+            type: integer
+          type: array
+          title: Granted
+          description: Tokens granted per minute
+      type: object
+      required:
+      - requested
+      - granted
+      title: RateLimitGroupedUsageByGroup
+      description: Usage data for a single group over time.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RateLimitStatusResponse:
+      properties:
+        exceeded_buckets:
+          items:
+            type: string
+          type: array
+          title: Exceeded Buckets
+          description: Rate limit buckets currently exceeded (e.g., 'orchestration-api', 'logs-and-events')
+      type: object
+      required:
+      - exceeded_buckets
+      title: RateLimitStatusResponse
+      description: Current rate limit exceeded status for an account.
+    RateLimitUsageResponse:
+      properties:
+        account:
+          type: string
+          format: uuid
+          title: Account
+        since:
+          type: string
+          format: date-time
+          title: Since
+        until:
+          type: string
+          format: date-time
+          title: Until
+        minutes:
+          items:
+            type: string
+            format: date-time
+          type: array
+          title: Minutes
+        keys:
+          additionalProperties:
+            $ref: '#/components/schemas/RateLimitUsageByKey'
+          type: object
+          title: Keys
+      type: object
+      required:
+      - account
+      - since
+      - until
+      - minutes
+      - keys
+      title: RateLimitUsageResponse
+    RateLimitGroupedUsageResponse:
+      properties:
+        account:
+          type: string
+          format: uuid
+          title: Account
+          description: The account UUID
+        since:
+          type: string
+          format: date-time
+          title: Since
+          description: Start of the time range
+        until:
+          type: string
+          format: date-time
+          title: Until
+          description: End of the time range
+        limit:
+          type: integer
+          title: Limit
+          description: Account rate limit (applies to all groups combined)
+        minutes:
+          items:
+            type: string
+            format: date-time
+          type: array
+          title: Minutes
+          description: List of minute timestamps
+        groups:
+          additionalProperties:
+            $ref: '#/components/schemas/RateLimitGroupedUsageByGroup'
+          type: object
+          title: Groups
+          description: Usage data keyed by group value (the dimension value)
+      type: object
+      required:
+      - account
+      - since
+      - until
+      - limit
+      - minutes
+      - groups
+      title: RateLimitGroupedUsageResponse
+      description: Response model for rate limit usage grouped by a dimension over time.
+    DistinctValuesResponse:
+      properties:
+        values:
+          items:
+            type: string
+          type: array
+          title: Values
+          description: List of distinct values
+      type: object
+      required:
+      - values
+      title: DistinctValuesResponse
+      description: Response model for distinct values endpoints.
+    RateLimitUsageByKey:
+      properties:
+        limit:
+          items:
+            type: integer
+          type: array
+          title: Limit
+        usage:
+          items:
+            type: integer
+          type: array
+          title: Usage
+        requested:
+          items:
+            type: integer
+          type: array
+          title: Requested
+        granted:
+          items:
+            type: integer
+          type: array
+          title: Granted
+      type: object
+      required:
+      - limit
+      - usage
+      - requested
+      - granted
+      title: RateLimitUsageByKey

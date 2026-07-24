@@ -1,0 +1,146 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Task Run States API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Task Run States
+  description: Interact with a Workspace's Task Run States.
+  externalDocs:
+    description: Write and run tasks
+    url: https://docs.prefect.io/v3/develop/write-tasks
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/task_run_states/{id}:
+    get:
+      tags:
+      - Task Run States
+      summary: Read Task Run State
+      description: 'Get a task run state by id.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: read_task_run_state_api_accounts__account_id__workspaces__workspace_id__task_run_states__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The task run state id
+          title: Id
+        description: The task run state id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/task_run_states/:
+    get:
+      tags:
+      - Task Run States
+      summary: Read Task Run States
+      description: 'Get states associated with a task run.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: read_task_run_states_api_accounts__account_id__workspaces__workspace_id__task_run_states__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: task_run_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Task Run Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

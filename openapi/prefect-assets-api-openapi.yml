@@ -1,0 +1,1141 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Assets API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Assets
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/assets/:
+    get:
+      tags:
+      - Assets
+      summary: List Assets
+      operationId: list_assets_api_accounts__account_id__workspaces__workspace_id__assets__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: prefix
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Prefix to search assets keys for
+          title: Prefix
+        description: Prefix to search assets keys for
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Substring to search assets keys for
+          title: Search
+        description: Substring to search assets keys for
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssetCatalogItem'
+                title: Response List Assets Api Accounts  Account Id  Workspaces  Workspace Id  Assets  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/assets/key:
+    get:
+      tags:
+      - Assets
+      summary: Read Asset
+      operationId: read_asset_api_accounts__account_id__workspaces__workspace_id__assets_key_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: key
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetCatalogItem'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Assets
+      summary: Delete Asset
+      operationId: delete_asset_api_accounts__account_id__workspaces__workspace_id__assets_key_delete
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: key
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Key
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/assets/latest-dependencies:
+    get:
+      tags:
+      - Assets
+      summary: Latest Dependencies
+      operationId: latest_dependencies_api_accounts__account_id__workspaces__workspace_id__assets_latest_dependencies_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssetDependency'
+                title: Response Latest Dependencies Api Accounts  Account Id  Workspaces  Workspace Id  Assets Latest Dependencies Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/assets/neighbors:
+    get:
+      tags:
+      - Assets
+      summary: Get Asset Neighbors
+      description: 'Get the direct (1-hop) neighbors of a specific asset.
+
+
+        Returns the asset, its immediate upstream and downstream dependencies,
+
+        and the dependency edges between them. Does not traverse transitive
+
+        dependencies.'
+      operationId: get_asset_neighbors_api_accounts__account_id__workspaces__workspace_id__assets_neighbors_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: key
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          description: The asset key to get neighbors for
+          title: Key
+        description: The asset key to get neighbors for
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetGraph'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/assets/filter:
+    post:
+      tags:
+      - Assets
+      summary: Filter Assets
+      operationId: filter_assets_api_accounts__account_id__workspaces__workspace_id__assets_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_filter_assets_api_accounts__account_id__workspaces__workspace_id__assets_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetGraphPage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/assets/filter/next:
+    get:
+      tags:
+      - Assets
+      summary: Filter Assets Page
+      operationId: filter_assets_page_api_accounts__account_id__workspaces__workspace_id__assets_filter_next_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: page-token
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Page-Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetGraphPage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/assets/materializations:
+    get:
+      tags:
+      - Assets
+      summary: List Asset Materializations
+      description: 'Get historical materializations for a specific asset.
+
+
+        Returns one materialization per run (deduplicated by run_id, latest occurred wins).'
+      operationId: list_asset_materializations_api_accounts__account_id__workspaces__workspace_id__assets_materializations_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: key
+        in: query
+        required: true
+        schema:
+          type: string
+          description: The asset key to get materializations for
+          title: Key
+        description: The asset key to get materializations for
+      - name: since
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          description: Only return materializations on or after this timestamp
+          title: Since
+        description: Only return materializations on or after this timestamp
+      - name: until
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          description: Only return materializations on or before this timestamp
+          title: Until
+        description: Only return materializations on or before this timestamp
+      - name: sort
+        in: query
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+          description: 'Sort order: ''asc'' or ''desc'''
+          default: desc
+          title: Sort
+        description: 'Sort order: ''asc'' or ''desc'''
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MaterializationEvent'
+                title: Response List Asset Materializations Api Accounts  Account Id  Workspaces  Workspace Id  Assets Materializations Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/assets/references:
+    get:
+      tags:
+      - Assets
+      summary: List Asset References
+      description: 'Get downstream assets that reference (consume) a specific asset.
+
+
+        Returns materializations of assets that have the queried asset in their
+
+        upstream dependencies. Deduplicated by run_id (latest occurred wins).'
+      operationId: list_asset_references_api_accounts__account_id__workspaces__workspace_id__assets_references_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: key
+        in: query
+        required: true
+        schema:
+          type: string
+          description: The asset key to get references for
+          title: Key
+        description: The asset key to get references for
+      - name: since
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          description: Only return references on or after this timestamp
+          title: Since
+        description: Only return references on or after this timestamp
+      - name: until
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          description: Only return references on or before this timestamp
+          title: Until
+        description: Only return references on or before this timestamp
+      - name: sort
+        in: query
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+          description: 'Sort order: ''asc'' or ''desc'''
+          default: desc
+          title: Sort
+        description: 'Sort order: ''asc'' or ''desc'''
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MaterializationEvent'
+                title: Response List Asset References Api Accounts  Account Id  Workspaces  Workspace Id  Assets References Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/assets/materializations/{event_id}:
+    get:
+      tags:
+      - Assets
+      summary: Read Asset Materialization
+      description: 'Get a specific materialization event by its event ID.
+
+
+        The asset key must be provided and match the event''s asset key.'
+      operationId: read_asset_materialization_api_accounts__account_id__workspaces__workspace_id__assets_materializations__event_id__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The event ID of the materialization
+          title: Event Id
+        description: The event ID of the materialization
+      - name: key
+        in: query
+        required: true
+        schema:
+          type: string
+          description: The asset key for validation
+          title: Key
+        description: The asset key for validation
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaterializationEvent'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/assets/materializations/{event_id}/upstream:
+    get:
+      tags:
+      - Assets
+      summary: Get Upstream Materializations
+      description: 'Get the latest materialization of each upstream asset that occurred
+
+        before a specific materialization event.'
+      operationId: get_upstream_materializations_api_accounts__account_id__workspaces__workspace_id__assets_materializations__event_id__upstream_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The event ID of the focal materialization
+          title: Event Id
+        description: The event ID of the focal materialization
+      - name: key
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          description: The asset key of the focal materialization
+          title: Key
+        description: The asset key of the focal materialization
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MaterializationEvent'
+                title: Response Get Upstream Materializations Api Accounts  Account Id  Workspaces  Workspace Id  Assets Materializations  Event Id  Upstream Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/assets/references/{event_id}:
+    get:
+      tags:
+      - Assets
+      summary: Read Asset Reference
+      description: 'Get a specific downstream consumer by its event ID.
+
+
+        Returns the materialization event for an asset that consumes the queried upstream
+
+        asset. The upstream asset key must be provided and must appear in the
+
+        materialization''s upstream dependencies.'
+      operationId: read_asset_reference_api_accounts__account_id__workspaces__workspace_id__assets_references__event_id__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The event ID of the downstream consumer
+          title: Event Id
+        description: The event ID of the downstream consumer
+      - name: key
+        in: query
+        required: true
+        schema:
+          type: string
+          description: The upstream asset key being referenced
+          title: Key
+        description: The upstream asset key being referenced
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaterializationEvent'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    LatestReference:
+      properties:
+        event_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Event Id
+        occurred:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Occurred
+        flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Flow Run Id
+        task_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Run Id
+        originating_workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Originating Workspace Id
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+      type: object
+      title: LatestReference
+    LatestMaterialization:
+      properties:
+        event_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Event Id
+        occurred:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Occurred
+        flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Flow Run Id
+        task_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Run Id
+        originating_workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Originating Workspace Id
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+        by_tools:
+          items:
+            type: string
+          type: array
+          title: By Tools
+        status:
+          anyOf:
+          - type: string
+            enum:
+            - succeeded
+            - failed
+          - type: 'null'
+          title: Status
+      type: object
+      title: LatestMaterialization
+    AssetRelatedFilter:
+      properties:
+        id:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id
+          description: Only include assets with related resources matching these IDs
+        role:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Role
+          description: Only include assets with related resources in these roles
+        resources_in_roles:
+          anyOf:
+          - items:
+              prefixItems:
+              - type: string
+              - type: string
+              type: array
+              maxItems: 2
+              minItems: 2
+            type: array
+          - type: 'null'
+          title: Resources In Roles
+          description: Only include assets with specific related resources in specific roles
+        labels:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - type: 'null'
+          description: Only include assets with related resources matching these labels
+      type: object
+      title: AssetRelatedFilter
+    MaterializationEvent:
+      properties:
+        asset_key:
+          type: string
+          title: Asset Key
+          description: The unique key identifying the asset
+        occurred:
+          type: string
+          format: date-time
+          title: Occurred
+          description: When the materialization occurred
+        status:
+          type: string
+          enum:
+          - succeeded
+          - failed
+          title: Status
+          description: The outcome of the materialization attempt
+        task_run_id:
+          type: string
+          format: uuid
+          title: Task Run Id
+          description: The task run that materialized this asset
+        flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Flow Run Id
+          description: The flow run context in which the materialization occurred
+        event_id:
+          type: string
+          format: uuid
+          title: Event Id
+          description: The ID of the event that created this materialization
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+          description: Metadata about the materialization (row counts, processing times, etc.)
+        name:
+          type: string
+          title: Name
+          description: Human-readable name of the asset at materialization time
+          default: ''
+        url:
+          type: string
+          title: Url
+          description: URL associated with the asset at materialization time
+          default: ''
+        description:
+          type: string
+          title: Description
+          description: Description of the asset at materialization time
+          default: ''
+        owners:
+          items:
+            type: string
+          type: array
+          title: Owners
+          description: Owners of the asset at materialization time
+        upstream_assets:
+          items:
+            type: string
+          type: array
+          title: Upstream Assets
+          description: Asset keys that this materialization depended on
+        by_tools:
+          items:
+            type: string
+          type: array
+          title: By Tools
+          description: Tools that performed the materialization (e.g., 'dbt', 'spark')
+        originating_workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Originating Workspace Id
+          description: The workspace where this materialization originally occurred (for replicated assets)
+      type: object
+      required:
+      - asset_key
+      - occurred
+      - status
+      - task_run_id
+      - event_id
+      title: MaterializationEvent
+      description: 'Represents a single asset materialization event.
+
+
+        Captures a historical snapshot of an asset materialization, including the asset''s
+
+        properties at the time of materialization (not the current state).'
+    AssetCatalogItem:
+      properties:
+        key:
+          type: string
+          title: Key
+        properties:
+          $ref: '#/components/schemas/AssetProperties'
+        last_seen:
+          type: string
+          format: date-time
+          title: Last Seen
+        latest_reference:
+          $ref: '#/components/schemas/LatestReference'
+        latest_materialization:
+          $ref: '#/components/schemas/LatestMaterialization'
+      type: object
+      required:
+      - key
+      - last_seen
+      title: AssetCatalogItem
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AssetFilter:
+      properties:
+        key:
+          anyOf:
+          - $ref: '#/components/schemas/AssetKeyFilter'
+          - type: 'null'
+          description: Filter criteria for asset keys
+        occurred:
+          anyOf:
+          - $ref: '#/components/schemas/AssetOccurredFilter'
+          - type: 'null'
+          description: Filter criteria for asset activity timestamps
+        related:
+          anyOf:
+          - $ref: '#/components/schemas/AssetRelatedFilter'
+          - type: 'null'
+          description: Filter criteria for related resources from asset events
+      type: object
+      title: AssetFilter
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AssetDependency:
+      properties:
+        upstream:
+          type: string
+          title: Upstream
+        downstream:
+          type: string
+          title: Downstream
+        occurred:
+          type: string
+          format: date-time
+          title: Occurred
+        status:
+          type: string
+          enum:
+          - succeeded
+          - failed
+          title: Status
+      type: object
+      required:
+      - upstream
+      - downstream
+      - occurred
+      - status
+      title: AssetDependency
+    AssetProperties:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          default: ''
+        url:
+          type: string
+          maxLength: 5000
+          title: Url
+          default: ''
+        description:
+          type: string
+          title: Description
+          default: ''
+        owners:
+          items:
+            type: string
+          type: array
+          title: Owners
+      type: object
+      title: AssetProperties
+    AssetGraph:
+      properties:
+        assets:
+          additionalProperties:
+            $ref: '#/components/schemas/AssetCatalogItem'
+          type: object
+          title: Assets
+        dependencies:
+          items:
+            $ref: '#/components/schemas/AssetGraphDependency'
+          type: array
+          title: Dependencies
+        root_asset_key:
+          type: string
+          title: Root Asset Key
+      type: object
+      required:
+      - root_asset_key
+      title: AssetGraph
+      description: Graph of assets with normalized structure.
+    AssetGraphPage:
+      properties:
+        assets:
+          items:
+            $ref: '#/components/schemas/AssetCatalogItem'
+          type: array
+          title: Assets
+        dependencies:
+          items:
+            $ref: '#/components/schemas/AssetDependency'
+          type: array
+          title: Dependencies
+        total:
+          type: integer
+          title: Total
+        next_page:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Page
+      type: object
+      required:
+      - assets
+      - dependencies
+      - total
+      title: AssetGraphPage
+    AssetGraphDependency:
+      properties:
+        upstream_asset_key:
+          type: string
+          title: Upstream Asset Key
+        downstream_asset_key:
+          type: string
+          title: Downstream Asset Key
+      type: object
+      required:
+      - upstream_asset_key
+      - downstream_asset_key
+      title: AssetGraphDependency
+      description: A dependency edge between two assets.
+    Body_filter_assets_api_accounts__account_id__workspaces__workspace_id__assets_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of assets to return with each page
+          default: 50
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/AssetFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down assets
+      type: object
+      title: Body_filter_assets_api_accounts__account_id__workspaces__workspace_id__assets_filter_post
+    AssetOccurredFilter:
+      properties:
+        since:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Since
+          description: Only include assets seen after this time (inclusive)
+        until:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Until
+          description: Only include assets seen before this time (inclusive)
+      type: object
+      title: AssetOccurredFilter
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    AssetKeyFilter:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include assets with these exact keys
+        prefix:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Prefix
+          description: Only include assets with keys starting with these prefixes
+        search:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Search
+          description: Only include assets with keys containing these substrings
+      type: object
+      title: AssetKeyFilter

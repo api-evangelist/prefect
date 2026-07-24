@@ -1,0 +1,1190 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Events API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Events
+  description: Interact with Prefect Observability
+  externalDocs:
+    description: Track activity through events
+    url: https://docs.prefect.io/v3/automate/events/events
+paths:
+  /api/accounts/{account_id}/events:
+    post:
+      tags:
+      - Events
+      summary: Create Account Events
+      description: Record a batch of Events for an Account
+      operationId: create_account_events_api_accounts__account_id__events_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Event'
+              title: Events
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/events/filter:
+    post:
+      tags:
+      - Events
+      summary: Read Account Events
+      description: 'Queries for Events matching the given filter criteria in the given Account.  Returns
+
+        the first page of results, and the URL to request the next page (if there are more
+
+        results).'
+      operationId: read_account_events_api_accounts__account_id__events_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_account_events_api_accounts__account_id__events_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventPage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/events/filter/next:
+    get:
+      tags:
+      - Events
+      summary: Read Account Events Page
+      description: 'Returns the next page of Events for a previous query against the given Account, and
+
+        the URL to request the next page (if there are more results).'
+      operationId: read_account_events_page_api_accounts__account_id__events_filter_next_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: page-token
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Page-Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventPage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/events/count-by/{countable}:
+    post:
+      tags:
+      - Events
+      summary: Count Account Events
+      description: 'Returns distinct objects and the count of events associated with them.  Objects
+
+        that can be counted include the day the event occurred, the type of event, the
+
+        workspace, or the IDs of the resources associated with the event.'
+      operationId: count_account_events_api_accounts__account_id__events_count_by__countable__post
+      parameters:
+      - name: countable
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/Countable'
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_count_account_events_api_accounts__account_id__events_count_by__countable__post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventCount'
+                title: Response Count Account Events Api Accounts  Account Id  Events Count By  Countable  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/events:
+    post:
+      tags:
+      - Events
+      summary: Create Workspace Events
+      description: Record a batch of Events for one Workspace within an Account
+      operationId: create_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Event'
+              title: Events
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/events/filter:
+    post:
+      tags:
+      - Events
+      summary: Read Workspace Events
+      description: 'Queries for Events matching the given filter criteria in the given Account and
+
+        Workspace.  Returns the first page of results, and the URL to request the next
+
+        page (if there are more results).'
+      operationId: read_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventPage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/events/filter/next:
+    get:
+      tags:
+      - Events
+      summary: Read Workspace Events Page
+      description: 'Returns the next page of Events for a previous query against the given Account and
+
+        Workspace, and the URL to request the next page (if there are more results).'
+      operationId: read_workspace_events_page_api_accounts__account_id__workspaces__workspace_id__events_filter_next_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: page-token
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Page-Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventPage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/events/count-by/{countable}:
+    post:
+      tags:
+      - Events
+      summary: Count Workspace Events
+      description: 'Returns distinct objects and the count of events associated with them.  Objects
+
+        that can be counted include the day the event occurred, the type of event, the
+
+        workspace, or the IDs of the resources associated with the event.'
+      operationId: count_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_count_by__countable__post
+      parameters:
+      - name: countable
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/Countable'
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_count_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_count_by__countable__post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventCount'
+                title: Response Count Workspace Events Api Accounts  Account Id  Workspaces  Workspace Id  Events Count By  Countable  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/flow_runs/{flow_run_id}/events:
+    get:
+      tags:
+      - Events
+      summary: Get Events For Flow Run
+      description: 'Returns the first page of Events for a flow run against the given Account and Workspace.
+
+
+        If the `if-none-match` header is provided with the value of the current event count,
+
+        the server will return a 304 Not Modified response since the client already has the
+
+        latest events.'
+      operationId: get_events_for_flow_run_api_accounts__account_id__workspaces__workspace_id__flow_runs__flow_run_id__events_get
+      parameters:
+      - name: flow_run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Flow Run Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 5000
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: order
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/EventOrder'
+          default: DESC
+      - name: with_task_runs
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: With Task Runs
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+          title: Limit
+        description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      - name: if-none-match
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: If-None-Match
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/tags:
+    get:
+      tags:
+      - Events
+      summary: List Tags
+      description: Page through tags in a workspace.
+      operationId: list_tags_api_accounts__account_id__workspaces__workspace_id__tags_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+          description: A string to search for in the tag names
+          title: Search
+        description: A string to search for in the tag names
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          description: The page number of tags to return.
+          default: 1
+          title: Page
+        description: The page number of tags to return.
+      - name: sort
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/TagSort'
+          description: Sort tags by name (A→Z or Z→A) or recency (most/least recently seen first)
+          default: LAST_SEEN_DESC
+        description: Sort tags by name (A→Z or Z→A) or recency (most/least recently seen first)
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+          title: Limit
+        description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagPaginationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Events
+      summary: Delete Workspace Tag
+      description: Delete a tag from the workspace tags index.
+      operationId: delete_workspace_tag_api_accounts__account_id__workspaces__workspace_id__tags_delete
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: tag
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          description: The tag name
+          title: Tag
+        description: The tag name
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    EventTextFilter:
+      properties:
+        query:
+          type: string
+          maxLength: 200
+          title: Query
+          description: Text search query string
+          examples:
+          - error
+          - error -debug
+          - '"connection timeout"'
+          - +required -excluded
+      additionalProperties: false
+      type: object
+      required:
+      - query
+      title: EventTextFilter
+      description: Filter by text search across event content.
+    Body_count_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_count_by__countable__post:
+      properties:
+        time_unit:
+          $ref: '#/components/schemas/TimeUnit'
+          default: day
+        time_interval:
+          type: number
+          minimum: 0.01
+          title: Time Interval
+          default: 1.0
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/EventFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down the set of Events
+      type: object
+      title: Body_count_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_count_by__countable__post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EventOccurredFilter:
+      properties:
+        since:
+          type: string
+          format: date-time
+          title: Since
+          description: Only include events after this time (inclusive)
+        until:
+          type: string
+          format: date-time
+          title: Until
+          description: Only include events prior to this time (inclusive)
+      additionalProperties: false
+      type: object
+      title: EventOccurredFilter
+    Countable:
+      type: string
+      enum:
+      - day
+      - time
+      - event
+      - resource
+      - workspace
+      - actor
+      title: Countable
+    Resource:
+      additionalProperties:
+        type: string
+      type: object
+      title: Resource
+      description: An observable business object of interest to the user
+    Event:
+      properties:
+        occurred:
+          type: string
+          format: date-time
+          title: Occurred
+          description: When the event happened from the sender's perspective
+        event:
+          type: string
+          maxLength: 1024
+          title: Event
+          description: The name of the event that happened
+        resource:
+          $ref: '#/components/schemas/Resource'
+          description: The primary Resource this event concerns
+        related:
+          items:
+            $ref: '#/components/schemas/RelatedResource'
+          type: array
+          title: Related
+          description: A list of additional Resources involved in this event
+        payload:
+          additionalProperties: true
+          type: object
+          title: Payload
+          description: An open-ended set of data describing what happened
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The client-provided identifier of this event
+        follows:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Follows
+          description: The ID of an event that is known to have occurred prior to this one. If set, this may be used to establish a more precise ordering of causally-related events when they occur close enough together in time that the system may receive them out-of-order.
+      type: object
+      required:
+      - occurred
+      - event
+      - resource
+      - id
+      title: Event
+      description: The client-side view of an event that has happened to a Resource
+    EventOrder:
+      type: string
+      enum:
+      - ASC
+      - DESC
+      title: EventOrder
+    Tag:
+      properties:
+        name:
+          type: string
+          title: Name
+        first_seen:
+          type: string
+          format: date-time
+          title: First Seen
+        last_seen:
+          type: string
+          format: date-time
+          title: Last Seen
+      type: object
+      required:
+      - name
+      - first_seen
+      - last_seen
+      title: Tag
+    Body_read_account_events_api_accounts__account_id__events_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of events to return with each page
+          default: 50
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/EventFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down the set of Events
+      type: object
+      title: Body_read_account_events_api_accounts__account_id__events_filter_post
+    TagSort:
+      type: string
+      enum:
+      - NAME_ASC
+      - NAME_DESC
+      - LAST_SEEN_ASC
+      - LAST_SEEN_DESC
+      title: TagSort
+      description: Defines tags sorting options.
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EventFilter:
+      properties:
+        occurred:
+          $ref: '#/components/schemas/EventOccurredFilter'
+          description: Filter criteria for when the events occurred
+        event:
+          anyOf:
+          - $ref: '#/components/schemas/EventNameFilter'
+          - type: 'null'
+          description: Filter criteria for the event name
+        resource:
+          anyOf:
+          - $ref: '#/components/schemas/EventResourceFilter'
+          - type: 'null'
+          description: Filter criteria for the resource of the event
+        related:
+          anyOf:
+          - $ref: '#/components/schemas/EventRelatedFilter'
+          - items:
+              $ref: '#/components/schemas/EventRelatedFilter'
+            type: array
+          - type: 'null'
+          title: Related
+          description: Filter criteria for the related resources of the event
+        any_resource:
+          anyOf:
+          - $ref: '#/components/schemas/EventAnyResourceFilter'
+          - items:
+              $ref: '#/components/schemas/EventAnyResourceFilter'
+            type: array
+          - type: 'null'
+          title: Any Resource
+          description: Filter criteria for any resource involved in the event
+        scope:
+          $ref: '#/components/schemas/EventScopeFilter'
+          description: Filter criteria for the events' workspace
+        id:
+          $ref: '#/components/schemas/EventIDFilter'
+          description: Filter criteria for the events' ID
+        text:
+          anyOf:
+          - $ref: '#/components/schemas/EventTextFilter'
+          - type: 'null'
+          description: Filter criteria for text search across event content
+        order:
+          $ref: '#/components/schemas/EventOrder'
+          description: The order to return filtered events
+          default: DESC
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 200.0
+            minimum: 0.0
+          - type: 'null'
+          title: Limit
+          description: The maximum number of events to return
+        offset:
+          anyOf:
+          - type: integer
+            maximum: 5000.0
+            minimum: 0.0
+          - type: 'null'
+          title: Offset
+          description: The number of events to skip
+      additionalProperties: false
+      type: object
+      title: EventFilter
+    EventNameFilter:
+      properties:
+        prefix:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Prefix
+          description: Only include events matching one of these prefixes
+        exclude_prefix:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Exclude Prefix
+          description: Exclude events matching one of these prefixes
+        name:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Name
+          description: Only include events matching one of these names exactly
+        exclude_name:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Exclude Name
+          description: Exclude events matching one of these names exactly
+      additionalProperties: false
+      type: object
+      title: EventNameFilter
+    EventIDFilter:
+      properties:
+        id:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+          description: Only include events with one of these IDs
+      additionalProperties: false
+      type: object
+      title: EventIDFilter
+    EventRelatedFilter:
+      properties:
+        id:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id
+          description: Only include events for related resources with these IDs
+        role:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Role
+          description: Only include events for related resources in these roles
+        resources_in_roles:
+          anyOf:
+          - items:
+              prefixItems:
+              - type: string
+              - type: string
+              type: array
+              maxItems: 2
+              minItems: 2
+            type: array
+          - type: 'null'
+          title: Resources In Roles
+          description: Only include events with specific related resources in specific roles
+        labels:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - type: 'null'
+          description: Only include events for related resources with these labels
+      additionalProperties: false
+      type: object
+      title: EventRelatedFilter
+    ReceivedEvent:
+      properties:
+        occurred:
+          type: string
+          format: date-time
+          title: Occurred
+          description: When the event happened from the sender's perspective
+        event:
+          type: string
+          maxLength: 1024
+          title: Event
+          description: The name of the event that happened
+        resource:
+          $ref: '#/components/schemas/Resource'
+          description: The primary Resource this event concerns
+        related:
+          items:
+            $ref: '#/components/schemas/RelatedResource'
+          type: array
+          title: Related
+          description: A list of additional Resources involved in this event
+        payload:
+          additionalProperties: true
+          type: object
+          title: Payload
+          description: An open-ended set of data describing what happened
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The client-provided identifier of this event
+        follows:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Follows
+          description: The ID of an event that is known to have occurred prior to this one. If set, this may be used to establish a more precise ordering of causally-related events when they occur close enough together in time that the system may receive them out-of-order.
+        account:
+          type: string
+          format: uuid
+          title: Account
+          description: The Prefect Cloud Account for which this event happened
+        workspace:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace
+          description: The optional Prefect Cloud Workspace in which this event happened
+        received:
+          type: string
+          format: date-time
+          title: Received
+          description: When the event was received by Prefect Cloud
+      type: object
+      required:
+      - occurred
+      - event
+      - resource
+      - id
+      - account
+      title: ReceivedEvent
+      description: 'The server-side view of an event that has happened to a Resource after it has
+
+        been received by the server in the context of an account and optional workspace'
+    RelatedResource:
+      additionalProperties:
+        type: string
+      type: object
+      title: RelatedResource
+      description: A Resource with a specific role in an Event
+    EventScopeFilter:
+      properties:
+        account:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Account
+          description: Only include events for this account
+        workspace:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace
+          description: Only include events for these workspaces
+      additionalProperties: false
+      type: object
+      title: EventScopeFilter
+    TagPaginationResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+          title: Results
+        count:
+          type: integer
+          title: Count
+        limit:
+          type: integer
+          title: Limit
+        pages:
+          type: integer
+          title: Pages
+        page:
+          type: integer
+          title: Page
+      type: object
+      required:
+      - results
+      - count
+      - limit
+      - pages
+      - page
+      title: TagPaginationResponse
+    Body_count_account_events_api_accounts__account_id__events_count_by__countable__post:
+      properties:
+        time_unit:
+          $ref: '#/components/schemas/TimeUnit'
+          default: day
+        time_interval:
+          type: number
+          minimum: 0.01
+          title: Time Interval
+          default: 1.0
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/EventFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down the set of Events
+      type: object
+      title: Body_count_account_events_api_accounts__account_id__events_count_by__countable__post
+    EventCount:
+      properties:
+        value:
+          type: string
+          title: Value
+          description: The value to use for filtering
+        label:
+          type: string
+          title: Label
+          description: The value to display for this count
+        count:
+          type: integer
+          title: Count
+          description: The count of matching events
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+          description: The start time of this group of events
+        end_time:
+          type: string
+          format: date-time
+          title: End Time
+          description: The end time of this group of events
+      type: object
+      required:
+      - value
+      - label
+      - count
+      - start_time
+      - end_time
+      title: EventCount
+      description: The count of events with the given filter value
+    TimeUnit:
+      type: string
+      enum:
+      - week
+      - day
+      - hour
+      - minute
+      - second
+      title: TimeUnit
+    Body_read_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of events to return with each page
+          default: 50
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/EventFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down the set of Events
+      type: object
+      title: Body_read_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_filter_post
+    EventPage:
+      properties:
+        events:
+          items:
+            $ref: '#/components/schemas/ReceivedEvent'
+          type: array
+          title: Events
+          description: The Events matching the query
+        total:
+          type: integer
+          title: Total
+          description: The total number of matching Events
+        next_page:
+          anyOf:
+          - type: string
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Next Page
+          description: The URL for the next page of results, if there are more
+      type: object
+      required:
+      - events
+      - total
+      - next_page
+      title: EventPage
+      description: 'A single page of events returned from the API, with an optional link to the
+
+        next page of results'
+    EventAnyResourceFilter:
+      properties:
+        id:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id
+          description: Only include events for resources with these IDs
+        id_prefix:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id Prefix
+          description: Only include events for resources with IDs starting with these prefixes
+        labels:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - type: 'null'
+          description: Only include events for related resources with these labels
+      additionalProperties: false
+      type: object
+      title: EventAnyResourceFilter
+    EventResourceFilter:
+      properties:
+        id:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id
+          description: Only include events for resources with these IDs
+        id_prefix:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id Prefix
+          description: Only include events for resources with IDs starting with these prefixes.
+        labels:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - type: 'null'
+          description: Only include events for resources with these labels
+        distinct:
+          type: boolean
+          title: Distinct
+          description: Only include events for distinct resources
+          default: false
+      additionalProperties: false
+      type: object
+      title: EventResourceFilter

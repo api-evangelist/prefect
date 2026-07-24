@@ -1,0 +1,244 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Account SSO API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Account SSO
+  description: Set up an account.
+  externalDocs:
+    description: Configure SSO
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/configure-sso#configure-sso
+paths:
+  /api/accounts/{account_id}/sso/setup_url:
+    get:
+      tags:
+      - Account SSO
+      summary: Read Sso Setup Url
+      description: 'Get an SSO connection setup URL for a given account
+
+
+        Returns a URL if the account doesn''t already have SSO configured
+
+
+        Required account permissions: `administrate:sso`'
+      operationId: read_sso_setup_url_api_accounts__account_id__sso_setup_url_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response Read Sso Setup Url Api Accounts  Account Id  Sso Setup Url Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/sso/dsync_setup_url:
+    get:
+      tags:
+      - Account SSO
+      summary: Read Dsync Setup Url
+      description: 'Get an Directory Sync connection setup URL for a given account
+
+
+        Returns a URL if the account doesn''t already have Directory Sync configured
+
+
+        Required account permissions: `administrate:sso`'
+      operationId: read_dsync_setup_url_api_accounts__account_id__sso_dsync_setup_url_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response Read Dsync Setup Url Api Accounts  Account Id  Sso Dsync Setup Url Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/sso/validate:
+    post:
+      tags:
+      - Account SSO
+      summary: Validate
+      description: 'Validate that the current actor has recently authenticated with the
+
+        Account''s authenticator.
+
+
+        Required account permissions: `read:account`'
+      operationId: validate_api_accounts__account_id__sso_validate_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_validate_api_accounts__account_id__sso_validate_post'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/sso/integrations:
+    get:
+      tags:
+      - Account SSO
+      summary: Integrations
+      description: 'Return details about an Account''s SSO / SCIM integrations.
+
+
+        Required account permissions: `administrate:sso`'
+      operationId: integrations_api_accounts__account_id__sso_integrations_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkOSIntegrationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/sso/integrations/{integration_id}:
+    delete:
+      tags:
+      - Account SSO
+      summary: Remove Integration
+      description: 'Return details about an Account''s SSO / SCIM integrations.
+
+
+        Required account permissions: `administrate:sso`'
+      operationId: remove_integration_api_accounts__account_id__sso_integrations__integration_id__delete
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Integration Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    WorkOSIntegrationResponse:
+      properties:
+        organization_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Organization Id
+        connections:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Connections
+          default: []
+        directories:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Directories
+          default: []
+      type: object
+      title: WorkOSIntegrationResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_validate_api_accounts__account_id__sso_validate_post:
+      properties:
+        redirect_uri:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Redirect Uri
+      type: object
+      title: Body_validate_api_accounts__account_id__sso_validate_post

@@ -1,0 +1,435 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Event Subscriptions API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Event Subscriptions
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/event-subscriptions/:
+    post:
+      tags:
+      - Event Subscriptions
+      summary: Create Subscription
+      operationId: create_subscription_api_accounts__account_id__workspaces__workspace_id__event_subscriptions__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Event Subscriptions
+      summary: List Subscriptions
+      operationId: list_subscriptions_api_accounts__account_id__workspaces__workspace_id__event_subscriptions__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: resource_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Resource Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 200
+          title: Limit
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionPage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/event-subscriptions/{subscription_id}:
+    get:
+      tags:
+      - Event Subscriptions
+      summary: Read Subscription
+      operationId: read_subscription_api_accounts__account_id__workspaces__workspace_id__event_subscriptions__subscription_id__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Subscription Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Event Subscriptions
+      summary: Update Subscription
+      operationId: update_subscription_api_accounts__account_id__workspaces__workspace_id__event_subscriptions__subscription_id__patch
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Subscription Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Event Subscriptions
+      summary: Delete Subscription
+      operationId: delete_subscription_api_accounts__account_id__workspaces__workspace_id__event_subscriptions__subscription_id__delete
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Subscription Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    SubscriptionCreate:
+      properties:
+        publication_id:
+          type: string
+          format: uuid
+          title: Publication Id
+        event:
+          items:
+            type: string
+          type: array
+          title: Event
+        resource:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Resource
+        related:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Related
+      type: object
+      required:
+      - publication_id
+      - event
+      title: SubscriptionCreate
+      description: POST body for creating a subscription.
+    SubscriptionPage:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/SubscriptionResponse'
+          type: array
+          title: Results
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - results
+      title: SubscriptionPage
+      description: Paginated list of subscriptions with an opaque cursor for the next page.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SubscriptionResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+        publication_id:
+          type: string
+          format: uuid
+          title: Publication Id
+        enabled:
+          type: boolean
+          title: Enabled
+        event:
+          items:
+            type: string
+          type: array
+          title: Event
+        resource:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Resource
+        related:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Related
+        created:
+          type: string
+          format: date-time
+          title: Created
+        updated:
+          type: string
+          format: date-time
+          title: Updated
+        publication_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Publication Enabled
+          description: Publication's enabled status; None if deleted
+        publication_exists:
+          type: boolean
+          title: Publication Exists
+          description: False if the publication has been deleted (orphaned subscription)
+      type: object
+      required:
+      - id
+      - account_id
+      - workspace_id
+      - publication_id
+      - enabled
+      - event
+      - created
+      - updated
+      - publication_exists
+      title: SubscriptionResponse
+      description: Response model — subscription + publication status.
+    SubscriptionUpdate:
+      properties:
+        enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enabled
+        event:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Event
+        resource:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Resource
+        related:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Related
+      type: object
+      title: SubscriptionUpdate
+      description: PATCH body — all fields optional, only provided fields are updated.
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'

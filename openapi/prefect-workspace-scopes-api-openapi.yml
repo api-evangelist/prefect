@@ -1,0 +1,179 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Workspace Scopes API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Workspace Scopes
+  description: View available workspace scopes.
+  externalDocs:
+    description: 'Manage workspaces: control access'
+    url: https://docs.prefect.io/v3/manage/cloud/workspaces#control-access
+paths:
+  /api/workspace_scopes:
+    get:
+      tags:
+      - Workspace Scopes
+      summary: Get Workspace Scopes
+      operationId: get_workspace_scopes_api_workspace_scopes_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WorkspaceScope'
+                type: array
+                title: Response Get Workspace Scopes Api Workspace Scopes Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    WorkspaceScopeName:
+      type: string
+      enum:
+      - see_flows
+      - manage_saved_search
+      - run_flows
+      - manage_flows
+      - run_tasks
+      - see_blocks
+      - see_secret_blocks
+      - manage_blocks
+      - see_deployments
+      - run_deployments
+      - write_deployments
+      - manage_deployments
+      - see_notifications
+      - write_notifications
+      - manage_notifications
+      - see_workspace_settings
+      - write_workspace_settings
+      - manage_workspace_settings
+      - see_workspace_users
+      - manage_workspace_users
+      - see_workspace_service_accounts
+      - manage_workspace_service_accounts
+      - manage_workspace_teams
+      - see_work_queues
+      - write_work_queues
+      - manage_work_queues
+      - see_concurrency_limits
+      - manage_concurrency_limits
+      - see_events
+      - manage_events
+      - see_event_publications
+      - manage_event_publications
+      - see_event_subscriptions
+      - manage_event_subscriptions
+      - see_automations
+      - manage_automations
+      - see_work_pools
+      - write_work_pools
+      - manage_work_pools
+      - see_workers
+      - write_workers
+      - manage_workers
+      - see_artifacts
+      - write_artifacts
+      - manage_artifacts
+      - see_variables
+      - write_variables
+      - manage_variables
+      - manage_acls
+      - see_incidents
+      - write_incidents
+      - manage_incidents
+      - manage_mex_storage
+      - manage_mex_deploy
+      - see_tags
+      - manage_tags
+      - see_assets
+      - write_assets
+      - manage_assets
+      - see_webhooks
+      - manage_webhooks
+      title: WorkspaceScopeName
+      description: "Canonical list of workspace scope names.\n\nScope names should be semantically meaningful, roughly in the form of\n`<verb>_<obj>`. For example, `see_flows` allows viewing of flows within\nthe workspace.\n\nA few common patterns to follow:\n    - `see_*`: ability to view objects\n    - `write_*`: ability to create, update or view objects\n    - `manage_*`: ability to create, update, view, or delete objects"
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    WorkspaceScope:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the scope.
+          examples:
+          - see_flows
+        title:
+          type: string
+          title: Title
+          description: "\n            A human readable title for the scope that describes the marginal permissions granted by this scope.\n            For example, although `manage_deployments` grants the right to take any action\n            against a deployment, the marginal permission given is to delete deployments, as\n            `write_deployments` grants everything except this.\n\n            These titles are only used by the UI for display purposes.\n            "
+          examples:
+          - See flows and runs
+        feature_group:
+          type: string
+          title: Feature Group
+          description: The feature to which this scope relates. Used for grouping scopes in the UI.
+        includes_scopes:
+          items:
+            type: string
+          type: array
+          title: Includes Scopes
+          description: Optional list of scopes from which this scope inherits.
+          examples:
+          - - see_flows
+            - see_deployments
+        see_scope:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceScopeName'
+          - type: 'null'
+          description: Which scope grants access to see the object
+      type: object
+      required:
+      - name
+      - title
+      - feature_group
+      - see_scope
+      title: WorkspaceScope
+      description: 'A workspace scope represents permissions to take a set of actions
+
+        within a Prefect Cloud workspace.
+
+
+        Only `name` and `includes_scopes` should be relied on for
+
+        authorization logic.'

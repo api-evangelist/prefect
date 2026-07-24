@@ -1,0 +1,87 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Block capabilities API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Block capabilities
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/block_capabilities/:
+    get:
+      tags:
+      - Block capabilities
+      summary: Read Available Block Capabilities
+      description: '
+
+
+        Required workspace scopes: `see_blocks`'
+      operationId: read_available_block_capabilities_api_accounts__account_id__workspaces__workspace_id__block_capabilities__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                title: Response Read Available Block Capabilities Api Accounts  Account Id  Workspaces  Workspace Id  Block Capabilities  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

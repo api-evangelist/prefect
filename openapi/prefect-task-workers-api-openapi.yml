@@ -1,0 +1,132 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Task Workers API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Task Workers
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/task_workers/filter:
+    post:
+      tags:
+      - Task Workers
+      summary: Read Task Workers
+      description: 'Read task workers for a workspace. Optionally filter by task keys.
+
+
+        Required workspace scopes: `see_workers`'
+      operationId: read_task_workers_api_accounts__account_id__workspaces__workspace_id__task_workers_filter_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_task_workers_api_accounts__account_id__workspaces__workspace_id__task_workers_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskWorkerResponse'
+                title: Response Read Task Workers Api Accounts  Account Id  Workspaces  Workspace Id  Task Workers Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TaskWorkerResponse:
+      properties:
+        identifier:
+          type: string
+          title: Identifier
+        task_keys:
+          items:
+            type: string
+          type: array
+          title: Task Keys
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+      type: object
+      required:
+      - identifier
+      - task_keys
+      - timestamp
+      title: TaskWorkerResponse
+    Body_read_task_workers_api_accounts__account_id__workspaces__workspace_id__task_workers_filter_post:
+      properties:
+        task_worker_filter:
+          anyOf:
+          - $ref: '#/components/schemas/TaskWorkerFilter'
+          - type: 'null'
+          description: The task worker filter
+      type: object
+      title: Body_read_task_workers_api_accounts__account_id__workspaces__workspace_id__task_workers_filter_post
+    TaskWorkerFilter:
+      properties:
+        task_keys:
+          items:
+            type: string
+          type: array
+          title: Task Keys
+      type: object
+      required:
+      - task_keys
+      title: TaskWorkerFilter

@@ -1,0 +1,296 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Workspace Team Access API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Workspace Team Access
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/team_access/:
+    put:
+      tags:
+      - Workspace Team Access
+      summary: Upsert Workspace Team Access
+      description: 'Grant one or more teams access to a workspace
+
+
+        Required workspace scopes: `manage_workspace_teams`'
+      operationId: upsert_workspace_team_access_api_accounts__account_id__workspaces__workspace_id__team_access__put
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/WorkspaceTeamAccessCreate'
+              title: Workspace Team Accesses
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceTeamAccess'
+                title: Response Upsert Workspace Team Access Api Accounts  Account Id  Workspaces  Workspace Id  Team Access  Put
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/team_access/filter:
+    post:
+      tags:
+      - Workspace Team Access
+      summary: Read Workspace Team Accesses
+      description: 'List teams with access to a workspaces
+
+
+        Required workspace scopes: `manage_workspace_teams`'
+      operationId: read_workspace_team_accesses_api_accounts__account_id__workspaces__workspace_id__team_access_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_workspace_team_accesses_api_accounts__account_id__workspaces__workspace_id__team_access_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceTeamAccessResponse'
+                title: Response Read Workspace Team Accesses Api Accounts  Account Id  Workspaces  Workspace Id  Team Access Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/team_access/{team_id}:
+    delete:
+      tags:
+      - Workspace Team Access
+      summary: Remove Workspace Team Access
+      description: 'Remove a team''s access to a workspace
+
+
+        Required workspace scopes: `manage_workspace_teams`'
+      operationId: remove_workspace_team_access_api_accounts__account_id__workspaces__workspace_id__team_access__team_id__delete
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: team_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Team Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    WorkspaceTeamAccessCreate:
+      properties:
+        team_id:
+          type: string
+          format: uuid
+          title: Team Id
+          description: The team id
+        workspace_role_id:
+          type: string
+          format: uuid
+          title: Workspace Role Id
+          description: The workspace role id
+      additionalProperties: false
+      type: object
+      required:
+      - team_id
+      - workspace_role_id
+      title: WorkspaceTeamAccessCreate
+      description: Data used by the api to create workspace team access
+    WorkspaceTeamAccess:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        team_id:
+          type: string
+          format: uuid
+          title: Team Id
+          description: The team id
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+          description: The workspace id
+        workspace_role_id:
+          type: string
+          format: uuid
+          title: Workspace Role Id
+          description: The workspace role id
+      type: object
+      required:
+      - team_id
+      - workspace_id
+      - workspace_role_id
+      title: WorkspaceTeamAccess
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_read_workspace_team_accesses_api_accounts__account_id__workspaces__workspace_id__team_access_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+      type: object
+      title: Body_read_workspace_team_accesses_api_accounts__account_id__workspaces__workspace_id__team_access_filter_post
+    WorkspaceTeamAccessResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+          description: The workspace id
+        workspace_role_id:
+          type: string
+          format: uuid
+          title: Workspace Role Id
+          description: The workspace role id
+        team_id:
+          type: string
+          format: uuid
+          title: Team Id
+          description: id of team assigned a workspace access
+        team_name:
+          type: string
+          title: Team Name
+          description: The name of the team assigned a workspace access
+      additionalProperties: false
+      type: object
+      required:
+      - workspace_id
+      - workspace_role_id
+      - team_id
+      - team_name
+      title: WorkspaceTeamAccessResponse
+      description: Data returned by the api after creating a new team workspace access

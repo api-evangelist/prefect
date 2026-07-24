@@ -1,0 +1,305 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Flow Run States API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Flow Run States
+  description: Interact with a Workspace's Flow Run States.
+  externalDocs:
+    description: Write and run flows
+    url: https://docs.prefect.io/v3/develop/write-flows
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/flow_run_states/{id}:
+    get:
+      tags:
+      - Flow Run States
+      summary: Read Flow Run State
+      description: 'Get a flow run state by id.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: read_flow_run_state_api_accounts__account_id__workspaces__workspace_id__flow_run_states__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The flow run state id
+          title: Id
+        description: The flow run state id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/State'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/flow_run_states/:
+    get:
+      tags:
+      - Flow Run States
+      summary: Read Flow Run States
+      description: 'Get states associated with a flow run.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: read_flow_run_states_api_accounts__account_id__workspaces__workspace_id__flow_run_states__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: flow_run_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Flow Run Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/State'
+                title: Response Read Flow Run States Api Accounts  Account Id  Workspaces  Workspace Id  Flow Run States  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    StateType:
+      type: string
+      enum:
+      - SCHEDULED
+      - PENDING
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      - CANCELLED
+      - CRASHED
+      - PAUSED
+      - CANCELLING
+      title: StateType
+      description: Enumeration of state types.
+    StateDetails:
+      properties:
+        flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Flow Run Id
+        task_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Run Id
+        child_flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Child Flow Run Id
+        scheduled_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Scheduled Time
+        cache_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cache Key
+        cache_expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Cache Expiration
+        deferred:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Deferred
+        untrackable_result:
+          type: boolean
+          title: Untrackable Result
+          default: false
+        pause_timeout:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Pause Timeout
+        pause_reschedule:
+          type: boolean
+          title: Pause Reschedule
+          default: false
+        pause_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pause Key
+        run_input_keyset:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Run Input Keyset
+        refresh_cache:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Refresh Cache
+        retriable:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Retriable
+        transition_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Transition Id
+        task_parameters_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Parameters Id
+        traceparent:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Traceparent
+        deployment_concurrency_lease_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Deployment Concurrency Lease Id
+      type: object
+      title: StateDetails
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    State:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        type:
+          $ref: '#/components/schemas/StateType'
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+          examples:
+          - Run started
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+          description: Data associated with the state, e.g. a result. Content must be storable as JSON.
+        state_details:
+          $ref: '#/components/schemas/StateDetails'
+      type: object
+      required:
+      - type
+      title: State
+      description: Represents the state of a run.

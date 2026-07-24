@@ -1,0 +1,106 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing AI API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: AI
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/logs/ai/flow_run_logs/{flow_run_id}:
+    get:
+      tags:
+      - AI
+      summary: Summarize Flow Run Logs
+      description: 'Summarize error logs for a flow run.
+
+
+        If the `flow_run_id` is not found, or if there are no error logs for the
+
+        flow run, the `result` will be `None`.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: summarize_flow_run_logs_api_accounts__account_id__workspaces__workspace_id__logs_ai_flow_run_logs__flow_run_id__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: flow_run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Flow Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarvinResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    MarvinResult:
+      properties:
+        result:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Result
+          description: Result returned by an LLM, if any.
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+          description: Details about an error that occurred while running the LLM, if any.
+      type: object
+      title: MarvinResult
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

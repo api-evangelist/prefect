@@ -1,0 +1,295 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Download API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Download
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/flow_runs/{id}/logs:
+    get:
+      tags:
+      - Download
+      summary: Get Flow Run Logs
+      description: 'Returns a page of logs for a flow run
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: get_flow_run_logs_api_accounts__account_id__workspaces__workspace_id__flow_runs__id__logs_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: level_ge
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          title: Level Ge
+      - name: level_le
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+          title: Level Le
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: sort
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/LogSort'
+          default: TIMESTAMP_ASC
+      - name: since
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          description: Only include logs with a timestamp at or after this time
+          title: Since
+        description: Only include logs with a timestamp at or after this time
+      - name: until
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          description: Only include logs with a timestamp at or before this time
+          title: Until
+        description: Only include logs with a timestamp at or before this time
+      - name: task_runs
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of task run IDs to filter by
+          title: Task Runs
+        description: Comma-separated list of task run IDs to filter by
+      - name: task_runs_is_null
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: If true, only include logs without a task run ID
+          title: Task Runs Is Null
+        description: If true, only include logs without a task run ID
+      - name: loggers
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated list of logger names to filter by
+          title: Loggers
+        description: Comma-separated list of logger names to filter by
+      - name: text_query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 200
+          - type: 'null'
+          description: Text search query string
+          title: Text Query
+        description: Text search query string
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+          title: Limit
+        description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      - name: if-none-match
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: If-None-Match
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/flow_runs/{id}/download-logs-csv:
+    get:
+      tags:
+      - Download
+      summary: Download Flow Run Logs
+      description: 'Download all flow run logs as a CSV file, collecting all logs until there are no more logs to retrieve.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: download_flow_run_logs_api_accounts__account_id__workspaces__workspace_id__flow_runs__id__download_logs_csv_get
+      deprecated: true
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The flow run id
+          title: Id
+        description: The flow run id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/flow_runs/{id}/logs/download:
+    get:
+      tags:
+      - Download
+      summary: Download Flow Run Logs
+      description: 'Download all flow run logs as a CSV file, collecting all logs until there are no more logs to retrieve.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: download_flow_run_logs_api_accounts__account_id__workspaces__workspace_id__flow_runs__id__logs_download_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The flow run id
+          title: Id
+        description: The flow run id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    LogSort:
+      type: string
+      enum:
+      - TIMESTAMP_ASC
+      - TIMESTAMP_DESC
+      title: LogSort
+      description: Defines log sorting options.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

@@ -1,0 +1,520 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Account Billing
+  description: View and update account billing information.
+paths:
+  /api/billing/{account_id}/details:
+    get:
+      tags:
+      - Account Billing
+      summary: Get Billing Details
+      description: 'Returns the billing details for an account.
+
+
+        Required account permissions: `read:billing`'
+      operationId: get_billing_details_api_billing__account_id__details_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingDetailsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/billing/{account_id}/subscription_restrictions:
+    get:
+      tags:
+      - Account Billing
+      summary: Get Subscription Restrictions
+      description: 'Returns billing restrictions for an account based on current usage.
+
+
+        Required account permissions: `read:billing`'
+      operationId: get_subscription_restrictions_api_billing__account_id__subscription_restrictions_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingRestrictionsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/billing/{account_id}/cancel_org_subscription:
+    post:
+      tags:
+      - Account Billing
+      summary: Cancel Org Subscription At Period End
+      description: '
+
+
+        Required account permissions: `update:billing`'
+      operationId: cancel_org_subscription_at_period_end_api_billing__account_id__cancel_org_subscription_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/billing/{account_id}/update_slots:
+    post:
+      tags:
+      - Account Billing
+      summary: Update Slots
+      description: '
+
+
+        Required account permissions: `update:billing`'
+      operationId: update_slots_api_billing__account_id__update_slots_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_update_slots_api_billing__account_id__update_slots_post'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/billing/{account_id}/create_billing_portal_session:
+    post:
+      tags:
+      - Account Billing
+      summary: Create Billing Portal Session
+      description: 'Creates a billing portal session for an account.
+
+
+        Required account permissions: `update:billing`'
+      operationId: create_billing_portal_session_api_billing__account_id__create_billing_portal_session_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_create_billing_portal_session_api_billing__account_id__create_billing_portal_session_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/billing/{account_id}/validate_subscription_status:
+    post:
+      tags:
+      - Account Billing
+      summary: Validate Subscription Status
+      description: 'Validate an account''s subscription has been updated to reflect the latest stripe
+
+        session.
+
+
+        Required account permissions: `update:billing`'
+      operationId: validate_subscription_status_api_billing__account_id__validate_subscription_status_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_validate_subscription_status_api_billing__account_id__validate_subscription_status_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: boolean
+                title: Response Validate Subscription Status Api Billing  Account Id  Validate Subscription Status Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/billing/{account_id}/subscribe:
+    post:
+      tags:
+      - Account Billing
+      summary: Get Checkout Link
+      description: '
+
+
+        Required account permissions: `update:billing`'
+      operationId: get_checkout_link_api_billing__account_id__subscribe_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_get_checkout_link_api_billing__account_id__subscribe_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+                title: Response Get Checkout Link Api Billing  Account Id  Subscribe Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/billing/{account_id}/manage_subscription:
+    post:
+      tags:
+      - Account Billing
+      summary: Manage Subscription
+      description: 'Creates a Stripe customer portal session for managing an existing subscription.
+
+
+        This endpoint allows users to update, cancel, or otherwise manage their subscription
+
+        through Stripe''s customer portal with specific configuration options.
+
+
+        Required account permissions: `update:billing`'
+      operationId: manage_subscription_api_billing__account_id__manage_subscription_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_manage_subscription_api_billing__account_id__manage_subscription_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Body_manage_subscription_api_billing__account_id__manage_subscription_post:
+      properties:
+        return_url:
+          type: string
+          title: Return Url
+          description: The URL to return to after managing the subscription.
+      type: object
+      required:
+      - return_url
+      title: Body_manage_subscription_api_billing__account_id__manage_subscription_post
+    BillingObjectDetailsResponse:
+      properties:
+        free_slots:
+          type: integer
+          title: Free Slots
+          description: Number of free slots for object.
+        minimum_slots:
+          type: integer
+          title: Minimum Slots
+          description: Minimum number of slots for object plan needs to maintain.
+        used_slots:
+          type: integer
+          title: Used Slots
+          description: Number of slots currently in use for object.
+        slots:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Slots
+          description: Total number of slots for object. If `None` there is no limit.
+        price:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Price
+          description: Per unit cost of the object. None if there is no subscription.
+      additionalProperties: false
+      type: object
+      required:
+      - free_slots
+      - minimum_slots
+      - used_slots
+      - slots
+      - price
+      title: BillingObjectDetailsResponse
+      description: Data returned by the api for details about a billable object
+    Body_validate_subscription_status_api_billing__account_id__validate_subscription_status_post:
+      properties:
+        stripe_session_id:
+          type: string
+          title: Stripe Session Id
+          description: The id of the stripe session to validate.
+      type: object
+      required:
+      - stripe_session_id
+      title: Body_validate_subscription_status_api_billing__account_id__validate_subscription_status_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_get_checkout_link_api_billing__account_id__subscribe_post:
+      properties:
+        tier:
+          $ref: '#/components/schemas/AccountPlanTier'
+          description: The pricing tier to create a checkout session for.
+      type: object
+      required:
+      - tier
+      title: Body_get_checkout_link_api_billing__account_id__subscribe_post
+    BillingDetailsResponse:
+      properties:
+        stripe_customer_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Stripe Customer Id
+          description: Stripe customer id associated with the account.
+        self_serve:
+          type: boolean
+          title: Self Serve
+          description: Whether billing is self-serve on the plan. When a plan is self serve, users manage their own billable resources and make payments through a credit card they have setup with Stripe.
+          default: false
+        plan_type:
+          $ref: '#/components/schemas/AccountPlanType'
+          description: The type of plan this account has.  Useful for making decisions abouthow to display this account, but not for authorization or feature enablement.
+        plan_tier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Plan Tier
+          description: The tier of the account plan.
+        users:
+          $ref: '#/components/schemas/BillingObjectDetailsResponse'
+          description: User related billing information.
+        workspaces:
+          $ref: '#/components/schemas/BillingObjectDetailsResponse'
+          description: Workspace related billing information.
+        annual_billing:
+          type: boolean
+          title: Annual Billing
+          description: Whether this account is on a yearly plan or not.
+          default: true
+        cancel_at_period_end:
+          type: boolean
+          title: Cancel At Period End
+          description: Whether this account is going to be cancelling at their end of term. If truethe account won't be able to update workspace nor user slots.
+          default: false
+        trial_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Trial Start
+          description: 'Deprecated: always returns null.'
+        trial_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Trial End
+          description: 'Deprecated: always returns null.'
+        billing_enabled:
+          type: boolean
+          title: Billing Enabled
+          description: Whether billing is enabled on the plan. When billing is disabled, users may add up to the free workspace/user slots specified in their account's terms. When billing is enabled, if implicit_slots=True we will automatically reconcile their current slots as users/workspaces are added and removed. If implicit_slots=True users/workspaces slots can purchased and filled.
+          default: false
+      additionalProperties: false
+      type: object
+      required:
+      - plan_type
+      - users
+      - workspaces
+      title: BillingDetailsResponse
+      description: Data returned by the api for details about an account's billing
+    Body_create_billing_portal_session_api_billing__account_id__create_billing_portal_session_post:
+      properties:
+        return_url:
+          type: string
+          title: Return Url
+          description: The url to return to after leaving the billing portal.
+      type: object
+      required:
+      - return_url
+      title: Body_create_billing_portal_session_api_billing__account_id__create_billing_portal_session_post
+    AccountPlanType:
+      type: string
+      enum:
+      - ORGANIZATION
+      - PERSONAL
+      - ENTERPRISE
+      title: AccountPlanType
+    Body_update_slots_api_billing__account_id__update_slots_post:
+      properties:
+        additional_workspace_slots:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Additional Workspace Slots
+          description: The number of additional workspace slots to update to.
+        additional_user_slots:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Additional User Slots
+          description: The number of additional user slots to update to.
+      type: object
+      title: Body_update_slots_api_billing__account_id__update_slots_post
+    AccountPlanTier:
+      type: string
+      enum:
+      - FREE_2025_04
+      - PRO
+      - ENTERPRISE
+      - PRO_2024_04
+      - STARTER
+      - TEAM
+      title: AccountPlanTier
+    BillingRestrictionsResponse:
+      properties:
+        can_upgrade:
+          type: boolean
+          title: Can Upgrade
+          description: Whether the account can upgrade to a higher tier based on current usage.
+          default: false
+        can_cancel:
+          type: boolean
+          title: Can Cancel
+          description: Whether the account can cancel their subscription based on current usage.
+          default: false
+        available_tiers:
+          items:
+            type: string
+          type: array
+          title: Available Tiers
+          description: List of account plan tiers that are available based on current usage.
+      additionalProperties: false
+      type: object
+      title: BillingRestrictionsResponse
+      description: Data returned by the API about billing restrictions for an account.

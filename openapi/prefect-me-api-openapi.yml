@@ -1,0 +1,1123 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Me API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Me
+  description: Inspect the current User.
+paths:
+  /api/me/:
+    get:
+      tags:
+      - Me
+      summary: Read My Profile
+      description: List the current actor's user profile
+      operationId: read_my_profile_api_me__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeReadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/sessions:
+    get:
+      tags:
+      - Me
+      summary: Read My Sessions
+      description: List the current actor's user sessions
+      operationId: read_my_sessions_api_me_sessions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserSessionResponse'
+                type: array
+                title: Response Read My Sessions Api Me Sessions Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/sessions/filter:
+    post:
+      tags:
+      - Me
+      summary: Filter My Sessions
+      description: Filter the current actor's user sessions
+      operationId: filter_my_sessions_api_me_sessions_filter_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_filter_my_sessions_api_me_sessions_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserSessionResponse'
+                type: array
+                title: Response Filter My Sessions Api Me Sessions Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/sessions/{session_id}/terminate:
+    post:
+      tags:
+      - Me
+      summary: Terminate My Session
+      description: Terminate the current actor's user session
+      operationId: terminate_my_session_api_me_sessions__session_id__terminate_post
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/api_keys:
+    get:
+      tags:
+      - Me
+      summary: Read My Api Keys
+      description: List the current actor's api keys
+      operationId: read_my_api_keys_api_me_api_keys_get
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/APIKeyReadResponse'
+                title: Response Read My Api Keys Api Me Api Keys Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/api_keys/filter:
+    post:
+      tags:
+      - Me
+      summary: Filter My Api Keys
+      operationId: filter_my_api_keys_api_me_api_keys_filter_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_filter_my_api_keys_api_me_api_keys_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/accounts:
+    get:
+      tags:
+      - Me
+      summary: Read My Accounts
+      description: List the current actor's accounts
+      operationId: read_my_accounts_api_me_accounts_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserAccountResponse'
+                type: array
+                title: Response Read My Accounts Api Me Accounts Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/organizations:
+    get:
+      tags:
+      - Me
+      summary: Read My Organizations
+      description: 'List the current actor''s accounts that have plans that
+
+        are schemas.plans.AccountPlanType.ORGANIZATION'
+      operationId: read_my_organizations_api_me_organizations_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserOrganizationResponse'
+                type: array
+                title: Response Read My Organizations Api Me Organizations Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/accounts/{account_id}/permissions:
+    get:
+      tags:
+      - Me
+      summary: Read My Account Permissions
+      description: List the current actor's permissions for the given account
+      operationId: read_my_account_permissions_api_me_accounts__account_id__permissions_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                uniqueItems: true
+                items:
+                  $ref: '#/components/schemas/AccountPermission'
+                title: Response Read My Account Permissions Api Me Accounts  Account Id  Permissions Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/accounts/has_permission:
+    get:
+      tags:
+      - Me
+      summary: Read My Accounts With Permission
+      description: 'Return the account ids the current actor has access to
+
+        for which they have the given permission'
+      operationId: read_my_accounts_with_permission_api_me_accounts_has_permission_get
+      parameters:
+      - name: permission
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/AccountPermission'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: uuid
+                title: Response Read My Accounts With Permission Api Me Accounts Has Permission Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/accounts/{account_id}/has_permission:
+    get:
+      tags:
+      - Me
+      summary: Check My Account Permissions
+      description: Return if current actor has specific permission for account
+      operationId: check_my_account_permissions_api_me_accounts__account_id__has_permission_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: permission
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/AccountPermission'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: boolean
+                title: Response Check My Account Permissions Api Me Accounts  Account Id  Has Permission Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/accounts/{account_id}:
+    delete:
+      tags:
+      - Me
+      summary: Leave Account
+      description: 'Removes the user from an account. Will also remove any access the user
+
+        has to any workspaces under that account.'
+      operationId: leave_account_api_me_accounts__account_id__delete
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/workspaces:
+    get:
+      tags:
+      - Me
+      summary: Read My Workspaces
+      description: List the current actor's workspaces
+      operationId: read_my_workspaces_api_me_workspaces_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserWorkspaceResponse'
+                type: array
+                title: Response Read My Workspaces Api Me Workspaces Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/workspaces/{workspace_id}/scopes:
+    get:
+      tags:
+      - Me
+      summary: Read My Workspace Scopes
+      description: List the current actor's scopes for the given workspace
+      operationId: read_my_workspace_scopes_api_me_workspaces__workspace_id__scopes_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                title: Response Read My Workspace Scopes Api Me Workspaces  Workspace Id  Scopes Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/workspaces/{workspace_id}/has_scope:
+    get:
+      tags:
+      - Me
+      summary: Check My Workspace Scopes
+      description: Return if current actor has specific scope for workspace.
+      operationId: check_my_workspace_scopes_api_me_workspaces__workspace_id__has_scope_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: scope
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/WorkspaceScopeName'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: boolean
+                title: Response Check My Workspace Scopes Api Me Workspaces  Workspace Id  Has Scope Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/workspaces/{workspace_id}:
+    delete:
+      tags:
+      - Me
+      summary: Leave Workspace
+      description: "Removes the user from a workspace.\n\nThis route will also conditionally delete the user's account membership if:\n    - account membership of the actor has `Collaborator` role\n    - the actor has no more workspace accesses under the account"
+      operationId: leave_workspace_api_me_workspaces__workspace_id__delete
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/profile-image:
+    put:
+      tags:
+      - Me
+      summary: Upload My Profile Image
+      operationId: upload_my_profile_image_api_me_profile_image_put
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_my_profile_image_api_me_profile_image_put'
+        required: true
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Me
+      summary: Delete My Profile Image
+      operationId: delete_my_profile_image_api_me_profile_image_delete
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/me/profile-image/reset:
+    post:
+      tags:
+      - Me
+      summary: Reset My Profile Image
+      operationId: reset_my_profile_image_api_me_profile_image_reset_post
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    WorkspaceScopeName:
+      type: string
+      enum:
+      - see_flows
+      - manage_saved_search
+      - run_flows
+      - manage_flows
+      - run_tasks
+      - see_blocks
+      - see_secret_blocks
+      - manage_blocks
+      - see_deployments
+      - run_deployments
+      - write_deployments
+      - manage_deployments
+      - see_notifications
+      - write_notifications
+      - manage_notifications
+      - see_workspace_settings
+      - write_workspace_settings
+      - manage_workspace_settings
+      - see_workspace_users
+      - manage_workspace_users
+      - see_workspace_service_accounts
+      - manage_workspace_service_accounts
+      - manage_workspace_teams
+      - see_work_queues
+      - write_work_queues
+      - manage_work_queues
+      - see_concurrency_limits
+      - manage_concurrency_limits
+      - see_events
+      - manage_events
+      - see_event_publications
+      - manage_event_publications
+      - see_event_subscriptions
+      - manage_event_subscriptions
+      - see_automations
+      - manage_automations
+      - see_work_pools
+      - write_work_pools
+      - manage_work_pools
+      - see_workers
+      - write_workers
+      - manage_workers
+      - see_artifacts
+      - write_artifacts
+      - manage_artifacts
+      - see_variables
+      - write_variables
+      - manage_variables
+      - manage_acls
+      - see_incidents
+      - write_incidents
+      - manage_incidents
+      - manage_mex_storage
+      - manage_mex_deploy
+      - see_tags
+      - manage_tags
+      - see_assets
+      - write_assets
+      - manage_assets
+      - see_webhooks
+      - manage_webhooks
+      title: WorkspaceScopeName
+      description: "Canonical list of workspace scope names.\n\nScope names should be semantically meaningful, roughly in the form of\n`<verb>_<obj>`. For example, `see_flows` allows viewing of flows within\nthe workspace.\n\nA few common patterns to follow:\n    - `see_*`: ability to view objects\n    - `write_*`: ability to create, update or view objects\n    - `manage_*`: ability to create, update, view, or delete objects"
+    APIKeyNameFilter:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include api keys matching these names
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: APIKeyNameFilter
+    Body_filter_my_sessions_api_me_sessions_filter_post:
+      properties:
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/UserSessionFilter'
+          - type: 'null'
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+      type: object
+      title: Body_filter_my_sessions_api_me_sessions_filter_post
+    UserSettings:
+      properties:
+        default_timezone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Timezone
+          description: Default timezone for the user.
+        default_color_palette:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Color Palette
+          description: Default color settings for the users UI.
+        tutorial_completed:
+          type: boolean
+          title: Tutorial Completed
+          description: Whether the user has gone through the first time tutorial.
+          default: false
+        feature_previews:
+          items:
+            type: string
+          type: array
+          title: Feature Previews
+          description: A list of feature previews enabled for the user.
+      type: object
+      title: UserSettings
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    UserSessionResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+          description: The user id associated with this session.
+        ip_address:
+          type: string
+          title: Ip Address
+          description: The ip address associated with this session.
+        location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Location
+          description: The approximate location of the session based on the ip address.
+        user_agent:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Agent
+          description: The user agent that created or updated this session.
+        expires_at:
+          type: integer
+          title: Expires At
+          description: The time at which this session will expire.
+        restricted:
+          type: boolean
+          title: Restricted
+          description: Whether this session is restricted from accessing account and workspace resources.
+          default: false
+      additionalProperties: false
+      type: object
+      required:
+      - user_id
+      - ip_address
+      - expires_at
+      title: UserSessionResponse
+      description: Data returned by the api when reading user sessions
+    UserWorkspaceResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+          description: The account id of the workspace.
+        account_name:
+          type: string
+          title: Account Name
+          description: The account name.
+        account_handle:
+          type: string
+          title: Account Handle
+          description: The account's unique handle.
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+          description: The workspace id.
+        workspace_name:
+          type: string
+          title: Workspace Name
+          description: The workspace name.
+        workspace_description:
+          type: string
+          title: Workspace Description
+          description: Description of the workspace.
+        workspace_handle:
+          type: string
+          title: Workspace Handle
+          description: The workspace's unique handle.
+      additionalProperties: false
+      type: object
+      required:
+      - account_id
+      - account_name
+      - account_handle
+      - workspace_id
+      - workspace_name
+      - workspace_description
+      - workspace_handle
+      title: UserWorkspaceResponse
+      description: Data returned the api when reading workspaces a user has access to
+    UserSessionFilterExpiresAt:
+      properties:
+        before_:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Before
+          description: Only include sessions expiring at or before this time (in UTC seconds)
+        after_:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: After
+          description: Only include sessions expiring at or after this time (in UTC seconds)
+      additionalProperties: false
+      type: object
+      title: UserSessionFilterExpiresAt
+      description: Filter by `UserSession.expires_at`.
+    UserOrganizationResponse:
+      properties:
+        account_membership_id:
+          type: string
+          format: uuid
+          title: Account Membership Id
+          description: The id of the user's account membership.
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+          description: Account id.
+        account_name:
+          type: string
+          title: Account Name
+          description: Account name.
+        account_role_name:
+          type: string
+          title: Account Role Name
+          description: The name of the user's role in the account.
+        account_handle:
+          type: string
+          title: Account Handle
+          description: The account's unique handle.
+      additionalProperties: false
+      type: object
+      required:
+      - account_membership_id
+      - account_id
+      - account_name
+      - account_role_name
+      - account_handle
+      title: UserOrganizationResponse
+      description: Data returned the api when reading organizations a user is a member of
+    UserSessionFilter:
+      properties:
+        ip_address:
+          anyOf:
+          - $ref: '#/components/schemas/UserSessionFilterIpAddress'
+          - type: 'null'
+          description: Filter criteria for UserSession.ip_address
+        location:
+          anyOf:
+          - $ref: '#/components/schemas/UserSessionFilterLocation'
+          - type: 'null'
+          description: Filter criteria for UserSession.location
+        expires_at:
+          anyOf:
+          - $ref: '#/components/schemas/UserSessionFilterExpiresAt'
+          - type: 'null'
+          description: Filter criteria for UserSession.expires_at
+        restricted:
+          anyOf:
+          - $ref: '#/components/schemas/UserSessionFilterRestricted'
+          - type: 'null'
+          description: Filter criteria for UserSession.restricted
+      additionalProperties: false
+      type: object
+      title: UserSessionFilter
+      description: Filter by `UserSession` attributes.
+    UserSessionFilterIpAddress:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of ip addresses to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing '192.168' will match '192.168.1.1', '192.168.1.2', and '2.5.192.168'.
+      additionalProperties: false
+      type: object
+      title: UserSessionFilterIpAddress
+      description: Filter by `UserSession.ip_address`.
+    MeReadResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        handle:
+          type: string
+          title: Handle
+          description: A unique handle for the user, containing only lowercase letters, numbers, and dashes.
+        first_name:
+          type: string
+          title: First Name
+          description: The first name of a user.
+        last_name:
+          type: string
+          title: Last Name
+          description: The last name of a user.
+        email:
+          type: string
+          format: email
+          title: Email
+          description: User email.
+        location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Location
+          description: An optional physical location for a user, e.g. Washington, D.C.
+        personal_account_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Personal Account Id
+          description: The user's personal account id, if it exists.
+        settings:
+          anyOf:
+          - $ref: '#/components/schemas/UserSettings'
+          - type: 'null'
+          description: The user's default color settings
+          default:
+            tutorial_completed: false
+            feature_previews: []
+      additionalProperties: false
+      type: object
+      required:
+      - handle
+      - first_name
+      - last_name
+      - email
+      title: MeReadResponse
+      description: Data returned by the api when reading the current user
+    UserSessionFilterRestricted:
+      properties:
+        is_restricted_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Restricted
+          description: Only include sessions that are restricted
+      additionalProperties: false
+      type: object
+      title: UserSessionFilterRestricted
+      description: Filter by `UserSession.restricted`.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    APIKeyFilter:
+      properties:
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/APIKeyNameFilter'
+          - type: 'null'
+          description: Filter criteria for APIKey.name
+      additionalProperties: false
+      type: object
+      title: APIKeyFilter
+    UserAccountResponse:
+      properties:
+        account_membership_id:
+          type: string
+          format: uuid
+          title: Account Membership Id
+          description: The id of the user's account membership.
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+          description: Account id.
+        account_name:
+          type: string
+          title: Account Name
+          description: Account name.
+        account_role_name:
+          type: string
+          title: Account Role Name
+          description: The name of the user's role in the account.
+        account_handle:
+          type: string
+          title: Account Handle
+          description: The account's unique handle.
+        account_plan_type:
+          type: string
+          title: Account Plan Type
+          description: The account's billing tier.
+        account_plan_tier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Account Plan Tier
+          description: The account's billing tier.
+        account_plan_features:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+          title: Account Plan Features
+          description: The features enabled on the account's plan.
+      additionalProperties: false
+      type: object
+      required:
+      - account_membership_id
+      - account_id
+      - account_name
+      - account_role_name
+      - account_handle
+      - account_plan_type
+      - account_plan_tier
+      title: UserAccountResponse
+      description: Data returned the api when reading accounts a user is a member of
+    AccountPermission:
+      type: string
+      enum:
+      - read:account
+      - update:account
+      - delete:account
+      - read:account_membership
+      - update:account_membership
+      - delete:account_membership
+      - create:account_role
+      - read:account_role
+      - update:account_role
+      - delete:account_role
+      - add:account_member
+      - read:sso
+      - administrate:sso
+      - bypass:sso
+      - read:billing
+      - update:billing
+      - create:bot
+      - read:bot
+      - update:bot
+      - delete:bot
+      - create:team
+      - read:team
+      - update:team
+      - delete:team
+      - create:invitation
+      - read:invitation
+      - update:invitation
+      - create:workspace_invitation
+      - read:workspace_invitation
+      - update:workspace_invitation
+      - administrate:workspace
+      - create:workspace
+      - read:workspace
+      - delete:workspace
+      - create:workspace_role
+      - read:workspace_role
+      - update:workspace_role
+      - delete:workspace_role
+      - create:audit_event
+      - read:audit_event
+      - update:ip_allowlist
+      - read:ip_allowlist
+      - read:mex-storage
+      - update:mex-storage
+      - delete:mex-storage
+      - read:integrations
+      - update:integrations
+      title: AccountPermission
+      description: Enumerates possible permissions over an account
+    APIKeyReadResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        name:
+          type: string
+          title: Name
+          description: The name of the api key.
+        expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expiration
+          description: The time at which the api key expires. If `None`, the api key will not expire.
+        masked_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Masked Key
+          description: Masked API key showing prefix and last 4 characters (e.g., pnu_...a1b2).
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: APIKeyReadResponse
+      description: Data returned by the api when reading api_keys
+    UserSessionFilterLocation:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of locations to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'Lo' will match 'London', 'Los Angeles', and 'Lagos'.
+      additionalProperties: false
+      type: object
+      title: UserSessionFilterLocation
+      description: Filter by `UserSession.location`.
+    Body_upload_my_profile_image_api_me_profile_image_put:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+      type: object
+      required:
+      - file
+      title: Body_upload_my_profile_image_api_me_profile_image_put
+    Body_filter_my_api_keys_api_me_api_keys_filter_post:
+      properties:
+        api_keys:
+          anyOf:
+          - $ref: '#/components/schemas/APIKeyFilter'
+          - type: 'null'
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+      type: object
+      title: Body_filter_my_api_keys_api_me_api_keys_filter_post

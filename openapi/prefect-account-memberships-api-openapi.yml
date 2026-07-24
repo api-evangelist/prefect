@@ -1,0 +1,887 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Account Memberships API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Account Memberships
+  description: View and update user memberships to an Account.
+  externalDocs:
+    description: Manage account roles
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/manage-teams
+paths:
+  /api/accounts/{account_id}/account_memberships/filter:
+    post:
+      tags:
+      - Account Memberships
+      summary: Read Account Memberships
+      description: 'Query for account memberships.
+
+
+        Required account permissions: `read:account_membership`'
+      operationId: read_account_memberships_api_accounts__account_id__account_memberships_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_account_memberships_api_accounts__account_id__account_memberships_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountMembershipsResponse'
+                title: Response Read Account Memberships Api Accounts  Account Id  Account Memberships Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/account_memberships/count:
+    post:
+      tags:
+      - Account Memberships
+      summary: Count Account Memberships
+      description: 'Query for account memberships count
+
+
+        Required account permissions: `read:account_membership`'
+      operationId: count_account_memberships_api_accounts__account_id__account_memberships_count_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_count_account_memberships_api_accounts__account_id__account_memberships_count_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: integer
+                title: Response Count Account Memberships Api Accounts  Account Id  Account Memberships Count Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/account_memberships/by-user/{user_id}:
+    get:
+      tags:
+      - Account Memberships
+      summary: Read Account Membership By User
+      description: 'Get an Account Membership by user id.
+
+
+        Looks up the membership for the given user within the account and returns
+
+        enriched member details including timezone and team memberships.
+
+
+        Returns 404 when the user is not a member of the account (e.g. they have
+
+        since been removed), allowing the frontend to show a "deactivated user"
+
+        fallback.
+
+
+        Required account permissions: `read:account_membership`'
+      operationId: read_account_membership_by_user_api_accounts__account_id__account_memberships_by_user__user_id__get
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: User Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountMemberSummaryResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/account_memberships/by-bot/{bot_id}:
+    get:
+      tags:
+      - Account Memberships
+      summary: Read Account Membership By Bot
+      description: 'Get an Account Membership by bot id.
+
+
+        Looks up the membership for the given bot within the account and returns
+
+        enriched member details including team memberships.
+
+
+        Returns 404 when the bot is not a member of the account.
+
+
+        Required account permissions: `read:account_membership`'
+      operationId: read_account_membership_by_bot_api_accounts__account_id__account_memberships_by_bot__bot_id__get
+      parameters:
+      - name: bot_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Bot Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountMemberSummaryResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/account_memberships/{id}:
+    get:
+      tags:
+      - Account Memberships
+      summary: Read Account Membership
+      description: 'Get an Account Membership by membership id.
+
+
+        Returns enriched member details including timezone and team memberships.
+
+        Returns 404 for bot memberships — use the bots endpoint for those.
+
+
+        Required account permissions: `read:account_membership`'
+      operationId: read_account_membership_api_accounts__account_id__account_memberships__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountMemberSummaryResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Account Memberships
+      summary: Update Account Membership
+      description: 'Update an account membership by id.
+
+
+        Required account permissions: `update:account_membership`'
+      operationId: update_account_membership_api_accounts__account_id__account_memberships__id__patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountMembershipUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Account Memberships
+      summary: Delete Account Membership
+      description: 'Delete an account membership by id.
+
+        This will also delete any workspace accesses that the membership''s actor
+
+        has under the account.
+
+
+        Required account permissions: `delete:account_membership`'
+      operationId: delete_account_membership_api_accounts__account_id__account_memberships__id__delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/account_memberships/{id}/active:
+    patch:
+      tags:
+      - Account Memberships
+      summary: Toggle Account Membership Active
+      description: '
+
+
+        Required account permissions: `update:account_membership`'
+      operationId: toggle_account_membership_active_api_accounts__account_id__account_memberships__id__active_patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountMembershipSetActive'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/account_memberships/set_active:
+    post:
+      tags:
+      - Account Memberships
+      summary: Bulk Set Account Membership Active
+      description: '
+
+
+        Required account permissions: `update:account_membership`'
+      operationId: bulk_set_account_membership_active_api_accounts__account_id__account_memberships_set_active_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountMembershipBulkSetActive'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AccountMembershipBulkSetActive:
+      properties:
+        membership_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          maxItems: 200
+          minItems: 1
+          title: Membership Ids
+        active:
+          type: boolean
+          title: Active
+      additionalProperties: false
+      type: object
+      required:
+      - membership_ids
+      - active
+      title: AccountMembershipBulkSetActive
+      description: Data used by the api to bulk set account memberships' active status
+    TeamSummary:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The team id.
+        name:
+          type: string
+          title: Name
+          description: The team name.
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - name
+      title: TeamSummary
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AccountMembershipFilterActorId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of actor ids to include
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilterActorId
+      description: Filter by `AccountMembership.actor_id`.
+    AccountMembershipFilterAccountRoleId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include account memberships matching one of these account role id
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilterAccountRoleId
+    AccountMembershipSort:
+      type: string
+      enum:
+      - CREATED_ASC
+      - CREATED_DESC
+      - LAST_LOGIN_ASC
+      - LAST_LOGIN_DESC
+      - NAME_ASC
+      - NAME_DESC
+      - HANDLE_ASC
+      - HANDLE_DESC
+      - EMAIL_ASC
+      - EMAIL_DESC
+      - ACCOUNT_ROLE_NAME_ASC
+      - ACCOUNT_ROLE_NAME_DESC
+      title: AccountMembershipSort
+      description: Sort options for account memberships
+    AccountMembershipSetActive:
+      properties:
+        active:
+          type: boolean
+          title: Active
+      additionalProperties: false
+      type: object
+      required:
+      - active
+      title: AccountMembershipSetActive
+      description: Data used by the api to toggle an account membership's active status
+    AccountMemberSummaryResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The account membership id.
+        created:
+          type: string
+          format: date-time
+          title: Created
+          description: The time the membership was created.
+        updated:
+          type: string
+          format: date-time
+          title: Updated
+          description: The time the membership was last updated.
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+          description: The actor id of the member.
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+          description: The account id.
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+          description: The id of the user. None for bots.
+        handle:
+          type: string
+          title: Handle
+          description: The member's unique handle.
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+          description: The user's first name.
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+          description: The user's last name.
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+          description: The user's email.
+        account_role_id:
+          type: string
+          format: uuid
+          title: Account Role Id
+          description: The id of the account role.
+        account_role_name:
+          type: string
+          title: Account Role Name
+          description: The name of the account role.
+        directory_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Directory Id
+          description: The id of the WorkOS directory that created this membership.
+        timezone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Timezone
+          description: The user's configured timezone.
+        teams:
+          items:
+            $ref: '#/components/schemas/TeamSummary'
+          type: array
+          title: Teams
+          description: The teams this member belongs to in the account.
+        active:
+          type: boolean
+          title: Active
+          description: Whether the membership is active.
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - created
+      - updated
+      - actor_id
+      - account_id
+      - handle
+      - account_role_id
+      - account_role_name
+      - active
+      title: AccountMemberSummaryResponse
+      description: 'Enriched account membership response for single-member lookups.
+
+
+        Works for both user and bot memberships. User-specific fields (user_id,
+
+        first_name, last_name, email, timezone) are None for bots.
+
+        Manually constructed (not via model_validate), so extra="forbid" is safe.
+
+
+        Includes all fields from the previous AccountMembership response
+
+        (account_id, directory_id, created, updated) for backward compatibility.'
+    Body_count_account_memberships_api_accounts__account_id__account_memberships_count_post:
+      properties:
+        account_memberships:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilter'
+          - type: 'null'
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilter'
+          - type: 'null'
+        only_users:
+          type: boolean
+          title: Only Users
+          default: false
+        only_bots:
+          type: boolean
+          title: Only Bots
+          default: false
+        active:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Active
+      type: object
+      title: Body_count_account_memberships_api_accounts__account_id__account_memberships_count_post
+    AccountMembershipFilterHandle:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of user handles to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilterHandle
+      description: Filter by `User.handle` for account memberships.
+    AccountMembershipsResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The account membership id.
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+          description: The actor id of the member.
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+          description: The id of the user. None for bots.
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+          description: The first name of the user. None for bots.
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+          description: The last name of the user. None for bots.
+        handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Handle
+          description: The user's unique handle. None for bots.
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+          description: The user's email. None for bots.
+        account_role_name:
+          type: string
+          title: Account Role Name
+          description: The name of the account role associated with the membership.
+        account_role_id:
+          type: string
+          format: uuid
+          title: Account Role Id
+          description: The id of the account role associated with the membership.
+        last_login:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Login
+          description: The last time the user logged in.
+        active:
+          type: boolean
+          title: Active
+          description: Whether the membership is active.
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - actor_id
+      - account_role_name
+      - account_role_id
+      - active
+      title: AccountMembershipsResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AccountMembershipFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        account_role_id:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilterAccountRoleId'
+          - type: 'null'
+          description: Filter criteria for AccountMembership.account_role_id
+        user_id:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilterUserId'
+          - type: 'null'
+          description: Filter criteria for AccountMembership.actor.user_id
+        email:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilterEmail'
+          - type: 'null'
+          description: Filter criteria for UserEmail.email
+        handle:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilterHandle'
+          - type: 'null'
+          description: Filter criteria for User.handle
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilterName'
+          - type: 'null'
+          description: Filter criteria for User.first_name or User.last_name
+        actor_id:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilterActorId'
+          - type: 'null'
+          description: Filter criteria for AccountMembership.actor_id
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilter
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
+    AccountMembershipFilterUserId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of user ids to include
+        not_any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of user ids to exclude
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilterUserId
+    Body_read_account_memberships_api_accounts__account_id__account_memberships_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        account_memberships:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilter'
+          - type: 'null'
+        sort:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipSort'
+          - type: 'null'
+        only_users:
+          type: boolean
+          title: Only Users
+          default: false
+        only_bots:
+          type: boolean
+          title: Only Bots
+          default: false
+        active:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Active
+      type: object
+      title: Body_read_account_memberships_api_accounts__account_id__account_memberships_filter_post
+    AccountMembershipUpdate:
+      properties:
+        account_role_id:
+          type: string
+          format: uuid
+          title: Account Role Id
+          description: The account role id. The account role defines permissions for the actor in this account.
+      additionalProperties: false
+      type: object
+      required:
+      - account_role_id
+      title: AccountMembershipUpdate
+      description: Data used by the api to update an account membership
+    AccountMembershipFilterName:
+      properties:
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match on first_name or last_name. For example, passing 'marvin' will match users with 'marvin' in their first or last name.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilterName
+      description: Filter by user first_name/last_name for account memberships.
+    AccountMembershipFilterEmail:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of membership emails to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilterEmail

@@ -1,0 +1,543 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Users API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Users
+  description: Interact with User objects, including creating API Keys.
+  externalDocs:
+    description: Manage users
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/index
+paths:
+  /api/users/{id}:
+    get:
+      tags:
+      - Users
+      summary: Read User
+      description: Get a user by id.
+      operationId: read_user_api_users__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Users
+      summary: Update User
+      description: Update a user by id.
+      operationId: update_user_api_users__id__patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Users
+      summary: Delete User
+      description: Delete a user by id.
+      operationId: delete_user_api_users__id__delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/users/{id}/api_keys:
+    post:
+      tags:
+      - Users
+      summary: Create User Api Key
+      description: Create an APIKey for a user
+      operationId: create_user_api_key_api_users__id__api_keys_post
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIKeyCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKeyCreateResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Users
+      summary: Read User Api Keys
+      description: List all APIKeys for a user
+      operationId: read_user_api_keys_api_users__id__api_keys_get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/APIKeyReadResponse'
+                title: Response Read User Api Keys Api Users  Id  Api Keys Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/users/{id}/api_keys/{api_key_id}:
+    get:
+      tags:
+      - Users
+      summary: Read User Api Key
+      description: Read an APIKey for a user
+      operationId: read_user_api_key_api_users__id__api_keys__api_key_id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: api_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Api Key Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKeyReadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Users
+      summary: Delete User Api Key
+      description: Delete an APIKey for a user
+      operationId: delete_user_api_key_api_users__id__api_keys__api_key_id__delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: api_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Api Key Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    User:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: An optional title for the user.
+        image_location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Image Location
+          description: A url linking to an image for the user.
+        personal_account_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Personal Account Id
+          description: The user's personal account id, if it exists.
+        settings:
+          anyOf:
+          - $ref: '#/components/schemas/UserSettings'
+          - type: 'null'
+          description: The user's default color settings
+          default:
+            tutorial_completed: false
+            feature_previews: []
+        last_login:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Login
+          description: The last time the user logged in.
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        handle:
+          type: string
+          title: Handle
+          description: A unique handle for the user, containing only lowercase letters, numbers, and dashes.
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+          description: The actor_id associated with this user.
+        idp_user_id:
+          type: string
+          title: Idp User Id
+          description: The idp (WorkOS or GitHub) id of a user.
+        first_name:
+          type: string
+          maxLength: 500
+          title: First Name
+          description: The first name of a user.
+        last_name:
+          type: string
+          maxLength: 500
+          title: Last Name
+          description: The last name of a user.
+        email:
+          type: string
+          format: email
+          title: Email
+          description: User email.
+        location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Location
+          description: An optional physical location for a user, e.g. Washington, D.C.
+      type: object
+      required:
+      - handle
+      - actor_id
+      - idp_user_id
+      - first_name
+      - last_name
+      - email
+      title: User
+      description: An ORM representation of an User
+    UserSettings:
+      properties:
+        default_timezone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Timezone
+          description: Default timezone for the user.
+        default_color_palette:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Color Palette
+          description: Default color settings for the users UI.
+        tutorial_completed:
+          type: boolean
+          title: Tutorial Completed
+          description: Whether the user has gone through the first time tutorial.
+          default: false
+        feature_previews:
+          items:
+            type: string
+          type: array
+          title: Feature Previews
+          description: A list of feature previews enabled for the user.
+      type: object
+      title: UserSettings
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    APIKeyReadResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        name:
+          type: string
+          title: Name
+          description: The name of the api key.
+        expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expiration
+          description: The time at which the api key expires. If `None`, the api key will not expire.
+        masked_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Masked Key
+          description: Masked API key showing prefix and last 4 characters (e.g., pnu_...a1b2).
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: APIKeyReadResponse
+      description: Data returned by the api when reading api_keys
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    APIKeyCreateResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        name:
+          type: string
+          title: Name
+          description: The name of the api key.
+        expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expiration
+          description: The time at which the api key expires. If `None`, the api key will not expire.
+        key:
+          type: string
+          title: Key
+          description: The Prefect API Key.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - key
+      title: APIKeyCreateResponse
+      description: Data returned by the api after creating a new api_key. This includes an un-hashed api key.
+    APIKeyCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the api key.
+        expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expiration
+          description: The time at which the api key expires. If `None`, the api key will not expire.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: APIKeyCreate
+      description: Data used by the api to create a new api_key
+    UserUpdate:
+      properties:
+        handle:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Handle
+          description: A unique handle for the user, containing only lowercase letters, numbers, and dashes.
+        first_name:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: First Name
+          description: The first name of a user.
+        last_name:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Last Name
+          description: The last name of a user.
+        email:
+          anyOf:
+          - type: string
+            format: email
+          - type: 'null'
+          title: Email
+          description: User email.
+        location:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Location
+          description: An optional physical location for a user, e.g. Washington, D.C.
+        title:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Title
+          description: An optional title for the user.
+        image_location:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Image Location
+          description: A url linking to an image for the user.
+        settings:
+          anyOf:
+          - $ref: '#/components/schemas/UserSettings'
+          - type: 'null'
+          description: The user's default color settings
+          default:
+            tutorial_completed: false
+            feature_previews: []
+        last_login:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Login
+          description: The last time the user logged in.
+      additionalProperties: false
+      type: object
+      title: UserUpdate
+      description: Data used by API to update a user

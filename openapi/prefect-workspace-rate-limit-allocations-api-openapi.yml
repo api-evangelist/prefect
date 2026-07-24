@@ -1,0 +1,191 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Workspace Rate Limit Allocations API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Workspace Rate Limit Allocations
+paths:
+  /api/accounts/{account_id}/rate-limit-allocations/:
+    get:
+      tags:
+      - Workspace Rate Limit Allocations
+      summary: Read Workspace Rate Limit Allocations
+      description: 'Get all rate limit allocations for the account.
+
+
+        Required account permissions: `read:account`'
+      operationId: read_workspace_rate_limit_allocations_api_accounts__account_id__rate_limit_allocations__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceRateLimitAllocation'
+                title: Response Read Workspace Rate Limit Allocations Api Accounts  Account Id  Rate Limit Allocations  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - Workspace Rate Limit Allocations
+      summary: Upsert Workspace Rate Limit Allocations
+      description: 'Upsert all workspace rate limit allocations for the account.
+
+
+        All workspaces in the account must be included in the allocations list,
+
+        or an empty list to clear all allocations.
+
+
+        Required account permissions: `update:account`'
+      operationId: upsert_workspace_rate_limit_allocations_api_accounts__account_id__rate_limit_allocations__put
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceRateLimitAllocationsUpsert'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceRateLimitAllocation'
+                title: Response Upsert Workspace Rate Limit Allocations Api Accounts  Account Id  Rate Limit Allocations  Put
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    WorkspaceRateLimitAllocationsUpsert:
+      properties:
+        allocations:
+          items:
+            $ref: '#/components/schemas/WorkspaceRateLimitAllocationEntry'
+          type: array
+          title: Allocations
+          description: List of workspace allocations. Workspaces not in this list will have their allocations removed.
+      additionalProperties: false
+      type: object
+      title: WorkspaceRateLimitAllocationsUpsert
+      description: Data used to upsert all workspace rate limit allocations for an account.
+    WorkspaceRateLimitAllocation:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+          description: The account ID this allocation belongs to.
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+          description: The workspace ID this allocation applies to.
+        rate_limit_percentage:
+          type: number
+          maximum: 100.0
+          minimum: 0.1
+          title: Rate Limit Percentage
+          description: Percentage of account's rate limits allocated to this workspace (0.1-100).
+      type: object
+      required:
+      - account_id
+      - workspace_id
+      - rate_limit_percentage
+      title: WorkspaceRateLimitAllocation
+      description: A percentage-based rate limit allocation for a workspace.
+    WorkspaceRateLimitAllocationEntry:
+      properties:
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+          description: The workspace ID to allocate rate limits for.
+        rate_limit_percentage:
+          type: number
+          maximum: 100.0
+          minimum: 0.1
+          title: Rate Limit Percentage
+          description: Percentage of account's rate limits allocated to this workspace (0.1-100).
+      additionalProperties: false
+      type: object
+      required:
+      - workspace_id
+      - rate_limit_percentage
+      title: WorkspaceRateLimitAllocationEntry
+      description: A single workspace allocation entry for bulk upsert.

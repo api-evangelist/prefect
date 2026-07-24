@@ -1,0 +1,964 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Metrics API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Metrics
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/ui/metrics/prefect/{metric}/timeseries:
+    post:
+      tags:
+      - Metrics
+      summary: Read Prefect Metric Timeseries
+      operationId: read_prefect_metric_timeseries_api_accounts__account_id__workspaces__workspace_id__ui_metrics_prefect__metric__timeseries_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: metric
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/PrefectMetric'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeseriesMetricQuery-Input'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeseriesMetricResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/ui/metrics/prefect/{metric}:
+    post:
+      tags:
+      - Metrics
+      summary: Read Prefect Metric Timeseries
+      operationId: read_prefect_metric_timeseries_api_accounts__account_id__workspaces__workspace_id__ui_metrics_prefect__metric__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: metric
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/PrefectMetric'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeseriesMetricQuery-Input'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeseriesMetricResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/ui/metrics/prefect/{metric}/grouped:
+    post:
+      tags:
+      - Metrics
+      summary: Read Prefect Metric Grouped
+      operationId: read_prefect_metric_grouped_api_accounts__account_id__workspaces__workspace_id__ui_metrics_prefect__metric__grouped_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: metric
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/PrefectMetric'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupedMetricQuery-Input'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupedMetricResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/metrics/flow-runs/{flow_run_id}:
+    get:
+      tags:
+      - Metrics
+      summary: Read Flow Run Resource Metrics
+      description: 'Get resource metrics (CPU, memory, etc.) for a specific flow run.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: read_flow_run_resource_metrics_api_accounts__account_id__workspaces__workspace_id__metrics_flow_runs__flow_run_id__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: flow_run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The flow run ID
+          title: Flow Run Id
+        description: The flow run ID
+      - name: metric_names
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter to specific metric names
+          title: Metric Names
+        description: Filter to specific metric names
+      - name: start_time
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          description: Start of time range filter
+          title: Start Time
+        description: Start of time range filter
+      - name: end_time
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          description: End of time range filter
+          title: End Time
+        description: End of time range filter
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Read Flow Run Resource Metrics Api Accounts  Account Id  Workspaces  Workspace Id  Metrics Flow Runs  Flow Run Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/metrics/deployments/{deployment_id}/resource-peaks:
+    get:
+      tags:
+      - Metrics
+      summary: Read Deployment Resource Peaks Endpoint
+      description: 'Get peak resource metrics across all flow runs for a deployment.
+
+
+        Required workspace scopes: `see_deployments`'
+      operationId: read_deployment_resource_peaks_endpoint_api_accounts__account_id__workspaces__workspace_id__metrics_deployments__deployment_id__resource_peaks_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: deployment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The deployment ID
+          title: Deployment Id
+        description: The deployment ID
+      - name: start_time
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          description: Start of time range filter
+          title: Start Time
+        description: Start of time range filter
+      - name: end_time
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          description: End of time range filter
+          title: End Time
+        description: End of time range filter
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentResourcePeaksResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/metrics/flow-runs/{flow_run_id}/names:
+    get:
+      tags:
+      - Metrics
+      summary: List Available Flow Run Metrics
+      description: 'List the distinct metric names available for a flow run.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: list_available_flow_run_metrics_api_accounts__account_id__workspaces__workspace_id__metrics_flow_runs__flow_run_id__names_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: flow_run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The flow run ID
+          title: Flow Run Id
+        description: The flow run ID
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response List Available Flow Run Metrics Api Accounts  Account Id  Workspaces  Workspace Id  Metrics Flow Runs  Flow Run Id  Names Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    TimeseriesMetricQuery-Input:
+      properties:
+        after:
+          type: string
+          format: date-time
+          title: After
+          description: The start of the time series
+        before:
+          type: string
+          format: date-time
+          title: Before
+          description: The end of the time series, defaulting to now
+        timezone:
+          type: string
+          title: Timezone
+          description: The timezone to use for the time series
+          default: Etc/UTC
+        resource:
+          $ref: '#/components/schemas/ResourceSpecification'
+          description: Filter to only flow runs matching these labels
+        related:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          title: Related
+          description: Filter to only flow runs with a related resource matching these labels
+        aggregates:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/Count'
+            - $ref: '#/components/schemas/CountIf'
+            - $ref: '#/components/schemas/Sum'
+            - $ref: '#/components/schemas/Mean'
+            - $ref: '#/components/schemas/Minimum'
+            - $ref: '#/components/schemas/Maximum'
+            - $ref: '#/components/schemas/StandardDeviation'
+            - $ref: '#/components/schemas/Quantile'
+            - $ref: '#/components/schemas/Ratio'
+            - $ref: '#/components/schemas/MapAggregate'
+          type: array
+          maxItems: 10
+          minItems: 1
+          title: Aggregates
+          description: The aggregate functions to apply.  The order they are specified here will determine the order of the returned data columns.
+        resolution:
+          type: integer
+          enum:
+          - 1
+          - 5
+          - 15
+          - 60
+          - 360
+          - 1440
+          title: Resolution
+          description: The resolution of the time series, in minutes
+      type: object
+      required:
+      - after
+      - aggregates
+      - resolution
+      title: TimeseriesMetricQuery
+    ResourcePeak:
+      properties:
+        metric_name:
+          type: string
+          title: Metric Name
+        unit:
+          type: string
+          title: Unit
+        max_value:
+          type: number
+          title: Max Value
+        flow_run_id:
+          type: string
+          title: Flow Run Id
+      type: object
+      required:
+      - metric_name
+      - unit
+      - max_value
+      - flow_run_id
+      title: ResourcePeak
+    MapAggregate:
+      properties:
+        function:
+          type: string
+          const: MAP_AGG
+          title: Function
+          default: MAP_AGG
+        key:
+          type: string
+          title: Key
+          description: The key to map the column to
+        aggregate:
+          type: string
+          enum:
+          - SUM
+          - MEAN
+          - MIN
+          - MAX
+          - COUNT
+          title: Aggregate
+          description: The aggregate to apply
+      type: object
+      required:
+      - key
+      - aggregate
+      title: MapAggregate
+      description: For aggregating over a value in a map column.
+    GroupedMetricQuery-Output:
+      properties:
+        after:
+          type: string
+          format: date-time
+          title: After
+          description: The start of the time series
+        before:
+          type: string
+          format: date-time
+          title: Before
+          description: The end of the time series, defaulting to now
+        timezone:
+          type: string
+          title: Timezone
+          description: The timezone to use for the time series
+          default: Etc/UTC
+        resource:
+          $ref: '#/components/schemas/ResourceSpecification'
+          description: Filter to only flow runs matching these labels
+        related:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          title: Related
+          description: Filter to only flow runs with a related resource matching these labels
+        aggregates:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/Count'
+            - $ref: '#/components/schemas/CountIf'
+            - $ref: '#/components/schemas/Sum'
+            - $ref: '#/components/schemas/Mean'
+            - $ref: '#/components/schemas/Minimum'
+            - $ref: '#/components/schemas/Maximum'
+            - $ref: '#/components/schemas/StandardDeviation'
+            - $ref: '#/components/schemas/Quantile'
+            - $ref: '#/components/schemas/Ratio'
+            - $ref: '#/components/schemas/MapAggregate'
+          type: array
+          maxItems: 10
+          minItems: 1
+          title: Aggregates
+          description: The aggregate functions to apply.  The order they are specified here will determine the order of the returned data columns.
+        group_by:
+          type: string
+          enum:
+          - flow
+          - deployment
+          - work-pool
+          - tag
+          title: Group By
+          description: The role of the related resource to group by.  There will be one result for each distinct related resource with that role in the time period, and optionally another null result for those that do not have the requested related resource.
+        order_by:
+          items:
+            $ref: '#/components/schemas/Ordering'
+          type: array
+          title: Order By
+          description: The order to sort the groups by
+      type: object
+      required:
+      - after
+      - aggregates
+      - group_by
+      title: GroupedMetricQuery
+    Count:
+      properties:
+        function:
+          type: string
+          const: COUNT
+          title: Function
+          default: COUNT
+      type: object
+      title: Count
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Quantile:
+      properties:
+        function:
+          type: string
+          const: QUANTILE
+          title: Function
+          default: QUANTILE
+        level:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Level
+          description: The quantile level to compute
+      type: object
+      required:
+      - level
+      title: Quantile
+    GroupedMetricResponse:
+      properties:
+        metric:
+          $ref: '#/components/schemas/PrefectMetric'
+          description: The metric that was queried
+        query:
+          $ref: '#/components/schemas/GroupedMetricQuery-Output'
+          description: The metric query that was executed
+        results:
+          items:
+            prefixItems:
+            - anyOf:
+              - $ref: '#/components/schemas/RelatedResource'
+              - type: 'null'
+            - items: {}
+              type: array
+            type: array
+            maxItems: 2
+            minItems: 2
+          type: array
+          title: Results
+          description: The results of the query, with each item being a tuple of the Resource and the row of values of metrics in the same order as `query.aggregates`.
+      type: object
+      required:
+      - metric
+      - query
+      - results
+      title: GroupedMetricResponse
+    CountIf:
+      properties:
+        function:
+          type: string
+          const: COUNT_IF
+          title: Function
+          default: COUNT_IF
+        operator:
+          type: string
+          enum:
+          - ==
+          - '!='
+          - '>'
+          - '>='
+          - <
+          - <=
+          title: Operator
+          description: The operator to use for the condition
+          default: ==
+        value:
+          anyOf:
+          - type: number
+          - type: integer
+          title: Value
+          description: The value to compare the column to
+      type: object
+      required:
+      - value
+      title: CountIf
+    TimeseriesMetricResponse:
+      properties:
+        metric:
+          $ref: '#/components/schemas/PrefectMetric'
+          description: The metric that was queried
+        query:
+          $ref: '#/components/schemas/TimeseriesMetricQuery-Output'
+          description: The metric query that was executed
+        rollup:
+          items: {}
+          type: array
+          title: Rollup
+          description: A rollup of the time series over the entire time range, in the same order as `query.aggregates`.
+        series:
+          items:
+            prefixItems:
+            - type: string
+              format: date-time
+            - items: {}
+              type: array
+            type: array
+            maxItems: 2
+            minItems: 2
+          type: array
+          title: Series
+          description: The time series, with each row being a pair of an ISO8601 timestamp and the row of values, in the same order as `query.aggregates`.  Each row represents given aggregates over the `query.resolution` minutes starting at the timestamp.
+      type: object
+      required:
+      - metric
+      - query
+      - rollup
+      - series
+      title: TimeseriesMetricResponse
+    Ratio:
+      properties:
+        function:
+          type: string
+          const: RATIO
+          title: Function
+          default: RATIO
+        numerator:
+          anyOf:
+          - $ref: '#/components/schemas/Count'
+          - $ref: '#/components/schemas/CountIf'
+          - $ref: '#/components/schemas/Sum'
+          - $ref: '#/components/schemas/Mean'
+          - $ref: '#/components/schemas/Minimum'
+          - $ref: '#/components/schemas/Maximum'
+          - $ref: '#/components/schemas/StandardDeviation'
+          - $ref: '#/components/schemas/Quantile'
+          title: Numerator
+          description: The numerator of the ratio
+        denominator:
+          anyOf:
+          - $ref: '#/components/schemas/Count'
+          - $ref: '#/components/schemas/CountIf'
+          - $ref: '#/components/schemas/Sum'
+          - $ref: '#/components/schemas/Mean'
+          - $ref: '#/components/schemas/Minimum'
+          - $ref: '#/components/schemas/Maximum'
+          - $ref: '#/components/schemas/StandardDeviation'
+          - $ref: '#/components/schemas/Quantile'
+          title: Denominator
+          description: The denominator of the ratio
+      type: object
+      required:
+      - numerator
+      - denominator
+      title: Ratio
+    Sum:
+      properties:
+        function:
+          type: string
+          const: SUM
+          title: Function
+          default: SUM
+      type: object
+      title: Sum
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    Maximum:
+      properties:
+        function:
+          type: string
+          const: MAX
+          title: Function
+          default: MAX
+      type: object
+      title: Maximum
+    DeploymentResourcePeaksResponse:
+      properties:
+        peaks:
+          items:
+            $ref: '#/components/schemas/ResourcePeak'
+          type: array
+          title: Peaks
+      type: object
+      required:
+      - peaks
+      title: DeploymentResourcePeaksResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GroupedMetricQuery-Input:
+      properties:
+        after:
+          type: string
+          format: date-time
+          title: After
+          description: The start of the time series
+        before:
+          type: string
+          format: date-time
+          title: Before
+          description: The end of the time series, defaulting to now
+        timezone:
+          type: string
+          title: Timezone
+          description: The timezone to use for the time series
+          default: Etc/UTC
+        resource:
+          $ref: '#/components/schemas/ResourceSpecification'
+          description: Filter to only flow runs matching these labels
+        related:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          title: Related
+          description: Filter to only flow runs with a related resource matching these labels
+        aggregates:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/Count'
+            - $ref: '#/components/schemas/CountIf'
+            - $ref: '#/components/schemas/Sum'
+            - $ref: '#/components/schemas/Mean'
+            - $ref: '#/components/schemas/Minimum'
+            - $ref: '#/components/schemas/Maximum'
+            - $ref: '#/components/schemas/StandardDeviation'
+            - $ref: '#/components/schemas/Quantile'
+            - $ref: '#/components/schemas/Ratio'
+            - $ref: '#/components/schemas/MapAggregate'
+          type: array
+          maxItems: 10
+          minItems: 1
+          title: Aggregates
+          description: The aggregate functions to apply.  The order they are specified here will determine the order of the returned data columns.
+        group_by:
+          type: string
+          enum:
+          - flow
+          - deployment
+          - work-pool
+          - tag
+          title: Group By
+          description: The role of the related resource to group by.  There will be one result for each distinct related resource with that role in the time period, and optionally another null result for those that do not have the requested related resource.
+        order_by:
+          items:
+            $ref: '#/components/schemas/Ordering'
+          type: array
+          title: Order By
+          description: The order to sort the groups by
+      type: object
+      required:
+      - after
+      - aggregates
+      - group_by
+      title: GroupedMetricQuery
+    StandardDeviation:
+      properties:
+        function:
+          type: string
+          const: STDDEV
+          title: Function
+          default: STDDEV
+      type: object
+      title: StandardDeviation
+    Mean:
+      properties:
+        function:
+          type: string
+          const: MEAN
+          title: Function
+          default: MEAN
+      type: object
+      title: Mean
+    Minimum:
+      properties:
+        function:
+          type: string
+          const: MIN
+          title: Function
+          default: MIN
+      type: object
+      title: Minimum
+    RelatedResource:
+      additionalProperties:
+        type: string
+      type: object
+      title: RelatedResource
+      description: A Resource with a specific role in an Event
+    PrefectMetric:
+      type: string
+      enum:
+      - lateness
+      - duration
+      - successes
+      - volume
+      - sla_violations
+      - sla_violations_by_severity
+      title: PrefectMetric
+    Ordering:
+      properties:
+        aggregate:
+          type: integer
+          title: Aggregate
+          description: The index of the aggregate to order by
+        direction:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          title: Direction
+          description: The direction to sort the results by
+          default: DESC
+      type: object
+      required:
+      - aggregate
+      title: Ordering
+    TimeseriesMetricQuery-Output:
+      properties:
+        after:
+          type: string
+          format: date-time
+          title: After
+          description: The start of the time series
+        before:
+          type: string
+          format: date-time
+          title: Before
+          description: The end of the time series, defaulting to now
+        timezone:
+          type: string
+          title: Timezone
+          description: The timezone to use for the time series
+          default: Etc/UTC
+        resource:
+          $ref: '#/components/schemas/ResourceSpecification'
+          description: Filter to only flow runs matching these labels
+        related:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          title: Related
+          description: Filter to only flow runs with a related resource matching these labels
+        aggregates:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/Count'
+            - $ref: '#/components/schemas/CountIf'
+            - $ref: '#/components/schemas/Sum'
+            - $ref: '#/components/schemas/Mean'
+            - $ref: '#/components/schemas/Minimum'
+            - $ref: '#/components/schemas/Maximum'
+            - $ref: '#/components/schemas/StandardDeviation'
+            - $ref: '#/components/schemas/Quantile'
+            - $ref: '#/components/schemas/Ratio'
+            - $ref: '#/components/schemas/MapAggregate'
+          type: array
+          maxItems: 10
+          minItems: 1
+          title: Aggregates
+          description: The aggregate functions to apply.  The order they are specified here will determine the order of the returned data columns.
+        resolution:
+          type: integer
+          enum:
+          - 1
+          - 5
+          - 15
+          - 60
+          - 360
+          - 1440
+          title: Resolution
+          description: The resolution of the time series, in minutes
+      type: object
+      required:
+      - after
+      - aggregates
+      - resolution
+      title: TimeseriesMetricQuery

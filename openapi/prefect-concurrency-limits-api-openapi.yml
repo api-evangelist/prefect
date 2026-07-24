@@ -1,0 +1,667 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Concurrency Limits API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Concurrency Limits
+  description: Interact with a Workspace's Task Run Concurrency Limits.
+  externalDocs:
+    description: Limit concurrent task runs with tags
+    url: https://docs.prefect.io/v3/develop/task-run-limits
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/concurrency_limits/:
+    post:
+      tags:
+      - Concurrency Limits
+      summary: Create Concurrency Limit
+      description: '
+
+
+        Required workspace scopes: `manage_concurrency_limits`'
+      operationId: create_concurrency_limit_api_accounts__account_id__workspaces__workspace_id__concurrency_limits__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConcurrencyLimitCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConcurrencyLimit'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/concurrency_limits/{id}:
+    get:
+      tags:
+      - Concurrency Limits
+      summary: Read Concurrency Limit
+      description: 'Get a concurrency limit by id.
+
+
+        The `active slots` field contains a list of TaskRun IDs currently using a
+
+        concurrency slot for the specified tag.
+
+
+        Required workspace scopes: `see_concurrency_limits`'
+      operationId: read_concurrency_limit_api_accounts__account_id__workspaces__workspace_id__concurrency_limits__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The concurrency limit id
+          title: Id
+        description: The concurrency limit id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConcurrencyLimit'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Concurrency Limits
+      summary: Delete Concurrency Limit
+      description: '
+
+
+        Required workspace scopes: `manage_concurrency_limits`'
+      operationId: delete_concurrency_limit_api_accounts__account_id__workspaces__workspace_id__concurrency_limits__id__delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The concurrency limit id
+          title: Id
+        description: The concurrency limit id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/concurrency_limits/tag/{tag}:
+    get:
+      tags:
+      - Concurrency Limits
+      summary: Read Concurrency Limit By Tag
+      description: 'Get a concurrency limit by tag.
+
+
+        The `active slots` field contains a list of TaskRun IDs currently using a
+
+        concurrency slot for the specified tag.
+
+
+        Required workspace scopes: `see_concurrency_limits`'
+      operationId: read_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__get
+      parameters:
+      - name: tag
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The tag name
+          title: Tag
+        description: The tag name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConcurrencyLimit'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Concurrency Limits
+      summary: Delete Concurrency Limit By Tag
+      description: '
+
+
+        Required workspace scopes: `manage_concurrency_limits`'
+      operationId: delete_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__delete
+      parameters:
+      - name: tag
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The tag name
+          title: Tag
+        description: The tag name
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/concurrency_limits/filter:
+    post:
+      tags:
+      - Concurrency Limits
+      summary: Read Concurrency Limits
+      description: 'Query for concurrency limits.
+
+
+        For each concurrency limit the `active slots` field contains a list of TaskRun IDs
+
+        currently using a concurrency slot for the specified tag.
+
+
+        Required workspace scopes: `see_concurrency_limits`'
+      operationId: read_concurrency_limits_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_concurrency_limits_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConcurrencyLimit'
+                title: Response Read Concurrency Limits Api Accounts  Account Id  Workspaces  Workspace Id  Concurrency Limits Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/concurrency_limits/tag/{tag}/reset:
+    post:
+      tags:
+      - Concurrency Limits
+      summary: Reset Concurrency Limit By Tag
+      description: '
+
+
+        Required workspace scopes: `manage_concurrency_limits`'
+      operationId: reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post
+      parameters:
+      - name: tag
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The tag name
+          title: Tag
+        description: The tag name
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/concurrency_limits/increment:
+    post:
+      tags:
+      - Concurrency Limits
+      summary: Increment Concurrency Limits V1
+      description: '
+
+
+        Required workspace scopes: `run_flows`'
+      operationId: increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MinimalConcurrencyLimitResponse'
+                title: Response Increment Concurrency Limits V1 Api Accounts  Account Id  Workspaces  Workspace Id  Concurrency Limits Increment Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/concurrency_limits/decrement:
+    post:
+      tags:
+      - Concurrency Limits
+      summary: Decrement Concurrency Limits V1
+      description: '
+
+
+        Required workspace scopes: `run_flows`'
+      operationId: decrement_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_decrement_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_decrement_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_decrement_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MinimalConcurrencyLimitResponse'
+                title: Response Decrement Concurrency Limits V1 Api Accounts  Account Id  Workspaces  Workspace Id  Concurrency Limits Decrement Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Body_read_concurrency_limits_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_filter_post:
+      properties:
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_concurrency_limits_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_filter_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ConcurrencyLimit:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        tag:
+          type: string
+          title: Tag
+          description: A tag the concurrency limit is applied to.
+        concurrency_limit:
+          type: integer
+          title: Concurrency Limit
+          description: The concurrency limit.
+        active_slots:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Active Slots
+          description: A list of active run ids using a concurrency slot
+      type: object
+      required:
+      - tag
+      - concurrency_limit
+      title: ConcurrencyLimit
+      description: An ORM representation of a concurrency limit.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ? Body_reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post
+    : properties:
+        slot_override:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Slot Override
+          description: Manual override for active concurrency limit slots.
+      type: object
+      title: Body_reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post
+    Body_increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post:
+      properties:
+        names:
+          items:
+            type: string
+          type: array
+          title: Names
+          description: The tags to acquire a slot for
+        task_run_id:
+          type: string
+          format: uuid
+          title: Task Run Id
+          description: The ID of the task run acquiring the slot
+      type: object
+      required:
+      - names
+      - task_run_id
+      title: Body_increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post
+    MinimalConcurrencyLimitResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - id
+      - name
+      - limit
+      title: MinimalConcurrencyLimitResponse
+    ConcurrencyLimitCreate:
+      properties:
+        tag:
+          type: string
+          maxLength: 5000
+          title: Tag
+          description: A tag the concurrency limit is applied to.
+        concurrency_limit:
+          type: integer
+          minimum: 0.0
+          title: Concurrency Limit
+          description: The concurrency limit.
+      additionalProperties: false
+      type: object
+      required:
+      - tag
+      - concurrency_limit
+      title: ConcurrencyLimitCreate
+      description: Data used by the Orion API to create a concurrency limit.
+    Body_decrement_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_decrement_post:
+      properties:
+        names:
+          items:
+            type: string
+          type: array
+          title: Names
+          description: The tags to release a slot for
+        task_run_id:
+          type: string
+          format: uuid
+          title: Task Run Id
+          description: The ID of the task run releasing the slot
+      type: object
+      required:
+      - names
+      - task_run_id
+      title: Body_decrement_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_decrement_post

@@ -1,0 +1,1089 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Accounts API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Accounts
+  description: Interact with Prefect Cloud Accounts.
+paths:
+  /api/accounts/permissions:
+    get:
+      tags:
+      - Accounts
+      summary: List Permissions
+      description: List account permissions
+      operationId: list_permissions_api_accounts_permissions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AccountPermission'
+                type: array
+                uniqueItems: true
+                title: Response List Permissions Api Accounts Permissions Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}:
+    get:
+      tags:
+      - Accounts
+      summary: Read Account
+      description: Get an account by id.
+      operationId: read_account_api_accounts__account_id__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Accounts
+      summary: Update Account
+      description: Update an account by id.
+      operationId: update_account_api_accounts__account_id__patch
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Accounts
+      summary: Delete Account
+      operationId: delete_account_api_accounts__account_id__delete
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/settings:
+    get:
+      tags:
+      - Accounts
+      summary: Read Account Settings
+      operationId: read_account_settings_api_accounts__account_id__settings_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Accounts
+      summary: Update Account Settings
+      operationId: update_account_settings_api_accounts__account_id__settings_patch
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountSettingsUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/domains:
+    get:
+      tags:
+      - Accounts
+      summary: Read Account Domains
+      operationId: read_account_domains_api_accounts__account_id__domains_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Accounts
+      summary: Update Account Domains
+      description: Update an account's associated domains.
+      operationId: update_account_domains_api_accounts__account_id__domains_patch
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_update_account_domains_api_accounts__account_id__domains_patch'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/usage_limits:
+    get:
+      tags:
+      - Accounts
+      summary: Read Account Usage Limits
+      operationId: read_account_usage_limits_api_accounts__account_id__usage_limits_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageLimitsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/usage:
+    get:
+      tags:
+      - Accounts
+      summary: Read Account Usage
+      operationId: read_account_usage_api_accounts__account_id__usage_get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceUsageResponse'
+                title: Response Read Account Usage Api Accounts  Account Id  Usage Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/templates/validate:
+    post:
+      summary: Validate Template
+      operationId: validate_template_api_accounts__account_id__workspaces__workspace_id__templates_validate_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              title: Template
+              default: ''
+      responses:
+        '200':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Accounts
+  /api/accounts/{account_id}/workspaces/{workspace_id}/health:
+    get:
+      summary: Health Check
+      operationId: health_check_api_accounts__account_id__workspaces__workspace_id__health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Accounts
+components:
+  schemas:
+    AccountDefaultResultStorageBlockSchema:
+      properties:
+        checksum:
+          type: string
+          title: Checksum
+          description: The block schema checksum.
+        fields:
+          additionalProperties: true
+          type: object
+          title: Fields
+          description: The block schema fields.
+        capabilities:
+          items:
+            type: string
+          type: array
+          title: Capabilities
+          description: The block schema capabilities.
+        version:
+          type: string
+          title: Version
+          description: The block schema version.
+          default: non-versioned
+      type: object
+      required:
+      - checksum
+      title: AccountDefaultResultStorageBlockSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AccountDefaultResultStorage-Output:
+      properties:
+        block_type:
+          $ref: '#/components/schemas/AccountDefaultResultStorageBlockType'
+          description: The block type to materialize into inheriting workspaces.
+        block_schema:
+          $ref: '#/components/schemas/AccountDefaultResultStorageBlockSchema'
+          description: The block schema to materialize into inheriting workspaces.
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
+          description: The block data to materialize into inheriting workspaces.
+        block_document_references:
+          additionalProperties:
+            $ref: '#/components/schemas/AccountDefaultResultStorage-Output'
+          type: object
+          title: Block Document References
+          description: Nested account-owned block templates keyed by the field they are referenced under.
+      type: object
+      required:
+      - block_type
+      - block_schema
+      title: AccountDefaultResultStorage
+    UsageLimitsResponse:
+      properties:
+        audit_log_retention_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Audit Log Retention Days
+          description: The audit log retention days limit.
+        automations_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Automations Limit
+          description: The automations limit.
+        log_rate_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Log Rate Limit
+          description: The log rate limit.
+        max_deployments_per_workspace:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Deployments Per Workspace
+          description: The max deployments per workspace limit.
+        mex_compute_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Mex Compute Limit
+          description: The mex compute limit.
+        mex_concurrency_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Mex Concurrency Limit
+          description: The mex concurrency limit.
+        mex_work_pool_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Mex Work Pool Limit
+          description: The mex work pool limit.
+        non_mex_work_pool_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Non Mex Work Pool Limit
+          description: The maximum number of non-managed work pools that can be created in a workspace.
+        orchestration_rate_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Orchestration Rate Limit
+          description: The orchestration rate limit.
+        run_retention_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Run Retention Days
+          description: The run retention days limit.
+        user_limit:
+          anyOf:
+          - type: number
+          - type: integer
+          title: User Limit
+          description: The user limit.
+        free_user_slots:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Free User Slots
+          description: The number of free user slots included with this plan.
+        work_pool_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Work Pool Limit
+          description: The work pool limit.
+        workspace_limit:
+          anyOf:
+          - type: number
+          - type: integer
+          title: Workspace Limit
+          description: The workspace limit.
+      type: object
+      required:
+      - audit_log_retention_days
+      - automations_limit
+      - log_rate_limit
+      - max_deployments_per_workspace
+      - mex_compute_limit
+      - mex_concurrency_limit
+      - mex_work_pool_limit
+      - orchestration_rate_limit
+      - run_retention_days
+      - user_limit
+      - work_pool_limit
+      - workspace_limit
+      title: UsageLimitsResponse
+      description: Data returned by the API when reading a workspace's usage limits
+    AccountPlanTier:
+      type: string
+      enum:
+      - FREE_2025_04
+      - PRO
+      - ENTERPRISE
+      - PRO_2024_04
+      - STARTER
+      - TEAM
+      title: AccountPlanTier
+    AccountSSOState:
+      type: string
+      enum:
+      - DISABLED
+      - NEEDS_CONFIGURATION
+      - ENABLED
+      title: AccountSSOState
+    AccountResponse:
+      properties:
+        location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Location
+          description: An optional physical location for the account, e.g. Washington, D.C.
+        link:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Link
+          description: An optional for an external url associated with the account, e.g. https://prefect.io/.
+        image_location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Image Location
+          description: A url linking to an image for the account.
+        stripe_customer_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Stripe Customer Id
+          description: Stripe customer id associated with the account.
+        auth_expiration_seconds:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Auth Expiration Seconds
+          description: The number of seconds a user should be considered to be authenticated against this Account.
+        status_last_updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Status Last Updated
+          description: Timestamp indicating the last time the account status was updated.
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        name:
+          type: string
+          title: Name
+          description: The account name.
+        handle:
+          type: string
+          title: Handle
+          description: A unique identifier for the account containing only lowercase letters, numbers, and dashes.
+        settings:
+          $ref: '#/components/schemas/AccountSettings-Output'
+          description: The account settings.
+        status:
+          $ref: '#/components/schemas/AccountStatus'
+          description: The account status. Indicates whether the account is in good standing, delinquent, or frozen. Frozen accounts have severely limited functionality.
+          default: ACTIVE
+        workos_connection_ids:
+          items:
+            type: string
+          type: array
+          title: Workos Connection Ids
+          description: WorkOS connection_ids that can be used to authenticate against this account.
+        workos_directory_ids:
+          items:
+            type: string
+          type: array
+          title: Workos Directory Ids
+          description: WorkOS directory_ids that are connected for Directory Sync / SCIM.
+        workos_organization_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Workos Organization Id
+          description: The organization_id for this account in WorkOS.
+        plan_type:
+          $ref: '#/components/schemas/AccountPlanType'
+          description: The type of plan this account has.  Useful for making decisions abouthow to display this account, but not for authorization or feature enablement.
+        plan_tier:
+          anyOf:
+          - $ref: '#/components/schemas/AccountPlanTier'
+          - type: 'null'
+          description: The tier of the account plan.
+        self_serve:
+          type: boolean
+          title: Self Serve
+          description: Whether billing is self-serve on the plan. When a plan is self serve, users manage their own billable resources and make payments through a credit card they have setup with Stripe.
+          default: false
+        scim_state:
+          $ref: '#/components/schemas/AccountSCIMState'
+          description: The SCIM configuration state of the account.
+        sso_state:
+          $ref: '#/components/schemas/AccountSSOState'
+          description: The SSO configuration state of the account.
+        billing_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Billing Email
+          description: Billing email of the account. None if there if cccount has no stripe customer.
+        features:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+          title: Features
+          description: Set of features that the account has access to.
+        max_deployments_per_workspace:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Deployments Per Workspace
+          description: The maximum number of deployments that can be created in a workspace.
+        work_pool_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Work Pool Limit
+          description: The maximum number of work pools that can be created in a workspace.
+        non_mex_work_pool_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Non Mex Work Pool Limit
+          description: The maximum number of non-managed work pools that can be created in a workspace.
+        mex_work_pool_limit:
+          type: integer
+          title: Mex Work Pool Limit
+          description: The maximum number of `prefect:managed` work pools that can be created in a workspace.
+        run_retention_days:
+          type: integer
+          title: Run Retention Days
+          description: How many days flow run data and associated objects should be retained for.
+        audit_log_retention_days:
+          type: integer
+          title: Audit Log Retention Days
+          description: How many days of audit log events are available to the customer.
+        automations_limit:
+          type: integer
+          title: Automations Limit
+          description: "\n        The number of automations available to (1) each workspace in the account\n        and (2) the account itself (i.e. Automations not associated with a specific workspace).\n        "
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - handle
+      - plan_type
+      - scim_state
+      - sso_state
+      - work_pool_limit
+      - mex_work_pool_limit
+      - run_retention_days
+      - audit_log_retention_days
+      - automations_limit
+      title: AccountResponse
+    WorkspaceUsageResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The workspace id.
+        name:
+          type: string
+          title: Name
+          description: The workspace name.
+        automations:
+          type: integer
+          title: Automations
+          description: The number of automations.
+        deployments:
+          type: integer
+          title: Deployments
+          description: The number of deployments.
+        mex_compute:
+          type: integer
+          title: Mex Compute
+          description: The amount of mex compute used.
+        work_pools:
+          type: integer
+          title: Work Pools
+          description: The number of work pools.
+        non_managed_work_pools:
+          type: integer
+          title: Non Managed Work Pools
+          description: The number of non-managed work pools.
+        managed_work_pools:
+          type: integer
+          title: Managed Work Pools
+          description: The number of mex work pools.
+      type: object
+      required:
+      - id
+      - name
+      - automations
+      - deployments
+      - mex_compute
+      - work_pools
+      - non_managed_work_pools
+      - managed_work_pools
+      title: WorkspaceUsageResponse
+      description: Data returned by the API when reading a workspace's usage limits
+    AccountPlanType:
+      type: string
+      enum:
+      - ORGANIZATION
+      - PERSONAL
+      - ENTERPRISE
+      title: AccountPlanType
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AccountDefaultResultStorageBlockType:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The block type name.
+        slug:
+          type: string
+          title: Slug
+          description: The block type slug.
+        logo_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Logo Url
+          description: Web URL for the block type's logo.
+        documentation_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Documentation Url
+          description: Web URL for the block type's documentation.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A short description of the block type.
+        code_example:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code Example
+          description: A code example for the block type.
+      type: object
+      required:
+      - name
+      - slug
+      title: AccountDefaultResultStorageBlockType
+    Body_update_account_domains_api_accounts__account_id__domains_patch:
+      properties:
+        domain_names:
+          items:
+            type: string
+          type: array
+          title: Domain Names
+      type: object
+      required:
+      - domain_names
+      title: Body_update_account_domains_api_accounts__account_id__domains_patch
+    AccountSettingsUpdate:
+      properties:
+        allow_public_workspaces:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Allow Public Workspaces
+          description: Whether or not this account allows public workspaces.
+        ai_log_summaries:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Ai Log Summaries
+          description: Whether to use AI to generate log summaries.
+        managed_execution:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Managed Execution
+          description: Whether to enable the use of managed work pools
+        enforce_ip_allowlist:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enforce Ip Allowlist
+          description: Whether to enforce account's IP allowlist.
+        enforce_webhook_authentication:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enforce Webhook Authentication
+          description: Whether to enforce webhook authentication.
+        self_healing_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Self Healing Enabled
+          description: Whether to automatically create managed automations for new workspaces.
+        default_result_storage:
+          anyOf:
+          - $ref: '#/components/schemas/AccountDefaultResultStorage-Input'
+          - type: 'null'
+          description: The account-owned template to use when materializing the account's default result storage into inheriting workspaces.
+      additionalProperties: false
+      type: object
+      title: AccountSettingsUpdate
+      description: Data used by API to update an account settings
+    AccountSettings-Output:
+      properties:
+        allow_public_workspaces:
+          type: boolean
+          title: Allow Public Workspaces
+          description: Whether or not this account allows public workspaces.
+          default: false
+        ai_log_summaries:
+          type: boolean
+          title: Ai Log Summaries
+          description: Whether to use AI to generate log summaries.
+          default: false
+        managed_execution:
+          type: boolean
+          title: Managed Execution
+          description: Whether to enable the use of managed work pools
+          default: true
+        enforce_ip_allowlist:
+          type: boolean
+          title: Enforce Ip Allowlist
+          description: Whether to enforce account's IP allowlist.
+          default: false
+        enforce_webhook_authentication:
+          type: boolean
+          title: Enforce Webhook Authentication
+          description: Whether to enforce webhook authentication.
+          default: false
+        self_healing_enabled:
+          type: boolean
+          title: Self Healing Enabled
+          description: Whether to automatically create managed automations for new workspaces.
+          default: false
+        enabled_feature_flags:
+          items:
+            type: string
+          type: array
+          title: Enabled Feature Flags
+          description: Feature flags enabled for the account.
+        default_result_storage:
+          anyOf:
+          - $ref: '#/components/schemas/AccountDefaultResultStorage-Output'
+          - type: 'null'
+          description: The account-owned template to use when materializing the account's default result storage into inheriting workspaces.
+      type: object
+      title: AccountSettings
+    AccountDefaultResultStorage-Input:
+      properties:
+        block_type:
+          $ref: '#/components/schemas/AccountDefaultResultStorageBlockType'
+          description: The block type to materialize into inheriting workspaces.
+        block_schema:
+          $ref: '#/components/schemas/AccountDefaultResultStorageBlockSchema'
+          description: The block schema to materialize into inheriting workspaces.
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
+          description: The block data to materialize into inheriting workspaces.
+        block_document_references:
+          additionalProperties:
+            $ref: '#/components/schemas/AccountDefaultResultStorage-Input'
+          type: object
+          title: Block Document References
+          description: Nested account-owned block templates keyed by the field they are referenced under.
+      type: object
+      required:
+      - block_type
+      - block_schema
+      title: AccountDefaultResultStorage
+    AccountUpdate:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Name
+          description: The account name.
+        handle:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Handle
+          description: A unique identifier for the account containing only lowercase letters, numbers, and dashes.
+        location:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Location
+          description: An optional physical location for the account, e.g. Washington, D.C.
+        link:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Link
+          description: An optional for an external url associated with the account, e.g. https://prefect.io/.
+        workos_directory_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Workos Directory Ids
+          description: WorkOS directory_ids that are connected for Directory Sync / SCIM.
+        workos_organization_id:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Workos Organization Id
+          description: The organization_id for this account in WorkOS.
+        workos_connection_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Workos Connection Ids
+          description: WorkOS connection_ids that can be used to authenticate against this account.
+        auth_expiration_seconds:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Auth Expiration Seconds
+          description: The number of seconds a user should be considered to be authenticated against this Account.
+        settings:
+          anyOf:
+          - $ref: '#/components/schemas/AccountSettings-Input'
+          - type: 'null'
+          description: The account settings.
+        billing_email:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Billing Email
+          description: Billing email to apply to the account's stripe customer.
+      additionalProperties: false
+      type: object
+      title: AccountUpdate
+      description: Data used by API to update an account
+    AccountPermission:
+      type: string
+      enum:
+      - read:account
+      - update:account
+      - delete:account
+      - read:account_membership
+      - update:account_membership
+      - delete:account_membership
+      - create:account_role
+      - read:account_role
+      - update:account_role
+      - delete:account_role
+      - add:account_member
+      - read:sso
+      - administrate:sso
+      - bypass:sso
+      - read:billing
+      - update:billing
+      - create:bot
+      - read:bot
+      - update:bot
+      - delete:bot
+      - create:team
+      - read:team
+      - update:team
+      - delete:team
+      - create:invitation
+      - read:invitation
+      - update:invitation
+      - create:workspace_invitation
+      - read:workspace_invitation
+      - update:workspace_invitation
+      - administrate:workspace
+      - create:workspace
+      - read:workspace
+      - delete:workspace
+      - create:workspace_role
+      - read:workspace_role
+      - update:workspace_role
+      - delete:workspace_role
+      - create:audit_event
+      - read:audit_event
+      - update:ip_allowlist
+      - read:ip_allowlist
+      - read:mex-storage
+      - update:mex-storage
+      - delete:mex-storage
+      - read:integrations
+      - update:integrations
+      title: AccountPermission
+      description: Enumerates possible permissions over an account
+    AccountSettings-Input:
+      properties:
+        allow_public_workspaces:
+          type: boolean
+          title: Allow Public Workspaces
+          description: Whether or not this account allows public workspaces.
+          default: false
+        ai_log_summaries:
+          type: boolean
+          title: Ai Log Summaries
+          description: Whether to use AI to generate log summaries.
+          default: false
+        managed_execution:
+          type: boolean
+          title: Managed Execution
+          description: Whether to enable the use of managed work pools
+          default: true
+        enforce_ip_allowlist:
+          type: boolean
+          title: Enforce Ip Allowlist
+          description: Whether to enforce account's IP allowlist.
+          default: false
+        enforce_webhook_authentication:
+          type: boolean
+          title: Enforce Webhook Authentication
+          description: Whether to enforce webhook authentication.
+          default: false
+        self_healing_enabled:
+          type: boolean
+          title: Self Healing Enabled
+          description: Whether to automatically create managed automations for new workspaces.
+          default: false
+        enabled_feature_flags:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+          title: Enabled Feature Flags
+          description: Feature flags enabled for the account.
+        default_result_storage:
+          anyOf:
+          - $ref: '#/components/schemas/AccountDefaultResultStorage-Input'
+          - type: 'null'
+          description: The account-owned template to use when materializing the account's default result storage into inheriting workspaces.
+      type: object
+      title: AccountSettings
+    AccountStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - DELINQUENT
+      - FROZEN
+      title: AccountStatus
+    AccountSCIMState:
+      type: string
+      enum:
+      - DISABLED
+      - NEEDS_ORGANIZATION_ID
+      - NEEDS_CONFIGURATION
+      - ENABLED
+      title: AccountSCIMState

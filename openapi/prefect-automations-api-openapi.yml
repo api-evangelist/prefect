@@ -1,0 +1,2043 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Automations API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Automations
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/automations/:
+    post:
+      tags:
+      - Automations
+      summary: Create Automation
+      operationId: create_automation_api_accounts__account_id__workspaces__workspace_id__automations__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/automations/{id}:
+    put:
+      tags:
+      - Automations
+      summary: Update Automation
+      operationId: update_automation_api_accounts__account_id__workspaces__workspace_id__automations__id__put
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Automations
+      summary: Patch Automation
+      operationId: patch_automation_api_accounts__account_id__workspaces__workspace_id__automations__id__patch
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationPartialUpdate'
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Automations
+      summary: Delete Automation
+      operationId: delete_automation_api_accounts__account_id__workspaces__workspace_id__automations__id__delete
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Automations
+      summary: Read Automation
+      operationId: read_automation_api_accounts__account_id__workspaces__workspace_id__automations__id__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/automations/filter:
+    post:
+      tags:
+      - Automations
+      summary: Read Automations
+      operationId: read_automations_api_accounts__account_id__workspaces__workspace_id__automations_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_automations_api_accounts__account_id__workspaces__workspace_id__automations_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Automation'
+                title: Response Read Automations Api Accounts  Account Id  Workspaces  Workspace Id  Automations Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/automations/count:
+    post:
+      tags:
+      - Automations
+      summary: Count Automations
+      operationId: count_automations_api_accounts__account_id__workspaces__workspace_id__automations_count_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: integer
+                title: Response Count Automations Api Accounts  Account Id  Workspaces  Workspace Id  Automations Count Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/automations/related-to/{resource_id}:
+    get:
+      tags:
+      - Automations
+      summary: Read Automations Related To Resource
+      operationId: read_automations_related_to_resource_api_accounts__account_id__workspaces__workspace_id__automations_related_to__resource_id__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: resource_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Resource Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Automation'
+                title: Response Read Automations Related To Resource Api Accounts  Account Id  Workspaces  Workspace Id  Automations Related To  Resource Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/automations/owned-by/{resource_id}:
+    delete:
+      tags:
+      - Automations
+      summary: Delete Automations Owned By Resource
+      operationId: delete_automations_owned_by_resource_api_accounts__account_id__workspaces__workspace_id__automations_owned_by__resource_id__delete
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      - name: resource_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Resource Id
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/automations/templates/validate:
+    post:
+      tags:
+      - Automations
+      summary: Validate Template
+      operationId: validate_template_api_accounts__account_id__workspaces__workspace_id__automations_templates_validate_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              default: ''
+              title: Template
+      responses:
+        '200':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    RunDeployment:
+      properties:
+        type:
+          type: string
+          const: run-deployment
+          title: Type
+          default: run-deployment
+        source:
+          type: string
+          enum:
+          - selected
+          - inferred
+          title: Source
+          description: Whether this Action applies to a specific selected deployment (given by `deployment_id`), or to a deployment that is inferred from the triggering event.  If the source is 'inferred', the `deployment_id` may not be set.  If the source is 'selected', the `deployment_id` must be set.
+          default: selected
+        deployment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Deployment Id
+          description: The identifier of the deployment
+        parameters:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Parameters
+          description: The parameters to pass to the deployment, or None to use the deployment's default parameters
+        job_variables:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Job Variables
+          description: The job variables to pass to the created flow run, or None to use the deployment's default job variables
+        schedule_after:
+          type: number
+          title: Schedule After
+          description: The amount of time to wait before running the deployment. Defaults to running the deployment immediately.
+          default: 0.0
+      type: object
+      title: RunDeployment
+      description: Runs the given deployment with the given parameters
+    ResumeSchedule:
+      properties:
+        type:
+          type: string
+          const: resume-schedule-for-flow-run
+          title: Type
+          default: resume-schedule-for-flow-run
+        deployment_id:
+          type: string
+          format: uuid
+          title: Deployment Id
+          description: The identifier of the deployment
+        schedule_id:
+          type: string
+          format: uuid
+          title: Schedule Id
+          description: The identifier of the schedule
+      type: object
+      required:
+      - deployment_id
+      - schedule_id
+      title: ResumeSchedule
+      description: Resumes the given schedule
+    SendEmailNotification:
+      properties:
+        type:
+          type: string
+          const: send-email-notification
+          title: Type
+          default: send-email-notification
+        block_document_id:
+          type: string
+          format: uuid
+          title: Block Document Id
+          description: The identifier of the notification block to use
+        subject:
+          type: string
+          title: Subject
+          default: Prefect automated notification
+        body:
+          type: string
+          title: Body
+          description: The text of the notification to send
+        emails:
+          items:
+            type: string
+            format: email
+          type: array
+          title: Emails
+          description: The email addresses to send the notification to
+      type: object
+      required:
+      - body
+      - emails
+      title: SendEmailNotification
+      description: Send an email notification when an Automation is triggered
+    ResumeAutomation:
+      properties:
+        type:
+          type: string
+          const: resume-automation
+          title: Type
+          default: resume-automation
+        source:
+          type: string
+          enum:
+          - selected
+          - inferred
+          title: Source
+          description: Whether this Action applies to a specific selected automation (given by `automation_id`), or to an automation that is inferred from the triggering event.  If the source is 'inferred', the `automation_id` may not be set.  If the source is 'selected', the `automation_id` must be set.
+          default: selected
+        automation_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Automation Id
+          description: The identifier of the automation to act on
+      type: object
+      title: ResumeAutomation
+      description: Resumes a Work Queue
+    PauseScheduleForFlowRun:
+      properties:
+        type:
+          type: string
+          const: pause-schedule-for-flow-run
+          title: Type
+          default: pause-schedule-for-flow-run
+        deployment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Deployment Id
+          description: The identifier of the deployment
+        schedule_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Schedule Id
+          description: The identifier of the schedule
+      type: object
+      title: PauseScheduleForFlowRun
+      description: Pauses the schedule for a flow run associated with the trigger
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EventTrigger:
+      properties:
+        type:
+          type: string
+          const: event
+          title: Type
+          default: event
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique ID of this trigger
+        match:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - items:
+                  type: string
+                type: array
+            type: object
+          title: Match
+          description: Labels for resources which this trigger will match.
+        match_related:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - items:
+                  type: string
+                type: array
+            type: object
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ResourceSpecification'
+              - additionalProperties:
+                  anyOf:
+                  - type: string
+                  - items:
+                      type: string
+                    type: array
+                type: object
+            type: array
+          title: Match Related
+          description: Labels for related resources which this trigger will match.
+        after:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+          title: After
+          description: The event(s) which must first been seen to fire this trigger.  If empty, then fire this trigger immediately.  Events may include trailing wildcards, like `prefect.flow-run.*`
+        expect:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+          title: Expect
+          description: The event(s) this trigger is expecting to see.  If empty, this trigger will match any event.  Events may include trailing wildcards, like `prefect.flow-run.*`
+        for_each:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+          title: For Each
+          description: 'Evaluate the trigger separately for each distinct value of these labels on the resource.  By default, labels refer to the primary resource of the triggering event.  You may also refer to labels from related resources by specifying `related:<role>:<label>`.  This will use the value of that label for the first related resource in that role.  For example, `"for_each": ["related:flow:prefect.resource.id"]` would evaluate the trigger for each flow.'
+        posture:
+          type: string
+          enum:
+          - Reactive
+          - Proactive
+          title: Posture
+          description: The posture of this trigger, either Reactive or Proactive.  Reactive triggers respond to the _presence_ of the expected events, while Proactive triggers respond to the _absence_ of those expected events.
+        threshold:
+          type: integer
+          title: Threshold
+          description: The number of events required for this trigger to fire (for Reactive triggers), or the number of events expected (for Proactive triggers)
+          default: 1
+        within:
+          type: number
+          title: Within
+          description: The time period over which the events must occur.  For Reactive triggers, this may be as low as 0 seconds, but must be at least 10 seconds for Proactive triggers
+          default: 0.0
+      type: object
+      required:
+      - posture
+      title: EventTrigger
+      description: 'A trigger that fires based on the presence or absence of events within a given
+
+        period of time.'
+    MetricTrigger-Output:
+      properties:
+        type:
+          type: string
+          const: metric
+          title: Type
+          default: metric
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique ID of this trigger
+        match:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - items:
+                  type: string
+                type: array
+            type: object
+          title: Match
+          description: Labels for resources which this trigger will match.
+        match_related:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - items:
+                  type: string
+                type: array
+            type: object
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ResourceSpecification'
+              - additionalProperties:
+                  anyOf:
+                  - type: string
+                  - items:
+                      type: string
+                    type: array
+                type: object
+            type: array
+          title: Match Related
+          description: Labels for related resources which this trigger will match.
+        posture:
+          type: string
+          const: Metric
+          title: Posture
+          description: Periodically evaluate the configured metric query.
+          default: Metric
+        metric:
+          $ref: '#/components/schemas/MetricTriggerQuery'
+          description: 'The metric query to evaluate for this trigger. '
+      type: object
+      required:
+      - metric
+      title: MetricTrigger
+      description: A trigger that fires based on the results of a metric query.
+    Body_read_automations_api_accounts__account_id__workspaces__workspace_id__automations_filter_post:
+      properties:
+        sort:
+          $ref: '#/components/schemas/AutomationSort'
+          default: NAME_ASC
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        automations:
+          anyOf:
+          - $ref: '#/components/schemas/AutomationFilter'
+          - type: 'null'
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_automations_api_accounts__account_id__workspaces__workspace_id__automations_filter_post
+    ChangeFlowRunState:
+      properties:
+        type:
+          type: string
+          const: change-flow-run-state
+          title: Type
+          default: change-flow-run-state
+        force:
+          type: boolean
+          title: Force
+          description: Force the state change, bypassing orchestration rules
+          default: false
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the state to change the flow run to
+        state:
+          $ref: '#/components/schemas/StateType'
+          description: The type of the state to change the flow run to
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+          description: An optional message to associate with the state change
+      type: object
+      required:
+      - state
+      title: ChangeFlowRunState
+      description: Changes the state of a flow run associated with the trigger
+    AutomationFilterTags:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        all_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: All
+          description: A list of tags. Automations will be returned only if their tags are a superset of the list
+          examples:
+          - - tag-1
+            - tag-2
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of tags. Automations will be returned if their tags contain any of the tags in the list
+          examples:
+          - - tag-1
+            - tag-2
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include automations without tags
+      additionalProperties: false
+      type: object
+      title: AutomationFilterTags
+      description: Filter by `Automation.tags`.
+    AutomationFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/AutomationFilterName'
+          - type: 'null'
+          description: Filter criteria for `Automation.name`
+        created:
+          anyOf:
+          - $ref: '#/components/schemas/AutomationFilterCreated'
+          - type: 'null'
+          description: Filter criteria for `Automation.created`
+        tags:
+          anyOf:
+          - $ref: '#/components/schemas/AutomationFilterTags'
+          - type: 'null'
+          description: Filter criteria for `Automation.tags`
+      additionalProperties: false
+      type: object
+      title: AutomationFilter
+      description: 'Filter automations. Only automations that match all of the criteria will be
+
+        returned.'
+    CancelFlowRun:
+      properties:
+        type:
+          type: string
+          const: cancel-flow-run
+          title: Type
+          default: cancel-flow-run
+        force:
+          type: boolean
+          title: Force
+          description: Force the state change, bypassing orchestration rules
+          default: false
+      type: object
+      title: CancelFlowRun
+      description: Cancels a flow run associated with the trigger
+    SequenceTrigger-Output:
+      properties:
+        type:
+          type: string
+          const: sequence
+          title: Type
+          default: sequence
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique ID of this trigger
+        triggers:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/EventTrigger'
+            - $ref: '#/components/schemas/MetricTrigger-Output'
+            - $ref: '#/components/schemas/CompoundTrigger-Output'
+            - $ref: '#/components/schemas/SequenceTrigger-Output'
+          type: array
+          title: Triggers
+        within:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Within
+      type: object
+      required:
+      - triggers
+      - within
+      title: SequenceTrigger
+      description: 'A composite trigger that requires some number of triggers to have fired
+
+        within the given time period in a specific order'
+    AutomationFilterCreated:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include automations created before this datetime
+      additionalProperties: false
+      type: object
+      title: AutomationFilterCreated
+      description: Filter by `Automatio.created`.
+    AutomationUpdate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of this automation
+        description:
+          type: string
+          maxLength: 5000
+          title: Description
+          description: A longer description of this automation
+          default: ''
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether this automation will be evaluated
+          default: true
+        trigger:
+          anyOf:
+          - $ref: '#/components/schemas/EventTrigger'
+          - $ref: '#/components/schemas/MetricTrigger-Input'
+          - $ref: '#/components/schemas/CompoundTrigger-Input'
+          - $ref: '#/components/schemas/SequenceTrigger-Input'
+          title: Trigger
+          description: The criteria for which events this Automation covers and how it will respond to the presence or absence of those events
+        actions:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DoNothing'
+            - $ref: '#/components/schemas/RunDeployment'
+            - $ref: '#/components/schemas/PauseDeployment'
+            - $ref: '#/components/schemas/ResumeDeployment'
+            - $ref: '#/components/schemas/PauseScheduleForFlowRun'
+            - $ref: '#/components/schemas/ResumeSchedule'
+            - $ref: '#/components/schemas/CancelFlowRun'
+            - $ref: '#/components/schemas/ChangeFlowRunState'
+            - $ref: '#/components/schemas/PauseWorkQueue'
+            - $ref: '#/components/schemas/ResumeWorkQueue'
+            - $ref: '#/components/schemas/SendNotification'
+            - $ref: '#/components/schemas/CallWebhook'
+            - $ref: '#/components/schemas/PauseAutomation'
+            - $ref: '#/components/schemas/ResumeAutomation'
+            - $ref: '#/components/schemas/SuspendFlowRun'
+            - $ref: '#/components/schemas/ResumeFlowRun'
+            - $ref: '#/components/schemas/DeclareIncident'
+            - $ref: '#/components/schemas/PauseWorkPool'
+            - $ref: '#/components/schemas/ResumeWorkPool'
+            - $ref: '#/components/schemas/SlaViolation'
+            - $ref: '#/components/schemas/SendEmailNotification'
+            - $ref: '#/components/schemas/SendPrefectNotification'
+          type: array
+          title: Actions
+          description: The actions to perform when this Automation triggers
+        actions_on_trigger:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DoNothing'
+            - $ref: '#/components/schemas/RunDeployment'
+            - $ref: '#/components/schemas/PauseDeployment'
+            - $ref: '#/components/schemas/ResumeDeployment'
+            - $ref: '#/components/schemas/PauseScheduleForFlowRun'
+            - $ref: '#/components/schemas/ResumeSchedule'
+            - $ref: '#/components/schemas/CancelFlowRun'
+            - $ref: '#/components/schemas/ChangeFlowRunState'
+            - $ref: '#/components/schemas/PauseWorkQueue'
+            - $ref: '#/components/schemas/ResumeWorkQueue'
+            - $ref: '#/components/schemas/SendNotification'
+            - $ref: '#/components/schemas/CallWebhook'
+            - $ref: '#/components/schemas/PauseAutomation'
+            - $ref: '#/components/schemas/ResumeAutomation'
+            - $ref: '#/components/schemas/SuspendFlowRun'
+            - $ref: '#/components/schemas/ResumeFlowRun'
+            - $ref: '#/components/schemas/DeclareIncident'
+            - $ref: '#/components/schemas/PauseWorkPool'
+            - $ref: '#/components/schemas/ResumeWorkPool'
+            - $ref: '#/components/schemas/SlaViolation'
+            - $ref: '#/components/schemas/SendEmailNotification'
+            - $ref: '#/components/schemas/SendPrefectNotification'
+          type: array
+          title: Actions On Trigger
+          description: The actions to perform when an Automation goes into a triggered state
+        actions_on_resolve:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DoNothing'
+            - $ref: '#/components/schemas/RunDeployment'
+            - $ref: '#/components/schemas/PauseDeployment'
+            - $ref: '#/components/schemas/ResumeDeployment'
+            - $ref: '#/components/schemas/PauseScheduleForFlowRun'
+            - $ref: '#/components/schemas/ResumeSchedule'
+            - $ref: '#/components/schemas/CancelFlowRun'
+            - $ref: '#/components/schemas/ChangeFlowRunState'
+            - $ref: '#/components/schemas/PauseWorkQueue'
+            - $ref: '#/components/schemas/ResumeWorkQueue'
+            - $ref: '#/components/schemas/SendNotification'
+            - $ref: '#/components/schemas/CallWebhook'
+            - $ref: '#/components/schemas/PauseAutomation'
+            - $ref: '#/components/schemas/ResumeAutomation'
+            - $ref: '#/components/schemas/SuspendFlowRun'
+            - $ref: '#/components/schemas/ResumeFlowRun'
+            - $ref: '#/components/schemas/DeclareIncident'
+            - $ref: '#/components/schemas/PauseWorkPool'
+            - $ref: '#/components/schemas/ResumeWorkPool'
+            - $ref: '#/components/schemas/SlaViolation'
+            - $ref: '#/components/schemas/SendEmailNotification'
+            - $ref: '#/components/schemas/SendPrefectNotification'
+          type: array
+          title: Actions On Resolve
+          description: The actions to perform when an Automation goes into a resolving state
+        labels:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: boolean
+              - type: integer
+              - type: number
+              - type: string
+            type: object
+          - type: 'null'
+          title: Labels
+          description: Labels to apply to this automation
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: A list of tags for the automation
+          examples:
+          - - tag-1
+            - tag-2
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - trigger
+      - actions
+      title: AutomationUpdate
+    CallWebhook:
+      properties:
+        type:
+          type: string
+          const: call-webhook
+          title: Type
+          default: call-webhook
+        block_document_id:
+          type: string
+          format: uuid
+          title: Block Document Id
+          description: The identifier of the webhook block to use
+        payload:
+          type: string
+          title: Payload
+          description: An optional templatable payload to send when calling the webhook.
+          default: ''
+      type: object
+      required:
+      - block_document_id
+      title: CallWebhook
+      description: Call a webhook when an Automation is triggered.
+    PauseDeployment:
+      properties:
+        type:
+          type: string
+          const: pause-deployment
+          title: Type
+          default: pause-deployment
+        source:
+          type: string
+          enum:
+          - selected
+          - inferred
+          title: Source
+          description: Whether this Action applies to a specific selected deployment (given by `deployment_id`), or to a deployment that is inferred from the triggering event.  If the source is 'inferred', the `deployment_id` may not be set.  If the source is 'selected', the `deployment_id` must be set.
+          default: selected
+        deployment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Deployment Id
+          description: The identifier of the deployment
+      type: object
+      title: PauseDeployment
+      description: Pauses the given Deployment
+    AutomationSort:
+      type: string
+      enum:
+      - CREATED_DESC
+      - UPDATED_DESC
+      - NAME_ASC
+      - NAME_DESC
+      title: AutomationSort
+      description: Defines automations sorting options.
+    AutomationFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of names to match
+          examples:
+          - - foo
+      additionalProperties: false
+      type: object
+      title: AutomationFilterName
+      description: Filter by `Automation.name`.
+    SlaViolation:
+      properties:
+        type:
+          type: string
+          const: sla-violation
+          title: Type
+          default: sla-violation
+        source:
+          type: string
+          const: inferred
+          title: Source
+          default: inferred
+        deployment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Deployment Id
+          description: The identifier of the deployment
+        sla_severity:
+          type: string
+          enum:
+          - minor
+          - low
+          - moderate
+          - high
+          - critical
+          title: Sla Severity
+          default: high
+        sla_payload:
+          additionalProperties:
+            anyOf:
+            - type: string
+            - type: boolean
+            - type: integer
+            - type: number
+          type: object
+          title: Sla Payload
+          default: {}
+      type: object
+      title: SlaViolation
+      description: Base class for actions that operate on SLA violations
+    CompoundTrigger-Output:
+      properties:
+        type:
+          type: string
+          const: compound
+          title: Type
+          default: compound
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique ID of this trigger
+        triggers:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/EventTrigger'
+            - $ref: '#/components/schemas/MetricTrigger-Output'
+            - $ref: '#/components/schemas/CompoundTrigger-Output'
+            - $ref: '#/components/schemas/SequenceTrigger-Output'
+          type: array
+          title: Triggers
+        within:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Within
+        require:
+          anyOf:
+          - type: integer
+          - type: string
+            enum:
+            - any
+            - all
+          title: Require
+      type: object
+      required:
+      - triggers
+      - within
+      - require
+      title: CompoundTrigger
+      description: 'A composite trigger that requires some number of triggers to have
+
+        fired within the given time period'
+    SendNotification:
+      properties:
+        type:
+          type: string
+          const: send-notification
+          title: Type
+          default: send-notification
+        block_document_id:
+          type: string
+          format: uuid
+          title: Block Document Id
+          description: The identifier of the notification block to use
+        subject:
+          type: string
+          title: Subject
+          default: Prefect automated notification
+        body:
+          type: string
+          title: Body
+          description: The text of the notification to send
+      type: object
+      required:
+      - block_document_id
+      - body
+      title: SendNotification
+      description: Send a notification when an Automation is triggered
+    PauseWorkPool:
+      properties:
+        type:
+          type: string
+          const: pause-work-pool
+          title: Type
+          default: pause-work-pool
+        source:
+          type: string
+          enum:
+          - selected
+          - inferred
+          title: Source
+          description: Whether this Action applies to a specific selected work pool (given by `work_pool_id`), or to a work pool that is inferred from the triggering event.  If the source is 'inferred', the `work_pool_id` may not be set.  If the source is 'selected', the `work_pool_id` must be set.
+          default: selected
+        work_pool_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Work Pool Id
+          description: The identifier of the work pool to pause
+      type: object
+      title: PauseWorkPool
+      description: Pauses a Work Pool
+    SendPrefectNotification:
+      properties:
+        type:
+          type: string
+          const: prefect-notification
+          title: Type
+          default: prefect-notification
+        notification_type:
+          type: string
+          title: Notification Type
+          description: The type of notification to emit
+        message:
+          type: string
+          title: Message
+          description: The message to emit
+      type: object
+      required:
+      - notification_type
+      - message
+      title: SendPrefectNotification
+    SequenceTrigger-Input:
+      properties:
+        type:
+          type: string
+          const: sequence
+          title: Type
+          default: sequence
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique ID of this trigger
+        triggers:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/EventTrigger'
+            - $ref: '#/components/schemas/MetricTrigger-Input'
+            - $ref: '#/components/schemas/CompoundTrigger-Input'
+            - $ref: '#/components/schemas/SequenceTrigger-Input'
+          type: array
+          title: Triggers
+        within:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Within
+      type: object
+      required:
+      - triggers
+      - within
+      title: SequenceTrigger
+      description: 'A composite trigger that requires some number of triggers to have fired
+
+        within the given time period in a specific order'
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    MetricTriggerQuery:
+      properties:
+        name:
+          $ref: '#/components/schemas/PrefectMetric'
+          description: The name of the metric to query.
+        threshold:
+          type: number
+          title: Threshold
+          description: The threshold value against which we'll compare the query result.
+        operator:
+          $ref: '#/components/schemas/MetricTriggerOperator'
+          description: The comparative operator (LT / LTE / GT / GTE) used to compare the query result against the threshold value.
+        range:
+          type: number
+          title: Range
+          description: The lookback duration (seconds) for a metric query. This duration is used to determine the time range over which the query will be executed. The minimum value is 300 seconds (5 minutes).
+          default: 300.0
+        firing_for:
+          type: number
+          title: Firing For
+          description: The duration (seconds) for which the metric query must breach or resolve continuously before the state is updated and the automation is triggered. The minimum value is 300 seconds (5 minutes).
+          default: 300.0
+      type: object
+      required:
+      - name
+      - threshold
+      - operator
+      title: MetricTriggerQuery
+      description: 'Defines a subset of the Trigger subclass, which is specific
+
+        to Metric automations, that specify the query configurations
+
+        and breaching conditions for the Automation'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ResumeWorkQueue:
+      properties:
+        type:
+          type: string
+          const: resume-work-queue
+          title: Type
+          default: resume-work-queue
+        source:
+          type: string
+          enum:
+          - selected
+          - inferred
+          title: Source
+          description: Whether this Action applies to a specific selected work queue (given by `work_queue_id`), or to a work queue that is inferred from the triggering event.  If the source is 'inferred', the `work_queue_id` may not be set.  If the source is 'selected', the `work_queue_id` must be set.
+          default: selected
+        work_queue_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Work Queue Id
+          description: The identifier of the work queue to pause
+      type: object
+      title: ResumeWorkQueue
+      description: Resumes a Work Queue
+    PauseWorkQueue:
+      properties:
+        type:
+          type: string
+          const: pause-work-queue
+          title: Type
+          default: pause-work-queue
+        source:
+          type: string
+          enum:
+          - selected
+          - inferred
+          title: Source
+          description: Whether this Action applies to a specific selected work queue (given by `work_queue_id`), or to a work queue that is inferred from the triggering event.  If the source is 'inferred', the `work_queue_id` may not be set.  If the source is 'selected', the `work_queue_id` must be set.
+          default: selected
+        work_queue_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Work Queue Id
+          description: The identifier of the work queue to pause
+      type: object
+      title: PauseWorkQueue
+      description: Pauses a Work Queue
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
+    MetricTriggerOperator:
+      type: string
+      enum:
+      - <
+      - <=
+      - '>'
+      - '>='
+      title: MetricTriggerOperator
+    AutomationCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of this automation
+        description:
+          type: string
+          maxLength: 5000
+          title: Description
+          description: A longer description of this automation
+          default: ''
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether this automation will be evaluated
+          default: true
+        trigger:
+          anyOf:
+          - $ref: '#/components/schemas/EventTrigger'
+          - $ref: '#/components/schemas/MetricTrigger-Input'
+          - $ref: '#/components/schemas/CompoundTrigger-Input'
+          - $ref: '#/components/schemas/SequenceTrigger-Input'
+          title: Trigger
+          description: The criteria for which events this Automation covers and how it will respond to the presence or absence of those events
+        actions:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DoNothing'
+            - $ref: '#/components/schemas/RunDeployment'
+            - $ref: '#/components/schemas/PauseDeployment'
+            - $ref: '#/components/schemas/ResumeDeployment'
+            - $ref: '#/components/schemas/PauseScheduleForFlowRun'
+            - $ref: '#/components/schemas/ResumeSchedule'
+            - $ref: '#/components/schemas/CancelFlowRun'
+            - $ref: '#/components/schemas/ChangeFlowRunState'
+            - $ref: '#/components/schemas/PauseWorkQueue'
+            - $ref: '#/components/schemas/ResumeWorkQueue'
+            - $ref: '#/components/schemas/SendNotification'
+            - $ref: '#/components/schemas/CallWebhook'
+            - $ref: '#/components/schemas/PauseAutomation'
+            - $ref: '#/components/schemas/ResumeAutomation'
+            - $ref: '#/components/schemas/SuspendFlowRun'
+            - $ref: '#/components/schemas/ResumeFlowRun'
+            - $ref: '#/components/schemas/DeclareIncident'
+            - $ref: '#/components/schemas/PauseWorkPool'
+            - $ref: '#/components/schemas/ResumeWorkPool'
+            - $ref: '#/components/schemas/SlaViolation'
+            - $ref: '#/components/schemas/SendEmailNotification'
+            - $ref: '#/components/schemas/SendPrefectNotification'
+          type: array
+          title: Actions
+          description: The actions to perform when this Automation triggers
+        actions_on_trigger:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DoNothing'
+            - $ref: '#/components/schemas/RunDeployment'
+            - $ref: '#/components/schemas/PauseDeployment'
+            - $ref: '#/components/schemas/ResumeDeployment'
+            - $ref: '#/components/schemas/PauseScheduleForFlowRun'
+            - $ref: '#/components/schemas/ResumeSchedule'
+            - $ref: '#/components/schemas/CancelFlowRun'
+            - $ref: '#/components/schemas/ChangeFlowRunState'
+            - $ref: '#/components/schemas/PauseWorkQueue'
+            - $ref: '#/components/schemas/ResumeWorkQueue'
+            - $ref: '#/components/schemas/SendNotification'
+            - $ref: '#/components/schemas/CallWebhook'
+            - $ref: '#/components/schemas/PauseAutomation'
+            - $ref: '#/components/schemas/ResumeAutomation'
+            - $ref: '#/components/schemas/SuspendFlowRun'
+            - $ref: '#/components/schemas/ResumeFlowRun'
+            - $ref: '#/components/schemas/DeclareIncident'
+            - $ref: '#/components/schemas/PauseWorkPool'
+            - $ref: '#/components/schemas/ResumeWorkPool'
+            - $ref: '#/components/schemas/SlaViolation'
+            - $ref: '#/components/schemas/SendEmailNotification'
+            - $ref: '#/components/schemas/SendPrefectNotification'
+          type: array
+          title: Actions On Trigger
+          description: The actions to perform when an Automation goes into a triggered state
+        actions_on_resolve:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DoNothing'
+            - $ref: '#/components/schemas/RunDeployment'
+            - $ref: '#/components/schemas/PauseDeployment'
+            - $ref: '#/components/schemas/ResumeDeployment'
+            - $ref: '#/components/schemas/PauseScheduleForFlowRun'
+            - $ref: '#/components/schemas/ResumeSchedule'
+            - $ref: '#/components/schemas/CancelFlowRun'
+            - $ref: '#/components/schemas/ChangeFlowRunState'
+            - $ref: '#/components/schemas/PauseWorkQueue'
+            - $ref: '#/components/schemas/ResumeWorkQueue'
+            - $ref: '#/components/schemas/SendNotification'
+            - $ref: '#/components/schemas/CallWebhook'
+            - $ref: '#/components/schemas/PauseAutomation'
+            - $ref: '#/components/schemas/ResumeAutomation'
+            - $ref: '#/components/schemas/SuspendFlowRun'
+            - $ref: '#/components/schemas/ResumeFlowRun'
+            - $ref: '#/components/schemas/DeclareIncident'
+            - $ref: '#/components/schemas/PauseWorkPool'
+            - $ref: '#/components/schemas/ResumeWorkPool'
+            - $ref: '#/components/schemas/SlaViolation'
+            - $ref: '#/components/schemas/SendEmailNotification'
+            - $ref: '#/components/schemas/SendPrefectNotification'
+          type: array
+          title: Actions On Resolve
+          description: The actions to perform when an Automation goes into a resolving state
+        labels:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: boolean
+              - type: integer
+              - type: number
+              - type: string
+            type: object
+          - type: 'null'
+          title: Labels
+          description: Labels to apply to this automation
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: A list of tags for the automation
+          examples:
+          - - tag-1
+            - tag-2
+        owner_resource:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Owner Resource
+          description: The resource to which this automation belongs
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - trigger
+      - actions
+      title: AutomationCreate
+    CompoundTrigger-Input:
+      properties:
+        type:
+          type: string
+          const: compound
+          title: Type
+          default: compound
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique ID of this trigger
+        triggers:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/EventTrigger'
+            - $ref: '#/components/schemas/MetricTrigger-Input'
+            - $ref: '#/components/schemas/CompoundTrigger-Input'
+            - $ref: '#/components/schemas/SequenceTrigger-Input'
+          type: array
+          title: Triggers
+        within:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Within
+        require:
+          anyOf:
+          - type: integer
+          - type: string
+            enum:
+            - any
+            - all
+          title: Require
+      type: object
+      required:
+      - triggers
+      - within
+      - require
+      title: CompoundTrigger
+      description: 'A composite trigger that requires some number of triggers to have
+
+        fired within the given time period'
+    MetricTrigger-Input:
+      properties:
+        type:
+          type: string
+          const: metric
+          title: Type
+          default: metric
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique ID of this trigger
+        match:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - items:
+                  type: string
+                type: array
+            type: object
+          title: Match
+          description: Labels for resources which this trigger will match.
+        match_related:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - items:
+                  type: string
+                type: array
+            type: object
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ResourceSpecification'
+              - additionalProperties:
+                  anyOf:
+                  - type: string
+                  - items:
+                      type: string
+                    type: array
+                type: object
+            type: array
+          title: Match Related
+          description: Labels for related resources which this trigger will match.
+        posture:
+          type: string
+          const: Metric
+          title: Posture
+          description: Periodically evaluate the configured metric query.
+          default: Metric
+        metric:
+          $ref: '#/components/schemas/MetricTriggerQuery'
+          description: 'The metric query to evaluate for this trigger. '
+      type: object
+      required:
+      - metric
+      title: MetricTrigger
+      description: A trigger that fires based on the results of a metric query.
+    PrefectMetric:
+      type: string
+      enum:
+      - lateness
+      - duration
+      - successes
+      - volume
+      - sla_violations
+      - sla_violations_by_severity
+      title: PrefectMetric
+    Automation:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of this automation
+        description:
+          type: string
+          maxLength: 5000
+          title: Description
+          description: A longer description of this automation
+          default: ''
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether this automation will be evaluated
+          default: true
+        trigger:
+          anyOf:
+          - $ref: '#/components/schemas/EventTrigger'
+          - $ref: '#/components/schemas/MetricTrigger-Output'
+          - $ref: '#/components/schemas/CompoundTrigger-Output'
+          - $ref: '#/components/schemas/SequenceTrigger-Output'
+          title: Trigger
+          description: The criteria for which events this Automation covers and how it will respond to the presence or absence of those events
+        actions:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DoNothing'
+            - $ref: '#/components/schemas/RunDeployment'
+            - $ref: '#/components/schemas/PauseDeployment'
+            - $ref: '#/components/schemas/ResumeDeployment'
+            - $ref: '#/components/schemas/PauseScheduleForFlowRun'
+            - $ref: '#/components/schemas/ResumeSchedule'
+            - $ref: '#/components/schemas/CancelFlowRun'
+            - $ref: '#/components/schemas/ChangeFlowRunState'
+            - $ref: '#/components/schemas/PauseWorkQueue'
+            - $ref: '#/components/schemas/ResumeWorkQueue'
+            - $ref: '#/components/schemas/SendNotification'
+            - $ref: '#/components/schemas/CallWebhook'
+            - $ref: '#/components/schemas/PauseAutomation'
+            - $ref: '#/components/schemas/ResumeAutomation'
+            - $ref: '#/components/schemas/SuspendFlowRun'
+            - $ref: '#/components/schemas/ResumeFlowRun'
+            - $ref: '#/components/schemas/DeclareIncident'
+            - $ref: '#/components/schemas/PauseWorkPool'
+            - $ref: '#/components/schemas/ResumeWorkPool'
+            - $ref: '#/components/schemas/SlaViolation'
+            - $ref: '#/components/schemas/SendEmailNotification'
+            - $ref: '#/components/schemas/SendPrefectNotification'
+          type: array
+          title: Actions
+          description: The actions to perform when this Automation triggers
+        actions_on_trigger:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DoNothing'
+            - $ref: '#/components/schemas/RunDeployment'
+            - $ref: '#/components/schemas/PauseDeployment'
+            - $ref: '#/components/schemas/ResumeDeployment'
+            - $ref: '#/components/schemas/PauseScheduleForFlowRun'
+            - $ref: '#/components/schemas/ResumeSchedule'
+            - $ref: '#/components/schemas/CancelFlowRun'
+            - $ref: '#/components/schemas/ChangeFlowRunState'
+            - $ref: '#/components/schemas/PauseWorkQueue'
+            - $ref: '#/components/schemas/ResumeWorkQueue'
+            - $ref: '#/components/schemas/SendNotification'
+            - $ref: '#/components/schemas/CallWebhook'
+            - $ref: '#/components/schemas/PauseAutomation'
+            - $ref: '#/components/schemas/ResumeAutomation'
+            - $ref: '#/components/schemas/SuspendFlowRun'
+            - $ref: '#/components/schemas/ResumeFlowRun'
+            - $ref: '#/components/schemas/DeclareIncident'
+            - $ref: '#/components/schemas/PauseWorkPool'
+            - $ref: '#/components/schemas/ResumeWorkPool'
+            - $ref: '#/components/schemas/SlaViolation'
+            - $ref: '#/components/schemas/SendEmailNotification'
+            - $ref: '#/components/schemas/SendPrefectNotification'
+          type: array
+          title: Actions On Trigger
+          description: The actions to perform when an Automation goes into a triggered state
+        actions_on_resolve:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DoNothing'
+            - $ref: '#/components/schemas/RunDeployment'
+            - $ref: '#/components/schemas/PauseDeployment'
+            - $ref: '#/components/schemas/ResumeDeployment'
+            - $ref: '#/components/schemas/PauseScheduleForFlowRun'
+            - $ref: '#/components/schemas/ResumeSchedule'
+            - $ref: '#/components/schemas/CancelFlowRun'
+            - $ref: '#/components/schemas/ChangeFlowRunState'
+            - $ref: '#/components/schemas/PauseWorkQueue'
+            - $ref: '#/components/schemas/ResumeWorkQueue'
+            - $ref: '#/components/schemas/SendNotification'
+            - $ref: '#/components/schemas/CallWebhook'
+            - $ref: '#/components/schemas/PauseAutomation'
+            - $ref: '#/components/schemas/ResumeAutomation'
+            - $ref: '#/components/schemas/SuspendFlowRun'
+            - $ref: '#/components/schemas/ResumeFlowRun'
+            - $ref: '#/components/schemas/DeclareIncident'
+            - $ref: '#/components/schemas/PauseWorkPool'
+            - $ref: '#/components/schemas/ResumeWorkPool'
+            - $ref: '#/components/schemas/SlaViolation'
+            - $ref: '#/components/schemas/SendEmailNotification'
+            - $ref: '#/components/schemas/SendPrefectNotification'
+          type: array
+          title: Actions On Resolve
+          description: The actions to perform when an Automation goes into a resolving state
+        labels:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: boolean
+              - type: integer
+              - type: number
+              - type: string
+            type: object
+          - type: 'null'
+          title: Labels
+          description: Labels to apply to this automation
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: A list of tags for the automation
+          examples:
+          - - tag-1
+            - tag-2
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        account:
+          type: string
+          format: uuid
+          title: Account
+          description: The Account to which this automation belongs
+        workspace:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace
+          description: The Workspace to which this automation belongs
+        actor:
+          anyOf:
+          - $ref: '#/components/schemas/ActorReference'
+          - type: 'null'
+          description: The Prefect Actor to use when running actions, defaulting to the Actor who created the Automation
+      type: object
+      required:
+      - name
+      - trigger
+      - actions
+      - account
+      - workspace
+      title: Automation
+    DoNothing:
+      properties:
+        type:
+          type: string
+          const: do-nothing
+          title: Type
+          default: do-nothing
+      type: object
+      title: DoNothing
+      description: Do nothing when an Automation is triggered
+    AutomationPartialUpdate:
+      properties:
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether this automation will be evaluated
+          default: true
+      additionalProperties: false
+      type: object
+      title: AutomationPartialUpdate
+    StateType:
+      type: string
+      enum:
+      - SCHEDULED
+      - PENDING
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      - CANCELLED
+      - CRASHED
+      - PAUSED
+      - CANCELLING
+      title: StateType
+      description: Enumeration of state types.
+    ResumeWorkPool:
+      properties:
+        type:
+          type: string
+          const: resume-work-pool
+          title: Type
+          default: resume-work-pool
+        source:
+          type: string
+          enum:
+          - selected
+          - inferred
+          title: Source
+          description: Whether this Action applies to a specific selected work pool (given by `work_pool_id`), or to a work pool that is inferred from the triggering event.  If the source is 'inferred', the `work_pool_id` may not be set.  If the source is 'selected', the `work_pool_id` must be set.
+          default: selected
+        work_pool_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Work Pool Id
+          description: The identifier of the work pool to pause
+      type: object
+      title: ResumeWorkPool
+      description: Resumes a Work Pool
+    PauseAutomation:
+      properties:
+        type:
+          type: string
+          const: pause-automation
+          title: Type
+          default: pause-automation
+        source:
+          type: string
+          enum:
+          - selected
+          - inferred
+          title: Source
+          description: Whether this Action applies to a specific selected automation (given by `automation_id`), or to an automation that is inferred from the triggering event.  If the source is 'inferred', the `automation_id` may not be set.  If the source is 'selected', the `automation_id` must be set.
+          default: selected
+        automation_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Automation Id
+          description: The identifier of the automation to act on
+      type: object
+      title: PauseAutomation
+      description: Pauses a Work Queue
+    ResumeFlowRun:
+      properties:
+        type:
+          type: string
+          const: resume-flow-run
+          title: Type
+          default: resume-flow-run
+      type: object
+      title: ResumeFlowRun
+      description: Resumes a paused or suspended flow run associated with the trigger
+    DeclareIncident:
+      properties:
+        type:
+          type: string
+          const: declare-incident
+          title: Type
+          default: declare-incident
+      type: object
+      title: DeclareIncident
+      description: Declares an incident for the triggering event
+    SuspendFlowRun:
+      properties:
+        type:
+          type: string
+          const: suspend-flow-run
+          title: Type
+          default: suspend-flow-run
+        force:
+          type: boolean
+          title: Force
+          description: Force the state change, bypassing orchestration rules
+          default: false
+      type: object
+      title: SuspendFlowRun
+      description: Suspends a flow run associated with the trigger
+    ResumeDeployment:
+      properties:
+        type:
+          type: string
+          const: resume-deployment
+          title: Type
+          default: resume-deployment
+        source:
+          type: string
+          enum:
+          - selected
+          - inferred
+          title: Source
+          description: Whether this Action applies to a specific selected deployment (given by `deployment_id`), or to a deployment that is inferred from the triggering event.  If the source is 'inferred', the `deployment_id` may not be set.  If the source is 'selected', the `deployment_id` must be set.
+          default: selected
+        deployment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Deployment Id
+          description: The identifier of the deployment
+      type: object
+      title: ResumeDeployment
+      description: Resumes the given Deployment
+    ActorReference:
+      properties:
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+          description: The ID of the Actor
+        handle:
+          type: string
+          maxLength: 5000
+          title: Handle
+          description: The handle of the Actor
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+          description: The user's ID, if the actor is a user
+        bot_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Bot Id
+          description: The service account's ID, if the actor is a service_account
+      type: object
+      required:
+      - actor_id
+      - handle
+      title: ActorReference

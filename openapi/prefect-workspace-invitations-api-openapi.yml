@@ -1,0 +1,409 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Workspace Invitations API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Workspace Invitations
+  description: Manage workspace invitations.
+  externalDocs:
+    description: 'Manage workspaces: control access'
+    url: https://docs.prefect.io/v3/manage/cloud/workspaces#control-access
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/invitations/:
+    post:
+      tags:
+      - Workspace Invitations
+      summary: Create Workspace Invitation
+      description: 'Invite a user to a workspace.
+
+        Any PENDING invitations for the same user to the workspace will be revoked.
+
+
+        Required account permissions: `create:workspace_invitation`'
+      operationId: create_workspace_invitation_api_accounts__account_id__workspaces__workspace_id__invitations__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceInvitationCreate'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceInvitationReadResponse'
+              examples:
+                created:
+                  summary: Invite created
+                  value:
+                    id: 8c1a152b-4f59-4618-8dfc-9ed808950ddb
+                    email: user@test.io
+                    account_id: 0bcad7b7-dff6-470f-bddb-345d16ba38e9
+                    account_role_id: f53c213d-ba1f-4a7d-a01f-01098fa8c3b9
+                    status: PENDING
+                    expiration: '2026-05-08T22:16:52.772815Z'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/invitations/{id}:
+    get:
+      tags:
+      - Workspace Invitations
+      summary: Read Workspace Invitation
+      description: 'Get an invitation by id
+
+
+        Required account permissions: `read:workspace_invitation`'
+      operationId: read_workspace_invitation_api_accounts__account_id__workspaces__workspace_id__invitations__id__get
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceInvitationReadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/invitations/filter:
+    post:
+      tags:
+      - Workspace Invitations
+      summary: Read Workspace Invitations
+      description: 'Query for invitations
+
+
+        Required account permissions: `read:workspace_invitation`'
+      operationId: read_workspace_invitations_api_accounts__account_id__workspaces__workspace_id__invitations_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_workspace_invitations_api_accounts__account_id__workspaces__workspace_id__invitations_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceInvitationReadResponse'
+                title: Response Read Workspace Invitations Api Accounts  Account Id  Workspaces  Workspace Id  Invitations Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/invitations/{id}/revoke:
+    post:
+      tags:
+      - Workspace Invitations
+      summary: Revoke Workspace Invitation
+      description: 'Delete an invitation by id
+
+
+        Required account permissions: `update:workspace_invitation`'
+      operationId: revoke_workspace_invitation_api_accounts__account_id__workspaces__workspace_id__invitations__id__revoke_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    InvitationFilterExpiration:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include invitations expiring at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include invitations expiring at or after this time
+      additionalProperties: false
+      type: object
+      title: InvitationFilterExpiration
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InvitationStatus:
+      type: string
+      enum:
+      - ACCEPTED
+      - PENDING
+      - REJECTED
+      - REVOKED
+      title: InvitationStatus
+      description: Enumeration of Invitation status
+    WorkspaceInvitationCreate:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+          description: The email of the user to invite
+      additionalProperties: false
+      type: object
+      required:
+      - email
+      title: WorkspaceInvitationCreate
+      description: Data used by the api to create an invitation
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    InvitationFilterStatus:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/InvitationStatus'
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of invitation statuses to include
+      additionalProperties: false
+      type: object
+      title: InvitationFilterStatus
+    InvitationFilterEmail:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of invitation emails to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: InvitationFilterEmail
+    WorkspaceInvitationReadResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        email:
+          type: string
+          format: email
+          title: Email
+          description: The email of the user to invite
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+          description: The account id
+        account_role_id:
+          type: string
+          format: uuid
+          title: Account Role Id
+          description: The role id to assign the user
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+          description: The workspace id
+        workspace_role_id:
+          type: string
+          format: uuid
+          title: Workspace Role Id
+          description: The workspace role id to assign the user
+        status:
+          $ref: '#/components/schemas/InvitationStatus'
+          description: The invitation status
+        expiration:
+          type: string
+          format: date-time
+          title: Expiration
+          description: The expiration time of the invite
+      additionalProperties: false
+      type: object
+      required:
+      - email
+      - account_id
+      - account_role_id
+      - workspace_id
+      - workspace_role_id
+      - status
+      - expiration
+      title: WorkspaceInvitationReadResponse
+      description: Data returned by the api when reading a workspace invitation
+    Body_read_workspace_invitations_api_accounts__account_id__workspaces__workspace_id__invitations_filter_post:
+      properties:
+        workspace_invitations:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilter'
+          - type: 'null'
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+      type: object
+      title: Body_read_workspace_invitations_api_accounts__account_id__workspaces__workspace_id__invitations_filter_post
+    InvitationFilter:
+      properties:
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterStatus'
+          - type: 'null'
+          description: Filter criteria for Invitation.status
+        expiration:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterExpiration'
+          - type: 'null'
+          description: Filter criteria for Invitation.expiration
+        email:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterEmail'
+          - type: 'null'
+          description: Filter criteria for Invitation.email
+      additionalProperties: false
+      type: object
+      title: InvitationFilter

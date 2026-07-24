@@ -1,0 +1,280 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Pins API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Pins
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/pins/:
+    post:
+      tags:
+      - Pins
+      summary: Create User Pin
+      description: 'Pin a resource for the current user.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: create_user_pin_api_accounts__account_id__workspaces__workspace_id__pins__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPinCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPin'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/pins/filter:
+    post:
+      tags:
+      - Pins
+      summary: Read User Pins
+      description: 'List pins for the current user, optionally filtered by resource type.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: read_user_pins_api_accounts__account_id__workspaces__workspace_id__pins_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_user_pins_api_accounts__account_id__workspaces__workspace_id__pins_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserPin'
+                title: Response Read User Pins Api Accounts  Account Id  Workspaces  Workspace Id  Pins Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/pins/{id}:
+    delete:
+      tags:
+      - Pins
+      summary: Delete User Pin
+      description: 'Remove a pin for the current user.
+
+
+        Required workspace scopes: `see_flows`'
+      operationId: delete_user_pin_api_accounts__account_id__workspaces__workspace_id__pins__id__delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The pin id
+          title: Id
+        description: The pin id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-prefect-api-version
+        in: header
+        required: false
+        schema:
+          type: string
+          title: X-Prefect-Api-Version
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UserPin:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+          description: The actor who created the pin.
+        resource_type:
+          $ref: '#/components/schemas/PinnableResourceType'
+          description: The type of resource that is pinned.
+        resource_id:
+          type: string
+          format: uuid
+          title: Resource Id
+          description: The ID of the pinned resource.
+        resource_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Resource Name
+          description: The name of the pinned resource, hydrated at read time.
+      type: object
+      required:
+      - actor_id
+      - resource_type
+      - resource_id
+      title: UserPin
+      description: An ORM representation of a user pin.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_read_user_pins_api_accounts__account_id__workspaces__workspace_id__pins_filter_post:
+      properties:
+        resource_type:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/PinnableResourceType'
+            type: array
+          - type: 'null'
+          title: Resource Type
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_user_pins_api_accounts__account_id__workspaces__workspace_id__pins_filter_post
+    UserPinCreate:
+      properties:
+        resource_type:
+          $ref: '#/components/schemas/PinnableResourceType'
+          description: The type of resource to pin.
+        resource_id:
+          type: string
+          format: uuid
+          title: Resource Id
+          description: The ID of the resource to pin.
+      additionalProperties: false
+      type: object
+      required:
+      - resource_type
+      - resource_id
+      title: UserPinCreate
+      description: Data used by the Orion API to create a user pin.
+    PinnableResourceType:
+      type: string
+      enum:
+      - flow
+      - deployment
+      - work_pool
+      title: PinnableResourceType
+      description: Resource types that can be pinned by users.

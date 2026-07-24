@@ -1,0 +1,120 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Workspace Access API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Workspace Access
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/access/:
+    get:
+      tags:
+      - Workspace Access
+      summary: Read Actor Access
+      description: 'Return a list of all actors with access to the workspace, including
+
+        actors granted access via team membership.
+
+
+        Required workspace scopes: `see_workspace_users`,`see_workspace_service_accounts`'
+      operationId: read_actor_access_api_accounts__account_id__workspaces__workspace_id__access__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectActorAccess'
+                title: Response Read Actor Access Api Accounts  Account Id  Workspaces  Workspace Id  Access  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ObjectActorAccess:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+            const: '*'
+          title: Id
+          description: The actor id.
+        name:
+          type: string
+          title: Name
+          description: The actor name.
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+          description: The actor email if they're a user, otherwise None.
+        type:
+          type: string
+          enum:
+          - user
+          - service_account
+          - team
+          - '*'
+          title: Type
+          description: The actor type.
+      type: object
+      required:
+      - id
+      - name
+      - email
+      - type
+      title: ObjectActorAccess
+      description: Data describing an actor with object-level access.

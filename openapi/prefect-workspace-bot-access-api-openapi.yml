@@ -1,0 +1,425 @@
+openapi: 3.1.0
+info:
+  title: Prefect Cloud Account Billing Workspace Bot Access API
+  description: Prefect Cloud REST API documentation.
+  version: 0.8.4
+tags:
+- name: Workspace Bot Access
+paths:
+  /api/accounts/{account_id}/workspaces/{workspace_id}/bot_access/:
+    post:
+      tags:
+      - Workspace Bot Access
+      summary: Upsert Workspace Bot Access
+      description: 'Grant one or more bots access to a workspace
+
+
+        Required workspace scopes: `manage_workspace_service_accounts`'
+      operationId: upsert_workspace_bot_access_api_accounts__account_id__workspaces__workspace_id__bot_access__post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/WorkspaceBotAccessCreate'
+              - type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceBotAccessCreate'
+              title: Workspace Bot Accesses
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/WorkspaceBotAccessResponse'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/WorkspaceBotAccessResponse'
+                title: Response Upsert Workspace Bot Access Api Accounts  Account Id  Workspaces  Workspace Id  Bot Access  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/bot_access/filter:
+    post:
+      tags:
+      - Workspace Bot Access
+      summary: Read Workspace Bot Accesses
+      description: 'Query for workspace bot accesses
+
+
+        Required workspace scopes: `see_workspace_service_accounts`'
+      operationId: read_workspace_bot_accesses_api_accounts__account_id__workspaces__workspace_id__bot_access_filter_post
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_read_workspace_bot_accesses_api_accounts__account_id__workspaces__workspace_id__bot_access_filter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceBotAccessResponse'
+                title: Response Read Workspace Bot Accesses Api Accounts  Account Id  Workspaces  Workspace Id  Bot Access Filter Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/accounts/{account_id}/workspaces/{workspace_id}/bot_access/{id}:
+    get:
+      tags:
+      - Workspace Bot Access
+      summary: Read Workspace Bot Access
+      description: 'Read a workspace bot access
+
+
+        Required workspace scopes: `see_workspace_service_accounts`'
+      operationId: read_workspace_bot_access_api_accounts__account_id__workspaces__workspace_id__bot_access__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceBotAccessResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Workspace Bot Access
+      summary: Delete Workspace Bot Access
+      description: 'Delete a workspace bot access by id.
+
+
+        Required workspace scopes: `manage_workspace_service_accounts`'
+      operationId: delete_workspace_bot_access_api_accounts__account_id__workspaces__workspace_id__bot_access__id__delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    BotFilter:
+      properties:
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilterId'
+          - type: 'null'
+          description: Filter criteria for Bot.id
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilterName'
+          - type: 'null'
+          description: Filter criteria for Bot.name
+      additionalProperties: false
+      type: object
+      title: BotFilter
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    WorkspaceActorAccessFilter:
+      properties:
+        workspace_role_id:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceActorAccessFilterWorkspaceRoleId'
+          - type: 'null'
+          description: Filter criteria for WorkspaceActorAccess.workspace_role_id
+        actor_id:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceActorAccessFilterActorId'
+          - type: 'null'
+          description: Filter criteria for WorkspaceActorAccess.actor_id
+      additionalProperties: false
+      type: object
+      title: WorkspaceActorAccessFilter
+    BotFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of bot names to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: BotFilterName
+    WorkspaceBotAccessCreate:
+      properties:
+        bot_id:
+          type: string
+          format: uuid
+          title: Bot Id
+          description: id of bot to create a workspace access for
+        workspace_role_id:
+          type: string
+          format: uuid
+          title: Workspace Role Id
+          description: The workspace role id
+      additionalProperties: false
+      type: object
+      required:
+      - bot_id
+      - workspace_role_id
+      title: WorkspaceBotAccessCreate
+      description: Data used by the api to create workspace bot access
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_read_workspace_bot_accesses_api_accounts__account_id__workspaces__workspace_id__bot_access_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        workspace_accesses:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceActorAccessFilter'
+          - type: 'null'
+        bots:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilter'
+          - type: 'null'
+        sort:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceBotAccessSort'
+          - type: 'null'
+      type: object
+      title: Body_read_workspace_bot_accesses_api_accounts__account_id__workspaces__workspace_id__bot_access_filter_post
+    WorkspaceActorAccessFilterWorkspaceRoleId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include workspace accesses with one of these workspace role ids
+      additionalProperties: false
+      type: object
+      title: WorkspaceActorAccessFilterWorkspaceRoleId
+    WorkspaceBotAccessResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+          description: The workspace id
+        workspace_role_id:
+          type: string
+          format: uuid
+          title: Workspace Role Id
+          description: The workspace role id
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+          description: actor_id of bot assigned a workspace access
+        bot_id:
+          type: string
+          format: uuid
+          title: Bot Id
+          description: id of bot assigned a workspace access
+        bot_name:
+          type: string
+          title: Bot Name
+          description: The name of the bot assigned a workspace access
+      additionalProperties: false
+      type: object
+      required:
+      - workspace_id
+      - workspace_role_id
+      - actor_id
+      - bot_id
+      - bot_name
+      title: WorkspaceBotAccessResponse
+      description: Data returned by the api after creating a new user workspace access
+    WorkspaceBotAccessSort:
+      type: string
+      enum:
+      - CREATED_ASC
+      - CREATED_DESC
+      - BOT_NAME_ASC
+      - BOT_NAME_DESC
+      title: WorkspaceBotAccessSort
+      description: Sort options for workspace bot accesses
+    WorkspaceActorAccessFilterActorId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include workspace accesses with one of these actor ids
+      additionalProperties: false
+      type: object
+      title: WorkspaceActorAccessFilterActorId
+    BotFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of bot ids to include
+      additionalProperties: false
+      type: object
+      title: BotFilterId
