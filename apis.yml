@@ -8,9 +8,21 @@ description: >-
   code and data remain in customer infrastructure, offering both a managed cloud platform and a self-hosted open-source
   server.
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/prefect.png
 tags:
   - Automation
   - Data Pipelines
@@ -22,78 +34,1210 @@ modified: '2026-05-30'
 url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: prefect:prefect-cloud-rest-api
-    name: Prefect Cloud REST API
-    description: >-
-      The Prefect Cloud REST API provides programmatic access to Prefect Cloud for orchestrating and managing workflows,
-      deployments, flow runs, task runs, artifacts, and automations. The API follows RESTful conventions with pluralized
-      collection names, snake_case route names, and supports an OpenAPI 3.0 compliant specification. Clients
-      authenticate using API keys passed as Bearer tokens in request headers.
-    humanURL: https://docs.prefect.io/v3/api-ref/rest-api
-    tags:
-      - Automations
-      - Deployments
-      - Flow Runs
-      - Orchestration
-      - REST API
-      - Task Runs
-      - Workflows
-    properties:
-      - type: Documentation
-        url: https://docs.prefect.io/v3/api-ref/rest-api
-      - type: APIReference
-        url: https://app.prefect.cloud/api/docs
-      - type: Authentication
-        url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
-      - type: GettingStarted
-        url: https://docs.prefect.io/v3/get-started/quickstart
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/openapi/prefect-openapi.json
-      - type: AsyncAPI
-        url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
-  - aid: prefect:prefect-server-rest-api
-    name: Prefect Server REST API
-    description: >-
-      The Prefect Server REST API is the self-hosted variant of the Prefect orchestration API for managing workflows,
-      flow runs, task runs, deployments, and work pools. When running Prefect server locally, the API is available at
-      http://localhost:4200/api and interactive documentation is served at the /docs endpoint. The API can be fully
-      described with an OpenAPI 3.0 compliant document generated from the running server.
-    humanURL: https://docs.prefect.io/v3/api-ref/rest-api
-    tags:
-      - Open Source
-      - Orchestration
-      - REST API
-      - Self-Hosted
-      - Workflows
-    properties:
-      - type: Documentation
-        url: https://docs.prefect.io/v3/api-ref/rest-api
-      - type: APIReference
-        url: https://docs.prefect.io/latest/api-ref/rest-api-reference/
-      - type: GettingStarted
-        url: https://docs.prefect.io/v3/get-started/quickstart
-      - type: GitHubRepository
-        url: https://github.com/PrefectHQ/prefect
-  - aid: prefect:prefect-python-sdk
-    name: Prefect Python SDK
-    description: >-
-      The Prefect Python SDK is used to build, test, and execute workflows against the Prefect API. It provides
-      decorators such as @flow and @task for defining workflows, along with programmatic interfaces for deployments,
-      scheduling, state management, concurrency, caching, and retries. The SDK requires Python 3.10 or higher and
-      includes a PrefectClient class for direct interaction with the REST API.
-    humanURL: https://docs.prefect.io/v3/api-ref/python
-    tags:
-      - Orchestration
-      - Python
-      - SDK
-      - Workflows
-    properties:
-      - type: Documentation
-        url: https://docs.prefect.io/v3/api-ref/python
-      - type: GettingStarted
-        url: https://docs.prefect.io/v3/get-started/quickstart
-      - type: GitHubRepository
-        url: https://github.com/PrefectHQ/prefect
+- aid: prefect:prefect-server-rest-api
+  name: Prefect Server REST API
+  description: >-
+    The Prefect Server REST API is the self-hosted variant of the Prefect orchestration API for managing
+    workflows, flow runs, task runs, deployments, and work pools. When running Prefect server locally,
+    the API is available at http://localhost:4200/api and interactive documentation is served at the /docs
+    endpoint. The API can be fully described with an OpenAPI 3.0 compliant document generated from the
+    running server.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Open Source
+  - Orchestration
+  - REST API
+  - Self-Hosted
+  - Workflows
+  properties:
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://docs.prefect.io/latest/api-ref/rest-api-reference/
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: GitHubRepository
+    url: https://github.com/PrefectHQ/prefect
+- aid: prefect:prefect-python-sdk
+  name: Prefect Python SDK
+  description: >-
+    The Prefect Python SDK is used to build, test, and execute workflows against the Prefect API. It provides
+    decorators such as @flow and @task for defining workflows, along with programmatic interfaces for
+    deployments, scheduling, state management, concurrency, caching, and retries. The SDK requires Python
+    3.10 or higher and includes a PrefectClient class for direct interaction with the REST API.
+  humanURL: https://docs.prefect.io/v3/api-ref/python
+  tags:
+  - Orchestration
+  - Python
+  - SDK
+  - Workflows
+  properties:
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/python
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: GitHubRepository
+    url: https://github.com/PrefectHQ/prefect
+- aid: prefect:prefect-account-billing-api
+  name: Prefect Account Billing API
+  description: View and update account billing information.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Account Billing
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-account-billing-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-account-images-api
+  name: Prefect Account Images API
+  description: The Account Images API from Prefect — 1 operation(s) for account images.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Account Images
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-account-images-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-account-memberships-api
+  name: Prefect Account Memberships API
+  description: View and update user memberships to an Account.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Account Memberships
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-account-memberships-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-account-roles-api
+  name: Prefect Account Roles API
+  description: View and define user Roles within an Account.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Account Roles
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-account-roles-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-account-sso-api
+  name: Prefect Account SSO API
+  description: Set up an account.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Account SSO
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-account-sso-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-accounts-api
+  name: Prefect Accounts API
+  description: Interact with Prefect Cloud Accounts.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-ai-api
+  name: Prefect AI API
+  description: The AI API from Prefect — 1 operation(s) for ai.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - AI
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-ai-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-artifacts-api
+  name: Prefect Artifacts API
+  description: The Artifacts API from Prefect — 7 operation(s) for artifacts.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Artifacts
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-artifacts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-asset-publications-api
+  name: Prefect Asset Publications API
+  description: The Asset Publications API from Prefect — 1 operation(s) for asset publications.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Asset Publications
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-asset-publications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-asset-subscriptions-api
+  name: Prefect Asset Subscriptions API
+  description: The Asset Subscriptions API from Prefect — 1 operation(s) for asset subscriptions.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Asset Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-asset-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-assets-api
+  name: Prefect Assets API
+  description: The Assets API from Prefect — 11 operation(s) for assets.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-assets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-automations-api
+  name: Prefect Automations API
+  description: The Automations API from Prefect — 7 operation(s) for automations.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Automations
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-automations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-available-assets-api
+  name: Prefect Available Assets API
+  description: The Available Assets API from Prefect — 1 operation(s) for available assets.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Available Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-available-assets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-block-capabilities-api
+  name: Prefect Block capabilities API
+  description: The Block capabilities API from Prefect — 1 operation(s) for block capabilities.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Block capabilities
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-block-capabilities-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-block-documents-api
+  name: Prefect Block documents API
+  description: Interact with a Workspace's Blocks.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Block documents
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-block-documents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-block-schemas-api
+  name: Prefect Block schemas API
+  description: Interact with a Workspace's Block schemas.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Block schemas
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-block-schemas-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-block-types-api
+  name: Prefect Block types API
+  description: Interact with a Workspace's Block types.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Block types
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-block-types-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-bots-api
+  name: Prefect Bots API
+  description: Manage bots (service accounts) within an Account
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Bots
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-bots-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-collections-api
+  name: Prefect Collections API
+  description: The Collections API from Prefect — 2 operation(s) for collections.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-collections-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-concurrency-limits-api
+  name: Prefect Concurrency Limits API
+  description: Interact with a Workspace's Task Run Concurrency Limits.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Concurrency Limits
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-concurrency-limits-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-concurrency-limits-v2-api
+  name: Prefect Concurrency Limits V2 API
+  description: Interact with a Workspace's Global Concurrency Limits.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Concurrency Limits V2
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-concurrency-limits-v2-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-deployments-api
+  name: Prefect Deployments API
+  description: Interact with a Workspace's Deployments.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Deployments
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-deployments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-download-api
+  name: Prefect Download API
+  description: The Download API from Prefect — 3 operation(s) for download.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Download
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-download-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-event-publications-api
+  name: Prefect Event Publications API
+  description: The Event Publications API from Prefect — 3 operation(s) for event publications.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Event Publications
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-event-publications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-event-subscriptions-api
+  name: Prefect Event Subscriptions API
+  description: The Event Subscriptions API from Prefect — 2 operation(s) for event subscriptions.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Event Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-event-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-events-api
+  name: Prefect Events API
+  description: Interact with Prefect Observability
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-flow-run-states-api
+  name: Prefect Flow Run States API
+  description: Interact with a Workspace's Flow Run States.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Flow Run States
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-flow-run-states-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-flow-runs-api
+  name: Prefect Flow Runs API
+  description: Interact with a Workspace's Flow Runs.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Flow Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-flow-runs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-flows-api
+  name: Prefect Flows API
+  description: Interact with a Workspace's Flows.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Flows
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-flows-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-invitations-api
+  name: Prefect Invitations API
+  description: Manage account invitations.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Invitations
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-invitations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-logs-api
+  name: Prefect Logs API
+  description: Interact with a Workspace's Logs.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-logs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-managed-automations-api
+  name: Prefect Managed Automations API
+  description: The Managed Automations API from Prefect — 6 operation(s) for managed automations.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Managed Automations
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-managed-automations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-me-api
+  name: Prefect Me API
+  description: Inspect the current User.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Me
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-me-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-metrics-api
+  name: Prefect Metrics API
+  description: The Metrics API from Prefect — 6 operation(s) for metrics.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-pins-api
+  name: Prefect Pins API
+  description: The Pins API from Prefect — 3 operation(s) for pins.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Pins
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-pins-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-rate-limits-api
+  name: Prefect Rate Limits API
+  description: The Rate Limits API from Prefect — 7 operation(s) for rate limits.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Rate Limits
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-rate-limits-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-resources-api
+  name: Prefect Resources API
+  description: The Resources API from Prefect — 10 operation(s) for resources.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-resources-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-root-api
+  name: Prefect Root API
+  description: The Root API from Prefect — 1 operation(s) for root.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Root
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-root-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-savedsearches-api
+  name: Prefect SavedSearches API
+  description: Interact with a Workspace's Saved Searches.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - SavedSearches
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-savedsearches-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-schemas-api
+  name: Prefect Schemas API
+  description: The Schemas API from Prefect — 2 operation(s) for schemas.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Schemas
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-schemas-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-slas-api
+  name: Prefect SLAs API
+  description: The SLAs API from Prefect — 9 operation(s) for slas.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - SLAs
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-slas-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-spans-api
+  name: Prefect Spans API
+  description: The Spans API from Prefect — 9 operation(s) for spans.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Spans
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-spans-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-task-run-states-api
+  name: Prefect Task Run States API
+  description: Interact with a Workspace's Task Run States.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Task Run States
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-task-run-states-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-task-runs-api
+  name: Prefect Task Runs API
+  description: Interact with a Workspace's Task Runs.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Task Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-task-runs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-task-workers-api
+  name: Prefect Task Workers API
+  description: The Task Workers API from Prefect — 1 operation(s) for task workers.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Task Workers
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-task-workers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-teams-api
+  name: Prefect Teams API
+  description: The Teams API from Prefect — 5 operation(s) for teams.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-teams-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-ui-api
+  name: Prefect UI API
+  description: The UI API from Prefect — 10 operation(s) for ui.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - UI
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-ui-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-users-api
+  name: Prefect Users API
+  description: Interact with User objects, including creating API Keys.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-variables-api
+  name: Prefect Variables API
+  description: The Variables API from Prefect — 5 operation(s) for variables.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Variables
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-variables-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-webhooks-api
+  name: Prefect Webhooks API
+  description: The Webhooks API from Prefect — 4 operation(s) for webhooks.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-work-pools-api
+  name: Prefect Work Pools API
+  description: The Work Pools API from Prefect — 20 operation(s) for work pools.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Work Pools
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-work-pools-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-work-queues-api
+  name: Prefect Work Queues API
+  description: Interact with a Workspace's Work Queues.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Work Queues
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-work-queues-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-workspace-access-api
+  name: Prefect Workspace Access API
+  description: The Workspace Access API from Prefect — 1 operation(s) for workspace access.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Workspace Access
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-workspace-access-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-workspace-bot-access-api
+  name: Prefect Workspace Bot Access API
+  description: The Workspace Bot Access API from Prefect — 3 operation(s) for workspace bot access.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Workspace Bot Access
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-workspace-bot-access-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-workspace-invitations-api
+  name: Prefect Workspace Invitations API
+  description: Manage workspace invitations.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Workspace Invitations
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-workspace-invitations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-workspace-rate-limit-allocations-api
+  name: Prefect Workspace Rate Limit Allocations API
+  description: >-
+    The Workspace Rate Limit Allocations API from Prefect — 1 operation(s) for workspace rate limit allocations.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Workspace Rate Limit Allocations
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-workspace-rate-limit-allocations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-workspace-roles-api
+  name: Prefect Workspace Roles API
+  description: View and define Roles within a Workspace.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Workspace Roles
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-workspace-roles-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-workspace-scopes-api
+  name: Prefect Workspace Scopes API
+  description: View available workspace scopes.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Workspace Scopes
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-workspace-scopes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-workspace-team-access-api
+  name: Prefect Workspace Team Access API
+  description: The Workspace Team Access API from Prefect — 3 operation(s) for workspace team access.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Workspace Team Access
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-workspace-team-access-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-workspace-user-access-api
+  name: Prefect Workspace User Access API
+  description: Manage users' access to a Workspace.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Workspace User Access
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-workspace-user-access-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
+- aid: prefect:prefect-workspaces-api
+  name: Prefect Workspaces API
+  description: Interact with Prefect Cloud Workspaces.
+  humanURL: https://docs.prefect.io/v3/api-ref/rest-api
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/prefect-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://docs.prefect.io/v3/api-ref/rest-api
+  - type: APIReference
+    url: https://app.prefect.cloud/api/docs
+  - type: Authentication
+    url: https://docs.prefect.io/v3/manage/cloud/manage-users/api-keys
+  - type: GettingStarted
+    url: https://docs.prefect.io/v3/get-started/quickstart
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/prefect/refs/heads/main/asyncapi.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
