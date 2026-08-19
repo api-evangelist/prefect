@@ -1,0 +1,1641 @@
+{
+  "item": [
+    {
+      "id": "7d824e10-dd51-40b3-adad-48bdc24f49ec",
+      "name": "Accounts",
+      "description": {
+        "content": "Interact with Prefect Cloud Accounts.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2522b49a-c91e-424b-9b23-256a67ddafe9",
+          "name": "List Permissions",
+          "request": {
+            "name": "List Permissions",
+            "description": {
+              "content": "List account permissions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                "permissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21b9e3af-c707-415b-9033-f662764f5a3b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    "permissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"update:team\",\n  \"update:account_role\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e313aef-438b-4ec8-a240-c79dae064092",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    "permissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "057d7b15-035c-48b2-a295-5a8fdadf5d87",
+          "name": "Read Account",
+          "request": {
+            "name": "Read Account",
+            "description": {
+              "content": "Get an account by id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c1db7d9f-cecd-4a8d-90bd-ea5aaa647999",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"handle\": \"string\",\n  \"plan_type\": \"PERSONAL\",\n  \"scim_state\": \"DISABLED\",\n  \"sso_state\": \"DISABLED\",\n  \"work_pool_limit\": 4886,\n  \"mex_work_pool_limit\": 3646,\n  \"run_retention_days\": 896,\n  \"audit_log_retention_days\": 6807,\n  \"automations_limit\": 7182,\n  \"location\": \"string\",\n  \"link\": \"string\",\n  \"image_location\": \"string\",\n  \"stripe_customer_id\": \"string\",\n  \"auth_expiration_seconds\": 1566,\n  \"status_last_updated\": \"2000-07-04T00:49:41.249Z\",\n  \"id\": \"ecde3af3-66da-727c-a345-0ff3596aa2e8\",\n  \"created\": \"1977-02-05T18:41:48.682Z\",\n  \"updated\": \"2003-12-21T11:40:50.546Z\",\n  \"settings\": {\n    \"allow_public_workspaces\": false,\n    \"ai_log_summaries\": false,\n    \"managed_execution\": true,\n    \"enforce_ip_allowlist\": false,\n    \"enforce_webhook_authentication\": false,\n    \"self_healing_enabled\": false,\n    \"enabled_feature_flags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"default_result_storage\": {\n      \"block_type\": {\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"logo_url\": \"string\",\n        \"documentation_url\": \"string\",\n        \"description\": \"string\",\n        \"code_example\": \"string\"\n      },\n      \"block_schema\": {\n        \"checksum\": \"string\",\n        \"fields\": {\n          \"key_0\": true,\n          \"key_1\": 945.6982719248585\n        },\n        \"capabilities\": [\n          \"string\",\n          \"string\"\n        ],\n        \"version\": \"non-versioned\"\n      },\n      \"data\": {\n        \"key_0\": \"string\"\n      },\n      \"block_document_references\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Output detected>\"\n        }\n      }\n    }\n  },\n  \"status\": \"ACTIVE\",\n  \"workos_connection_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"workos_directory_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"workos_organization_id\": \"string\",\n  \"plan_tier\": \"STARTER\",\n  \"self_serve\": false,\n  \"billing_email\": \"string\",\n  \"features\": [\n    \"string\"\n  ],\n  \"max_deployments_per_workspace\": 661,\n  \"non_mex_work_pool_limit\": 1666\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3645cb27-e5b9-4e24-8a53-9a9104307a86",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9052e09-52a5-43bc-be14-51af6ef0ac1e",
+          "name": "Update Account",
+          "request": {
+            "name": "Update Account",
+            "description": {
+              "content": "Update an account by id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"handle\": \"<string>\",\n  \"location\": \"<string>\",\n  \"link\": \"<string>\",\n  \"workos_directory_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"workos_organization_id\": \"<string>\",\n  \"workos_connection_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"auth_expiration_seconds\": \"<integer>\",\n  \"settings\": {\n    \"allow_public_workspaces\": false,\n    \"ai_log_summaries\": false,\n    \"managed_execution\": true,\n    \"enforce_ip_allowlist\": false,\n    \"enforce_webhook_authentication\": false,\n    \"self_healing_enabled\": false,\n    \"enabled_feature_flags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"default_result_storage\": {\n      \"block_type\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"logo_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"documentation_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"code_example\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"block_schema\": {\n        \"checksum\": \"<string>\",\n        \"fields\": {\n          \"key_0\": 7334.592218173345,\n          \"key_1\": \"string\",\n          \"key_2\": true\n        },\n        \"capabilities\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"version\": \"non-versioned\"\n      },\n      \"data\": {\n        \"key_0\": 9680.68896840281\n      },\n      \"block_document_references\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n        },\n        \"key_2\": {\n          \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n        }\n      }\n    }\n  },\n  \"billing_email\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c46d5ed0-1d39-4c34-916c-fa22e47343b6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"handle\": \"<string>\",\n  \"location\": \"<string>\",\n  \"link\": \"<string>\",\n  \"workos_directory_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"workos_organization_id\": \"<string>\",\n  \"workos_connection_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"auth_expiration_seconds\": \"<integer>\",\n  \"settings\": {\n    \"allow_public_workspaces\": false,\n    \"ai_log_summaries\": false,\n    \"managed_execution\": true,\n    \"enforce_ip_allowlist\": false,\n    \"enforce_webhook_authentication\": false,\n    \"self_healing_enabled\": false,\n    \"enabled_feature_flags\": [\n      \"string\"\n    ],\n    \"default_result_storage\": {\n      \"block_type\": {\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"logo_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"documentation_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"code_example\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"block_schema\": {\n        \"checksum\": \"string\",\n        \"fields\": {\n          \"key_0\": 8853,\n          \"key_1\": 8469,\n          \"key_2\": false,\n          \"key_3\": 2876.5878494233752,\n          \"key_4\": \"string\"\n        },\n        \"capabilities\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"version\": \"non-versioned\"\n      },\n      \"data\": {\n        \"key_0\": 6519\n      },\n      \"block_document_references\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n        }\n      }\n    }\n  },\n  \"billing_email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "791d72d6-4474-42ea-b2d9-709108de5928",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"handle\": \"<string>\",\n  \"location\": \"<string>\",\n  \"link\": \"<string>\",\n  \"workos_directory_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"workos_organization_id\": \"<string>\",\n  \"workos_connection_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"auth_expiration_seconds\": \"<integer>\",\n  \"settings\": {\n    \"allow_public_workspaces\": false,\n    \"ai_log_summaries\": false,\n    \"managed_execution\": true,\n    \"enforce_ip_allowlist\": false,\n    \"enforce_webhook_authentication\": false,\n    \"self_healing_enabled\": false,\n    \"enabled_feature_flags\": [\n      \"string\"\n    ],\n    \"default_result_storage\": {\n      \"block_type\": {\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"logo_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"documentation_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"code_example\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"block_schema\": {\n        \"checksum\": \"string\",\n        \"fields\": {\n          \"key_0\": 8853,\n          \"key_1\": 8469,\n          \"key_2\": false,\n          \"key_3\": 2876.5878494233752,\n          \"key_4\": \"string\"\n        },\n        \"capabilities\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"version\": \"non-versioned\"\n      },\n      \"data\": {\n        \"key_0\": 6519\n      },\n      \"block_document_references\": {\n        \"key_0\": {\n          \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n        }\n      }\n    }\n  },\n  \"billing_email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35c128b5-9376-4d5f-819f-5779ea8d74f8",
+          "name": "Delete Account",
+          "request": {
+            "name": "Delete Account",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ed65fbb1-052f-40e1-80de-0d0f58c7d804",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8ba0e9fa-ad24-4264-a68e-f2439165f71c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a352a48-7426-4b2e-9fe9-27240fa7a55e",
+          "name": "Read Account Settings",
+          "request": {
+            "name": "Read Account Settings",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19ff71db-db20-4949-ac2c-b2dc6cf892c4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5898536a-1e31-4f1d-b036-18a47633c9a1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16356a2c-3530-407b-a7f9-9e6ded68c333",
+          "name": "Update Account Settings",
+          "request": {
+            "name": "Update Account Settings",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allow_public_workspaces\": \"<boolean>\",\n  \"ai_log_summaries\": \"<boolean>\",\n  \"managed_execution\": \"<boolean>\",\n  \"enforce_ip_allowlist\": \"<boolean>\",\n  \"enforce_webhook_authentication\": \"<boolean>\",\n  \"self_healing_enabled\": \"<boolean>\",\n  \"default_result_storage\": {\n    \"block_type\": {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"logo_url\": \"<string>\",\n      \"documentation_url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"code_example\": \"<string>\"\n    },\n    \"block_schema\": {\n      \"checksum\": \"<string>\",\n      \"fields\": {\n        \"key_0\": 4897,\n        \"key_1\": 2895,\n        \"key_2\": \"string\"\n      },\n      \"capabilities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"version\": \"non-versioned\"\n    },\n    \"data\": {\n      \"key_0\": 6669,\n      \"key_1\": 4738\n    },\n    \"block_document_references\": {\n      \"key_0\": {\n        \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n      },\n      \"key_1\": {\n        \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c39d04e0-341d-4e27-804e-ca314d7404d2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allow_public_workspaces\": \"<boolean>\",\n  \"ai_log_summaries\": \"<boolean>\",\n  \"managed_execution\": \"<boolean>\",\n  \"enforce_ip_allowlist\": \"<boolean>\",\n  \"enforce_webhook_authentication\": \"<boolean>\",\n  \"self_healing_enabled\": \"<boolean>\",\n  \"default_result_storage\": {\n    \"block_type\": {\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"logo_url\": \"string\",\n      \"documentation_url\": \"string\",\n      \"description\": \"string\",\n      \"code_example\": \"string\"\n    },\n    \"block_schema\": {\n      \"checksum\": \"string\",\n      \"fields\": {\n        \"key_0\": 3116,\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"capabilities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"version\": \"non-versioned\"\n    },\n    \"data\": {\n      \"key_0\": false\n    },\n    \"block_document_references\": {\n      \"key_0\": {\n        \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n      },\n      \"key_1\": {\n        \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f91814cc-4417-4ff1-8e34-6e66fa1deb25",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allow_public_workspaces\": \"<boolean>\",\n  \"ai_log_summaries\": \"<boolean>\",\n  \"managed_execution\": \"<boolean>\",\n  \"enforce_ip_allowlist\": \"<boolean>\",\n  \"enforce_webhook_authentication\": \"<boolean>\",\n  \"self_healing_enabled\": \"<boolean>\",\n  \"default_result_storage\": {\n    \"block_type\": {\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"logo_url\": \"string\",\n      \"documentation_url\": \"string\",\n      \"description\": \"string\",\n      \"code_example\": \"string\"\n    },\n    \"block_schema\": {\n      \"checksum\": \"string\",\n      \"fields\": {\n        \"key_0\": 3116,\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"capabilities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"version\": \"non-versioned\"\n    },\n    \"data\": {\n      \"key_0\": false\n    },\n    \"block_document_references\": {\n      \"key_0\": {\n        \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n      },\n      \"key_1\": {\n        \"value\": \"<Circular reference to #/components/schemas/AccountDefaultResultStorage-Input detected>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fd55c865-15c7-4f08-bcb3-d3a6b5b759c4",
+          "name": "Read Account Domains",
+          "request": {
+            "name": "Read Account Domains",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "domains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be730312-8849-4c65-9503-b4a88386f1d1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2563f11a-7a3d-428c-a351-1139419a524c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d36d21b4-1b33-4311-b850-cb8dc9c21555",
+          "name": "Update Account Domains",
+          "request": {
+            "name": "Update Account Domains",
+            "description": {
+              "content": "Update an account's associated domains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "domains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"domain_names\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aa1b4eec-babe-4291-9189-25ae576bea76",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domain_names\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1175fc46-55a1-4a95-8312-2be6a6ce161f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domain_names\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2629584e-5b3a-48f9-a111-be3616fcbd11",
+          "name": "Read Account Usage Limits",
+          "request": {
+            "name": "Read Account Usage Limits",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "usage_limits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "727c1dfb-34b1-42eb-96cf-2ae459b9e1f2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "usage_limits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"audit_log_retention_days\": 6476,\n  \"automations_limit\": 7957,\n  \"log_rate_limit\": 8412,\n  \"max_deployments_per_workspace\": 3896,\n  \"mex_compute_limit\": 1689,\n  \"mex_concurrency_limit\": 2755,\n  \"mex_work_pool_limit\": 1911,\n  \"orchestration_rate_limit\": 9063,\n  \"run_retention_days\": 3206,\n  \"user_limit\": 405.5887003898739,\n  \"work_pool_limit\": 2587,\n  \"workspace_limit\": 2049.9610236487497,\n  \"non_mex_work_pool_limit\": 7343,\n  \"free_user_slots\": 2199\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71a46887-72b1-4ffa-9a6a-e7dd6ffdcc65",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "usage_limits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "584f29d4-4335-4ae0-b17e-7b34b16ee9cd",
+          "name": "Read Account Usage",
+          "request": {
+            "name": "Read Account Usage",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "762c748c-ee67-44e4-a336-2334d2044501",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"a3b81abc-dad4-e000-5149-744789deadf2\",\n    \"name\": \"string\",\n    \"automations\": 6299,\n    \"deployments\": 8394,\n    \"mex_compute\": 1484,\n    \"work_pools\": 8750,\n    \"non_managed_work_pools\": 9864,\n    \"managed_work_pools\": 524\n  },\n  {\n    \"id\": \"7e582d93-803a-8066-47a0-80d56112cc81\",\n    \"name\": \"string\",\n    \"automations\": 1427,\n    \"deployments\": 434,\n    \"mex_compute\": 3780,\n    \"work_pools\": 5315,\n    \"non_managed_work_pools\": 258,\n    \"managed_work_pools\": 8429\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94bca498-3ca3-4ecc-94fb-3f927cd58100",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "355ef66d-5235-4687-b80c-13a245685459",
+          "name": "Validate Template",
+          "request": {
+            "name": "Validate Template",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "templates",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "500f70b9-3817-4562-b7da-8cffb1bdc8b9",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "templates",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1c636892-4739-42f2-a45e-d0542a689459",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "templates",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c782703-1693-4ed0-869b-0c3e67a152aa",
+          "name": "Health Check",
+          "request": {
+            "name": "Health Check",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e996f9a-eacb-469f-b845-bf7553ea7be8",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "04ce225c-b530-4980-8bbd-3d1ff181d34e",
+    "name": "Prefect Cloud Account Billing Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Prefect Cloud REST API documentation.",
+      "type": "text/plain"
+    }
+  }
+}

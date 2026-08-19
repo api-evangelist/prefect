@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Task Run States API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Task Run States",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Task Run State",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/task_run_states/:id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The task run state id"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a task run state by id.\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Read Task Run States",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/task_run_states/",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "task_run_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get states associated with a task run.\n\nRequired workspace scopes: `see_flows`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

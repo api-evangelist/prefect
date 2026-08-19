@@ -1,0 +1,176 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Invitations API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invitations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/invitations/",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite user(s) to an account.\nAny PENDING invitations for the same user to the account will be revoked.\n\nRequired account permissions: `create:invitation`"
+        },
+        {
+          "info": {
+            "name": "Read Invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/invitations/:id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an invitation by id\n\nRequired account permissions: `read:invitation`"
+        },
+        {
+          "info": {
+            "name": "Read Invitations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/invitations/filter",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query for invitations\n\nRequired account permissions: `read:invitation`"
+        },
+        {
+          "info": {
+            "name": "Count Invitations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/invitations/count",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query for invitations count\n\nRequired account permissions: `read:invitation`"
+        },
+        {
+          "info": {
+            "name": "Revoke Invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/invitations/:id/revoke",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an invitation by id\n\nRequired account permissions: `update:invitation`"
+        },
+        {
+          "info": {
+            "name": "Accept Invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/invitations/:id/accept",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "invite_code",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Accept an invitation"
+        },
+        {
+          "info": {
+            "name": "Reject Invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/invitations/:id/reject",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "invite_code",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Reject an invitation"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

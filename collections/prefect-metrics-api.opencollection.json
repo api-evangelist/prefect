@@ -1,0 +1,249 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Metrics API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Prefect Metric Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/ui/metrics/prefect/:metric/timeseries",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "metric",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Read Prefect Metric Timeseries"
+        },
+        {
+          "info": {
+            "name": "Read Prefect Metric Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/ui/metrics/prefect/:metric",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "metric",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Read Prefect Metric Timeseries"
+        },
+        {
+          "info": {
+            "name": "Read Prefect Metric Grouped",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/ui/metrics/prefect/:metric/grouped",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "metric",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Read Prefect Metric Grouped"
+        },
+        {
+          "info": {
+            "name": "Read Flow Run Resource Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/metrics/flow-runs/:flow_run_id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flow_run_id",
+                "value": "",
+                "type": "path",
+                "description": "The flow run ID"
+              },
+              {
+                "name": "metric_names",
+                "value": "",
+                "type": "query",
+                "description": "Filter to specific metric names"
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Start of time range filter"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "End of time range filter"
+              }
+            ]
+          },
+          "docs": "Get resource metrics (CPU, memory, etc.) for a specific flow run.\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Read Deployment Resource Peaks Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/metrics/deployments/:deployment_id/resource-peaks",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment ID"
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Start of time range filter"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "End of time range filter"
+              }
+            ]
+          },
+          "docs": "Get peak resource metrics across all flow runs for a deployment.\n\nRequired workspace scopes: `see_deployments`"
+        },
+        {
+          "info": {
+            "name": "List Available Flow Run Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/metrics/flow-runs/:flow_run_id/names",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flow_run_id",
+                "value": "",
+                "type": "path",
+                "description": "The flow run ID"
+              }
+            ]
+          },
+          "docs": "List the distinct metric names available for a flow run.\n\nRequired workspace scopes: `see_flows`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

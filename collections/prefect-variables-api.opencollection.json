@@ -1,0 +1,329 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Variables API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Variables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/variables/",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `write_variables`"
+        },
+        {
+          "info": {
+            "name": "Read Variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/variables/:id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nRequired workspace scopes: `see_variables`"
+        },
+        {
+          "info": {
+            "name": "Update Variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/variables/:id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `write_variables`"
+        },
+        {
+          "info": {
+            "name": "Delete Variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/variables/:id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nRequired workspace scopes: `manage_variables`"
+        },
+        {
+          "info": {
+            "name": "Read Variable By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/variables/name/:name",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nRequired workspace scopes: `see_variables`"
+        },
+        {
+          "info": {
+            "name": "Update Variable By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/variables/name/:name",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `write_variables`"
+        },
+        {
+          "info": {
+            "name": "Delete Variable By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/variables/name/:name",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nRequired workspace scopes: `manage_variables`"
+        },
+        {
+          "info": {
+            "name": "Read Variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/variables/filter",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `see_variables`"
+        },
+        {
+          "info": {
+            "name": "Count Variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/variables/count",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `see_variables`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

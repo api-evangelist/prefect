@@ -1,0 +1,1200 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Deployments API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deployments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `write_deployments`"
+        },
+        {
+          "info": {
+            "name": "Branch From Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/branch",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `write_deployments`"
+        },
+        {
+          "info": {
+            "name": "Read Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a deployment by id.\n\nRequired workspace scopes: `see_deployments`"
+        },
+        {
+          "info": {
+            "name": "Update Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `write_deployments`"
+        },
+        {
+          "info": {
+            "name": "Delete Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a deployment by id.\n\nRequired workspace scopes: `manage_deployments`"
+        },
+        {
+          "info": {
+            "name": "Read Deployment By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/name/:flow_name/:deployment_name",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flow_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the flow"
+              },
+              {
+                "name": "deployment_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the deployment"
+              }
+            ]
+          },
+          "docs": "Get a deployment using the name of the flow and the deployment.\n\nRequired workspace scopes: `see_deployments`"
+        },
+        {
+          "info": {
+            "name": "Read Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/filter",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `see_deployments`"
+        },
+        {
+          "info": {
+            "name": "Paginate Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/paginate",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pagination query for deployments.\n\nRequired workspace scopes: `see_deployments`"
+        },
+        {
+          "info": {
+            "name": "Get Scheduled Flow Runs For Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/get_scheduled_flow_runs",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get scheduled runs for a set of deployments. Used by a runner to poll for work.\n\nRequired workspace scopes: `see_deployments`"
+        },
+        {
+          "info": {
+            "name": "Count Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/count",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Count deployments.\n\nRequired workspace scopes: `see_deployments`"
+        },
+        {
+          "info": {
+            "name": "Bulk Delete Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/bulk_delete",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk delete deployments using a filter.\n\nThis endpoint deletes deployments matching the provided filter criteria.\nDeployments are deleted immediately so they disappear from the UI.\nAssociated automations are cleaned up asynchronously in the background.\n\nIf ANY deployment in the filter is unauthorized, the entire request fails\nand nothing is deleted.\n\nRequired workspace scopes: `manage_deployments`"
+        },
+        {
+          "info": {
+            "name": "Schedule Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/schedule",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedule runs for a deployment. For backfills, provide start/end times in the past.\n\nThis function will generate the minimum number of runs that satisfy the min\nand max times, and the min and max counts. Specifically, the following order\nwill be respected.\n\n    - Runs will be generated starting on or after the `start_time`\n    - No more than `max_runs` runs will be generated\n    - No runs will be generated after `end_time` is reached\n    - At least `min_runs` runs will be generated\n    - Runs wi"
+        },
+        {
+          "info": {
+            "name": "Resume Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/resume_deployment",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resume the deployment. Runs will be scheduled immediately.\n\nRequired workspace scopes: `write_deployments`"
+        },
+        {
+          "info": {
+            "name": "Resume Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/set_schedule_active",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resume the deployment. Runs will be scheduled immediately.\n\nRequired workspace scopes: `write_deployments`"
+        },
+        {
+          "info": {
+            "name": "Pause Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/pause_deployment",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Set a deployment schedule to inactive. Any auto-scheduled runs still in a Scheduled\nstate will be deleted.\n\nRequired workspace scopes: `write_deployments`"
+        },
+        {
+          "info": {
+            "name": "Pause Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/set_schedule_inactive",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Set a deployment schedule to inactive. Any auto-scheduled runs still in a Scheduled\nstate will be deleted.\n\nRequired workspace scopes: `write_deployments`"
+        },
+        {
+          "info": {
+            "name": "Create Flow Run From Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/create_flow_run",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a flow run from a deployment.\n\nAny parameters not provided will be inferred from the deployment's parameters.\nIf tags are not provided, the deployment's tags will be used.\n\nIf no state is provided, the flow run will be created in a SCHEDULED state with\na scheduled start time of NOW.\n\nRequired workspace scopes: `run_deployments`"
+        },
+        {
+          "info": {
+            "name": "Bulk Create Flow Runs From Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/create_flow_run/bulk",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create multiple flow runs from a deployment in a single request.\n\nEach item in the list uses the same schema as the single create endpoint.\nResults are returned in the same order as the input list.\n\nRequired workspace scopes: `run_deployments`"
+        },
+        {
+          "info": {
+            "name": "Read Deployment Access",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/access",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Read access controls for a deployment.\n\nRequired workspace scopes: `see_deployments`"
+        },
+        {
+          "info": {
+            "name": "Set Deployment Access",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/access",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set access controls for a deployment.\nThe given access controls will replace any existing access controls.\n\nRequired workspace scopes: `manage_deployments`"
+        },
+        {
+          "info": {
+            "name": "Read Actors Deployment Access",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/my-access",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Read access controls for a set of deployments and return the resolved\naccess levels for the current actor.\n\nRequired workspace scopes: `see_deployments`"
+        },
+        {
+          "info": {
+            "name": "Work Queue Check For Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/work_queue_check",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get list of work-queues that are able to pick up the specified deployment.\n\nThis endpoint is intended to be used by the UI to provide users warnings\nabout deployments that are unable to be executed because there are no work\nqueues that will pick up their runs, based on existing filter criteria. It\nmay be deprecated in the future because there is not a strict relationship\nbetween work queues and deployments."
+        },
+        {
+          "info": {
+            "name": "Read Deployment Schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/schedules",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nRequired workspace scopes: `see_deployments`"
+        },
+        {
+          "info": {
+            "name": "Create Deployment Schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/schedules",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `write_deployments`"
+        },
+        {
+          "info": {
+            "name": "Update Deployment Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/schedules/:schedule_id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "schedule_id",
+                "value": "",
+                "type": "path",
+                "description": "The schedule id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `write_deployments`"
+        },
+        {
+          "info": {
+            "name": "Delete Deployment Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/schedules/:schedule_id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "schedule_id",
+                "value": "",
+                "type": "path",
+                "description": "The schedule id"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nRequired workspace scopes: `write_deployments`"
+        },
+        {
+          "info": {
+            "name": "Disable Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/disable",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Set a deployment to disabled. Any auto-scheduled runs still in a Scheduled state will be deleted. No new flow runs can be created until the deployment is enabled.\n\nRequired workspace scopes: `write_deployments`"
+        },
+        {
+          "info": {
+            "name": "Enable Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/enable",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              }
+            ]
+          },
+          "docs": "Resume the deployment. Runs will be scheduled immediately.\n\nRequired workspace scopes: `write_deployments`"
+        },
+        {
+          "info": {
+            "name": "Paginate Deployment Versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/versions/paginate",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `see_deployments`"
+        },
+        {
+          "info": {
+            "name": "Read Deployment Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/versions/:version_id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The version id"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nRequired workspace scopes: `see_deployments`"
+        },
+        {
+          "info": {
+            "name": "Delete Deployment Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/versions/:version_id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The version id"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nRequired workspace scopes: `manage_deployments`"
+        },
+        {
+          "info": {
+            "name": "Promote Deployment Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/deployments/:id/versions/:version_id/promote",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment id"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "The version id"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired workspace scopes: `manage_deployments`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

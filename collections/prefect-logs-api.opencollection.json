@@ -1,0 +1,326 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Logs API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/logs/",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create new logs from the provided schema.\n\nRequired workspace scopes: `run_flows`"
+        },
+        {
+          "info": {
+            "name": "Read Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/logs/filter",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query for logs.\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Get Flow Run Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/flow_runs/:id/logs",
+            "headers": [
+              {
+                "name": "if-none-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "level_ge",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "level_le",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Only include logs with a timestamp at or after this time"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "Only include logs with a timestamp at or before this time"
+              },
+              {
+                "name": "task_runs",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of task run IDs to filter by"
+              },
+              {
+                "name": "task_runs_is_null",
+                "value": "",
+                "type": "query",
+                "description": "If true, only include logs without a task run ID"
+              },
+              {
+                "name": "loggers",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of logger names to filter by"
+              },
+              {
+                "name": "text_query",
+                "value": "",
+                "type": "query",
+                "description": "Text search query string"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided."
+              }
+            ]
+          },
+          "docs": "Returns a page of logs for a flow run\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Download Flow Run Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/flow_runs/:id/download-logs-csv",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The flow run id"
+              }
+            ]
+          },
+          "docs": "Download all flow run logs as a CSV file, collecting all logs until there are no more logs to retrieve.\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Download Flow Run Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/flow_runs/:id/logs/download",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The flow run id"
+              }
+            ]
+          },
+          "docs": "Download all flow run logs as a CSV file, collecting all logs until there are no more logs to retrieve.\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Read Trace Observed Loggers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/traces/:trace_id/observed-loggers",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "trace_id",
+                "value": "",
+                "type": "path",
+                "description": "The trace ID to query observed loggers for"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Prefix search query for logger names"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Order results by name (alphabetically) or recency (most recently seen first)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              }
+            ]
+          },
+          "docs": "Get observed logger names used in a specific trace.\n\nReturns distinct logger names used in the trace with their usage counts\nand first/last seen timestamps. Useful for showing what loggers were\nactive in a flow run and providing autocomplete/filtering options.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID to analyze\n    query: Optional prefix search on logger name\n    order_by: Order by name (alphabetically) or recency (most recent first)\n    limit: Maximum numb"
+        },
+        {
+          "info": {
+            "name": "Read Workspace Observed Loggers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/observed-loggers",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Prefix search query for logger names"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Order results by name (alphabetically) or recency (most recently seen first)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              }
+            ]
+          },
+          "docs": "Get observed logger names for a workspace.\n\nReturns distinct logger names across all traces in the workspace.\nResults are filtered by workspace retention policy.\nUseful for providing autocomplete/filtering options in the UI.\n\nArgs:\n    account_id: The account ID\n    workspace_id: The workspace ID\n    query: Optional prefix search on logger name\n    order_by: Order by name (alphabetically) or recency (most recent first)\n    limit: Maximum number of results\n\nReturns:\n    List of ObservedLogger obj"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

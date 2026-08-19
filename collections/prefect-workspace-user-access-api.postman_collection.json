@@ -1,0 +1,798 @@
+{
+  "item": [
+    {
+      "id": "372b58f8-61cb-411b-8d10-a9c860ed9293",
+      "name": "Workspace User Access",
+      "description": {
+        "content": "Manage users' access to a Workspace.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1b80e8b9-0119-486a-bcae-8e2668d48979",
+          "name": "Upsert Workspace User Access",
+          "request": {
+            "name": "Upsert Workspace User Access",
+            "description": {
+              "content": "Upsert a workspace user access\n\nRequired workspace scopes: `manage_workspace_users`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "user_access",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"<uuid>\",\n  \"workspace_role_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9e97dd99-cbb4-4031-879b-ac33984e50a2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "user_access",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_id\": \"d717bcae-52d3-fc66-e59d-a102bf3f9e42\",\n  \"workspace_role_id\": \"a0e8b371-5a84-23b7-203c-1620f58c1692\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workspace_id\": \"6856bd7e-74d1-d750-b3bf-c8f4977cd3f8\",\n  \"workspace_role_id\": \"ab8cb4dc-46d5-4fb4-b25d-10cf9b99c174\",\n  \"actor_id\": \"14ff39c4-2ac4-c14e-894f-40f7428a980d\",\n  \"user_id\": \"6b47661a-d416-dcbb-080e-c1b545d128dd\",\n  \"first_name\": \"string\",\n  \"last_name\": \"string\",\n  \"email\": \"string\",\n  \"handle\": \"string\",\n  \"id\": \"3915f599-fdea-fb45-21b3-395eb2d0f868\",\n  \"created\": \"2002-06-03T02:25:05.891Z\",\n  \"updated\": \"2001-05-06T09:49:17.063Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1de490dc-78db-46ff-aa01-09af10bddaf4",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "user_access",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_id\": \"d717bcae-52d3-fc66-e59d-a102bf3f9e42\",\n  \"workspace_role_id\": \"a0e8b371-5a84-23b7-203c-1620f58c1692\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5cac8828-ad20-4bde-a31f-239715d90044",
+          "name": "Read Workspace User Accesses",
+          "request": {
+            "name": "Read Workspace User Accesses",
+            "description": {
+              "content": "Query for workspace user accesses\n\nRequired workspace scopes: `see_workspace_users`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "user_access",
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"limit\": 200,\n  \"offset\": 0,\n  \"workspace_accesses\": {\n    \"workspace_role_id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"actor_id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  },\n  \"users\": {\n    \"id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ],\n      \"not_any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"email\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"like_\": \"<string>\"\n    },\n    \"handle\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"like_\": \"<string>\"\n    },\n    \"name\": {\n      \"like_\": \"<string>\"\n    }\n  },\n  \"sort\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e8e98f46-cae7-4f21-8bc6-7a411469aa2d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "user_access",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"limit\": 200,\n  \"offset\": 0,\n  \"workspace_accesses\": {\n    \"workspace_role_id\": {\n      \"any_\": [\n        \"9bb85330-88ae-f8d7-5487-1b713a1bd7ee\",\n        \"4f606a84-0093-209d-201d-380fccf40a14\"\n      ]\n    },\n    \"actor_id\": {\n      \"any_\": [\n        \"bda8bdba-2f7a-5319-66eb-92f0fa77e620\",\n        \"b070252c-356c-7d0a-c065-2bf80a445fe6\"\n      ]\n    }\n  },\n  \"users\": {\n    \"id\": {\n      \"any_\": [\n        \"e47a6de6-c08b-71ae-7fe1-0e86bf9e846b\",\n        \"a98bc799-45ac-6ffa-f713-6c59de6bedb8\"\n      ],\n      \"not_any_\": [\n        \"bc15910f-eb26-c9da-ceca-8cf78ce0d8dd\",\n        \"0b4c963c-e2eb-4fbe-20e5-643c0c5d2d1e\"\n      ]\n    },\n    \"email\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    },\n    \"handle\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    },\n    \"name\": {\n      \"like_\": \"string\"\n    }\n  },\n  \"sort\": \"EMAIL_DESC\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"workspace_id\": \"d9c429c8-7ebf-7ea0-0c61-a1a2c0c57cb7\",\n    \"workspace_role_id\": \"b8d71fa5-bbed-116d-2a70-93bb18c3517c\",\n    \"actor_id\": \"8d900e4b-afa4-0f7b-dbd3-da23dd81b857\",\n    \"user_id\": \"86126481-b54a-4cf6-a786-57d96a19107a\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"handle\": \"string\",\n    \"id\": \"30217ec9-b1b4-645a-c3e2-8126ddae1296\",\n    \"created\": \"2019-11-07T16:17:43.533Z\",\n    \"updated\": \"1985-06-18T05:47:19.255Z\"\n  },\n  {\n    \"workspace_id\": \"9966c69f-02c6-4b3c-b24c-21995eef1f0a\",\n    \"workspace_role_id\": \"466cb7e5-3a94-22d6-0928-bceaf4469b5d\",\n    \"actor_id\": \"28149d0a-4dea-6085-e846-878e3362e256\",\n    \"user_id\": \"d7ecd6c2-4a3e-65ee-9ff9-202b6f0fb1f6\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"handle\": \"string\",\n    \"id\": \"9f4f8f04-57c1-60a2-771f-d290861a4d8e\",\n    \"created\": \"2006-08-04T09:48:52.089Z\",\n    \"updated\": \"1966-12-01T20:09:43.080Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4f43c29-7c2d-4de1-b00b-d86e02049e55",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "user_access",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"limit\": 200,\n  \"offset\": 0,\n  \"workspace_accesses\": {\n    \"workspace_role_id\": {\n      \"any_\": [\n        \"9bb85330-88ae-f8d7-5487-1b713a1bd7ee\",\n        \"4f606a84-0093-209d-201d-380fccf40a14\"\n      ]\n    },\n    \"actor_id\": {\n      \"any_\": [\n        \"bda8bdba-2f7a-5319-66eb-92f0fa77e620\",\n        \"b070252c-356c-7d0a-c065-2bf80a445fe6\"\n      ]\n    }\n  },\n  \"users\": {\n    \"id\": {\n      \"any_\": [\n        \"e47a6de6-c08b-71ae-7fe1-0e86bf9e846b\",\n        \"a98bc799-45ac-6ffa-f713-6c59de6bedb8\"\n      ],\n      \"not_any_\": [\n        \"bc15910f-eb26-c9da-ceca-8cf78ce0d8dd\",\n        \"0b4c963c-e2eb-4fbe-20e5-643c0c5d2d1e\"\n      ]\n    },\n    \"email\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    },\n    \"handle\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    },\n    \"name\": {\n      \"like_\": \"string\"\n    }\n  },\n  \"sort\": \"EMAIL_DESC\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e2e8993-768e-4e66-aea7-3e80367ee46f",
+          "name": "Read Workspace User Access",
+          "request": {
+            "name": "Read Workspace User Access",
+            "description": {
+              "content": "Read a workspace user access\n\nRequired workspace scopes: `see_workspace_users`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "user_access",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "25a3eeba-fabc-48c5-a934-be5ecc47ade1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "user_access",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workspace_id\": \"6856bd7e-74d1-d750-b3bf-c8f4977cd3f8\",\n  \"workspace_role_id\": \"ab8cb4dc-46d5-4fb4-b25d-10cf9b99c174\",\n  \"actor_id\": \"14ff39c4-2ac4-c14e-894f-40f7428a980d\",\n  \"user_id\": \"6b47661a-d416-dcbb-080e-c1b545d128dd\",\n  \"first_name\": \"string\",\n  \"last_name\": \"string\",\n  \"email\": \"string\",\n  \"handle\": \"string\",\n  \"id\": \"3915f599-fdea-fb45-21b3-395eb2d0f868\",\n  \"created\": \"2002-06-03T02:25:05.891Z\",\n  \"updated\": \"2001-05-06T09:49:17.063Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b99aa06-0413-45cd-84a8-96315b6c4ec9",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "user_access",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c9f23eb-3ffd-4e5c-b1f7-88f0d3130d42",
+          "name": "Delete Workspace User Access",
+          "request": {
+            "name": "Delete Workspace User Access",
+            "description": {
+              "content": "Delete a workspace user access by id.\n\nThis route will also conditionally delete the user's account membership if:\n- account membership of the actor has `Collaborator` role\n- the actor has no more workspace accesses under the account\n\nRequired workspace scopes: `manage_workspace_users`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "user_access",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dac772e9-a174-4138-9c4c-bdb20c5d6fa1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "user_access",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3260800f-1166-4520-8e8d-a2c47ef50c79",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "user_access",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c3816751-46ac-4830-aca9-6929712a05b4",
+    "name": "Prefect Cloud Account Billing Workspace User Access API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Prefect Cloud REST API documentation.",
+      "type": "text/plain"
+    }
+  }
+}

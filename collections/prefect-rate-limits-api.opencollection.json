@@ -1,0 +1,312 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Rate Limits API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rate Limits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Rate Limit Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/rate-limits/status",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Check whether the account is currently exceeding any rate limits.\n\nReturns a list of bucket names that are currently exceeded. The frontend\nuses this to display a warning banner. The exceeded status auto-clears\n~15 minutes after the last denied request.\n\nRequired account permissions: `read:account`"
+        },
+        {
+          "info": {
+            "name": "Read Rate Limit Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/rate-limits/usage",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "The start date of the usage period"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the usage period"
+              },
+              {
+                "name": "keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to query usage for"
+              }
+            ]
+          },
+          "docs": "Read rate limit usage for a given account.\n\nRequired account permissions: `read:account`"
+        },
+        {
+          "info": {
+            "name": "Download Rate Limit Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/rate-limits/usage/download",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "The start date of the usage period"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the usage period"
+              },
+              {
+                "name": "keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to query usage for"
+              }
+            ]
+          },
+          "docs": "Download rate limit usage for a given account as a CSV file.\n\nRequired account permissions: `read:account`"
+        },
+        {
+          "info": {
+            "name": "Read Orchestration Api Grouped Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/rate-limits/orchestration-api",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the usage period (inclusive)"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "End time of the usage period (inclusive)"
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query",
+                "description": "The dimension to group usage by (e.g., workspace_id, api_key_name)"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by workspace ID"
+              },
+              {
+                "name": "api_key_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by API key name"
+              },
+              {
+                "name": "actor_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by actor name"
+              }
+            ]
+          },
+          "docs": "Read orchestration API rate limit usage grouped by a dimension over time.\n\nRequired account permissions: `read:account`"
+        },
+        {
+          "info": {
+            "name": "Read Events Grouped Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/rate-limits/events",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the usage period (inclusive)"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "End time of the usage period (inclusive)"
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query",
+                "description": "The dimension to group usage by (e.g., workspace_id, event_name)"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by workspace ID"
+              },
+              {
+                "name": "api_key_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by API key name"
+              },
+              {
+                "name": "actor_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by actor name"
+              }
+            ]
+          },
+          "docs": "Read events rate limit usage grouped by a dimension over time.\n\nRequired account permissions: `read:account`"
+        },
+        {
+          "info": {
+            "name": "List Api Key Names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/rate-limits/api-key-names",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the search period (inclusive)"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "End time of the search period (inclusive)"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy search string (case-insensitive substring match)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              },
+              {
+                "name": "keys",
+                "value": "",
+                "type": "query",
+                "description": "Filter to specific rate limit keys (e.g., orchestration-api, logs-and-events)"
+              }
+            ]
+          },
+          "docs": "List distinct API key names from rate limit usage data.\n\nReturns API key names ordered by most recently seen, with optional\nfuzzy search filtering.\n\nRequired account permissions: `read:account`"
+        },
+        {
+          "info": {
+            "name": "List Actor Names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/rate-limits/actor-names",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the search period (inclusive)"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "End time of the search period (inclusive)"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy search string (case-insensitive substring match)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              },
+              {
+                "name": "keys",
+                "value": "",
+                "type": "query",
+                "description": "Filter to specific rate limit keys (e.g., orchestration-api, logs-and-events)"
+              }
+            ]
+          },
+          "docs": "List distinct actor names from rate limit usage data.\n\nReturns actor names (users and service accounts) ordered by most recently\nseen, with optional fuzzy search filtering.\n\nRequired account permissions: `read:account`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

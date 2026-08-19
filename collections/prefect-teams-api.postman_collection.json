@@ -1,0 +1,1258 @@
+{
+  "item": [
+    {
+      "id": "6508d557-f4f8-4384-8ff8-f48717cd9461",
+      "name": "Teams",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "71b93de8-2b68-4aa9-aa0d-b22923f0b1fb",
+          "name": "Create Team",
+          "request": {
+            "name": "Create Team",
+            "description": {
+              "content": "Create or update a team's metadata.\n\nRequired account permissions: `create:team`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "teams",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "29084463-be7c-465b-868f-77a860038768",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"11db0d4e-e4c3-9c05-daf5-6113cae38333\",\n  \"name\": \"string\",\n  \"id\": \"1ba94df0-a631-823d-df8a-fbce422f48fa\",\n  \"created\": \"1980-02-26T08:07:21.010Z\",\n  \"updated\": \"1954-03-09T13:02:43.974Z\",\n  \"description\": \"string\",\n  \"workos_directory_group_id\": \"string\",\n  \"memberships\": [\n    {\n      \"id\": \"63329808-a613-0a2b-3069-2de1b896e552\",\n      \"handle\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"user\"\n    },\n    {\n      \"id\": \"a37880e4-c46f-9282-8cc4-ed40f5185034\",\n      \"handle\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"user\"\n    }\n  ],\n  \"workspaces\": [\n    {\n      \"workspace_id\": \"c16657ee-e101-9b62-1dc3-dbf45f8d1d64\",\n      \"workspace_handle\": \"string\",\n      \"workspace_role_id\": \"25946b61-6218-dc5c-18f3-80d5f6579687\",\n      \"workspace_role_name\": \"string\"\n    },\n    {\n      \"workspace_id\": \"a0645143-9e3e-6a57-58e0-23c5f2888330\",\n      \"workspace_handle\": \"string\",\n      \"workspace_role_id\": \"a079712d-d28b-57f8-96c1-a800988a869b\",\n      \"workspace_role_name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe29cad5-ca42-47cd-9e81-393d0b5161c1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a16b7125-a9d6-4837-b85d-941d0ad9af9d",
+          "name": "Read Team",
+          "request": {
+            "name": "Read Team",
+            "description": {
+              "content": "Get a team by id.\n\nRequired account permissions: `read:team`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "teams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a498156b-77f7-4ec2-9d56-b849e74b5641",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"11db0d4e-e4c3-9c05-daf5-6113cae38333\",\n  \"name\": \"string\",\n  \"id\": \"1ba94df0-a631-823d-df8a-fbce422f48fa\",\n  \"created\": \"1980-02-26T08:07:21.010Z\",\n  \"updated\": \"1954-03-09T13:02:43.974Z\",\n  \"description\": \"string\",\n  \"workos_directory_group_id\": \"string\",\n  \"memberships\": [\n    {\n      \"id\": \"63329808-a613-0a2b-3069-2de1b896e552\",\n      \"handle\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"user\"\n    },\n    {\n      \"id\": \"a37880e4-c46f-9282-8cc4-ed40f5185034\",\n      \"handle\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"user\"\n    }\n  ],\n  \"workspaces\": [\n    {\n      \"workspace_id\": \"c16657ee-e101-9b62-1dc3-dbf45f8d1d64\",\n      \"workspace_handle\": \"string\",\n      \"workspace_role_id\": \"25946b61-6218-dc5c-18f3-80d5f6579687\",\n      \"workspace_role_name\": \"string\"\n    },\n    {\n      \"workspace_id\": \"a0645143-9e3e-6a57-58e0-23c5f2888330\",\n      \"workspace_handle\": \"string\",\n      \"workspace_role_id\": \"a079712d-d28b-57f8-96c1-a800988a869b\",\n      \"workspace_role_name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c92e852-04b0-4ba6-a18d-b6ee3ce83232",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd911815-ecb9-4bfa-9c1b-0b1449963dbc",
+          "name": "Update Team",
+          "request": {
+            "name": "Update Team",
+            "description": {
+              "content": "\n\nRequired account permissions: `update:team`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "teams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"workos_directory_group_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "05ed13a2-ae70-4c3e-bba4-2b0e4bbd5a57",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"workos_directory_group_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37a3dc2b-803a-4b17-82ec-e6819519014f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"workos_directory_group_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b50d6830-1334-4b9a-b89d-be1fec8cea28",
+          "name": "Delete Team",
+          "request": {
+            "name": "Delete Team",
+            "description": {
+              "content": "Delete a team by id.\n\nRequired account permissions: `delete:team`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "teams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a4bcff1-4eb2-4418-b928-7171a86428ed",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7b819cce-cb1a-49c5-8b99-94fa61857b46",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f026042a-863f-465c-8efa-6e86819d4892",
+          "name": "Read Teams",
+          "request": {
+            "name": "Read Teams",
+            "description": {
+              "content": "Query for teams.\n\nRequired account permissions: `read:team`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "teams",
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"teams\": {\n    \"id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"name\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"like_\": \"<string>\"\n    },\n    \"directory_id\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"workspace_id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"workspace_role_id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"member_id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  },\n  \"users\": {\n    \"id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ],\n      \"not_any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"email\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"like_\": \"<string>\"\n    },\n    \"handle\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"like_\": \"<string>\"\n    },\n    \"name\": {\n      \"like_\": \"<string>\"\n    }\n  },\n  \"bots\": {\n    \"id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"name\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"like_\": \"<string>\"\n    }\n  },\n  \"sort\": \"<string>\",\n  \"limit\": 200,\n  \"offset\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1fa8a29e-a432-4d14-a010-63f2717197ea",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"teams\": {\n    \"id\": {\n      \"any_\": [\n        \"5fcc815e-ac49-5c8b-f34d-1201a326ff8d\",\n        \"e21459bb-83fb-ff35-d37b-2c1e886afe98\"\n      ]\n    },\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    },\n    \"directory_id\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"workspace_id\": {\n      \"any_\": [\n        \"f2c264ea-f99e-b485-5546-3554f2041194\",\n        \"00cb646b-28a9-5010-3783-1804a9c93769\"\n      ]\n    },\n    \"workspace_role_id\": {\n      \"any_\": [\n        \"94d89eb9-14e3-5221-ee68-c669417b3113\",\n        \"edc6b4c3-059e-1f1c-1cca-b683b7e460a9\"\n      ]\n    },\n    \"member_id\": {\n      \"any_\": [\n        \"b0b3e564-72f6-28df-c2db-a0693441d1b4\",\n        \"312cd07e-1579-cac5-8b2e-5a478506f86a\"\n      ]\n    }\n  },\n  \"users\": {\n    \"id\": {\n      \"any_\": [\n        \"c4a46ea3-adee-71cb-6160-a510c60f9f4e\",\n        \"4d94f24f-4e79-4244-f562-f97563807f22\"\n      ],\n      \"not_any_\": [\n        \"f6bccca1-74f1-d37e-9581-1da39af8be20\",\n        \"b714bd06-2e4d-de19-4ad2-deda213b3db3\"\n      ]\n    },\n    \"email\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    },\n    \"handle\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    },\n    \"name\": {\n      \"like_\": \"string\"\n    }\n  },\n  \"bots\": {\n    \"id\": {\n      \"any_\": [\n        \"95db33d0-c1ca-dc6a-cd33-79e136207fee\",\n        \"b2320803-9156-a8f5-9273-d1aece2a15b2\"\n      ]\n    },\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    }\n  },\n  \"sort\": \"NAME_ASC\",\n  \"limit\": 200,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"account_id\": \"96efdaff-600e-a47b-f9f3-ee085c2a5fa2\",\n    \"name\": \"string\",\n    \"id\": \"104319d9-4807-02b9-4b40-0d0ba0efbc97\",\n    \"created\": \"1991-10-03T07:36:42.955Z\",\n    \"updated\": \"1958-04-18T21:56:20.262Z\",\n    \"description\": \"string\",\n    \"workos_directory_group_id\": \"string\",\n    \"memberships\": [\n      {\n        \"id\": \"2a8dcda0-9955-08ab-e1f2-92e7fc582a93\",\n        \"handle\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"service_account\"\n      },\n      {\n        \"id\": \"104aa82d-a49b-4aeb-6c40-b99c5ad36a1f\",\n        \"handle\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"user\"\n      }\n    ],\n    \"workspaces\": [\n      {\n        \"workspace_id\": \"4e22670e-4321-1ffa-7ba2-0d1c9a46979a\",\n        \"workspace_handle\": \"string\",\n        \"workspace_role_id\": \"fd0b4320-3e7d-40a2-b93f-7823b3c04964\",\n        \"workspace_role_name\": \"string\"\n      },\n      {\n        \"workspace_id\": \"25f95be3-bc12-b9f9-e8e6-2b193fb87956\",\n        \"workspace_handle\": \"string\",\n        \"workspace_role_id\": \"0ea28ff4-3e92-c865-a4dc-da76f36df762\",\n        \"workspace_role_name\": \"string\"\n      }\n    ]\n  },\n  {\n    \"account_id\": \"f51337c5-ca94-b8e8-59d2-95608118e8cb\",\n    \"name\": \"string\",\n    \"id\": \"9bf5bf6d-2398-5866-aec4-2f3f54f28dac\",\n    \"created\": \"1985-04-19T12:54:57.835Z\",\n    \"updated\": \"2000-11-06T11:09:31.284Z\",\n    \"description\": \"string\",\n    \"workos_directory_group_id\": \"string\",\n    \"memberships\": [\n      {\n        \"id\": \"edf4823b-6c63-dc69-b3f9-b5da2e5bb4a9\",\n        \"handle\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"user\"\n      },\n      {\n        \"id\": \"fbdf886f-c9b6-c349-9603-75a199b36119\",\n        \"handle\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"service_account\"\n      }\n    ],\n    \"workspaces\": [\n      {\n        \"workspace_id\": \"5f995130-3c2c-cf65-c42c-ac24f171aa87\",\n        \"workspace_handle\": \"string\",\n        \"workspace_role_id\": \"99e4cd32-8823-387f-2577-113664387f2c\",\n        \"workspace_role_name\": \"string\"\n      },\n      {\n        \"workspace_id\": \"90afbd04-195a-c4fd-f28f-247ae9a1dbec\",\n        \"workspace_handle\": \"string\",\n        \"workspace_role_id\": \"60ef5048-9c3c-15ad-e448-dae0d75655b2\",\n        \"workspace_role_name\": \"string\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee4f218b-9ae6-4dd0-8e42-72adbb757f0f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"teams\": {\n    \"id\": {\n      \"any_\": [\n        \"5fcc815e-ac49-5c8b-f34d-1201a326ff8d\",\n        \"e21459bb-83fb-ff35-d37b-2c1e886afe98\"\n      ]\n    },\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    },\n    \"directory_id\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"workspace_id\": {\n      \"any_\": [\n        \"f2c264ea-f99e-b485-5546-3554f2041194\",\n        \"00cb646b-28a9-5010-3783-1804a9c93769\"\n      ]\n    },\n    \"workspace_role_id\": {\n      \"any_\": [\n        \"94d89eb9-14e3-5221-ee68-c669417b3113\",\n        \"edc6b4c3-059e-1f1c-1cca-b683b7e460a9\"\n      ]\n    },\n    \"member_id\": {\n      \"any_\": [\n        \"b0b3e564-72f6-28df-c2db-a0693441d1b4\",\n        \"312cd07e-1579-cac5-8b2e-5a478506f86a\"\n      ]\n    }\n  },\n  \"users\": {\n    \"id\": {\n      \"any_\": [\n        \"c4a46ea3-adee-71cb-6160-a510c60f9f4e\",\n        \"4d94f24f-4e79-4244-f562-f97563807f22\"\n      ],\n      \"not_any_\": [\n        \"f6bccca1-74f1-d37e-9581-1da39af8be20\",\n        \"b714bd06-2e4d-de19-4ad2-deda213b3db3\"\n      ]\n    },\n    \"email\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    },\n    \"handle\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    },\n    \"name\": {\n      \"like_\": \"string\"\n    }\n  },\n  \"bots\": {\n    \"id\": {\n      \"any_\": [\n        \"95db33d0-c1ca-dc6a-cd33-79e136207fee\",\n        \"b2320803-9156-a8f5-9273-d1aece2a15b2\"\n      ]\n    },\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    }\n  },\n  \"sort\": \"NAME_ASC\",\n  \"limit\": 200,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc1292db-9979-4373-9d68-8ed290db6b8c",
+          "name": "Upsert Team Members",
+          "request": {
+            "name": "Upsert Team Members",
+            "description": {
+              "content": "Upsert team memberships.\n\nRequired account permissions: `update:team`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "teams",
+                ":id",
+                "members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"members\": [\n    {\n      \"member_id\": \"<uuid>\",\n      \"member_type\": \"<string>\"\n    },\n    {\n      \"member_id\": \"<uuid>\",\n      \"member_type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8f7dedd0-3050-4f80-9d9a-4bbd8b7e9f02",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id",
+                    "members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"members\": [\n    {\n      \"member_id\": \"8bc8de7f-6e4b-82ad-6f2a-c8dfcc2e0b9d\",\n      \"member_type\": \"service_account\"\n    },\n    {\n      \"member_id\": \"59671a35-524d-a7cb-d531-3866abad6e6d\",\n      \"member_type\": \"user\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "072859d4-1099-4221-8672-bb2bea910cb9",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":id",
+                    "members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"members\": [\n    {\n      \"member_id\": \"8bc8de7f-6e4b-82ad-6f2a-c8dfcc2e0b9d\",\n      \"member_type\": \"service_account\"\n    },\n    {\n      \"member_id\": \"59671a35-524d-a7cb-d531-3866abad6e6d\",\n      \"member_type\": \"user\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94ab20c0-3745-47a2-940c-d0f686ad08aa",
+          "name": "Remove Team Member",
+          "request": {
+            "name": "Remove Team Member",
+            "description": {
+              "content": "Remove a member from a team.\n\nRequired account permissions: `update:team`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "teams",
+                ":team_id",
+                "members",
+                ":actor_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "team_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "actor_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "54ed8293-9b87-4e8b-bba2-f1a07c3c2eb7",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "members",
+                    ":actor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "team_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "actor_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4a95d25d-2e21-43a6-8a1b-e9efac7687f8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "teams",
+                    ":team_id",
+                    "members",
+                    ":actor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "team_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "actor_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dc547b99-8a01-4706-b8d1-6f4fb8ee3153",
+    "name": "Prefect Cloud Account Billing Teams API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Prefect Cloud REST API documentation.",
+      "type": "text/plain"
+    }
+  }
+}

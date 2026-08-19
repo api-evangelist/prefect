@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Workspace Rate Limit Allocations API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workspace Rate Limit Allocations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Workspace Rate Limit Allocations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/rate-limit-allocations/",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get all rate limit allocations for the account.\n\nRequired account permissions: `read:account`"
+        },
+        {
+          "info": {
+            "name": "Upsert Workspace Rate Limit Allocations",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/accounts/:account_id/rate-limit-allocations/",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upsert all workspace rate limit allocations for the account.\n\nAll workspaces in the account must be included in the allocations list,\nor an empty list to clear all allocations.\n\nRequired account permissions: `update:account`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

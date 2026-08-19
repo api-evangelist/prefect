@@ -1,0 +1,415 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Assets API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/assets/",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "prefix",
+                "value": "",
+                "type": "query",
+                "description": "Prefix to search assets keys for"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Substring to search assets keys for"
+              }
+            ]
+          },
+          "docs": "List Assets"
+        },
+        {
+          "info": {
+            "name": "Read Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/assets/key",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Read Asset"
+        },
+        {
+          "info": {
+            "name": "Delete Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/assets/key",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete Asset"
+        },
+        {
+          "info": {
+            "name": "Latest Dependencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/assets/latest-dependencies",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Latest Dependencies"
+        },
+        {
+          "info": {
+            "name": "Get Asset Neighbors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/assets/neighbors",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The asset key to get neighbors for"
+              }
+            ]
+          },
+          "docs": "Get the direct (1-hop) neighbors of a specific asset.\n\nReturns the asset, its immediate upstream and downstream dependencies,\nand the dependency edges between them. Does not traverse transitive\ndependencies."
+        },
+        {
+          "info": {
+            "name": "Filter Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/assets/filter",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Filter Assets"
+        },
+        {
+          "info": {
+            "name": "Filter Assets Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/assets/filter/next",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Filter Assets Page"
+        },
+        {
+          "info": {
+            "name": "List Asset Materializations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/assets/materializations",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The asset key to get materializations for"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Only return materializations on or after this timestamp"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "Only return materializations on or before this timestamp"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order: 'asc' or 'desc'"
+              }
+            ]
+          },
+          "docs": "Get historical materializations for a specific asset.\n\nReturns one materialization per run (deduplicated by run_id, latest occurred wins)."
+        },
+        {
+          "info": {
+            "name": "List Asset References",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/assets/references",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The asset key to get references for"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Only return references on or after this timestamp"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "Only return references on or before this timestamp"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order: 'asc' or 'desc'"
+              }
+            ]
+          },
+          "docs": "Get downstream assets that reference (consume) a specific asset.\n\nReturns materializations of assets that have the queried asset in their\nupstream dependencies. Deduplicated by run_id (latest occurred wins)."
+        },
+        {
+          "info": {
+            "name": "Read Asset Materialization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/assets/materializations/:event_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The event ID of the materialization"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The asset key for validation"
+              }
+            ]
+          },
+          "docs": "Get a specific materialization event by its event ID.\n\nThe asset key must be provided and match the event's asset key."
+        },
+        {
+          "info": {
+            "name": "Get Upstream Materializations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/assets/materializations/:event_id/upstream",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The event ID of the focal materialization"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The asset key of the focal materialization"
+              }
+            ]
+          },
+          "docs": "Get the latest materialization of each upstream asset that occurred\nbefore a specific materialization event."
+        },
+        {
+          "info": {
+            "name": "Read Asset Reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/assets/references/:event_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The event ID of the downstream consumer"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The upstream asset key being referenced"
+              }
+            ]
+          },
+          "docs": "Get a specific downstream consumer by its event ID.\n\nReturns the materialization event for an asset that consumes the queried upstream\nasset. The upstream asset key must be provided and must appear in the\nmaterialization's upstream dependencies."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

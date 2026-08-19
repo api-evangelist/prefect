@@ -1,0 +1,312 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Me API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Me",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read My Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/me/"
+          },
+          "docs": "List the current actor's user profile"
+        },
+        {
+          "info": {
+            "name": "Read My Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/me/sessions"
+          },
+          "docs": "List the current actor's user sessions"
+        },
+        {
+          "info": {
+            "name": "Filter My Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/me/sessions/filter",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Filter the current actor's user sessions"
+        },
+        {
+          "info": {
+            "name": "Terminate My Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/me/sessions/:session_id/terminate",
+            "params": [
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Terminate the current actor's user session"
+        },
+        {
+          "info": {
+            "name": "Read My Api Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/me/api_keys",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List the current actor's api keys"
+        },
+        {
+          "info": {
+            "name": "Filter My Api Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/me/api_keys/filter",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Filter My Api Keys"
+        },
+        {
+          "info": {
+            "name": "Read My Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/me/accounts"
+          },
+          "docs": "List the current actor's accounts"
+        },
+        {
+          "info": {
+            "name": "Read My Organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/me/organizations"
+          },
+          "docs": "List the current actor's accounts that have plans that\nare schemas.plans.AccountPlanType.ORGANIZATION"
+        },
+        {
+          "info": {
+            "name": "Read My Account Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/me/accounts/:account_id/permissions",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List the current actor's permissions for the given account"
+        },
+        {
+          "info": {
+            "name": "Read My Accounts With Permission",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/me/accounts/has_permission",
+            "params": [
+              {
+                "name": "permission",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Return the account ids the current actor has access to\nfor which they have the given permission"
+        },
+        {
+          "info": {
+            "name": "Check My Account Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/me/accounts/:account_id/has_permission",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "permission",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Return if current actor has specific permission for account"
+        },
+        {
+          "info": {
+            "name": "Leave Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/me/accounts/:account_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the user from an account. Will also remove any access the user\nhas to any workspaces under that account."
+        },
+        {
+          "info": {
+            "name": "Read My Workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/me/workspaces"
+          },
+          "docs": "List the current actor's workspaces"
+        },
+        {
+          "info": {
+            "name": "Read My Workspace Scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/me/workspaces/:workspace_id/scopes",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List the current actor's scopes for the given workspace"
+        },
+        {
+          "info": {
+            "name": "Check My Workspace Scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/me/workspaces/:workspace_id/has_scope",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Return if current actor has specific scope for workspace."
+        },
+        {
+          "info": {
+            "name": "Leave Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/me/workspaces/:workspace_id",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the user from a workspace.\n\nThis route will also conditionally delete the user's account membership if:\n    - account membership of the actor has `Collaborator` role\n    - the actor has no more workspace accesses under the account"
+        },
+        {
+          "info": {
+            "name": "Upload My Profile Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/me/profile-image",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Upload My Profile Image"
+        },
+        {
+          "info": {
+            "name": "Delete My Profile Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/me/profile-image"
+          },
+          "docs": "Delete My Profile Image"
+        },
+        {
+          "info": {
+            "name": "Reset My Profile Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/me/profile-image/reset"
+          },
+          "docs": "Reset My Profile Image"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

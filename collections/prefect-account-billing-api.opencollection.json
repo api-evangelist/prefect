@@ -1,0 +1,182 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account Billing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Billing Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/billing/:account_id/details",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the billing details for an account.\n\nRequired account permissions: `read:billing`"
+        },
+        {
+          "info": {
+            "name": "Get Subscription Restrictions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/billing/:account_id/subscription_restrictions",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns billing restrictions for an account based on current usage.\n\nRequired account permissions: `read:billing`"
+        },
+        {
+          "info": {
+            "name": "Cancel Org Subscription At Period End",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/billing/:account_id/cancel_org_subscription",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nRequired account permissions: `update:billing`"
+        },
+        {
+          "info": {
+            "name": "Update Slots",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/billing/:account_id/update_slots",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired account permissions: `update:billing`"
+        },
+        {
+          "info": {
+            "name": "Create Billing Portal Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/billing/:account_id/create_billing_portal_session",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a billing portal session for an account.\n\nRequired account permissions: `update:billing`"
+        },
+        {
+          "info": {
+            "name": "Validate Subscription Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/billing/:account_id/validate_subscription_status",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validate an account's subscription has been updated to reflect the latest stripe\nsession.\n\nRequired account permissions: `update:billing`"
+        },
+        {
+          "info": {
+            "name": "Get Checkout Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/billing/:account_id/subscribe",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired account permissions: `update:billing`"
+        },
+        {
+          "info": {
+            "name": "Manage Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/billing/:account_id/manage_subscription",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Stripe customer portal session for managing an existing subscription.\n\nThis endpoint allows users to update, cancel, or otherwise manage their subscription\nthrough Stripe's customer portal with specific configuration options.\n\nRequired account permissions: `update:billing`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

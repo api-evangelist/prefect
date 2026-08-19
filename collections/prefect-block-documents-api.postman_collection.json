@@ -1,0 +1,2698 @@
+{
+  "item": [
+    {
+      "id": "ee371018-991e-46e8-998a-e905916a97f3",
+      "name": "Block documents",
+      "description": {
+        "content": "Interact with a Workspace's Blocks.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a2c92c1d-c532-46a3-9038-05698933e355",
+          "name": "Read Block Documents For Block Type",
+          "request": {
+            "name": "Read Block Documents For Block Type",
+            "description": {
+              "content": "\n\nRequired workspace scopes: `see_blocks`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "block_types",
+                "slug",
+                ":slug",
+                "block_documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_secrets",
+                  "value": "false",
+                  "description": "Whether to include sensitive values in the block document."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) The block type name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "873359ce-6ea3-489f-82a6-45be5d094efd",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_types",
+                    "slug",
+                    ":slug",
+                    "block_documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_secrets",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) The block type name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"block_schema_id\": \"24f6c247-ba00-0080-37f9-5912c7c55a6c\",\n    \"block_type_id\": \"ffa7ae17-be39-1dfd-fd56-bae7709e631d\",\n    \"id\": \"34e88614-f875-bb80-08fb-e9a4057b58b4\",\n    \"created\": \"1977-05-09T08:20:36.475Z\",\n    \"updated\": \"1970-03-23T14:45:11.070Z\",\n    \"name\": \"g mj`y]O\",\n    \"data\": {\n      \"key_0\": \"string\"\n    },\n    \"block_schema\": {\n      \"checksum\": \"string\",\n      \"block_type_id\": \"74a32a63-e8e4-1162-4e7f-107d10ca8d04\",\n      \"id\": \"5b184247-b83e-21ad-8e49-2e3f095e50c8\",\n      \"created\": \"1961-05-26T08:20:10.047Z\",\n      \"updated\": \"2000-09-17T21:44:37.108Z\",\n      \"fields\": {\n        \"key_0\": 352,\n        \"key_1\": false,\n        \"key_2\": 5488.593958004993\n      },\n      \"block_type\": {\n        \"name\": \"rs|]b9a\",\n        \"slug\": \"string\",\n        \"id\": \"25906325-9d64-f3af-e3e4-5d648190d5c7\",\n        \"created\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"updated\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"logo_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"documentation_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"code_example\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_protected\": false\n      },\n      \"capabilities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"version\": \"non-versioned\"\n    },\n    \"block_type_name\": \"string\",\n    \"block_type\": {\n      \"name\": \")1}$F|DLxc[\",\n      \"slug\": \"string\",\n      \"id\": \"1dc73cc1-6bb2-48d0-248b-c8023ea7b992\",\n      \"created\": \"2011-10-29T11:58:57.595Z\",\n      \"updated\": \"1970-11-18T02:21:15.661Z\",\n      \"logo_url\": \"string\",\n      \"documentation_url\": \"string\",\n      \"description\": \"string\",\n      \"code_example\": \"string\",\n      \"is_protected\": false\n    },\n    \"block_document_references\": {\n      \"key_0\": {\n        \"key_0\": 4835\n      }\n    },\n    \"is_anonymous\": false\n  },\n  {\n    \"block_schema_id\": \"2b2e7b2d-75c7-c849-07dd-23ab962e2782\",\n    \"block_type_id\": \"f69b2415-90e2-e5a5-ad98-72855e744dec\",\n    \"id\": \"8abd3020-cd93-3934-fd7a-cf1d53b087fb\",\n    \"created\": \"1947-01-30T04:57:18.191Z\",\n    \"updated\": \"2014-05-11T17:30:47.464Z\",\n    \"name\": \"KM) YV!C+Hm\",\n    \"data\": {\n      \"key_0\": 8535\n    },\n    \"block_schema\": {\n      \"checksum\": \"string\",\n      \"block_type_id\": \"ba9159e1-e885-d959-b2fd-61096128431c\",\n      \"id\": \"9c2d9f5c-8385-0746-587d-091098786e96\",\n      \"created\": \"2004-10-02T14:56:58.185Z\",\n      \"updated\": \"2011-10-03T19:38:02.476Z\",\n      \"fields\": {\n        \"key_0\": \"string\"\n      },\n      \"block_type\": {\n        \"name\": \"zi9huXH\",\n        \"slug\": \"string\",\n        \"id\": \"2b64b297-3777-4122-4e84-00738376288c\",\n        \"created\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"updated\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"logo_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"documentation_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"code_example\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_protected\": false\n      },\n      \"capabilities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"version\": \"non-versioned\"\n    },\n    \"block_type_name\": \"string\",\n    \"block_type\": {\n      \"name\": \"]UWlQ \\\\6:f\",\n      \"slug\": \"string\",\n      \"id\": \"27c41fd2-3dea-9093-4110-132f225f51ef\",\n      \"created\": \"2011-05-26T21:47:41.853Z\",\n      \"updated\": \"2002-05-05T22:25:26.273Z\",\n      \"logo_url\": \"string\",\n      \"documentation_url\": \"string\",\n      \"description\": \"string\",\n      \"code_example\": \"string\",\n      \"is_protected\": false\n    },\n    \"block_document_references\": {\n      \"key_0\": {\n        \"key_0\": 8530,\n        \"key_1\": \"string\",\n        \"key_2\": 3992.817673636239,\n        \"key_3\": 1174.9373319335277\n      },\n      \"key_1\": {\n        \"key_0\": 5826.609683711833,\n        \"key_1\": \"string\"\n      }\n    },\n    \"is_anonymous\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04998c42-21b0-4e82-b67a-fb301a33ccb8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_types",
+                    "slug",
+                    ":slug",
+                    "block_documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_secrets",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) The block type name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26c60820-3fd6-455b-a0a6-0ac3c9ff959b",
+          "name": "Read Block Document By Name For Block Type",
+          "request": {
+            "name": "Read Block Document By Name For Block Type",
+            "description": {
+              "content": "\n\nRequired workspace scopes: `see_blocks`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "block_types",
+                "slug",
+                ":slug",
+                "block_documents",
+                "name",
+                ":block_document_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_secrets",
+                  "value": "false",
+                  "description": "Whether to include sensitive values in the block document."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) The block type name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "block_document_name",
+                  "description": "(Required) The block type name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "55bf02c4-b25c-435d-b499-8cd5630ed814",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_types",
+                    "slug",
+                    ":slug",
+                    "block_documents",
+                    "name",
+                    ":block_document_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_secrets",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) The block type name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_document_name",
+                      "description": "(Required) The block type name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"block_schema_id\": \"715abb0c-7360-cd63-ee6a-d533a5559845\",\n  \"block_type_id\": \"e68e7ff6-42db-596f-18e5-60e1ddb5b954\",\n  \"id\": \"1f356a78-e340-dd3e-07c1-e6fb023dff20\",\n  \"created\": \"2005-10-19T01:15:20.240Z\",\n  \"updated\": \"2000-04-17T15:04:31.316Z\",\n  \"name\": \"v_Roq\",\n  \"data\": {\n    \"key_0\": 4186.36059847286,\n    \"key_1\": 4340.681244974344\n  },\n  \"block_schema\": {\n    \"checksum\": \"string\",\n    \"block_type_id\": \"79f6cb5e-8d04-e18d-163c-ef1270075c49\",\n    \"id\": \"07446363-9f8e-4562-b3be-91b8b8ff42df\",\n    \"created\": \"1968-06-28T03:23:06.293Z\",\n    \"updated\": \"1956-04-12T20:54:09.465Z\",\n    \"fields\": {\n      \"key_0\": \"string\"\n    },\n    \"block_type\": {\n      \"name\": \"{Ad+`xPQ`{d\",\n      \"slug\": \"string\",\n      \"id\": \"a07e86a2-d680-61fd-d863-3e0ef4dd2c58\",\n      \"created\": \"1984-03-31T22:30:43.566Z\",\n      \"updated\": \"1995-02-19T21:22:41.355Z\",\n      \"logo_url\": \"string\",\n      \"documentation_url\": \"string\",\n      \"description\": \"string\",\n      \"code_example\": \"string\",\n      \"is_protected\": false\n    },\n    \"capabilities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"version\": \"non-versioned\"\n  },\n  \"block_type_name\": \"string\",\n  \"block_type\": {\n    \"name\": \"w1aD\",\n    \"slug\": \"string\",\n    \"id\": \"8164b363-51f1-ad36-f141-ab11ae06546f\",\n    \"created\": \"2015-04-21T16:35:17.861Z\",\n    \"updated\": \"1976-12-09T17:40:36.785Z\",\n    \"logo_url\": \"string\",\n    \"documentation_url\": \"string\",\n    \"description\": \"string\",\n    \"code_example\": \"string\",\n    \"is_protected\": false\n  },\n  \"block_document_references\": {\n    \"key_0\": {\n      \"key_0\": 8321.462858266459\n    }\n  },\n  \"is_anonymous\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0292f780-1f8b-4905-9d05-ffc29077191f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_types",
+                    "slug",
+                    ":slug",
+                    "block_documents",
+                    "name",
+                    ":block_document_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_secrets",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) The block type name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_document_name",
+                      "description": "(Required) The block type name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ce66728-7209-4876-b801-c2c841a86a35",
+          "name": "Create Block Document",
+          "request": {
+            "name": "Create Block Document",
+            "description": {
+              "content": "Create a new block document.\n\nRequired workspace scopes: `manage_blocks`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "block_documents",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"block_schema_id\": \"<uuid>\",\n  \"block_type_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": 2157\n  },\n  \"is_anonymous\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9f67c7c4-ce81-45bd-931f-19249040affa",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"block_schema_id\": \"<uuid>\",\n  \"block_type_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"is_anonymous\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"block_schema_id\": \"715abb0c-7360-cd63-ee6a-d533a5559845\",\n  \"block_type_id\": \"e68e7ff6-42db-596f-18e5-60e1ddb5b954\",\n  \"id\": \"1f356a78-e340-dd3e-07c1-e6fb023dff20\",\n  \"created\": \"2005-10-19T01:15:20.240Z\",\n  \"updated\": \"2000-04-17T15:04:31.316Z\",\n  \"name\": \"v_Roq\",\n  \"data\": {\n    \"key_0\": 4186.36059847286,\n    \"key_1\": 4340.681244974344\n  },\n  \"block_schema\": {\n    \"checksum\": \"string\",\n    \"block_type_id\": \"79f6cb5e-8d04-e18d-163c-ef1270075c49\",\n    \"id\": \"07446363-9f8e-4562-b3be-91b8b8ff42df\",\n    \"created\": \"1968-06-28T03:23:06.293Z\",\n    \"updated\": \"1956-04-12T20:54:09.465Z\",\n    \"fields\": {\n      \"key_0\": \"string\"\n    },\n    \"block_type\": {\n      \"name\": \"{Ad+`xPQ`{d\",\n      \"slug\": \"string\",\n      \"id\": \"a07e86a2-d680-61fd-d863-3e0ef4dd2c58\",\n      \"created\": \"1984-03-31T22:30:43.566Z\",\n      \"updated\": \"1995-02-19T21:22:41.355Z\",\n      \"logo_url\": \"string\",\n      \"documentation_url\": \"string\",\n      \"description\": \"string\",\n      \"code_example\": \"string\",\n      \"is_protected\": false\n    },\n    \"capabilities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"version\": \"non-versioned\"\n  },\n  \"block_type_name\": \"string\",\n  \"block_type\": {\n    \"name\": \"w1aD\",\n    \"slug\": \"string\",\n    \"id\": \"8164b363-51f1-ad36-f141-ab11ae06546f\",\n    \"created\": \"2015-04-21T16:35:17.861Z\",\n    \"updated\": \"1976-12-09T17:40:36.785Z\",\n    \"logo_url\": \"string\",\n    \"documentation_url\": \"string\",\n    \"description\": \"string\",\n    \"code_example\": \"string\",\n    \"is_protected\": false\n  },\n  \"block_document_references\": {\n    \"key_0\": {\n      \"key_0\": 8321.462858266459\n    }\n  },\n  \"is_anonymous\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78aa2f79-c581-43b2-9650-2d2628734225",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"block_schema_id\": \"<uuid>\",\n  \"block_type_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"is_anonymous\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a6679cf-9607-46ab-998a-348950887db7",
+          "name": "Create Or Update Block Document",
+          "request": {
+            "name": "Create Or Update Block Document",
+            "description": {
+              "content": "\n\nRequired workspace scopes: `manage_blocks`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "block_documents",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"block_schema_id\": \"<uuid>\",\n  \"block_type_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": 2157\n  },\n  \"is_anonymous\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a9aa9ad5-609b-4035-ae9c-a921fc30f9af",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"block_schema_id\": \"<uuid>\",\n  \"block_type_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"is_anonymous\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"block_schema_id\": \"715abb0c-7360-cd63-ee6a-d533a5559845\",\n  \"block_type_id\": \"e68e7ff6-42db-596f-18e5-60e1ddb5b954\",\n  \"id\": \"1f356a78-e340-dd3e-07c1-e6fb023dff20\",\n  \"created\": \"2005-10-19T01:15:20.240Z\",\n  \"updated\": \"2000-04-17T15:04:31.316Z\",\n  \"name\": \"v_Roq\",\n  \"data\": {\n    \"key_0\": 4186.36059847286,\n    \"key_1\": 4340.681244974344\n  },\n  \"block_schema\": {\n    \"checksum\": \"string\",\n    \"block_type_id\": \"79f6cb5e-8d04-e18d-163c-ef1270075c49\",\n    \"id\": \"07446363-9f8e-4562-b3be-91b8b8ff42df\",\n    \"created\": \"1968-06-28T03:23:06.293Z\",\n    \"updated\": \"1956-04-12T20:54:09.465Z\",\n    \"fields\": {\n      \"key_0\": \"string\"\n    },\n    \"block_type\": {\n      \"name\": \"{Ad+`xPQ`{d\",\n      \"slug\": \"string\",\n      \"id\": \"a07e86a2-d680-61fd-d863-3e0ef4dd2c58\",\n      \"created\": \"1984-03-31T22:30:43.566Z\",\n      \"updated\": \"1995-02-19T21:22:41.355Z\",\n      \"logo_url\": \"string\",\n      \"documentation_url\": \"string\",\n      \"description\": \"string\",\n      \"code_example\": \"string\",\n      \"is_protected\": false\n    },\n    \"capabilities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"version\": \"non-versioned\"\n  },\n  \"block_type_name\": \"string\",\n  \"block_type\": {\n    \"name\": \"w1aD\",\n    \"slug\": \"string\",\n    \"id\": \"8164b363-51f1-ad36-f141-ab11ae06546f\",\n    \"created\": \"2015-04-21T16:35:17.861Z\",\n    \"updated\": \"1976-12-09T17:40:36.785Z\",\n    \"logo_url\": \"string\",\n    \"documentation_url\": \"string\",\n    \"description\": \"string\",\n    \"code_example\": \"string\",\n    \"is_protected\": false\n  },\n  \"block_document_references\": {\n    \"key_0\": {\n      \"key_0\": 8321.462858266459\n    }\n  },\n  \"is_anonymous\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5df67ae6-5601-46ad-b8be-382eca21fb9a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"block_schema_id\": \"<uuid>\",\n  \"block_type_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"is_anonymous\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd91a3e0-1326-4b71-bf24-558c1052ba32",
+          "name": "Read Block Documents",
+          "request": {
+            "name": "Read Block Documents",
+            "description": {
+              "content": "Query for block documents.\n\nRequired workspace scopes: `see_blocks`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "block_documents",
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"block_documents\": {\n    \"operator\": \"and_\",\n    \"id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"is_anonymous\": {\n      \"eq_\": \"<boolean>\"\n    },\n    \"block_type_id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"name\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"like_\": \"<string>\"\n    }\n  },\n  \"block_types\": {\n    \"name\": {\n      \"like_\": \"<string>\"\n    },\n    \"slug\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"block_schemas\": {\n    \"operator\": \"and_\",\n    \"block_type_id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"block_capabilities\": {\n      \"all_\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"version\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"include_secrets\": false,\n  \"sort\": \"<string>\",\n  \"offset\": 0,\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fa0151a0-fcb6-4441-80cf-3cada9f2e1e3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"block_documents\": {\n    \"operator\": \"and_\",\n    \"id\": {\n      \"any_\": [\n        \"861385b4-7409-6686-e5c2-4d969b9ba693\",\n        \"a5c35844-d534-3ebb-c669-a68f402436d3\"\n      ]\n    },\n    \"is_anonymous\": {\n      \"eq_\": true\n    },\n    \"block_type_id\": {\n      \"any_\": [\n        \"15f17db1-bf15-c0ca-1cea-d1dd5beb3b8d\",\n        \"4576049e-80ae-d9b2-39f3-acc63b6bd844\"\n      ]\n    },\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    }\n  },\n  \"block_types\": {\n    \"name\": {\n      \"like_\": \"string\"\n    },\n    \"slug\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"block_schemas\": {\n    \"operator\": \"and_\",\n    \"block_type_id\": {\n      \"any_\": [\n        \"6f2a7564-1c47-46f0-4031-2b4ec9f3ab54\",\n        \"76f1cc60-0161-ecfd-0153-a2a8559b75bf\"\n      ]\n    },\n    \"block_capabilities\": {\n      \"all_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"id\": {\n      \"any_\": [\n        \"3769f345-d1e6-f360-70fb-1b1c061e6ab8\",\n        \"cc57a129-4ccc-8a4b-f2ea-4aca8e7ae606\"\n      ]\n    },\n    \"version\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"include_secrets\": false,\n  \"sort\": \"NAME_DESC\",\n  \"offset\": 0,\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"block_schema_id\": \"2d5eb370-789a-9ab3-c8e8-715ec6426a90\",\n    \"block_type_id\": \"713ab996-2d2b-926d-dd3b-a8dfdef077a2\",\n    \"id\": \"9550e0ed-3e99-ba3b-26ba-b531a35b6afd\",\n    \"created\": \"1960-01-18T05:00:29.573Z\",\n    \"updated\": \"1959-03-20T14:22:23.822Z\",\n    \"name\": \"GgZ|`SlNg?D\",\n    \"data\": {\n      \"key_0\": 5764,\n      \"key_1\": 6137\n    },\n    \"block_schema\": {\n      \"checksum\": \"string\",\n      \"block_type_id\": \"2661ce1c-1591-7e04-9a8b-66df7f7582f3\",\n      \"id\": \"be289bb7-b316-3ebb-8408-693ea1d4b76f\",\n      \"created\": \"2016-02-13T18:32:18.077Z\",\n      \"updated\": \"1993-04-03T07:55:55.139Z\",\n      \"fields\": {\n        \"key_0\": 7106\n      },\n      \"block_type\": {\n        \"name\": \"@ I\",\n        \"slug\": \"string\",\n        \"id\": \"b543780d-47d0-177f-85d0-145795d33015\",\n        \"created\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"updated\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"logo_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"documentation_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"code_example\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_protected\": false\n      },\n      \"capabilities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"version\": \"non-versioned\"\n    },\n    \"block_type_name\": \"string\",\n    \"block_type\": {\n      \"name\": \"N\\\"\",\n      \"slug\": \"string\",\n      \"id\": \"3905cf8b-c94c-8406-47ac-c02d5347cc1a\",\n      \"created\": \"1960-11-09T14:40:43.988Z\",\n      \"updated\": \"1977-02-06T14:50:02.604Z\",\n      \"logo_url\": \"string\",\n      \"documentation_url\": \"string\",\n      \"description\": \"string\",\n      \"code_example\": \"string\",\n      \"is_protected\": false\n    },\n    \"block_document_references\": {\n      \"key_0\": {\n        \"key_0\": 3973,\n        \"key_1\": 4914,\n        \"key_2\": false\n      },\n      \"key_1\": {\n        \"key_0\": \"string\",\n        \"key_1\": false,\n        \"key_2\": 1778\n      }\n    },\n    \"is_anonymous\": false\n  },\n  {\n    \"block_schema_id\": \"06ae8ade-6535-0ff9-5398-cbba49d9d62d\",\n    \"block_type_id\": \"ebcfd23b-6c3a-5205-87b1-b2942f094bf1\",\n    \"id\": \"ae78466b-231b-303b-3675-650f0eb67ffc\",\n    \"created\": \"1992-03-18T19:49:30.022Z\",\n    \"updated\": \"1971-08-30T20:43:29.741Z\",\n    \"name\": \"ZA,Fi\\\\ N4(p\",\n    \"data\": {\n      \"key_0\": 1182,\n      \"key_1\": false\n    },\n    \"block_schema\": {\n      \"checksum\": \"string\",\n      \"block_type_id\": \"fc99289c-187d-132e-bd9e-8b0c4ae09a4b\",\n      \"id\": \"d90b3eeb-9171-cb24-9bb0-09da4e207cec\",\n      \"created\": \"2012-07-30T16:08:38.085Z\",\n      \"updated\": \"1967-10-10T15:16:22.491Z\",\n      \"fields\": {\n        \"key_0\": 2090.6723996779488,\n        \"key_1\": 6389,\n        \"key_2\": 3133.2184754626014,\n        \"key_3\": 2229.806392398831\n      },\n      \"block_type\": {\n        \"name\": \")O@\",\n        \"slug\": \"string\",\n        \"id\": \"d09cdc06-1f23-7b9b-9ec0-e7b24a6edc62\",\n        \"created\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"updated\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"logo_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"documentation_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"code_example\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_protected\": false\n      },\n      \"capabilities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"version\": \"non-versioned\"\n    },\n    \"block_type_name\": \"string\",\n    \"block_type\": {\n      \"name\": \"h$hEz1\",\n      \"slug\": \"string\",\n      \"id\": \"a78ba49c-9283-ca16-2292-3121184067d3\",\n      \"created\": \"1974-02-27T11:40:27.225Z\",\n      \"updated\": \"1950-02-25T15:23:46.265Z\",\n      \"logo_url\": \"string\",\n      \"documentation_url\": \"string\",\n      \"description\": \"string\",\n      \"code_example\": \"string\",\n      \"is_protected\": false\n    },\n    \"block_document_references\": {\n      \"key_0\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"key_1\": {\n        \"key_0\": 8486.268702401085\n      },\n      \"key_2\": {\n        \"key_0\": 9930,\n        \"key_1\": 8519\n      }\n    },\n    \"is_anonymous\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e372bb0-d232-43c4-bfc7-3fa3ad15d852",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"block_documents\": {\n    \"operator\": \"and_\",\n    \"id\": {\n      \"any_\": [\n        \"861385b4-7409-6686-e5c2-4d969b9ba693\",\n        \"a5c35844-d534-3ebb-c669-a68f402436d3\"\n      ]\n    },\n    \"is_anonymous\": {\n      \"eq_\": true\n    },\n    \"block_type_id\": {\n      \"any_\": [\n        \"15f17db1-bf15-c0ca-1cea-d1dd5beb3b8d\",\n        \"4576049e-80ae-d9b2-39f3-acc63b6bd844\"\n      ]\n    },\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    }\n  },\n  \"block_types\": {\n    \"name\": {\n      \"like_\": \"string\"\n    },\n    \"slug\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"block_schemas\": {\n    \"operator\": \"and_\",\n    \"block_type_id\": {\n      \"any_\": [\n        \"6f2a7564-1c47-46f0-4031-2b4ec9f3ab54\",\n        \"76f1cc60-0161-ecfd-0153-a2a8559b75bf\"\n      ]\n    },\n    \"block_capabilities\": {\n      \"all_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"id\": {\n      \"any_\": [\n        \"3769f345-d1e6-f360-70fb-1b1c061e6ab8\",\n        \"cc57a129-4ccc-8a4b-f2ea-4aca8e7ae606\"\n      ]\n    },\n    \"version\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"include_secrets\": false,\n  \"sort\": \"NAME_DESC\",\n  \"offset\": 0,\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c15e4a1a-3cac-46e4-b26c-265e0edfb22e",
+          "name": "Count Block Documents",
+          "request": {
+            "name": "Count Block Documents",
+            "description": {
+              "content": "Count block documents.\n\nRequired workspace scopes: `see_blocks`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "block_documents",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"block_documents\": {\n    \"operator\": \"and_\",\n    \"id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"is_anonymous\": {\n      \"eq_\": \"<boolean>\"\n    },\n    \"block_type_id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"name\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"like_\": \"<string>\"\n    }\n  },\n  \"block_types\": {\n    \"name\": {\n      \"like_\": \"<string>\"\n    },\n    \"slug\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"block_schemas\": {\n    \"operator\": \"and_\",\n    \"block_type_id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"block_capabilities\": {\n      \"all_\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"version\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d6538972-173e-42dd-b515-36daa063850f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"block_documents\": {\n    \"operator\": \"and_\",\n    \"id\": {\n      \"any_\": [\n        \"17e5e0e4-4715-4d9a-f1bd-552a12d60775\",\n        \"50dc68c3-d65c-941b-7556-e95ebe2889d5\"\n      ]\n    },\n    \"is_anonymous\": {\n      \"eq_\": false\n    },\n    \"block_type_id\": {\n      \"any_\": [\n        \"3efaabb5-97a0-2451-e097-596c60caceeb\",\n        \"30d2c34d-0bbf-c07e-740d-93c7ff0096b4\"\n      ]\n    },\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    }\n  },\n  \"block_types\": {\n    \"name\": {\n      \"like_\": \"string\"\n    },\n    \"slug\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"block_schemas\": {\n    \"operator\": \"and_\",\n    \"block_type_id\": {\n      \"any_\": [\n        \"e09e2dc9-a63e-c616-34b9-a6225785b420\",\n        \"0743d77d-2555-4456-6190-8cb6a0b1ef29\"\n      ]\n    },\n    \"block_capabilities\": {\n      \"all_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"id\": {\n      \"any_\": [\n        \"aeb5ce5a-636e-6559-58f9-3e8bee04eba9\",\n        \"87273df6-4a86-4d94-dc74-3a0b6cca3587\"\n      ]\n    },\n    \"version\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "2741",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee2e1c9b-b07b-4384-83de-882af4372a78",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"block_documents\": {\n    \"operator\": \"and_\",\n    \"id\": {\n      \"any_\": [\n        \"17e5e0e4-4715-4d9a-f1bd-552a12d60775\",\n        \"50dc68c3-d65c-941b-7556-e95ebe2889d5\"\n      ]\n    },\n    \"is_anonymous\": {\n      \"eq_\": false\n    },\n    \"block_type_id\": {\n      \"any_\": [\n        \"3efaabb5-97a0-2451-e097-596c60caceeb\",\n        \"30d2c34d-0bbf-c07e-740d-93c7ff0096b4\"\n      ]\n    },\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"like_\": \"string\"\n    }\n  },\n  \"block_types\": {\n    \"name\": {\n      \"like_\": \"string\"\n    },\n    \"slug\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"block_schemas\": {\n    \"operator\": \"and_\",\n    \"block_type_id\": {\n      \"any_\": [\n        \"e09e2dc9-a63e-c616-34b9-a6225785b420\",\n        \"0743d77d-2555-4456-6190-8cb6a0b1ef29\"\n      ]\n    },\n    \"block_capabilities\": {\n      \"all_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"id\": {\n      \"any_\": [\n        \"aeb5ce5a-636e-6559-58f9-3e8bee04eba9\",\n        \"87273df6-4a86-4d94-dc74-3a0b6cca3587\"\n      ]\n    },\n    \"version\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d923f985-ad77-4181-8eeb-4187f31d09af",
+          "name": "Read Block Document By Id",
+          "request": {
+            "name": "Read Block Document By Id",
+            "description": {
+              "content": "\n\nRequired workspace scopes: `see_blocks`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "block_documents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_secrets",
+                  "value": "false",
+                  "description": "Whether to include sensitive values in the block document."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The block document id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "30c65c15-1d4b-490c-9728-998931f88c51",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_secrets",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The block document id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"block_schema_id\": \"715abb0c-7360-cd63-ee6a-d533a5559845\",\n  \"block_type_id\": \"e68e7ff6-42db-596f-18e5-60e1ddb5b954\",\n  \"id\": \"1f356a78-e340-dd3e-07c1-e6fb023dff20\",\n  \"created\": \"2005-10-19T01:15:20.240Z\",\n  \"updated\": \"2000-04-17T15:04:31.316Z\",\n  \"name\": \"v_Roq\",\n  \"data\": {\n    \"key_0\": 4186.36059847286,\n    \"key_1\": 4340.681244974344\n  },\n  \"block_schema\": {\n    \"checksum\": \"string\",\n    \"block_type_id\": \"79f6cb5e-8d04-e18d-163c-ef1270075c49\",\n    \"id\": \"07446363-9f8e-4562-b3be-91b8b8ff42df\",\n    \"created\": \"1968-06-28T03:23:06.293Z\",\n    \"updated\": \"1956-04-12T20:54:09.465Z\",\n    \"fields\": {\n      \"key_0\": \"string\"\n    },\n    \"block_type\": {\n      \"name\": \"{Ad+`xPQ`{d\",\n      \"slug\": \"string\",\n      \"id\": \"a07e86a2-d680-61fd-d863-3e0ef4dd2c58\",\n      \"created\": \"1984-03-31T22:30:43.566Z\",\n      \"updated\": \"1995-02-19T21:22:41.355Z\",\n      \"logo_url\": \"string\",\n      \"documentation_url\": \"string\",\n      \"description\": \"string\",\n      \"code_example\": \"string\",\n      \"is_protected\": false\n    },\n    \"capabilities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"version\": \"non-versioned\"\n  },\n  \"block_type_name\": \"string\",\n  \"block_type\": {\n    \"name\": \"w1aD\",\n    \"slug\": \"string\",\n    \"id\": \"8164b363-51f1-ad36-f141-ab11ae06546f\",\n    \"created\": \"2015-04-21T16:35:17.861Z\",\n    \"updated\": \"1976-12-09T17:40:36.785Z\",\n    \"logo_url\": \"string\",\n    \"documentation_url\": \"string\",\n    \"description\": \"string\",\n    \"code_example\": \"string\",\n    \"is_protected\": false\n  },\n  \"block_document_references\": {\n    \"key_0\": {\n      \"key_0\": 8321.462858266459\n    }\n  },\n  \"is_anonymous\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5259e788-0291-44fa-b506-24eb03f0523e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_secrets",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The block document id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59e9a40e-c9b5-430d-b68d-11473e911878",
+          "name": "Delete Block Document",
+          "request": {
+            "name": "Delete Block Document",
+            "description": {
+              "content": "\n\nRequired workspace scopes: `manage_blocks`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "block_documents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The block document id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "afc11139-0497-4468-a68b-c9459a324f9d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The block document id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "229d913f-bfc5-4bac-8fba-9a4a1906be14",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The block document id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b27876e2-23df-42c0-a416-37722eb455c9",
+          "name": "Update Block Document Data",
+          "request": {
+            "name": "Update Block Document Data",
+            "description": {
+              "content": "\n\nRequired workspace scopes: `manage_blocks`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "block_documents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The block document id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"block_schema_id\": \"<uuid>\",\n  \"data\": {\n    \"key_0\": \"string\"\n  },\n  \"merge_existing_data\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eac2b841-404b-4266-87b2-37c0f033a409",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The block document id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"block_schema_id\": \"<uuid>\",\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": true\n  },\n  \"merge_existing_data\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9fd84caa-726e-4537-8f7f-dca78cb79a2d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The block document id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"block_schema_id\": \"<uuid>\",\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": true\n  },\n  \"merge_existing_data\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "614938a8-140a-45bb-b689-a5870f57b632",
+          "name": "Read Block Document Access",
+          "request": {
+            "name": "Read Block Document Access",
+            "description": {
+              "content": "Read access controls for a block_document.\n\nRequired workspace scopes: `see_blocks`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "block_documents",
+                ":id",
+                "access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The block_document id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b67be751-cb61-4d0c-9fb1-b609538a8b57",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ":id",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The block_document id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"manage_actors\": [\n    {\n      \"id\": \"cb6f117e-0387-b6d2-a24b-6b53ac0331a9\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"*\"\n    },\n    {\n      \"id\": \"4ece6272-c99e-8ecd-73e2-d3db2f404058\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"service_account\"\n    }\n  ],\n  \"view_actors\": [\n    {\n      \"id\": \"fc8bfd48-c647-6679-aeef-26d7394c63d3\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"service_account\"\n    },\n    {\n      \"id\": \"a688dad9-aa8e-0ac1-c0ec-f4a774636361\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"team\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df3928a9-eb93-459b-8fb6-d396b3590036",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ":id",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The block_document id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e17ffa7b-00e8-45c5-ab1f-a472c4383c7d",
+          "name": "Set Block Document Access",
+          "request": {
+            "name": "Set Block Document Access",
+            "description": {
+              "content": "Set access controls for a block document.\nThe given access controls will replace any existing access controls.\n\nRequired workspace scopes: `manage_blocks`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "block_documents",
+                ":id",
+                "access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The block_document id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"access_control\": {\n    \"manage_actor_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"view_actor_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"manage_team_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"view_team_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "51dc2165-386a-47cf-aa9b-ddee6c860731",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ":id",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The block_document id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"access_control\": {\n    \"manage_actor_ids\": [\n      \"a144271b-1ab6-9d22-7056-e21028e10991\",\n      \"104e9326-cd03-9903-23c1-7fc6c8ddb7b0\"\n    ],\n    \"view_actor_ids\": [\n      \"cb817266-547e-349b-7a77-ac2072d724ed\",\n      \"ad275112-b93f-7632-8f7e-2fc898c62c89\"\n    ],\n    \"manage_team_ids\": [\n      \"c535285c-a892-b78f-2154-8ad2174de45b\",\n      \"01f5a13d-5aa3-de1a-7e0e-6e3c8ea85ce5\"\n    ],\n    \"view_team_ids\": [\n      \"bab7da28-8165-6f08-cacf-352f569857c8\",\n      \"581ff118-31cc-127c-655b-8598f18da6a5\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e3bcc516-deaa-45ec-9f69-aa352f99b7f9",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    ":id",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The block_document id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"access_control\": {\n    \"manage_actor_ids\": [\n      \"a144271b-1ab6-9d22-7056-e21028e10991\",\n      \"104e9326-cd03-9903-23c1-7fc6c8ddb7b0\"\n    ],\n    \"view_actor_ids\": [\n      \"cb817266-547e-349b-7a77-ac2072d724ed\",\n      \"ad275112-b93f-7632-8f7e-2fc898c62c89\"\n    ],\n    \"manage_team_ids\": [\n      \"c535285c-a892-b78f-2154-8ad2174de45b\",\n      \"01f5a13d-5aa3-de1a-7e0e-6e3c8ea85ce5\"\n    ],\n    \"view_team_ids\": [\n      \"bab7da28-8165-6f08-cacf-352f569857c8\",\n      \"581ff118-31cc-127c-655b-8598f18da6a5\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cdeaf1cd-edd8-47c8-a829-88fa8acc3389",
+          "name": "Read Actors Block Document Access",
+          "request": {
+            "name": "Read Actors Block Document Access",
+            "description": {
+              "content": "Read access controls for a set of block documents and return the resolved\naccess levels for the current actor.\n\nRequired workspace scopes: `see_blocks`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "block_documents",
+                "my-access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"block_document_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7dad1406-ee69-4c14-8693-32ae32c3753c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    "my-access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"block_document_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    \"string\",\n    \"string\"\n  ],\n  \"key_1\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e31c7b34-bfb9-4f7d-a36d-a140f0e96bab",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "block_documents",
+                    "my-access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"block_document_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7fd4f342-ef9b-4df9-ad48-5ff585c407d0",
+    "name": "Prefect Cloud Account Billing Block documents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Prefect Cloud REST API documentation.",
+      "type": "text/plain"
+    }
+  }
+}

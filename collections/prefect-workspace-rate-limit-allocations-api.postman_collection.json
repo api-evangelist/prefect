@@ -1,0 +1,343 @@
+{
+  "item": [
+    {
+      "id": "20839549-dad1-4491-823a-c6d061c6709a",
+      "name": "Workspace Rate Limit Allocations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "34b27ef5-5c83-42c0-8913-d01e1f0080dd",
+          "name": "Read Workspace Rate Limit Allocations",
+          "request": {
+            "name": "Read Workspace Rate Limit Allocations",
+            "description": {
+              "content": "Get all rate limit allocations for the account.\n\nRequired account permissions: `read:account`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "rate-limit-allocations",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "480dd168-75cb-41d3-9682-9e3027de5315",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "rate-limit-allocations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"account_id\": \"4e1ab47c-7904-5c93-d8ca-ac657a107ff3\",\n    \"workspace_id\": \"fcf98a45-0e84-c541-4b9e-a8158a5db09b\",\n    \"rate_limit_percentage\": 37.477308912135804,\n    \"id\": \"6e34bb10-e243-f47c-33ee-b3827c1e2c7e\",\n    \"created\": \"1979-08-05T03:47:27.826Z\",\n    \"updated\": \"1954-04-07T07:19:02.579Z\"\n  },\n  {\n    \"account_id\": \"b094a0a7-1b6a-5b34-195a-4d5f5e4d4fa4\",\n    \"workspace_id\": \"50623783-5162-02d2-e8f2-dbd8c7e567f6\",\n    \"rate_limit_percentage\": 26.033759852178616,\n    \"id\": \"396d7125-84f3-5f64-212c-a4e0e75f2306\",\n    \"created\": \"1998-12-27T15:03:01.470Z\",\n    \"updated\": \"1998-04-20T16:49:29.295Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1641de89-98b5-471f-a24b-30a9d1f555fd",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "rate-limit-allocations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de121061-3598-40a0-9e28-846ef5523fcf",
+          "name": "Upsert Workspace Rate Limit Allocations",
+          "request": {
+            "name": "Upsert Workspace Rate Limit Allocations",
+            "description": {
+              "content": "Upsert all workspace rate limit allocations for the account.\n\nAll workspaces in the account must be included in the allocations list,\nor an empty list to clear all allocations.\n\nRequired account permissions: `update:account`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "rate-limit-allocations",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allocations\": [\n    {\n      \"workspace_id\": \"<uuid>\",\n      \"rate_limit_percentage\": \"<number>\"\n    },\n    {\n      \"workspace_id\": \"<uuid>\",\n      \"rate_limit_percentage\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c55332e3-572c-4c93-b65b-1e9317d0deea",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "rate-limit-allocations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allocations\": [\n    {\n      \"workspace_id\": \"4c05bb63-d90e-b505-06c5-e69bd5887b02\",\n      \"rate_limit_percentage\": 41.99822115627843\n    },\n    {\n      \"workspace_id\": \"73159d96-e0c9-f0a6-0394-beed0649c874\",\n      \"rate_limit_percentage\": 15.672168518944735\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"account_id\": \"cf68fb4d-1c39-dace-2236-f7a37badbfff\",\n    \"workspace_id\": \"f82de544-2eca-9a7c-1f57-69269d38225d\",\n    \"rate_limit_percentage\": 42.44723424065762,\n    \"id\": \"a78938a2-649e-d026-ffb0-abfe1ee1ebff\",\n    \"created\": \"2005-11-21T21:38:12.994Z\",\n    \"updated\": \"1974-05-30T23:37:19.354Z\"\n  },\n  {\n    \"account_id\": \"1960113f-06ac-d38c-1286-526ae3c097f3\",\n    \"workspace_id\": \"e06efd85-0bbd-2cb2-3a75-8fd23519561a\",\n    \"rate_limit_percentage\": 70.62143890225842,\n    \"id\": \"4c9eb73d-dc17-c5e6-b708-2fba87d59bd8\",\n    \"created\": \"2003-09-06T12:10:57.800Z\",\n    \"updated\": \"2014-09-03T17:04:34.462Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d43b0386-1d2e-47d7-8c92-9f3603eb1dd0",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "rate-limit-allocations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allocations\": [\n    {\n      \"workspace_id\": \"4c05bb63-d90e-b505-06c5-e69bd5887b02\",\n      \"rate_limit_percentage\": 41.99822115627843\n    },\n    {\n      \"workspace_id\": \"73159d96-e0c9-f0a6-0394-beed0649c874\",\n      \"rate_limit_percentage\": 15.672168518944735\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e345f20c-930e-4155-ac17-1f71bb1fd9b8",
+    "name": "Prefect Cloud Account Billing Workspace Rate Limit Allocations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Prefect Cloud REST API documentation.",
+      "type": "text/plain"
+    }
+  }
+}

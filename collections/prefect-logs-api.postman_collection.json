@@ -1,0 +1,1659 @@
+{
+  "item": [
+    {
+      "id": "aa692344-b020-48d2-975a-f5e2ebb5ef70",
+      "name": "Logs",
+      "description": {
+        "content": "Interact with a Workspace's Logs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c1037dea-ac1e-4043-b89b-9cc012a941d5",
+          "name": "Create Logs",
+          "request": {
+            "name": "Create Logs",
+            "description": {
+              "content": "Create new logs from the provided schema.\n\nRequired workspace scopes: `run_flows`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "logs",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"level\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"timestamp\": \"<dateTime>\",\n    \"flow_run_id\": \"<uuid>\",\n    \"task_run_id\": \"<uuid>\",\n    \"worker_id\": \"<uuid>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"level\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"timestamp\": \"<dateTime>\",\n    \"flow_run_id\": \"<uuid>\",\n    \"task_run_id\": \"<uuid>\",\n    \"worker_id\": \"<uuid>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bdfd3e29-0421-4d35-84e8-fd38f29017ae",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "logs",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"string\",\n    \"level\": 2815,\n    \"message\": \"string\",\n    \"timestamp\": \"1961-12-22T16:44:34.613Z\",\n    \"flow_run_id\": \"59ed4890-63f5-25b9-ecf0-604f3a6467e9\",\n    \"task_run_id\": \"0a2b213a-f03b-afb4-0798-3d53df41972c\",\n    \"worker_id\": \"f56f7aba-6bd2-e799-b1aa-951adad48691\"\n  },\n  {\n    \"name\": \"string\",\n    \"level\": 8545,\n    \"message\": \"string\",\n    \"timestamp\": \"1997-08-01T11:48:31.806Z\",\n    \"flow_run_id\": \"7a14dabb-5f07-38e2-283c-580714023220\",\n    \"task_run_id\": \"1596393f-c761-219d-6889-0d0e0e97fff4\",\n    \"worker_id\": \"67ded708-e2d2-be8f-de68-b7e901ddd977\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8ec2c72-5819-444e-9e3c-d5fff373b138",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "logs",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"string\",\n    \"level\": 2815,\n    \"message\": \"string\",\n    \"timestamp\": \"1961-12-22T16:44:34.613Z\",\n    \"flow_run_id\": \"59ed4890-63f5-25b9-ecf0-604f3a6467e9\",\n    \"task_run_id\": \"0a2b213a-f03b-afb4-0798-3d53df41972c\",\n    \"worker_id\": \"f56f7aba-6bd2-e799-b1aa-951adad48691\"\n  },\n  {\n    \"name\": \"string\",\n    \"level\": 8545,\n    \"message\": \"string\",\n    \"timestamp\": \"1997-08-01T11:48:31.806Z\",\n    \"flow_run_id\": \"7a14dabb-5f07-38e2-283c-580714023220\",\n    \"task_run_id\": \"1596393f-c761-219d-6889-0d0e0e97fff4\",\n    \"worker_id\": \"67ded708-e2d2-be8f-de68-b7e901ddd977\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c3cb404-3020-416c-be61-f874340c45e6",
+          "name": "Read Logs",
+          "request": {
+            "name": "Read Logs",
+            "description": {
+              "content": "Query for logs.\n\nRequired workspace scopes: `see_flows`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "logs",
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-prefect-api-version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offset\": 0,\n  \"logs\": {\n    \"operator\": \"and_\",\n    \"level\": {\n      \"ge_\": \"<integer>\",\n      \"le_\": \"<integer>\"\n    },\n    \"timestamp\": {\n      \"before_\": \"<dateTime>\",\n      \"after_\": \"<dateTime>\"\n    },\n    \"flow_run_id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"task_run_id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ],\n      \"is_null_\": \"<boolean>\"\n    },\n    \"worker_id\": {\n      \"any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ],\n      \"is_null_\": \"<boolean>\",\n      \"not_any_\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    \"loggers\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"text\": {\n      \"query\": \"<string>\"\n    }\n  },\n  \"sort\": \"TIMESTAMP_ASC\",\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "70250b5f-8e2e-4f7d-8d0c-76dffca0a119",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "logs",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offset\": 0,\n  \"logs\": {\n    \"operator\": \"and_\",\n    \"level\": {\n      \"ge_\": 7948,\n      \"le_\": 1961\n    },\n    \"timestamp\": {\n      \"before_\": \"2023-05-20T22:49:41.001Z\",\n      \"after_\": \"2014-11-10T03:37:18.909Z\"\n    },\n    \"flow_run_id\": {\n      \"any_\": [\n        \"d5516fa2-419f-838d-16a3-a5fe63199615\",\n        \"c6059822-28c2-d422-69a1-35cf008dded5\"\n      ]\n    },\n    \"task_run_id\": {\n      \"any_\": [\n        \"9377fe2b-f601-0dd8-0d8f-df3d7ab062e1\",\n        \"8aa865b9-b36b-fae1-5db6-6503dcbc2845\"\n      ],\n      \"is_null_\": false\n    },\n    \"worker_id\": {\n      \"any_\": [\n        \"80ef819d-741c-2c6b-11dc-bd547d95285f\",\n        \"84ac2f1a-7fc3-7049-7194-d7487b8b2ec2\"\n      ],\n      \"is_null_\": true,\n      \"not_any_\": [\n        \"0a6d72f2-986c-43c8-bd56-b360ed1e3fcf\",\n        \"f57ec8ee-dc8c-c40a-2d79-ec17e5789ead\"\n      ]\n    },\n    \"loggers\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"text\": {\n      \"query\": \"error\"\n    }\n  },\n  \"sort\": \"TIMESTAMP_ASC\",\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"level\": 5174,\n    \"message\": \"string\",\n    \"timestamp\": \"1989-03-08T20:14:51.036Z\",\n    \"id\": \"de0c50d6-3379-6ae6-326d-2ca3d3674329\",\n    \"created\": \"1997-06-20T06:40:50.499Z\",\n    \"updated\": \"1999-04-23T12:27:47.719Z\",\n    \"flow_run_id\": \"87ff17f3-6950-8e9c-17d2-d783d1026b78\",\n    \"task_run_id\": \"65ad5aaa-8328-02ae-a5b6-401d87cf1099\",\n    \"worker_id\": \"3478e877-7cca-8ccc-d23c-e1ef01678356\"\n  },\n  {\n    \"name\": \"string\",\n    \"level\": 5866,\n    \"message\": \"string\",\n    \"timestamp\": \"2019-06-06T00:25:06.422Z\",\n    \"id\": \"37d2440a-041f-2424-5d8d-6b4d56125448\",\n    \"created\": \"1963-09-25T23:29:48.982Z\",\n    \"updated\": \"2003-04-02T06:33:46.780Z\",\n    \"flow_run_id\": \"02a03809-88e8-9f97-5b87-77dae10d1532\",\n    \"task_run_id\": \"a9d16b3e-add5-f2e0-73d2-12ca0559581a\",\n    \"worker_id\": \"71540ff1-3aa8-ccc7-1f08-95e09e9649d6\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ab47443-dfb8-4453-82b6-6c4a8d7ed3cc",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "logs",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-prefect-api-version",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offset\": 0,\n  \"logs\": {\n    \"operator\": \"and_\",\n    \"level\": {\n      \"ge_\": 7948,\n      \"le_\": 1961\n    },\n    \"timestamp\": {\n      \"before_\": \"2023-05-20T22:49:41.001Z\",\n      \"after_\": \"2014-11-10T03:37:18.909Z\"\n    },\n    \"flow_run_id\": {\n      \"any_\": [\n        \"d5516fa2-419f-838d-16a3-a5fe63199615\",\n        \"c6059822-28c2-d422-69a1-35cf008dded5\"\n      ]\n    },\n    \"task_run_id\": {\n      \"any_\": [\n        \"9377fe2b-f601-0dd8-0d8f-df3d7ab062e1\",\n        \"8aa865b9-b36b-fae1-5db6-6503dcbc2845\"\n      ],\n      \"is_null_\": false\n    },\n    \"worker_id\": {\n      \"any_\": [\n        \"80ef819d-741c-2c6b-11dc-bd547d95285f\",\n        \"84ac2f1a-7fc3-7049-7194-d7487b8b2ec2\"\n      ],\n      \"is_null_\": true,\n      \"not_any_\": [\n        \"0a6d72f2-986c-43c8-bd56-b360ed1e3fcf\",\n        \"f57ec8ee-dc8c-c40a-2d79-ec17e5789ead\"\n      ]\n    },\n    \"loggers\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"text\": {\n      \"query\": \"error\"\n    }\n  },\n  \"sort\": \"TIMESTAMP_ASC\",\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18824794-251a-47c2-8437-7002da2b7b7e",
+          "name": "Get Flow Run Logs",
+          "request": {
+            "name": "Get Flow Run Logs",
+            "description": {
+              "content": "Returns a page of logs for a flow run\n\nRequired workspace scopes: `see_flows`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "flow_runs",
+                ":id",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "level_ge",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "level_le",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "TIMESTAMP_ASC"
+                },
+                {
+                  "disabled": false,
+                  "key": "since",
+                  "value": "<dateTime>",
+                  "description": "Only include logs with a timestamp at or after this time"
+                },
+                {
+                  "disabled": false,
+                  "key": "until",
+                  "value": "<dateTime>",
+                  "description": "Only include logs with a timestamp at or before this time"
+                },
+                {
+                  "disabled": false,
+                  "key": "task_runs",
+                  "value": "<string>",
+                  "description": "Comma-separated list of task run IDs to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "task_runs_is_null",
+                  "value": "<boolean>",
+                  "description": "If true, only include logs without a task run ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "loggers",
+                  "value": "<string>",
+                  "description": "Comma-separated list of logger names to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "text_query",
+                  "value": "<string>",
+                  "description": "Text search query string"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "if-none-match",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "90861c11-95f6-4532-bd88-55358acca1ce",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "flow_runs",
+                    ":id",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "level_ge",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "level_le",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "TIMESTAMP_ASC"
+                    },
+                    {
+                      "key": "since",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "until",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "task_runs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "task_runs_is_null",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "loggers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "text_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "if-none-match",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37d8a854-8780-432a-83a6-7ddf9c62a9b4",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "flow_runs",
+                    ":id",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "level_ge",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "level_le",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "TIMESTAMP_ASC"
+                    },
+                    {
+                      "key": "since",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "until",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "task_runs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "task_runs_is_null",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "loggers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "text_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "if-none-match",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a76863ef-8d69-4df9-b61b-7eb17386120b",
+          "name": "Download Flow Run Logs",
+          "request": {
+            "name": "Download Flow Run Logs",
+            "description": {
+              "content": "Download all flow run logs as a CSV file, collecting all logs until there are no more logs to retrieve.\n\nRequired workspace scopes: `see_flows`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "flow_runs",
+                ":id",
+                "download-logs-csv"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The flow run id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "356a0e13-c08f-4d1a-8f4f-c1a3686d1e8a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "flow_runs",
+                    ":id",
+                    "download-logs-csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The flow run id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5b8bed0-36d9-454e-a146-d449042634e4",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "flow_runs",
+                    ":id",
+                    "download-logs-csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The flow run id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "feb0ee5f-cd1b-49cd-8734-1d21cc22d166",
+          "name": "Download Flow Run Logs",
+          "request": {
+            "name": "Download Flow Run Logs",
+            "description": {
+              "content": "Download all flow run logs as a CSV file, collecting all logs until there are no more logs to retrieve.\n\nRequired workspace scopes: `see_flows`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "flow_runs",
+                ":id",
+                "logs",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The flow run id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b98e20b-ef99-47af-b3f8-b645e68b2fa3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "flow_runs",
+                    ":id",
+                    "logs",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The flow run id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15b4c4a3-c32c-43c0-a051-33bfaf53c68d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "flow_runs",
+                    ":id",
+                    "logs",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The flow run id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be031ac9-b971-4942-8b8f-c7cfe28ad326",
+          "name": "Read Trace Observed Loggers",
+          "request": {
+            "name": "Read Trace Observed Loggers",
+            "description": {
+              "content": "Get observed logger names used in a specific trace.\n\nReturns distinct logger names used in the trace with their usage counts\nand first/last seen timestamps. Useful for showing what loggers were\nactive in a flow run and providing autocomplete/filtering options.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID to analyze\n    query: Optional prefix search on logger name\n    order_by: Order by name (alphabetically) or recency (most recent first)\n    limit: Maximum number of results\n\nReturns:\n    List of ObservedLogger objects\n\nRequired workspace scopes: `see_flows`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "traces",
+                ":trace_id",
+                "observed-loggers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Prefix search query for logger names"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "LAST_SEEN_DESC",
+                  "description": "Order results by name (alphabetically) or recency (most recently seen first)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of results to return"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "trace_id",
+                  "description": "(Required) The trace ID to query observed loggers for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "46808f91-dbd3-4561-bec2-b956e27f0ca4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "traces",
+                    ":trace_id",
+                    "observed-loggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "LAST_SEEN_DESC"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "trace_id",
+                      "description": "(Required) The trace ID to query observed loggers for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"logger_name\": \"string\",\n    \"count\": 7802,\n    \"first_seen\": \"1955-12-11T13:11:14.117Z\",\n    \"last_seen\": \"2019-04-09T18:58:45.902Z\"\n  },\n  {\n    \"logger_name\": \"string\",\n    \"count\": 4161,\n    \"first_seen\": \"1977-09-20T05:40:19.484Z\",\n    \"last_seen\": \"2010-10-26T14:07:42.793Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b075f589-5f9a-4ed7-94b1-c159878b9cb5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "traces",
+                    ":trace_id",
+                    "observed-loggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "LAST_SEEN_DESC"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "trace_id",
+                      "description": "(Required) The trace ID to query observed loggers for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83b167c3-5b41-4321-8c4f-df06c6a6e566",
+          "name": "Read Workspace Observed Loggers",
+          "request": {
+            "name": "Read Workspace Observed Loggers",
+            "description": {
+              "content": "Get observed logger names for a workspace.\n\nReturns distinct logger names across all traces in the workspace.\nResults are filtered by workspace retention policy.\nUseful for providing autocomplete/filtering options in the UI.\n\nArgs:\n    account_id: The account ID\n    workspace_id: The workspace ID\n    query: Optional prefix search on logger name\n    order_by: Order by name (alphabetically) or recency (most recent first)\n    limit: Maximum number of results\n\nReturns:\n    List of ObservedLogger objects\n\nRequired workspace scopes: `see_flows`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "observed-loggers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Prefix search query for logger names"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "LAST_SEEN_DESC",
+                  "description": "Order results by name (alphabetically) or recency (most recently seen first)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "200",
+                  "description": "Maximum number of results to return"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1d5a8f5-75c6-4284-b2ba-f1a878ddb299",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "observed-loggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "LAST_SEEN_DESC"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"logger_name\": \"string\",\n    \"count\": 4117,\n    \"first_seen\": \"1998-09-14T08:12:51.228Z\",\n    \"last_seen\": \"2004-09-20T14:58:35.629Z\"\n  },\n  {\n    \"logger_name\": \"string\",\n    \"count\": 1907,\n    \"first_seen\": \"2002-06-26T20:56:44.804Z\",\n    \"last_seen\": \"1995-01-08T11:45:44.069Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9bfa216-0651-46f1-b6fa-a877d9621452",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "observed-loggers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "LAST_SEEN_DESC"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2fe30395-aba6-4107-872f-623c4c82918c",
+    "name": "Prefect Cloud Account Billing Logs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Prefect Cloud REST API documentation.",
+      "type": "text/plain"
+    }
+  }
+}

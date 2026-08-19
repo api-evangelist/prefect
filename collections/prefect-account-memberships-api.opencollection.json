@@ -1,0 +1,230 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Account Memberships API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account Memberships",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Account Memberships",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/account_memberships/filter",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query for account memberships.\n\nRequired account permissions: `read:account_membership`"
+        },
+        {
+          "info": {
+            "name": "Count Account Memberships",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/account_memberships/count",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query for account memberships count\n\nRequired account permissions: `read:account_membership`"
+        },
+        {
+          "info": {
+            "name": "Read Account Membership By User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/account_memberships/by-user/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an Account Membership by user id.\n\nLooks up the membership for the given user within the account and returns\nenriched member details including timezone and team memberships.\n\nReturns 404 when the user is not a member of the account (e.g. they have\nsince been removed), allowing the frontend to show a \"deactivated user\"\nfallback.\n\nRequired account permissions: `read:account_membership`"
+        },
+        {
+          "info": {
+            "name": "Read Account Membership By Bot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/account_memberships/by-bot/:bot_id",
+            "params": [
+              {
+                "name": "bot_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an Account Membership by bot id.\n\nLooks up the membership for the given bot within the account and returns\nenriched member details including team memberships.\n\nReturns 404 when the bot is not a member of the account.\n\nRequired account permissions: `read:account_membership`"
+        },
+        {
+          "info": {
+            "name": "Read Account Membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/account_memberships/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an Account Membership by membership id.\n\nReturns enriched member details including timezone and team memberships.\nReturns 404 for bot memberships — use the bots endpoint for those.\n\nRequired account permissions: `read:account_membership`"
+        },
+        {
+          "info": {
+            "name": "Update Account Membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/accounts/:account_id/account_memberships/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an account membership by id.\n\nRequired account permissions: `update:account_membership`"
+        },
+        {
+          "info": {
+            "name": "Delete Account Membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/accounts/:account_id/account_memberships/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an account membership by id.\nThis will also delete any workspace accesses that the membership's actor\nhas under the account.\n\nRequired account permissions: `delete:account_membership`"
+        },
+        {
+          "info": {
+            "name": "Toggle Account Membership Active",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/accounts/:account_id/account_memberships/:id/active",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired account permissions: `update:account_membership`"
+        },
+        {
+          "info": {
+            "name": "Bulk Set Account Membership Active",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/account_memberships/set_active",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nRequired account permissions: `update:account_membership`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

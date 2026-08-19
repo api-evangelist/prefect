@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Collections API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read View Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/collections/views/:view",
+            "params": [
+              {
+                "name": "view",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reads the content of a view from the prefect-collection-registry."
+        },
+        {
+          "info": {
+            "name": "Read Available Work Pool Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/collections/work_pool_types",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reads the content of a view from the prefect-collection-registry.\n\nRequired workspace scopes: `see_work_pools`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

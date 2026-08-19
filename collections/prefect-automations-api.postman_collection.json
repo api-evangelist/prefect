@@ -1,0 +1,1917 @@
+{
+  "item": [
+    {
+      "id": "4623dace-35c7-4a3e-b341-b566e5208dcb",
+      "name": "Automations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c85bd65f-212d-4ba0-9110-ca3b28fe509b",
+          "name": "Create Automation",
+          "request": {
+            "name": "Create Automation",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "automations",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"posture\": \"<string>\",\n    \"type\": \"event\",\n    \"id\": \"<uuid>\",\n    \"match\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"match_related\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"after\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"expect\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"for_each\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"threshold\": 1,\n    \"within\": 0\n  },\n  \"actions\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"description\": \"\",\n  \"enabled\": true,\n  \"actions_on_trigger\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"actions_on_resolve\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"labels\": {\n    \"key_0\": \"<boolean>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"owner_resource\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1256bc99-790c-46f9-8ae9-b394bf7f856d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"posture\": \"Proactive\",\n    \"type\": \"event\",\n    \"id\": \"cd9c1d14-af2d-c014-6a2f-6442052e26e8\",\n    \"match\": {\n      \"key_0\": \"string\"\n    },\n    \"match_related\": {\n      \"key_0\": \"string\"\n    },\n    \"after\": [\n      \"string\"\n    ],\n    \"expect\": [\n      \"string\"\n    ],\n    \"for_each\": [\n      \"string\"\n    ],\n    \"threshold\": 1,\n    \"within\": 0\n  },\n  \"actions\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"description\": \"\",\n  \"enabled\": true,\n  \"actions_on_trigger\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"actions_on_resolve\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"labels\": {\n    \"key_0\": \"<boolean>\",\n    \"key_1\": \"<boolean>\",\n    \"key_2\": \"<boolean>\"\n  },\n  \"tags\": [\n    \"tag-1\",\n    \"tag-2\"\n  ],\n  \"owner_resource\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"trigger\": {\n    \"posture\": \"Reactive\",\n    \"type\": \"event\",\n    \"id\": \"065af2cb-487d-c736-1661-d9a1ee45685c\",\n    \"match\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"match_related\": {\n      \"key_0\": \"string\"\n    },\n    \"after\": [\n      \"string\"\n    ],\n    \"expect\": [\n      \"string\"\n    ],\n    \"for_each\": [\n      \"string\"\n    ],\n    \"threshold\": 1,\n    \"within\": 0\n  },\n  \"actions\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"account\": \"dd1ab4a1-ff6f-19ee-950b-cb1dd3e39aee\",\n  \"workspace\": \"95899eee-9d54-0b6a-4fb5-0800363b4581\",\n  \"description\": \"\",\n  \"enabled\": true,\n  \"actions_on_trigger\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"actions_on_resolve\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"labels\": {\n    \"key_0\": false,\n    \"key_1\": true\n  },\n  \"tags\": [\n    \"tag-1\",\n    \"tag-2\"\n  ],\n  \"id\": \"fe20aa49-c7ca-f6b8-5f50-469ee11cd550\",\n  \"created\": \"1954-03-23T05:07:36.491Z\",\n  \"updated\": \"1996-05-18T23:17:11.136Z\",\n  \"actor\": {\n    \"actor_id\": \"832ddc75-c387-89af-99b3-975bf267df13\",\n    \"handle\": \"string\",\n    \"user_id\": \"efc2d764-dcd1-4699-bd46-bc48cf6ca8d3\",\n    \"bot_id\": \"afdec747-8020-9333-26f2-bc80b5e0e1bb\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0652f806-4f4a-40c5-a325-a4b07129ebef",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"posture\": \"Proactive\",\n    \"type\": \"event\",\n    \"id\": \"cd9c1d14-af2d-c014-6a2f-6442052e26e8\",\n    \"match\": {\n      \"key_0\": \"string\"\n    },\n    \"match_related\": {\n      \"key_0\": \"string\"\n    },\n    \"after\": [\n      \"string\"\n    ],\n    \"expect\": [\n      \"string\"\n    ],\n    \"for_each\": [\n      \"string\"\n    ],\n    \"threshold\": 1,\n    \"within\": 0\n  },\n  \"actions\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"description\": \"\",\n  \"enabled\": true,\n  \"actions_on_trigger\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"actions_on_resolve\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"labels\": {\n    \"key_0\": \"<boolean>\",\n    \"key_1\": \"<boolean>\",\n    \"key_2\": \"<boolean>\"\n  },\n  \"tags\": [\n    \"tag-1\",\n    \"tag-2\"\n  ],\n  \"owner_resource\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be169f91-9765-403c-bcff-333cdf0bf2ee",
+          "name": "Update Automation",
+          "request": {
+            "name": "Update Automation",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "automations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"posture\": \"<string>\",\n    \"type\": \"event\",\n    \"id\": \"<uuid>\",\n    \"match\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"match_related\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"after\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"expect\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"for_each\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"threshold\": 1,\n    \"within\": 0\n  },\n  \"actions\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"description\": \"\",\n  \"enabled\": true,\n  \"actions_on_trigger\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"actions_on_resolve\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"labels\": {\n    \"key_0\": \"<boolean>\",\n    \"key_1\": \"<boolean>\",\n    \"key_2\": \"<boolean>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d1a4f90-dcd7-4fa4-96c4-d08673c7137f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"posture\": \"Reactive\",\n    \"type\": \"event\",\n    \"id\": \"8b1eb567-05e4-eacf-ec46-81d40e40e74f\",\n    \"match\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"match_related\": {\n      \"key_0\": \"string\"\n    },\n    \"after\": [\n      \"string\"\n    ],\n    \"expect\": [\n      \"string\"\n    ],\n    \"for_each\": [\n      \"string\"\n    ],\n    \"threshold\": 1,\n    \"within\": 0\n  },\n  \"actions\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"description\": \"\",\n  \"enabled\": true,\n  \"actions_on_trigger\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"actions_on_resolve\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"labels\": {\n    \"key_0\": \"<boolean>\"\n  },\n  \"tags\": [\n    \"tag-1\",\n    \"tag-2\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0eeaffb1-feff-41f1-aae9-aeae27d67616",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"posture\": \"Reactive\",\n    \"type\": \"event\",\n    \"id\": \"8b1eb567-05e4-eacf-ec46-81d40e40e74f\",\n    \"match\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"match_related\": {\n      \"key_0\": \"string\"\n    },\n    \"after\": [\n      \"string\"\n    ],\n    \"expect\": [\n      \"string\"\n    ],\n    \"for_each\": [\n      \"string\"\n    ],\n    \"threshold\": 1,\n    \"within\": 0\n  },\n  \"actions\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"description\": \"\",\n  \"enabled\": true,\n  \"actions_on_trigger\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"actions_on_resolve\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"labels\": {\n    \"key_0\": \"<boolean>\"\n  },\n  \"tags\": [\n    \"tag-1\",\n    \"tag-2\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8d92fb2-beaa-4735-89e9-aa1c3a0a4e79",
+          "name": "Patch Automation",
+          "request": {
+            "name": "Patch Automation",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "automations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "db08891a-e165-4998-885d-ae66d44b691a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d79c19c-e776-42a0-a414-9881e9a7a111",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b10c038-c6b7-4eb8-9928-c01d418ee0a2",
+          "name": "Delete Automation",
+          "request": {
+            "name": "Delete Automation",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "automations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "890e447d-a39c-41fd-b8f1-712b8bdbd3e2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "655ca64d-bcdb-4859-83ff-4fda42e13714",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "823c8b4d-500f-4e2f-bc2d-45729d413df9",
+          "name": "Read Automation",
+          "request": {
+            "name": "Read Automation",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "automations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "29fa5c24-9749-47b8-8f71-53f4d1bf549b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"trigger\": {\n    \"posture\": \"Reactive\",\n    \"type\": \"event\",\n    \"id\": \"065af2cb-487d-c736-1661-d9a1ee45685c\",\n    \"match\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"match_related\": {\n      \"key_0\": \"string\"\n    },\n    \"after\": [\n      \"string\"\n    ],\n    \"expect\": [\n      \"string\"\n    ],\n    \"for_each\": [\n      \"string\"\n    ],\n    \"threshold\": 1,\n    \"within\": 0\n  },\n  \"actions\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"account\": \"dd1ab4a1-ff6f-19ee-950b-cb1dd3e39aee\",\n  \"workspace\": \"95899eee-9d54-0b6a-4fb5-0800363b4581\",\n  \"description\": \"\",\n  \"enabled\": true,\n  \"actions_on_trigger\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"actions_on_resolve\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"labels\": {\n    \"key_0\": false,\n    \"key_1\": true\n  },\n  \"tags\": [\n    \"tag-1\",\n    \"tag-2\"\n  ],\n  \"id\": \"fe20aa49-c7ca-f6b8-5f50-469ee11cd550\",\n  \"created\": \"1954-03-23T05:07:36.491Z\",\n  \"updated\": \"1996-05-18T23:17:11.136Z\",\n  \"actor\": {\n    \"actor_id\": \"832ddc75-c387-89af-99b3-975bf267df13\",\n    \"handle\": \"string\",\n    \"user_id\": \"efc2d764-dcd1-4699-bd46-bc48cf6ca8d3\",\n    \"bot_id\": \"afdec747-8020-9333-26f2-bc80b5e0e1bb\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba237a2d-49f1-4c88-8d95-d55c886784f6",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "74db0989-3e98-49a9-91a0-7f5e70830aba",
+          "name": "Read Automations",
+          "request": {
+            "name": "Read Automations",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "automations",
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sort\": \"NAME_ASC\",\n  \"offset\": 0,\n  \"automations\": {\n    \"operator\": \"and_\",\n    \"name\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"created\": {\n      \"before_\": \"<dateTime>\"\n    },\n    \"tags\": {\n      \"operator\": \"and_\",\n      \"all_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_null_\": \"<boolean>\"\n    }\n  },\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c13e1b18-2324-4d7c-bc4f-074056cf2dd3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sort\": \"NAME_ASC\",\n  \"offset\": 0,\n  \"automations\": {\n    \"operator\": \"and_\",\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"created\": {\n      \"before_\": \"1995-12-04T05:18:39.359Z\"\n    },\n    \"tags\": {\n      \"operator\": \"and_\",\n      \"all_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_null_\": false\n    }\n  },\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"trigger\": {\n      \"posture\": \"Proactive\",\n      \"type\": \"event\",\n      \"id\": \"88719b0c-782d-5ece-3489-a2b7d0f08296\",\n      \"match\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"match_related\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"after\": [\n        \"string\"\n      ],\n      \"expect\": [\n        \"string\"\n      ],\n      \"for_each\": [\n        \"string\"\n      ],\n      \"threshold\": 1,\n      \"within\": 0\n    },\n    \"actions\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"account\": \"e4092ba6-783d-52ed-bf90-807193b311af\",\n    \"workspace\": \"815fef82-9294-0cd7-7775-5effc82c34ce\",\n    \"description\": \"\",\n    \"enabled\": true,\n    \"actions_on_trigger\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"actions_on_resolve\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"labels\": {\n      \"key_0\": true\n    },\n    \"tags\": [\n      \"tag-1\",\n      \"tag-2\"\n    ],\n    \"id\": \"b4013582-cd59-97b4-9887-b972533b9836\",\n    \"created\": \"2008-05-02T22:18:38.850Z\",\n    \"updated\": \"1996-03-19T13:49:41.941Z\",\n    \"actor\": {\n      \"actor_id\": \"fd61ae09-d18d-c867-d600-1c43701a81af\",\n      \"handle\": \"string\",\n      \"user_id\": \"96098a13-ef65-7381-eace-48ee38f738c4\",\n      \"bot_id\": \"ce174611-dfcc-d677-5419-3a85d488fb0e\"\n    }\n  },\n  {\n    \"name\": \"string\",\n    \"trigger\": {\n      \"posture\": \"Reactive\",\n      \"type\": \"event\",\n      \"id\": \"dfd1b71f-4c3d-7fcc-ad47-98127d53d291\",\n      \"match\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"match_related\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"after\": [\n        \"string\"\n      ],\n      \"expect\": [\n        \"string\"\n      ],\n      \"for_each\": [\n        \"string\"\n      ],\n      \"threshold\": 1,\n      \"within\": 0\n    },\n    \"actions\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"account\": \"b31a94d2-0eb4-6533-2cf6-bd3030e84dcd\",\n    \"workspace\": \"09ba3006-29b6-6647-e454-18bae94ac66e\",\n    \"description\": \"\",\n    \"enabled\": true,\n    \"actions_on_trigger\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"actions_on_resolve\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"labels\": {\n      \"key_0\": false,\n      \"key_1\": true,\n      \"key_2\": true\n    },\n    \"tags\": [\n      \"tag-1\",\n      \"tag-2\"\n    ],\n    \"id\": \"97424eff-126d-ea35-0120-ffc3d9e5b68d\",\n    \"created\": \"2023-03-12T14:28:47.416Z\",\n    \"updated\": \"2010-04-14T03:37:10.969Z\",\n    \"actor\": {\n      \"actor_id\": \"56559fe8-582d-3b9d-3860-2a448268e968\",\n      \"handle\": \"string\",\n      \"user_id\": \"a467756d-8dcb-f887-4de5-4a5949bf574b\",\n      \"bot_id\": \"53183595-942a-0709-ffa8-43562a211bd2\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2540d90e-4f86-4a01-983c-e51611638290",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sort\": \"NAME_ASC\",\n  \"offset\": 0,\n  \"automations\": {\n    \"operator\": \"and_\",\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"created\": {\n      \"before_\": \"1995-12-04T05:18:39.359Z\"\n    },\n    \"tags\": {\n      \"operator\": \"and_\",\n      \"all_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_null_\": false\n    }\n  },\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54172076-3e59-4266-ba71-59ca2749aefd",
+          "name": "Count Automations",
+          "request": {
+            "name": "Count Automations",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "automations",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f2199161-1289-496b-9e9f-9de43ac1b9c9",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "996",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa8af071-47b1-47a4-8f79-cfc153726d7c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a001bd23-a601-4e65-8531-b03708fdba99",
+          "name": "Read Automations Related To Resource",
+          "request": {
+            "name": "Read Automations Related To Resource",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "automations",
+                "related-to",
+                ":resource_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "resource_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "355ac9d7-3780-42e4-8773-21d1acbbe3f1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    "related-to",
+                    ":resource_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"trigger\": {\n      \"posture\": \"Reactive\",\n      \"type\": \"event\",\n      \"id\": \"c25f0b34-8cec-3f3b-a34e-9a4f55b318e7\",\n      \"match\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"match_related\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"after\": [\n        \"string\"\n      ],\n      \"expect\": [\n        \"string\"\n      ],\n      \"for_each\": [\n        \"string\"\n      ],\n      \"threshold\": 1,\n      \"within\": 0\n    },\n    \"actions\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"account\": \"80e8d8b5-f6a5-eb49-3ab0-c6aef282351d\",\n    \"workspace\": \"c88dea06-10b3-5da7-a4b1-67f25db5cceb\",\n    \"description\": \"\",\n    \"enabled\": true,\n    \"actions_on_trigger\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"actions_on_resolve\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"labels\": {\n      \"key_0\": true\n    },\n    \"tags\": [\n      \"tag-1\",\n      \"tag-2\"\n    ],\n    \"id\": \"4d710f38-003a-4283-3738-acca03484da4\",\n    \"created\": \"2007-07-21T16:11:55.455Z\",\n    \"updated\": \"2016-10-06T02:03:08.225Z\",\n    \"actor\": {\n      \"actor_id\": \"be97ebec-722f-a6a2-0d61-8f6890e69a66\",\n      \"handle\": \"string\",\n      \"user_id\": \"952ae7b2-f6d0-fbd3-502e-baa3b0de1aa7\",\n      \"bot_id\": \"a2bd17b2-9051-e058-2098-a750c79e8aa5\"\n    }\n  },\n  {\n    \"name\": \"string\",\n    \"trigger\": {\n      \"posture\": \"Reactive\",\n      \"type\": \"event\",\n      \"id\": \"b777e833-f85c-9589-5e03-2c1e53836ac4\",\n      \"match\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"match_related\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_2\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"after\": [\n        \"string\"\n      ],\n      \"expect\": [\n        \"string\"\n      ],\n      \"for_each\": [\n        \"string\"\n      ],\n      \"threshold\": 1,\n      \"within\": 0\n    },\n    \"actions\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"account\": \"292368ff-a236-a4ba-6f54-75cc0dfa7980\",\n    \"workspace\": \"00b7acb1-c6ba-65e9-5f15-253d642163c5\",\n    \"description\": \"\",\n    \"enabled\": true,\n    \"actions_on_trigger\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"actions_on_resolve\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"labels\": {\n      \"key_0\": false,\n      \"key_1\": false\n    },\n    \"tags\": [\n      \"tag-1\",\n      \"tag-2\"\n    ],\n    \"id\": \"9fd0401a-28e1-b385-fca9-7c38a0a048ac\",\n    \"created\": \"1973-03-18T12:28:07.203Z\",\n    \"updated\": \"1988-06-03T07:10:50.931Z\",\n    \"actor\": {\n      \"actor_id\": \"c395466e-2914-9f3a-47ff-86de9c89e58e\",\n      \"handle\": \"string\",\n      \"user_id\": \"239b2b47-f2ec-0760-249b-205e89b72a35\",\n      \"bot_id\": \"2bcc312b-215b-1651-7c87-69d8d5188457\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2245db40-0acd-4b3e-840d-28280db5a731",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    "related-to",
+                    ":resource_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4e664e1-ab52-4b0c-b951-8d26c184a607",
+          "name": "Delete Automations Owned By Resource",
+          "request": {
+            "name": "Delete Automations Owned By Resource",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "automations",
+                "owned-by",
+                ":resource_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "resource_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "10fa3d93-75ec-49fa-aaf7-0004c11005c4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    "owned-by",
+                    ":resource_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a225517-3912-4c2b-a81e-b4ecab480e7c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    "owned-by",
+                    ":resource_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8572d6b1-9442-4f4c-90ce-2ee6a7b24258",
+          "name": "Validate Template",
+          "request": {
+            "name": "Validate Template",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "automations",
+                "templates",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8d7f4eda-e225-4ba4-8551-1e90a1ac571f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    "templates",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f7f24e4f-f265-464c-9b1d-198f74135616",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "automations",
+                    "templates",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d1f201d0-baf0-4ade-a9f1-c6d29d47df49",
+    "name": "Prefect Cloud Account Billing Automations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Prefect Cloud REST API documentation.",
+      "type": "text/plain"
+    }
+  }
+}

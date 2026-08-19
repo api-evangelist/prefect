@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Workspace Access API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workspace Access",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Actor Access",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/access/",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Return a list of all actors with access to the workspace, including\nactors granted access via team membership.\n\nRequired workspace scopes: `see_workspace_users`,`see_workspace_service_accounts`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

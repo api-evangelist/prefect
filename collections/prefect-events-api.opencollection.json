@@ -1,0 +1,357 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Events API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Account Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/events",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Record a batch of Events for an Account"
+        },
+        {
+          "info": {
+            "name": "Read Account Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/events/filter",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Queries for Events matching the given filter criteria in the given Account.  Returns\nthe first page of results, and the URL to request the next page (if there are more\nresults)."
+        },
+        {
+          "info": {
+            "name": "Read Account Events Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/events/filter/next",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the next page of Events for a previous query against the given Account, and\nthe URL to request the next page (if there are more results)."
+        },
+        {
+          "info": {
+            "name": "Count Account Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/events/count-by/:countable",
+            "params": [
+              {
+                "name": "countable",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns distinct objects and the count of events associated with them.  Objects\nthat can be counted include the day the event occurred, the type of event, the\nworkspace, or the IDs of the resources associated with the event."
+        },
+        {
+          "info": {
+            "name": "Create Workspace Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/events",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Record a batch of Events for one Workspace within an Account"
+        },
+        {
+          "info": {
+            "name": "Read Workspace Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/events/filter",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Queries for Events matching the given filter criteria in the given Account and\nWorkspace.  Returns the first page of results, and the URL to request the next\npage (if there are more results)."
+        },
+        {
+          "info": {
+            "name": "Read Workspace Events Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/events/filter/next",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the next page of Events for a previous query against the given Account and\nWorkspace, and the URL to request the next page (if there are more results)."
+        },
+        {
+          "info": {
+            "name": "Count Workspace Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/events/count-by/:countable",
+            "params": [
+              {
+                "name": "countable",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns distinct objects and the count of events associated with them.  Objects\nthat can be counted include the day the event occurred, the type of event, the\nworkspace, or the IDs of the resources associated with the event."
+        },
+        {
+          "info": {
+            "name": "Get Events For Flow Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/flow_runs/:flow_run_id/events",
+            "headers": [
+              {
+                "name": "if-none-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "flow_run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "with_task_runs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided."
+              }
+            ]
+          },
+          "docs": "Returns the first page of Events for a flow run against the given Account and Workspace.\n\nIf the `if-none-match` header is provided with the value of the current event count,\nthe server will return a 304 Not Modified response since the client already has the\nlatest events."
+        },
+        {
+          "info": {
+            "name": "List Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/tags",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "A string to search for in the tag names"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number of tags to return."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort tags by name (A→Z or Z→A) or recency (most/least recently seen first)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided."
+              }
+            ]
+          },
+          "docs": "Page through tags in a workspace."
+        },
+        {
+          "info": {
+            "name": "Delete Workspace Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/tags",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "The tag name"
+              }
+            ]
+          },
+          "docs": "Delete a tag from the workspace tags index."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,459 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Spans API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Spans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Spans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/traces/:trace_id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "trace_id",
+                "value": "",
+                "type": "path",
+                "description": "The trace ID to query spans for"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parent_span_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by parent span ID (None = all spans)"
+              },
+              {
+                "name": "depth",
+                "value": "",
+                "type": "query",
+                "description": "Filter by depth level (None = all depths)"
+              },
+              {
+                "name": "entities",
+                "value": "",
+                "type": "query",
+                "description": "Filter by entity types (e.g., 'flow-run', 'task-run', 'artifact')"
+              },
+              {
+                "name": "state_types",
+                "value": "",
+                "type": "query",
+                "description": "Filter by state types (e.g., 'COMPLETED', 'RUNNING', 'FAILED')"
+              },
+              {
+                "name": "state_names",
+                "value": "",
+                "type": "query",
+                "description": "Filter by state names (e.g., 'Completed', 'Running', 'Failed')"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tags (OR logic - span matches if it has ANY of the specified tags)"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Text search query across span content (space=OR, -/!=NOT, quotes=phrases)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from previous response"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Pagination direction"
+              }
+            ]
+          },
+          "docs": "Get spans with cursor-based pagination for efficient browsing.\n\nUse cases:\n- Initial page load (depth=0 for root spans)\n- Expand a node (parent_span_id=X for children)\n- Browse all spans at specific depth\n- Filter by state types/names\n- Paginate through large result sets (both directions)\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Read Span Context",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/traces/:trace_id/context/:span_id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "trace_id",
+                "value": "",
+                "type": "path",
+                "description": "The trace containing the span"
+              },
+              {
+                "name": "span_id",
+                "value": "",
+                "type": "path",
+                "description": "The target span to get context for"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "context_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of siblings before/after to include"
+              }
+            ]
+          },
+          "docs": "Get full context window for detailed span view.\n\nReturns:\n- spans: All ancestors + siblings in context window\n- target_span_id: The requested span ID\n- has_more_before/after: Pagination indicators\n\nUse case: When user clicks on a span or loads a deep link URL\n\nThe frontend receives a flat list of spans and can:\n- Build the tree structure from parent relationships\n- Highlight the target span\n- Show pagination controls based on has_more flags\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Read Trace Observed States",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/traces/:trace_id/observed-states",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "trace_id",
+                "value": "",
+                "type": "path",
+                "description": "The trace ID to query observed states for"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Prefix search query for state type or name"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Order results by name (alphabetically) or recency (most recently seen first)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              }
+            ]
+          },
+          "docs": "Get observed state type/name combinations used in a specific trace.\n\nReturns distinct state combinations used in the trace.\nUseful for showing what states were actually used in a flow run and\nproviding autocomplete/filtering options.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID to analyze\n    query: Optional prefix search on state_type or state_name\n    order_by: Order by name (alphabetically) or recency (most recent first)\n    limit: Maximum number of results\n"
+        },
+        {
+          "info": {
+            "name": "Read Trace Observed Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/traces/:trace_id/observed-tags",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "trace_id",
+                "value": "",
+                "type": "path",
+                "description": "The trace ID to query observed tags for"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Prefix search query for tag names"
+              }
+            ]
+          },
+          "docs": "Get all observed tags and their counts for a specific trace.\n\nReturns all tags used in spans within the trace with their occurrence counts.\nUseful for showing what tags were used in a flow run and their frequency.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID to analyze\n\nReturns:\n    List of ObservedTag objects with tag names and counts\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Read Single Span",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/traces/:trace_id/spans/:span_id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "trace_id",
+                "value": "",
+                "type": "path",
+                "description": "The trace containing the span"
+              },
+              {
+                "name": "span_id",
+                "value": "",
+                "type": "path",
+                "description": "The span ID to retrieve"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a single span by ID within a specific trace.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID containing the span\n    span_id: The span ID to retrieve\n\nReturns:\n    SpanResponse with has_children and child_count computed\n\nRaises:\n    HTTPException: 404 if span not found or doesn't belong to trace\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Read Spans By Ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/traces/:trace_id/spans",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "trace_id",
+                "value": "",
+                "type": "path",
+                "description": "The trace containing the spans"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "List of span IDs to retrieve. Only returns spans that exist and belong to the specified trace."
+              }
+            ]
+          },
+          "docs": "Get multiple spans by IDs within a specific trace.\n\nReturns only spans that exist and belong to the specified trace.\nEmpty IDs list or no matches returns empty list.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID containing the spans\n    ids: List of span IDs to retrieve\n\nReturns:\n    List of SpanResponse objects with has_children and child_count computed\n\nRaises:\n    HTTPException: 404 if trace doesn't exist\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Lookup Span By Run Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/spans/lookup/:run_id",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "The run ID to lookup span information for"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Look up trace and span information for a given run ID.\n\nTreats the run_id as a span_id and returns the trace_id and span_id\nof the found span. This is useful for navigating from a child run ID\nto its trace view.\n\nArgs:\n    workspace_id: The workspace ID\n    run_id: The run ID to look up (treated as span_id)\n\nReturns:\n    SpanIdentifierResponse containing trace_id and span_id\n\nRaises:\n    HTTPException: 404 if span not found\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Read Span Observed Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/spans/:span_id/observed-tags",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "span_id",
+                "value": "",
+                "type": "path",
+                "description": "The span ID to query observed tags for"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Prefix search query for tag names"
+              }
+            ]
+          },
+          "docs": "Get all observed tags and their counts for a specific span and all its descendants.\n\nUses a recursive query to find all descendant spans, then aggregates tags\nfrom the target span and all its children recursively.\n\nArgs:\n    workspace_id: The workspace ID\n    span_id: The span ID to analyze (includes this span + all descendants)\n\nReturns:\n    List of ObservedTag objects with tag names and occurrence counts\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Read Workspace Observed States",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/observed-states",
+            "headers": [
+              {
+                "name": "x-prefect-api-version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Prefix search query for state type or name"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Order results by name (alphabetically) or recency (most recently seen first)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              }
+            ]
+          },
+          "docs": "Get observed state type/name combinations for a workspace.\n\nReturns distinct state combinations across all traces in the workspace.\nResults are filtered by workspace retention policy.\nUseful for providing autocomplete/filtering options in the UI.\n\nArgs:\n    account_id: The account ID\n    workspace_id: The workspace ID\n    query: Optional prefix search on state_type or state_name\n    order_by: Order by name (alphabetically) or recency (most recent first)\n    limit: Maximum number of results\n\nRetu"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

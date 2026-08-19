@@ -1,0 +1,2412 @@
+{
+  "item": [
+    {
+      "id": "d7bbe250-38de-4546-ae8c-1bb72a8aff99",
+      "name": "SLAs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1e6f5346-3691-4868-b89a-4c0bf5a9ee9a",
+          "name": "Create Sla",
+          "request": {
+            "name": "Create Sla",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "slas",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"duration\": \"<integer>\",\n  \"severity\": \"high\",\n  \"enabled\": \"<boolean>\",\n  \"owner_resource\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "30a6c708-6d5d-4362-a2a4-5e2bdcdb4f2d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"duration\": 8210,\n  \"severity\": \"high\",\n  \"enabled\": true,\n  \"owner_resource\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"trigger\": {\n    \"posture\": \"Reactive\",\n    \"type\": \"event\",\n    \"id\": \"1e5f2321-a5ed-6019-4dba-1d04904ea2c9\",\n    \"match\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"match_related\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"after\": [\n      \"string\"\n    ],\n    \"expect\": [\n      \"string\"\n    ],\n    \"for_each\": [\n      \"string\"\n    ],\n    \"threshold\": 1,\n    \"within\": 0\n  },\n  \"actions\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"type\": \"FrequencySla\",\n  \"account\": \"d56e2204-bfc1-c1ee-68d4-5a14565e2b3a\",\n  \"workspace\": \"bee62830-f1e4-4117-982d-998ebe9d34c0\",\n  \"description\": \"\",\n  \"enabled\": true,\n  \"actions_on_trigger\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"actions_on_resolve\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"labels\": {\n    \"key_0\": false,\n    \"key_1\": false,\n    \"key_2\": false\n  },\n  \"tags\": [\n    \"tag-1\",\n    \"tag-2\"\n  ],\n  \"severity\": \"moderate\",\n  \"id\": \"3c088169-50ac-cc51-7842-7dfa4101a96a\",\n  \"created\": \"1993-12-25T08:33:00.349Z\",\n  \"updated\": \"2019-05-06T02:38:24.256Z\",\n  \"actor\": {\n    \"actor_id\": \"588ec6ab-8638-1496-ec2d-62d6f725e622\",\n    \"handle\": \"string\",\n    \"user_id\": \"60605553-b0a5-1257-bec7-f89bc0ccd699\",\n    \"bot_id\": \"204a5d81-5b0f-3510-3d76-ef7f0530b3c3\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1324754-9b9a-4d06-a7a5-71419602c296",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"duration\": 8210,\n  \"severity\": \"high\",\n  \"enabled\": true,\n  \"owner_resource\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be9fd075-e773-41ba-af66-e245ad28f12f",
+          "name": "Apply Slas",
+          "request": {
+            "name": "Apply Slas",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "slas",
+                "apply-resource-slas",
+                ":resource_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "resource_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"duration\": \"<integer>\",\n    \"severity\": \"high\",\n    \"enabled\": \"<boolean>\",\n    \"owner_resource\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"duration\": \"<integer>\",\n    \"severity\": \"high\",\n    \"enabled\": \"<boolean>\",\n    \"owner_resource\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c4ab66d-9a36-4505-8c5f-8c32459e9f3c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "apply-resource-slas",
+                    ":resource_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"string\",\n    \"duration\": 1083,\n    \"severity\": \"high\",\n    \"enabled\": false,\n    \"owner_resource\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"duration\": 1954,\n    \"severity\": \"high\",\n    \"enabled\": false,\n    \"owner_resource\": \"string\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    {\n      \"name\": \"string\",\n      \"trigger\": {\n        \"posture\": \"Reactive\",\n        \"type\": \"event\",\n        \"id\": \"f5b9633a-be15-c5d9-6c23-82b568f4a961\",\n        \"match\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"match_related\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"after\": [\n          \"string\"\n        ],\n        \"expect\": [\n          \"string\"\n        ],\n        \"for_each\": [\n          \"string\"\n        ],\n        \"threshold\": 1,\n        \"within\": 0\n      },\n      \"actions\": [\n        {\n          \"type\": \"do-nothing\"\n        },\n        {\n          \"type\": \"do-nothing\"\n        }\n      ],\n      \"type\": \"LatenessSla\",\n      \"account\": \"63222245-902f-e987-d65f-5baf5bacf554\",\n      \"workspace\": \"19e89d7f-618b-ddca-7663-b3e14fd41f30\",\n      \"description\": \"\",\n      \"enabled\": true,\n      \"actions_on_trigger\": [\n        {\n          \"type\": \"do-nothing\"\n        },\n        {\n          \"type\": \"do-nothing\"\n        }\n      ],\n      \"actions_on_resolve\": [\n        {\n          \"type\": \"do-nothing\"\n        },\n        {\n          \"type\": \"do-nothing\"\n        }\n      ],\n      \"labels\": {\n        \"key_0\": true,\n        \"key_1\": true,\n        \"key_2\": true\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"severity\": \"moderate\",\n      \"id\": \"c2df85b9-36f7-d938-4712-cd2b07434bde\",\n      \"created\": \"1994-07-15T05:01:02.103Z\",\n      \"updated\": \"1956-01-18T17:31:43.317Z\",\n      \"actor\": {\n        \"actor_id\": \"c317af04-cb2c-7630-6c1d-0e8be3803cba\",\n        \"handle\": \"string\",\n        \"user_id\": \"b6f35f61-e46a-95c5-5b8c-32cf9f8c08db\",\n        \"bot_id\": \"eca2f263-d002-e02c-18a4-65a71e644977\"\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"trigger\": {\n        \"posture\": \"Proactive\",\n        \"type\": \"event\",\n        \"id\": \"89848fc2-a3e5-2136-39ce-584ba595bb5f\",\n        \"match\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"match_related\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"after\": [\n          \"string\"\n        ],\n        \"expect\": [\n          \"string\"\n        ],\n        \"for_each\": [\n          \"string\"\n        ],\n        \"threshold\": 1,\n        \"within\": 0\n      },\n      \"actions\": [\n        {\n          \"type\": \"do-nothing\"\n        },\n        {\n          \"type\": \"do-nothing\"\n        }\n      ],\n      \"type\": \"FreshnessSla\",\n      \"account\": \"2013d4f2-3e48-b979-35d8-c877ec5b166b\",\n      \"workspace\": \"094466fe-eec5-2f6e-030a-3022ca5d965b\",\n      \"description\": \"\",\n      \"enabled\": true,\n      \"actions_on_trigger\": [\n        {\n          \"type\": \"do-nothing\"\n        },\n        {\n          \"type\": \"do-nothing\"\n        }\n      ],\n      \"actions_on_resolve\": [\n        {\n          \"type\": \"do-nothing\"\n        },\n        {\n          \"type\": \"do-nothing\"\n        }\n      ],\n      \"labels\": {\n        \"key_0\": false\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"severity\": \"moderate\",\n      \"id\": \"7755c372-c562-174d-9492-634443da276e\",\n      \"created\": \"1980-01-30T01:01:05.718Z\",\n      \"updated\": \"1995-01-01T02:06:19.057Z\",\n      \"actor\": {\n        \"actor_id\": \"5afd8514-86c0-d813-db48-0a906276f2ac\",\n        \"handle\": \"string\",\n        \"user_id\": \"289b02a7-ce7b-572e-b72e-1b7147f11444\",\n        \"bot_id\": \"5c5b7f65-9aba-43a1-5ecf-bcd2b4f1de3c\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bddf77c8-6112-4aee-acf3-e264adc98b0b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "apply-resource-slas",
+                    ":resource_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"string\",\n    \"duration\": 1083,\n    \"severity\": \"high\",\n    \"enabled\": false,\n    \"owner_resource\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"duration\": 1954,\n    \"severity\": \"high\",\n    \"enabled\": false,\n    \"owner_resource\": \"string\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf66b5f2-e84d-4e6d-b331-1e97f8b340e9",
+          "name": "Read Slas",
+          "request": {
+            "name": "Read Slas",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "slas",
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "NAME_ASC"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offset\": 0,\n  \"filter\": {\n    \"operator\": \"and_\",\n    \"name\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"created\": {\n      \"before_\": \"<dateTime>\"\n    },\n    \"tags\": {\n      \"operator\": \"and_\",\n      \"all_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_null_\": \"<boolean>\"\n    },\n    \"severity\": \"<string>\"\n  },\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "23600174-a313-4cc1-8344-5fcd5c1e9204",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "NAME_ASC"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offset\": 0,\n  \"filter\": {\n    \"operator\": \"and_\",\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"created\": {\n      \"before_\": \"2004-09-28T08:07:25.185Z\"\n    },\n    \"tags\": {\n      \"operator\": \"and_\",\n      \"all_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_null_\": true\n    },\n    \"severity\": \"string\"\n  },\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"trigger\": {\n      \"posture\": \"Proactive\",\n      \"type\": \"event\",\n      \"id\": \"d6bdd81b-7e79-235f-8ebc-0522bedf33a2\",\n      \"match\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"match_related\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_2\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_3\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"after\": [\n        \"string\"\n      ],\n      \"expect\": [\n        \"string\"\n      ],\n      \"for_each\": [\n        \"string\"\n      ],\n      \"threshold\": 1,\n      \"within\": 0\n    },\n    \"actions\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"type\": \"TimeToCompletionSla\",\n    \"account\": \"c8107408-b104-6a3e-7b2c-33b8500e4b83\",\n    \"workspace\": \"3cd06de5-b6fb-5d81-188e-583aee43f8c8\",\n    \"description\": \"\",\n    \"enabled\": true,\n    \"actions_on_trigger\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"actions_on_resolve\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"labels\": {\n      \"key_0\": false\n    },\n    \"tags\": [\n      \"tag-1\",\n      \"tag-2\"\n    ],\n    \"severity\": \"moderate\",\n    \"id\": \"cde86e1e-40f2-a32c-864a-8ec4d956b184\",\n    \"created\": \"1947-08-25T19:11:47.774Z\",\n    \"updated\": \"1996-03-15T09:13:28.251Z\",\n    \"actor\": {\n      \"actor_id\": \"93f3c14e-0b5d-8653-5cf1-fd172200d309\",\n      \"handle\": \"string\",\n      \"user_id\": \"5bdd425e-4b7a-90ff-eefd-a3dcc797588e\",\n      \"bot_id\": \"b70bd122-9c55-43ec-4bdb-95506da8f580\"\n    }\n  },\n  {\n    \"name\": \"string\",\n    \"trigger\": {\n      \"posture\": \"Reactive\",\n      \"type\": \"event\",\n      \"id\": \"fab5501c-bf83-074d-552b-924e0d4f53bd\",\n      \"match\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"match_related\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_2\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"after\": [\n        \"string\"\n      ],\n      \"expect\": [\n        \"string\"\n      ],\n      \"for_each\": [\n        \"string\"\n      ],\n      \"threshold\": 1,\n      \"within\": 0\n    },\n    \"actions\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"type\": \"FrequencySla\",\n    \"account\": \"23f2d56b-ed92-88d6-7d02-fab57a5bcbee\",\n    \"workspace\": \"c675e6f7-95b1-4a62-eca9-70b2ed0e56c5\",\n    \"description\": \"\",\n    \"enabled\": true,\n    \"actions_on_trigger\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"actions_on_resolve\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"labels\": {\n      \"key_0\": true,\n      \"key_1\": true,\n      \"key_2\": true,\n      \"key_3\": true\n    },\n    \"tags\": [\n      \"tag-1\",\n      \"tag-2\"\n    ],\n    \"severity\": \"moderate\",\n    \"id\": \"82d8c000-731d-93ca-fab8-e571d5be71bb\",\n    \"created\": \"1997-11-03T05:44:27.780Z\",\n    \"updated\": \"1957-02-24T03:37:11.133Z\",\n    \"actor\": {\n      \"actor_id\": \"5af01e94-9d98-7841-cee2-b023d515e80b\",\n      \"handle\": \"string\",\n      \"user_id\": \"0281a8b0-3f25-eb57-c35d-7eedb4d85c45\",\n      \"bot_id\": \"79df6dc4-6720-7916-7bae-04f7298f7f0e\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "edef2158-59e5-487c-a458-a29cb8e3599b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "NAME_ASC"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offset\": 0,\n  \"filter\": {\n    \"operator\": \"and_\",\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"created\": {\n      \"before_\": \"2004-09-28T08:07:25.185Z\"\n    },\n    \"tags\": {\n      \"operator\": \"and_\",\n      \"all_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_null_\": true\n    },\n    \"severity\": \"string\"\n  },\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3713fbd8-930d-4a60-a1c6-5168d67c88e5",
+          "name": "Read Slas By Owner Resource",
+          "request": {
+            "name": "Read Slas By Owner Resource",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "slas",
+                "by-owner",
+                ":owner_resource"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "NAME_ASC"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_resource",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offset\": 0,\n  \"filter\": {\n    \"operator\": \"and_\",\n    \"name\": {\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"created\": {\n      \"before_\": \"<dateTime>\"\n    },\n    \"tags\": {\n      \"operator\": \"and_\",\n      \"all_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"any_\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_null_\": \"<boolean>\"\n    },\n    \"severity\": \"<string>\"\n  },\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f506c171-a0a5-41bf-920c-465523bf1f2e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "by-owner",
+                    ":owner_resource"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "NAME_ASC"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_resource",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offset\": 0,\n  \"filter\": {\n    \"operator\": \"and_\",\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"created\": {\n      \"before_\": \"1952-12-24T23:26:14.417Z\"\n    },\n    \"tags\": {\n      \"operator\": \"and_\",\n      \"all_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_null_\": false\n    },\n    \"severity\": \"string\"\n  },\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"trigger\": {\n      \"posture\": \"Proactive\",\n      \"type\": \"event\",\n      \"id\": \"fc1532b1-0935-46ab-3283-7b34fbc6bebb\",\n      \"match\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"match_related\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"after\": [\n        \"string\"\n      ],\n      \"expect\": [\n        \"string\"\n      ],\n      \"for_each\": [\n        \"string\"\n      ],\n      \"threshold\": 1,\n      \"within\": 0\n    },\n    \"actions\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"type\": \"TimeToCompletionSla\",\n    \"account\": \"b2d58d58-4c1b-543a-d24c-8c57ff904cde\",\n    \"workspace\": \"e90e1615-0e2b-b076-7769-1463d122d919\",\n    \"description\": \"\",\n    \"enabled\": true,\n    \"actions_on_trigger\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"actions_on_resolve\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"labels\": {\n      \"key_0\": true\n    },\n    \"tags\": [\n      \"tag-1\",\n      \"tag-2\"\n    ],\n    \"severity\": \"moderate\",\n    \"id\": \"5e138c21-8732-9f72-6633-7484ae4f84e7\",\n    \"created\": \"1984-11-05T01:52:51.847Z\",\n    \"updated\": \"2017-08-19T03:45:39.503Z\",\n    \"actor\": {\n      \"actor_id\": \"97b262bb-aaaf-48fd-cb56-eed602c8d9ad\",\n      \"handle\": \"string\",\n      \"user_id\": \"021fdb20-1779-394e-e6fb-097b0bf66ee2\",\n      \"bot_id\": \"b0b50fb4-bcf8-b710-321f-dee9e0ff12f6\"\n    }\n  },\n  {\n    \"name\": \"string\",\n    \"trigger\": {\n      \"posture\": \"Proactive\",\n      \"type\": \"event\",\n      \"id\": \"c038db84-0fc3-6545-7ed9-0ccec28ac9bb\",\n      \"match\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_2\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"match_related\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"after\": [\n        \"string\"\n      ],\n      \"expect\": [\n        \"string\"\n      ],\n      \"for_each\": [\n        \"string\"\n      ],\n      \"threshold\": 1,\n      \"within\": 0\n    },\n    \"actions\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"type\": \"FreshnessSla\",\n    \"account\": \"cbca520c-531d-99aa-2afa-47dbc4540ce9\",\n    \"workspace\": \"3cdefae4-6d3c-cefb-775b-4bd31dddfa56\",\n    \"description\": \"\",\n    \"enabled\": true,\n    \"actions_on_trigger\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"actions_on_resolve\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"labels\": {\n      \"key_0\": false,\n      \"key_1\": false\n    },\n    \"tags\": [\n      \"tag-1\",\n      \"tag-2\"\n    ],\n    \"severity\": \"moderate\",\n    \"id\": \"bd31a1a0-63ce-f03b-5462-5fff17b3e625\",\n    \"created\": \"1987-04-26T23:51:47.355Z\",\n    \"updated\": \"1950-07-06T15:48:21.869Z\",\n    \"actor\": {\n      \"actor_id\": \"56b173b9-9887-00f3-f63e-28a09f944772\",\n      \"handle\": \"string\",\n      \"user_id\": \"4de7977d-4842-f175-46a4-a52fd6bac4ca\",\n      \"bot_id\": \"04bbbe5a-d060-13f4-7bb0-49c694d0af22\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38d09261-3c1a-4c27-99c4-a93a2670e28d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "by-owner",
+                    ":owner_resource"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "NAME_ASC"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_resource",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offset\": 0,\n  \"filter\": {\n    \"operator\": \"and_\",\n    \"name\": {\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"created\": {\n      \"before_\": \"1952-12-24T23:26:14.417Z\"\n    },\n    \"tags\": {\n      \"operator\": \"and_\",\n      \"all_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"any_\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_null_\": false\n    },\n    \"severity\": \"string\"\n  },\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0af4c56f-4450-4132-bb47-04baf34053e9",
+          "name": "Read Sla",
+          "request": {
+            "name": "Read Sla",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "slas",
+                ":sla_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "sla_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e4f4ca02-d698-4d1c-8b8a-58762d2e2f24",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    ":sla_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sla_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"trigger\": {\n    \"posture\": \"Reactive\",\n    \"type\": \"event\",\n    \"id\": \"1e5f2321-a5ed-6019-4dba-1d04904ea2c9\",\n    \"match\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"match_related\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"after\": [\n      \"string\"\n    ],\n    \"expect\": [\n      \"string\"\n    ],\n    \"for_each\": [\n      \"string\"\n    ],\n    \"threshold\": 1,\n    \"within\": 0\n  },\n  \"actions\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"type\": \"FrequencySla\",\n  \"account\": \"d56e2204-bfc1-c1ee-68d4-5a14565e2b3a\",\n  \"workspace\": \"bee62830-f1e4-4117-982d-998ebe9d34c0\",\n  \"description\": \"\",\n  \"enabled\": true,\n  \"actions_on_trigger\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"actions_on_resolve\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"labels\": {\n    \"key_0\": false,\n    \"key_1\": false,\n    \"key_2\": false\n  },\n  \"tags\": [\n    \"tag-1\",\n    \"tag-2\"\n  ],\n  \"severity\": \"moderate\",\n  \"id\": \"3c088169-50ac-cc51-7842-7dfa4101a96a\",\n  \"created\": \"1993-12-25T08:33:00.349Z\",\n  \"updated\": \"2019-05-06T02:38:24.256Z\",\n  \"actor\": {\n    \"actor_id\": \"588ec6ab-8638-1496-ec2d-62d6f725e622\",\n    \"handle\": \"string\",\n    \"user_id\": \"60605553-b0a5-1257-bec7-f89bc0ccd699\",\n    \"bot_id\": \"204a5d81-5b0f-3510-3d76-ef7f0530b3c3\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18194de9-81a4-462a-98ac-8fc71fb65af7",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    ":sla_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sla_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fdaef721-61af-4ff6-9b03-ca2529e298f6",
+          "name": "Update Sla",
+          "request": {
+            "name": "Update Sla",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "slas",
+                ":sla_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "sla_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9be486e3-c64b-4aa9-ac05-db519c95c50d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    ":sla_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sla_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "true",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6c32d8e-1f34-42a0-abf4-5ef3905785b2",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    ":sla_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sla_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f713068b-8ad9-4153-b2db-a9ac22173abf",
+          "name": "Delete Sla",
+          "request": {
+            "name": "Delete Sla",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "slas",
+                ":sla_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "sla_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "99e71842-990f-4ab1-9d44-7826eacb1db1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    ":sla_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sla_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "false",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8874fcac-5d50-4b27-b310-86acf83c095f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    ":sla_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sla_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "122d091d-fb03-4f71-a4d2-ad90c75bc495",
+          "name": "Read Flow Runs",
+          "request": {
+            "name": "Read Flow Runs",
+            "description": {
+              "content": "Read all flow runs that have an SLA violation event within the given horizon.\n\nArgs:\n    sla_ids (list[UUID]): The IDs of the SLAs to read flow runs for.\n    since (datetime): The date to read flow runs since.\n    workspace_id (UUID, optional): The ID of the workspace to read flow runs for. Defaults to Path(...).\n    account_id (UUID, optional): The ID of the account to read flow runs for. Defaults to Path(...).\n    client (AsyncClient, optional): The ClickHouse client to use. Defaults to Depends(clickhouse_client).\n\nReturns:\n    Sequence[str]: _description_",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "slas",
+                "flow-runs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sla_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"since\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c869f61-1521-40da-a35c-139977033b3a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "flow-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sla_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"since\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9dba7a7-a2c2-4f4f-970a-cdb2f99bb2b0",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "flow-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sla_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"since\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b7ca338-305a-433b-b4f5-2da54675165d",
+          "name": "Create Default Sla",
+          "request": {
+            "name": "Create Default Sla",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "slas",
+                "default"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sla_severities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"block_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76e9be9d-0006-4055-b553-fede14fadcf2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sla_severities\": [\n    \"critical\",\n    \"high\"\n  ],\n  \"block_id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"trigger\": {\n      \"posture\": \"Proactive\",\n      \"type\": \"event\",\n      \"id\": \"f48ad4a3-aa1f-c88c-b524-fa4785934511\",\n      \"match\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"match_related\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"after\": [\n        \"string\"\n      ],\n      \"expect\": [\n        \"string\"\n      ],\n      \"for_each\": [\n        \"string\"\n      ],\n      \"threshold\": 1,\n      \"within\": 0\n    },\n    \"actions\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"account\": \"67698cd0-41bc-fbc9-fd24-00b0aa120483\",\n    \"workspace\": \"400810b2-d322-2af4-2d68-cc33fa6b0aea\",\n    \"description\": \"\",\n    \"enabled\": true,\n    \"actions_on_trigger\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"actions_on_resolve\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"labels\": {\n      \"key_0\": false\n    },\n    \"tags\": [\n      \"tag-1\",\n      \"tag-2\"\n    ],\n    \"id\": \"301205e9-c190-095c-c69f-d4dd18e6da44\",\n    \"created\": \"1980-05-28T16:20:22.263Z\",\n    \"updated\": \"1999-04-20T22:32:21.885Z\",\n    \"actor\": {\n      \"actor_id\": \"2531a65c-5a8b-be7c-020f-c45257a3bc53\",\n      \"handle\": \"string\",\n      \"user_id\": \"0bf7c048-c3cd-7df4-c95a-170fa3d16e8f\",\n      \"bot_id\": \"a3bb93fd-483b-23bf-f7f7-8d51d9d665ab\"\n    }\n  },\n  {\n    \"name\": \"string\",\n    \"trigger\": {\n      \"posture\": \"Reactive\",\n      \"type\": \"event\",\n      \"id\": \"12eb7716-9887-bc07-1b44-560a5e8f07ad\",\n      \"match\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"match_related\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"after\": [\n        \"string\"\n      ],\n      \"expect\": [\n        \"string\"\n      ],\n      \"for_each\": [\n        \"string\"\n      ],\n      \"threshold\": 1,\n      \"within\": 0\n    },\n    \"actions\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"account\": \"efdb90a8-e313-d31d-a3fb-49eec870c75e\",\n    \"workspace\": \"43b0223e-35fd-bad6-7e0f-9fed18607e60\",\n    \"description\": \"\",\n    \"enabled\": true,\n    \"actions_on_trigger\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"actions_on_resolve\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"labels\": {\n      \"key_0\": true,\n      \"key_1\": true\n    },\n    \"tags\": [\n      \"tag-1\",\n      \"tag-2\"\n    ],\n    \"id\": \"85a894e7-dcd1-1abb-8b13-d181a939bb23\",\n    \"created\": \"1957-10-19T07:20:31.139Z\",\n    \"updated\": \"1974-05-20T10:48:45.347Z\",\n    \"actor\": {\n      \"actor_id\": \"58537e2a-41a3-a7d4-3643-70586b7b31a6\",\n      \"handle\": \"string\",\n      \"user_id\": \"3b463e42-ccdc-ca0c-2701-e0bd6373c60a\",\n      \"bot_id\": \"d580cf6f-5ca5-121e-5e0c-67858cfc1104\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a36828d-36fb-4dde-870e-c2f98cf65c8b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sla_severities\": [\n    \"critical\",\n    \"high\"\n  ],\n  \"block_id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d2dd583-32f4-4574-af67-6da08883d41f",
+          "name": "Read Default Sla List",
+          "request": {
+            "name": "Read Default Sla List",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "slas",
+                "default",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "948fbea9-47ff-4993-a802-ac2b96863dae",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "default",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"trigger\": {\n      \"posture\": \"Proactive\",\n      \"type\": \"event\",\n      \"id\": \"4272ed0b-80ef-d92d-5a6d-d42e645ea06e\",\n      \"match\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_2\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"match_related\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"after\": [\n        \"string\"\n      ],\n      \"expect\": [\n        \"string\"\n      ],\n      \"for_each\": [\n        \"string\"\n      ],\n      \"threshold\": 1,\n      \"within\": 0\n    },\n    \"actions\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"account\": \"7c3479c6-7a41-ed25-6d3e-2f11d74e7c4f\",\n    \"workspace\": \"39c73161-e98c-d1f2-7fa7-30e65b2f60d1\",\n    \"description\": \"\",\n    \"enabled\": true,\n    \"actions_on_trigger\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"actions_on_resolve\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"labels\": {\n      \"key_0\": true\n    },\n    \"tags\": [\n      \"tag-1\",\n      \"tag-2\"\n    ],\n    \"id\": \"48394f17-12ab-0da2-01bf-3968fddd183d\",\n    \"created\": \"1993-09-18T11:46:03.494Z\",\n    \"updated\": \"1987-12-27T09:29:04.273Z\",\n    \"actor\": {\n      \"actor_id\": \"28b64075-6270-10bd-4696-22b3d4e50d46\",\n      \"handle\": \"string\",\n      \"user_id\": \"910c841f-3493-bc01-53f6-40200e1c1723\",\n      \"bot_id\": \"8db0e152-7355-6afc-3d06-0ae7fef2ea7f\"\n    }\n  },\n  {\n    \"name\": \"string\",\n    \"trigger\": {\n      \"posture\": \"Proactive\",\n      \"type\": \"event\",\n      \"id\": \"8a021208-d505-878e-10f9-54d01c225cb2\",\n      \"match\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"key_1\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"match_related\": {\n        \"key_0\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"after\": [\n        \"string\"\n      ],\n      \"expect\": [\n        \"string\"\n      ],\n      \"for_each\": [\n        \"string\"\n      ],\n      \"threshold\": 1,\n      \"within\": 0\n    },\n    \"actions\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"account\": \"7b09dafa-55af-b7c0-ac56-0daa8f273f12\",\n    \"workspace\": \"96975f2c-3bea-5083-f68b-0af361e6144c\",\n    \"description\": \"\",\n    \"enabled\": true,\n    \"actions_on_trigger\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"actions_on_resolve\": [\n      {\n        \"type\": \"do-nothing\"\n      },\n      {\n        \"type\": \"do-nothing\"\n      }\n    ],\n    \"labels\": {\n      \"key_0\": false,\n      \"key_1\": true,\n      \"key_2\": true\n    },\n    \"tags\": [\n      \"tag-1\",\n      \"tag-2\"\n    ],\n    \"id\": \"03577438-88d8-80d4-f999-502c9c73b5e1\",\n    \"created\": \"1985-01-29T22:36:07.899Z\",\n    \"updated\": \"1970-07-13T10:34:21.352Z\",\n    \"actor\": {\n      \"actor_id\": \"6a08ddc3-46c3-f21d-70f0-5777a9133195\",\n      \"handle\": \"string\",\n      \"user_id\": \"c0eca4a2-012f-ff49-3183-dc940be993cf\",\n      \"bot_id\": \"aae5fad0-737b-041d-652b-87922fd1fb23\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb1a8afe-2348-4911-94fc-48750080d416",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "default",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dbf9b661-9a48-4a3f-85dc-70905ebb6f41",
+          "name": "Read Default Sla",
+          "request": {
+            "name": "Read Default Sla",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "slas",
+                "default",
+                ":sla_severity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sla_severity",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c29a0b43-4a8a-488f-855b-29a2885a03eb",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "default",
+                    ":sla_severity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sla_severity",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"trigger\": {\n    \"posture\": \"Proactive\",\n    \"type\": \"event\",\n    \"id\": \"e0d43216-b34b-859c-6243-80041bc2572f\",\n    \"match\": {\n      \"key_0\": \"string\"\n    },\n    \"match_related\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"after\": [\n      \"string\"\n    ],\n    \"expect\": [\n      \"string\"\n    ],\n    \"for_each\": [\n      \"string\"\n    ],\n    \"threshold\": 1,\n    \"within\": 0\n  },\n  \"actions\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"account\": \"3e32a45d-70f9-f574-ebc7-6f75f5f2cd7c\",\n  \"workspace\": \"cb4addcd-da8a-3525-1f5f-4bd93b3a6fab\",\n  \"description\": \"\",\n  \"enabled\": true,\n  \"actions_on_trigger\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"actions_on_resolve\": [\n    {\n      \"type\": \"do-nothing\"\n    },\n    {\n      \"type\": \"do-nothing\"\n    }\n  ],\n  \"labels\": {\n    \"key_0\": false\n  },\n  \"tags\": [\n    \"tag-1\",\n    \"tag-2\"\n  ],\n  \"id\": \"71ca2964-df57-af67-ff68-caa4aae9b1f7\",\n  \"created\": \"2024-04-14T11:57:28.499Z\",\n  \"updated\": \"1973-08-07T01:50:36.613Z\",\n  \"actor\": {\n    \"actor_id\": \"e21a0968-32e8-0abf-764e-0fe5744fbc54\",\n    \"handle\": \"string\",\n    \"user_id\": \"ee8de458-8bb0-9fdc-ed9a-3876ed3bb2aa\",\n    \"bot_id\": \"59601671-10cb-4e6b-cefc-14b4c17b2c1f\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33bd635c-32b8-482f-8899-121c33a9681f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "default",
+                    ":sla_severity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sla_severity",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ef51b95-265e-4c02-b51f-ac1fd1399a17",
+          "name": "Delete Default Sla",
+          "request": {
+            "name": "Delete Default Sla",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "accounts",
+                ":account_id",
+                "workspaces",
+                ":workspace_id",
+                "slas",
+                "default",
+                ":sla_severity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sla_severity",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workspace_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "558e16d6-9b2b-444b-b770-e58878b5ae01",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "default",
+                    ":sla_severity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sla_severity",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebf7b2eb-e1ab-44e8-b3ee-7e1f8d84ed0f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "accounts",
+                    ":account_id",
+                    "workspaces",
+                    ":workspace_id",
+                    "slas",
+                    "default",
+                    ":sla_severity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sla_severity",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workspace_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8d25ee73-b8e5-45c6-a764-27280cf76e23",
+    "name": "Prefect Cloud Account Billing SLAs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Prefect Cloud REST API documentation.",
+      "type": "text/plain"
+    }
+  }
+}

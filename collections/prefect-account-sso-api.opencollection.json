@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Account SSO API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account SSO",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Sso Setup Url",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/sso/setup_url",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an SSO connection setup URL for a given account\n\nReturns a URL if the account doesn't already have SSO configured\n\nRequired account permissions: `administrate:sso`"
+        },
+        {
+          "info": {
+            "name": "Read Dsync Setup Url",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/sso/dsync_setup_url",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an Directory Sync connection setup URL for a given account\n\nReturns a URL if the account doesn't already have Directory Sync configured\n\nRequired account permissions: `administrate:sso`"
+        },
+        {
+          "info": {
+            "name": "Validate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/accounts/:account_id/sso/validate",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validate that the current actor has recently authenticated with the\nAccount's authenticator.\n\nRequired account permissions: `read:account`"
+        },
+        {
+          "info": {
+            "name": "Integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/sso/integrations",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Return details about an Account's SSO / SCIM integrations.\n\nRequired account permissions: `administrate:sso`"
+        },
+        {
+          "info": {
+            "name": "Remove Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/accounts/:account_id/sso/integrations/:integration_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Return details about an Account's SSO / SCIM integrations.\n\nRequired account permissions: `administrate:sso`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

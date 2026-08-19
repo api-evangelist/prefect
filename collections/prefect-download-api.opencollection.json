@@ -1,0 +1,172 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Prefect Cloud Account Billing Download API",
+    "version": "0.8.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Download",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Flow Run Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/flow_runs/:id/logs",
+            "headers": [
+              {
+                "name": "if-none-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "level_ge",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "level_le",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Only include logs with a timestamp at or after this time"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "Only include logs with a timestamp at or before this time"
+              },
+              {
+                "name": "task_runs",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of task run IDs to filter by"
+              },
+              {
+                "name": "task_runs_is_null",
+                "value": "",
+                "type": "query",
+                "description": "If true, only include logs without a task run ID"
+              },
+              {
+                "name": "loggers",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of logger names to filter by"
+              },
+              {
+                "name": "text_query",
+                "value": "",
+                "type": "query",
+                "description": "Text search query string"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided."
+              }
+            ]
+          },
+          "docs": "Returns a page of logs for a flow run\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Download Flow Run Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/flow_runs/:id/download-logs-csv",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The flow run id"
+              }
+            ]
+          },
+          "docs": "Download all flow run logs as a CSV file, collecting all logs until there are no more logs to retrieve.\n\nRequired workspace scopes: `see_flows`"
+        },
+        {
+          "info": {
+            "name": "Download Flow Run Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/accounts/:account_id/workspaces/:workspace_id/flow_runs/:id/logs/download",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The flow run id"
+              }
+            ]
+          },
+          "docs": "Download all flow run logs as a CSV file, collecting all logs until there are no more logs to retrieve.\n\nRequired workspace scopes: `see_flows`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
