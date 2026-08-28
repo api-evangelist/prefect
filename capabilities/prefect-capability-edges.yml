@@ -1,0 +1,92 @@
+slug: prefect
+provider: Prefect
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 8
+edges:
+- tag: Logs
+  spec_file: prefect-logs-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.8
+  evidence: POST /logs/ Create Logs; GET /flow_runs/{id}/logs Get Flow Run Logs; GET /observed-loggers
+    Read Workspace Observed Loggers
+  reason: Ingestion, filtering and retrieval of workflow run logs is log-based observability of a running
+    service. Note the title's 'Account Billing' is spurious per tag-splitting.
+- tag: Account Roles
+  spec_file: prefect-account-roles-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: '"Read Account Role", "Update Account Role", schemas AccountRole, AccountPermission'
+  reason: CRUD over roles and their permissions within an account — role-based access control, i.e. Identity
+    & Access Management.
+- tag: Users
+  spec_file: prefect-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: '"Create User Api Key", "Delete User Api Key", "Update User" with schemas User, APIKeyCreateResponse'
+  reason: User account records plus issuance and revocation of API keys is identity and credential administration.
+- tag: Workspace Roles
+  spec_file: prefect-workspace-roles-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /api/accounts/{account_id}/workspace_roles/ Create Workspace Role; schemas WorkspaceRoleCreate,
+    WorkspaceRoleUpdate
+  reason: CRUD over roles governing workspace permissions is role-based access control — Identity & Access
+    Management. Alternative reading as tenant configuration exists, hence not maximal confidence.
+- tag: Workspace Team Access
+  spec_file: prefect-workspace-team-access-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: PUT .../team_access/ Upsert Workspace Team Access; DELETE .../team_access/{team_id} Remove
+    Workspace Team Access
+  reason: Granting and revoking team access to workspaces is access provisioning/entitlement administration,
+    i.e. Identity & Access Management.
+- tag: Account Billing
+  spec_file: prefect-account-billing-api-openapi.yml
+  capability_id: BC-4240
+  capability_id_l1: BC-4240
+  capability_name: Subscription Lifecycle Management
+  confidence: 0.7
+  evidence: '"Cancel Org Subscription At Period End", "Update Slots", "Get Checkout Link", "Manage Subscription"'
+  reason: 'Self-service surface over the vendor''s own SaaS subscription: subscribe, change seat slots,
+    cancel at period end, inspect plan tier/restrictions. Spans provisioning, modification and cancellation
+    plus a billing portal, so only the L1 subscription lifecycle capability is asserted.'
+- tag: Account Memberships
+  spec_file: prefect-account-memberships-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: '"Read Account Membership By User", "Toggle Account Membership Active", schema AccountMembershipFilterAccountRoleId'
+  reason: Manages which users/bots belong to an account, their role assignment and active status — access
+    administration. Mapped to Identity & Access Management; note it could alternatively be read as tenant
+    user lifecycle.
+- tag: Workspace Bot Access
+  spec_file: prefect-workspace-bot-access-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: '"Upsert Workspace Bot Access", schemas WorkspaceBotAccessCreate, WorkspaceActorAccessFilterWorkspaceRoleId'
+  reason: Granting and revoking service-account (bot) access with workspace roles is identity and access
+    administration.
