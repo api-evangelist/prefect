@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Workspace Scopes API
+  title: Prefect Cloud Workspace Scopes API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -34,6 +34,53 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    WorkspaceScope:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the scope.
+          examples:
+          - see_flows
+        title:
+          type: string
+          title: Title
+          description: "\n            A human readable title for the scope that describes the marginal permissions granted by this scope.\n            For example, although `manage_deployments` grants the right to take any action\n            against a deployment, the marginal permission given is to delete deployments, as\n            `write_deployments` grants everything except this.\n\n            These titles are only used by the UI for display purposes.\n            "
+          examples:
+          - See flows and runs
+        feature_group:
+          type: string
+          title: Feature Group
+          description: The feature to which this scope relates. Used for grouping scopes in the UI.
+        includes_scopes:
+          items:
+            type: string
+          type: array
+          title: Includes Scopes
+          description: Optional list of scopes from which this scope inherits.
+          examples:
+          - - see_flows
+            - see_deployments
+        see_scope:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceScopeName'
+          - type: 'null'
+          description: Which scope grants access to see the object
+      type: object
+      required:
+      - name
+      - title
+      - feature_group
+      - see_scope
+      title: WorkspaceScope
+      description: 'A workspace scope represents permissions to take a set of actions
+
+        within a Prefect Cloud workspace.
+
+
+        Only `name` and `includes_scopes` should be relied on for
+
+        authorization logic.'
     WorkspaceScopeName:
       type: string
       enum:
@@ -100,6 +147,15 @@ components:
       - manage_webhooks
       title: WorkspaceScopeName
       description: "Canonical list of workspace scope names.\n\nScope names should be semantically meaningful, roughly in the form of\n`<verb>_<obj>`. For example, `see_flows` allows viewing of flows within\nthe workspace.\n\nA few common patterns to follow:\n    - `see_*`: ability to view objects\n    - `write_*`: ability to create, update or view objects\n    - `manage_*`: ability to create, update, view, or delete objects"
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -121,59 +177,3 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    WorkspaceScope:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the scope.
-          examples:
-          - see_flows
-        title:
-          type: string
-          title: Title
-          description: "\n            A human readable title for the scope that describes the marginal permissions granted by this scope.\n            For example, although `manage_deployments` grants the right to take any action\n            against a deployment, the marginal permission given is to delete deployments, as\n            `write_deployments` grants everything except this.\n\n            These titles are only used by the UI for display purposes.\n            "
-          examples:
-          - See flows and runs
-        feature_group:
-          type: string
-          title: Feature Group
-          description: The feature to which this scope relates. Used for grouping scopes in the UI.
-        includes_scopes:
-          items:
-            type: string
-          type: array
-          title: Includes Scopes
-          description: Optional list of scopes from which this scope inherits.
-          examples:
-          - - see_flows
-            - see_deployments
-        see_scope:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceScopeName'
-          - type: 'null'
-          description: Which scope grants access to see the object
-      type: object
-      required:
-      - name
-      - title
-      - feature_group
-      - see_scope
-      title: WorkspaceScope
-      description: 'A workspace scope represents permissions to take a set of actions
-
-        within a Prefect Cloud workspace.
-
-
-        Only `name` and `includes_scopes` should be relied on for
-
-        authorization logic.'

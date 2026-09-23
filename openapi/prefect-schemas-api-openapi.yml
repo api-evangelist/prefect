@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Schemas API
+  title: Prefect Cloud Schemas API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -100,6 +100,30 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    Body_validate_obj_api_accounts__account_id__workspaces__workspace_id__ui_schemas_validate_post:
+      properties:
+        schema:
+          additionalProperties: true
+          type: object
+          title: Schema
+        values:
+          additionalProperties: true
+          type: object
+          title: Values
+      type: object
+      required:
+      - schema
+      - values
+      title: Body_validate_obj_api_accounts__account_id__workspaces__workspace_id__ui_schemas_validate_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -121,27 +145,3 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Body_validate_obj_api_accounts__account_id__workspaces__workspace_id__ui_schemas_validate_post:
-      properties:
-        schema:
-          additionalProperties: true
-          type: object
-          title: Schema
-        values:
-          additionalProperties: true
-          type: object
-          title: Values
-      type: object
-      required:
-      - schema
-      - values
-      title: Body_validate_obj_api_accounts__account_id__workspaces__workspace_id__ui_schemas_validate_post

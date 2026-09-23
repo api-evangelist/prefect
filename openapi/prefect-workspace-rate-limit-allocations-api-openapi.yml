@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Workspace Rate Limit Allocations API
+  title: Prefect Cloud Workspace Rate Limit Allocations API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -86,15 +86,18 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    WorkspaceRateLimitAllocationsUpsert:
       properties:
-        detail:
+        allocations:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            $ref: '#/components/schemas/WorkspaceRateLimitAllocationEntry'
           type: array
-          title: Detail
+          title: Allocations
+          description: List of workspace allocations. Workspaces not in this list will have their allocations removed.
+      additionalProperties: false
       type: object
-      title: HTTPValidationError
+      title: WorkspaceRateLimitAllocationsUpsert
+      description: Data used to upsert all workspace rate limit allocations for an account.
     ValidationError:
       properties:
         loc:
@@ -116,18 +119,6 @@ components:
       - msg
       - type
       title: ValidationError
-    WorkspaceRateLimitAllocationsUpsert:
-      properties:
-        allocations:
-          items:
-            $ref: '#/components/schemas/WorkspaceRateLimitAllocationEntry'
-          type: array
-          title: Allocations
-          description: List of workspace allocations. Workspaces not in this list will have their allocations removed.
-      additionalProperties: false
-      type: object
-      title: WorkspaceRateLimitAllocationsUpsert
-      description: Data used to upsert all workspace rate limit allocations for an account.
     WorkspaceRateLimitAllocation:
       properties:
         id:
@@ -169,6 +160,15 @@ components:
       - rate_limit_percentage
       title: WorkspaceRateLimitAllocation
       description: A percentage-based rate limit allocation for a workspace.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     WorkspaceRateLimitAllocationEntry:
       properties:
         workspace_id:

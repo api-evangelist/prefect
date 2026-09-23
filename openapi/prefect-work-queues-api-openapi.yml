@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Work Queues API
+  title: Prefect Cloud Work Queues API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -560,157 +560,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    WorkPoolStorageConfiguration:
-      properties:
-        bundle_upload_step:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Bundle Upload Step
-          description: The step to use for uploading bundles to storage.
-        bundle_execution_step:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Bundle Execution Step
-          description: The step to use for executing bundles.
-        default_result_storage_block_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Default Result Storage Block Id
-          description: The block document ID of the default result storage block.
-      type: object
-      title: WorkPoolStorageConfiguration
-      description: A representation of a work pool's storage configuration
-    WorkQueueResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created
-        updated:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated
-        name:
-          type: string
-          pattern: ^[^/%&><]+$
-          title: Name
-          description: The name of the work queue.
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: An optional description for the work queue.
-          default: ''
-        is_paused:
-          type: boolean
-          title: Is Paused
-          description: Whether or not the work queue is paused.
-          default: false
-        concurrency_limit:
-          anyOf:
-          - type: integer
-            minimum: 0.0
-          - type: 'null'
-          title: Concurrency Limit
-          description: An optional concurrency limit for the work queue.
-        priority:
-          type: integer
-          exclusiveMinimum: 0.0
-          title: Priority
-          description: The queue's priority. Lower values are higher priority (1 is the highest).
-          default: 1
-        work_pool_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Work Pool Id
-          description: The work pool with which the queue is associated.
-        filter:
-          anyOf:
-          - $ref: '#/components/schemas/QueueFilter'
-          - type: 'null'
-          description: 'DEPRECATED: Filter criteria for the work queue.'
-          deprecated: true
-        last_polled:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Polled
-          description: The last time an agent polled this queue for work.
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/WorkQueueStatus'
-          - type: 'null'
-          description: The work queue's current status.
-        work_pool:
-          anyOf:
-          - $ref: '#/components/schemas/WorkPool'
-          - type: 'null'
-          description: The work pool with which the queue is associated.
-        created_by:
-          anyOf:
-          - $ref: '#/components/schemas/CreatedBy'
-          - type: 'null'
-          description: Information about the creator of this work queue.
-        updated_by:
-          anyOf:
-          - $ref: '#/components/schemas/UpdatedBy'
-          - type: 'null'
-          description: Information about the updater of this work queue.
-        active_slots:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Active Slots
-          description: The number of active concurrency slots for the work queue.
-        work_pool_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Work Pool Name
-          description: The name of the work pool the work pool resides within.
-      type: object
-      required:
-      - name
-      title: WorkQueueResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     QueueFilter:
       properties:
         tags:
@@ -733,36 +582,187 @@ components:
       type: object
       title: QueueFilter
       description: Filter criteria definition for a work queue.
-    Body_paginate_work_queues_api_accounts__account_id__workspaces__workspace_id__work_queues_paginate_post:
+    WorkQueueFilter:
       properties:
-        page:
-          type: integer
-          minimum: 1.0
-          title: Page
-          default: 1
-        work_queues:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id:
           anyOf:
-          - $ref: '#/components/schemas/WorkQueueFilter'
+          - $ref: '#/components/schemas/WorkQueueFilterId'
           - type: 'null'
-        limit:
-          type: integer
-          title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+          description: Filter criteria for `WorkQueue.id`
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueFilterName'
+          - type: 'null'
+          description: Filter criteria for `WorkQueue.name`
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueFilterCreatedBy'
+          - type: 'null'
+          description: Filter criteria for `WorkQueue.created_by`
+        updated_by:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueFilterUpdatedBy'
+          - type: 'null'
+          description: Filter criteria for `WorkQueue.updated_by`
+      additionalProperties: false
       type: object
-      title: Body_paginate_work_queues_api_accounts__account_id__workspaces__workspace_id__work_queues_paginate_post
-    Body_read_work_queue_runs_api_accounts__account_id__workspaces__workspace_id__work_queues__id__get_runs_post:
+      title: WorkQueueFilter
+      description: 'Filter work queues. Only work queues matching all criteria will be
+
+        returned'
+    WorkQueueFilterName:
       properties:
-        scheduled_before:
-          type: string
-          format: date-time
-          title: Scheduled Before
-          description: Only flow runs scheduled to start before this time will be returned.
-        limit:
-          type: integer
-          title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work queue names to include
+          examples:
+          - - wq-1
+            - wq-2
+        startswith_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Startswith
+          description: A list of case-insensitive starts-with matches. For example,  passing 'marvin' will match 'marvin', and 'Marvin-robot', but not 'sad-marvin'.
+          examples:
+          - - marvin
+            - Marvin-robot
+      additionalProperties: false
       type: object
-      title: Body_read_work_queue_runs_api_accounts__account_id__workspaces__workspace_id__work_queues__id__get_runs_post
+      title: WorkQueueFilterName
+      description: Filter by `WorkQueue.name`.
+    StateType:
+      type: string
+      enum:
+      - SCHEDULED
+      - PENDING
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      - CANCELLED
+      - CRASHED
+      - PAUSED
+      - CANCELLING
+      title: StateType
+      description: Enumeration of state types.
+    WorkQueueUpdate:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 5000
+            pattern: ^[^/%&><]+$
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Description
+        is_paused:
+          type: boolean
+          title: Is Paused
+          description: Whether or not the work queue is paused.
+          default: false
+        concurrency_limit:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Concurrency Limit
+        priority:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Priority
+        last_polled:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Polled
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/QueueFilter'
+          - type: 'null'
+          description: 'DEPRECATED: Filter criteria for the work queue.'
+          deprecated: true
+      additionalProperties: false
+      type: object
+      title: WorkQueueUpdate
+      description: Data used by the Orion API to update a work queue.
+    WorkQueueFilterUpdatedBy:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+          description: A list of updater IDs to include
+        type_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Type
+          description: A list of updater types to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include work queues without an updater
+      additionalProperties: false
+      type: object
+      title: WorkQueueFilterUpdatedBy
+      description: Filter by `WorkQueue.updated_by`.
+    WorkQueueStatusDetail:
+      properties:
+        healthy:
+          type: boolean
+          title: Healthy
+          description: Whether or not the work queue is healthy.
+        late_runs_count:
+          type: integer
+          title: Late Runs Count
+          description: The number of late flow runs in the work queue.
+          default: 0
+        last_polled:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Polled
+          description: The last time an agent polled this queue for work.
+        health_check_policy:
+          $ref: '#/components/schemas/WorkQueueHealthPolicy'
+          description: The policy used to determine whether or not the work queue is healthy.
+      type: object
+      required:
+      - healthy
+      - health_check_policy
+      title: WorkQueueStatusDetail
     FlowRunResponse:
       properties:
         id:
@@ -1017,54 +1017,142 @@ components:
       required:
       - flow_id
       title: FlowRunResponse
-    WorkQueueUpdate:
+    ? Body_read_work_queue_concurrency_status_api_accounts__account_id__workspaces__workspace_id__work_queues__id__concurrency_status_post
+    : properties:
+        page:
+          type: integer
+          minimum: 1.0
+          title: Page
+          default: 1
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_work_queue_concurrency_status_api_accounts__account_id__workspaces__workspace_id__work_queues__id__concurrency_status_post
+    Body_read_work_queue_runs_api_accounts__account_id__workspaces__workspace_id__work_queues__id__get_runs_post:
       properties:
-        name:
-          anyOf:
-          - type: string
-            maxLength: 5000
-            pattern: ^[^/%&><]+$
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Description
-        is_paused:
-          type: boolean
-          title: Is Paused
-          description: Whether or not the work queue is paused.
-          default: false
-        concurrency_limit:
-          anyOf:
-          - type: integer
-            minimum: 0.0
-          - type: 'null'
-          title: Concurrency Limit
-        priority:
-          anyOf:
-          - type: integer
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Priority
-        last_polled:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Polled
-        filter:
-          anyOf:
-          - $ref: '#/components/schemas/QueueFilter'
-          - type: 'null'
-          description: 'DEPRECATED: Filter criteria for the work queue.'
+        scheduled_before:
+          type: string
+          format: date-time
+          title: Scheduled Before
+          description: Only flow runs scheduled to start before this time will be returned.
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_work_queue_runs_api_accounts__account_id__workspaces__workspace_id__work_queues__id__get_runs_post
+    FlowRunPolicy:
+      properties:
+        max_retries:
+          type: integer
+          title: Max Retries
+          description: The maximum number of retries. Field is not used. Please use `retries` instead.
+          default: 0
           deprecated: true
+        retry_delay_seconds:
+          type: number
+          title: Retry Delay Seconds
+          description: The delay between retries. Field is not used. Please use `retry_delay` instead.
+          default: 0
+          deprecated: true
+        retries:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Retries
+          description: The number of retries.
+        retry_delay:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Retry Delay
+          description: The delay time between retries, in seconds.
+        pause_keys:
+          anyOf:
+          - items: {}
+            type: array
+            uniqueItems: true
+          - type: 'null'
+          title: Pause Keys
+          description: Tracks pauses this run has observed.
+        resuming:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Resuming
+          description: Indicates if this run is resuming from a pause.
+          default: false
+        retry_type:
+          anyOf:
+          - type: string
+            enum:
+            - in_process
+            - reschedule
+          - type: 'null'
+          title: Retry Type
+          description: The type of retry this run is undergoing.
+      type: object
+      title: FlowRunPolicy
+      description: Defines of how a flow run should retry.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    WorkQueueFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work queue ids to include
       additionalProperties: false
       type: object
-      title: WorkQueueUpdate
-      description: Data used by the Orion API to update a work queue.
+      title: WorkQueueFilterId
+      description: Filter by `WorkQueue.id`.
+    WorkQueueStatus:
+      type: string
+      enum:
+      - READY
+      - NOT_READY
+      - PAUSED
+      title: WorkQueueStatus
+      description: Enumeration of work queue statuses.
+    WorkPoolStatus:
+      type: string
+      enum:
+      - READY
+      - NOT_READY
+      - PAUSED
+      title: WorkPoolStatus
+      description: Enumeration of work pool statuses.
+    Body_paginate_work_queues_api_accounts__account_id__workspaces__workspace_id__work_queues_paginate_post:
+      properties:
+        page:
+          type: integer
+          minimum: 1.0
+          title: Page
+          default: 1
+        work_queues:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueFilter'
+          - type: 'null'
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_paginate_work_queues_api_accounts__account_id__workspaces__workspace_id__work_queues_paginate_post
     WorkQueueFilterCreatedBy:
       properties:
         operator:
@@ -1098,117 +1186,27 @@ components:
       type: object
       title: WorkQueueFilterCreatedBy
       description: Filter by `WorkQueue.created_by`.
-    StateDetails:
+    ValidationError:
       properties:
-        flow_run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Flow Run Id
-        task_run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Task Run Id
-        child_flow_run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Child Flow Run Id
-        scheduled_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Scheduled Time
-        cache_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cache Key
-        cache_expiration:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Cache Expiration
-        deferred:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Deferred
-        untrackable_result:
-          type: boolean
-          title: Untrackable Result
-          default: false
-        pause_timeout:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Pause Timeout
-        pause_reschedule:
-          type: boolean
-          title: Pause Reschedule
-          default: false
-        pause_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Pause Key
-        run_input_keyset:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Run Input Keyset
-        refresh_cache:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Refresh Cache
-        retriable:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Retriable
-        transition_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Transition Id
-        task_parameters_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Task Parameters Id
-        traceparent:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Traceparent
-        deployment_concurrency_lease_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Deployment Concurrency Lease Id
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: StateDetails
-    WorkQueueStatus:
-      type: string
-      enum:
-      - READY
-      - NOT_READY
-      - PAUSED
-      title: WorkQueueStatus
-      description: Enumeration of work queue statuses.
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     Body_read_work_queues_api_accounts__account_id__workspaces__workspace_id__work_queues_filter_post:
       properties:
         offset:
@@ -1226,122 +1224,6 @@ components:
           description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
       type: object
       title: Body_read_work_queues_api_accounts__account_id__workspaces__workspace_id__work_queues_filter_post
-    WorkQueueFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of work queue ids to include
-      additionalProperties: false
-      type: object
-      title: WorkQueueFilterId
-      description: Filter by `WorkQueue.id`.
-    UpdatedBy:
-      properties:
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
-          description: The id of the updater of the object.
-        type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Type
-          description: The type of the updater of the object.
-        display_value:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Display Value
-          description: The display value for the updater.
-      type: object
-      title: UpdatedBy
-    WorkQueueFilter:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/WorkQueueFilterId'
-          - type: 'null'
-          description: Filter criteria for `WorkQueue.id`
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/WorkQueueFilterName'
-          - type: 'null'
-          description: Filter criteria for `WorkQueue.name`
-        created_by:
-          anyOf:
-          - $ref: '#/components/schemas/WorkQueueFilterCreatedBy'
-          - type: 'null'
-          description: Filter criteria for `WorkQueue.created_by`
-        updated_by:
-          anyOf:
-          - $ref: '#/components/schemas/WorkQueueFilterUpdatedBy'
-          - type: 'null'
-          description: Filter criteria for `WorkQueue.updated_by`
-      additionalProperties: false
-      type: object
-      title: WorkQueueFilter
-      description: 'Filter work queues. Only work queues matching all criteria will be
-
-        returned'
-    FlowRunSlotSummary:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        name:
-          type: string
-          title: Name
-        state_type:
-          anyOf:
-          - $ref: '#/components/schemas/StateType'
-          - type: 'null'
-        state_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: State Name
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        state_timestamp:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: State Timestamp
-        time_in_current_state:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Time In Current State
-      type: object
-      required:
-      - id
-      - name
-      - state_type
-      - state_name
-      - start_time
-      - state_timestamp
-      - time_in_current_state
-      title: FlowRunSlotSummary
-      description: Summary of a flow run holding a concurrency slot.
     WorkQueueCreate:
       properties:
         name:
@@ -1389,6 +1271,88 @@ components:
       - name
       title: WorkQueueCreate
       description: Data used by the Prefect REST API to create a work queue.
+    WorkQueueHealthPolicy:
+      properties:
+        maximum_late_runs:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Maximum Late Runs
+          description: The maximum number of late runs in the work queue before it is deemed unhealthy. Defaults to `0`.
+          default: 0
+        maximum_seconds_since_last_polled:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Maximum Seconds Since Last Polled
+          description: The maximum number of time in seconds elapsed since work queue has been polled before it is deemed unhealthy. Defaults to `60`.
+          default: 60
+      type: object
+      title: WorkQueueHealthPolicy
+    State:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        type:
+          $ref: '#/components/schemas/StateType'
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+          examples:
+          - Run started
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+          description: Data associated with the state, e.g. a result. Content must be storable as JSON.
+        state_details:
+          $ref: '#/components/schemas/StateDetails'
+      type: object
+      required:
+      - type
+      title: State
+      description: Represents the state of a run.
+    WorkQueuePaginatedResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/WorkQueueResponse'
+          type: array
+          title: Results
+        count:
+          type: integer
+          title: Count
+        limit:
+          type: integer
+          title: Limit
+        pages:
+          type: integer
+          title: Pages
+        page:
+          type: integer
+          title: Page
+      type: object
+      required:
+      - results
+      - count
+      - limit
+      - pages
+      - page
+      title: WorkQueuePaginatedResponse
     VersionInfo:
       properties:
         type:
@@ -1502,68 +1466,235 @@ components:
       - default_queue_id
       title: WorkPool
       description: An ORM representation of a work pool
-    FlowRunPolicy:
+    CreatedBy:
       properties:
-        max_retries:
-          type: integer
-          title: Max Retries
-          description: The maximum number of retries. Field is not used. Please use `retries` instead.
-          default: 0
-          deprecated: true
-        retry_delay_seconds:
-          type: number
-          title: Retry Delay Seconds
-          description: The delay between retries. Field is not used. Please use `retry_delay` instead.
-          default: 0
-          deprecated: true
-        retries:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Retries
-          description: The number of retries.
-        retry_delay:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Retry Delay
-          description: The delay time between retries, in seconds.
-        pause_keys:
-          anyOf:
-          - items: {}
-            type: array
-            uniqueItems: true
-          - type: 'null'
-          title: Pause Keys
-          description: Tracks pauses this run has observed.
-        resuming:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Resuming
-          description: Indicates if this run is resuming from a pause.
-          default: false
-        retry_type:
+        id:
           anyOf:
           - type: string
-            enum:
-            - in_process
-            - reschedule
+            format: uuid
           - type: 'null'
-          title: Retry Type
-          description: The type of retry this run is undergoing.
+          title: Id
+          description: The id of the creator of the object.
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+          description: The type of the creator of the object.
+        display_value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Value
+          description: The display value for the creator.
       type: object
-      title: FlowRunPolicy
-      description: Defines of how a flow run should retry.
-    HTTPValidationError:
+      title: CreatedBy
+    FlowRunSlotSummary:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        state_type:
+          anyOf:
+          - $ref: '#/components/schemas/StateType'
+          - type: 'null'
+        state_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State Name
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        state_timestamp:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: State Timestamp
+        time_in_current_state:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Time In Current State
       type: object
-      title: HTTPValidationError
+      required:
+      - id
+      - name
+      - state_type
+      - state_name
+      - start_time
+      - state_timestamp
+      - time_in_current_state
+      title: FlowRunSlotSummary
+      description: Summary of a flow run holding a concurrency slot.
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
+    UpdatedBy:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+          description: The id of the updater of the object.
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+          description: The type of the updater of the object.
+        display_value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Value
+          description: The display value for the updater.
+      type: object
+      title: UpdatedBy
+    WorkPoolStorageConfiguration:
+      properties:
+        bundle_upload_step:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Bundle Upload Step
+          description: The step to use for uploading bundles to storage.
+        bundle_execution_step:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Bundle Execution Step
+          description: The step to use for executing bundles.
+        default_result_storage_block_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Result Storage Block Id
+          description: The block document ID of the default result storage block.
+      type: object
+      title: WorkPoolStorageConfiguration
+      description: A representation of a work pool's storage configuration
+    WorkQueueResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        name:
+          type: string
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: The name of the work queue.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: An optional description for the work queue.
+          default: ''
+        is_paused:
+          type: boolean
+          title: Is Paused
+          description: Whether or not the work queue is paused.
+          default: false
+        concurrency_limit:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Concurrency Limit
+          description: An optional concurrency limit for the work queue.
+        priority:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Priority
+          description: The queue's priority. Lower values are higher priority (1 is the highest).
+          default: 1
+        work_pool_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Work Pool Id
+          description: The work pool with which the queue is associated.
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/QueueFilter'
+          - type: 'null'
+          description: 'DEPRECATED: Filter criteria for the work queue.'
+          deprecated: true
+        last_polled:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Polled
+          description: The last time an agent polled this queue for work.
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/WorkQueueStatus'
+          - type: 'null'
+          description: The work queue's current status.
+        work_pool:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPool'
+          - type: 'null'
+          description: The work pool with which the queue is associated.
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/CreatedBy'
+          - type: 'null'
+          description: Information about the creator of this work queue.
+        updated_by:
+          anyOf:
+          - $ref: '#/components/schemas/UpdatedBy'
+          - type: 'null'
+          description: Information about the updater of this work queue.
+        active_slots:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Active Slots
+          description: The number of active concurrency slots for the work queue.
+        work_pool_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Work Pool Name
+          description: The name of the work pool the work pool resides within.
+      type: object
+      required:
+      - name
+      title: WorkQueueResponse
     WorkQueueConcurrencyStatusPage:
       properties:
         active_slots:
@@ -1608,237 +1739,106 @@ components:
       - page
       title: WorkQueueConcurrencyStatusPage
       description: Paginated concurrency status for a single work queue.
-    prefect_cloud__orion__schemas__filters__Operator:
-      type: string
-      enum:
-      - and_
-      - or_
-      title: Operator
-      description: Operators for combining filter criteria.
-    State:
+    StateDetails:
       properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        type:
-          $ref: '#/components/schemas/StateType'
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
-          examples:
-          - Run started
-        data:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Data
-          description: Data associated with the state, e.g. a result. Content must be storable as JSON.
-        state_details:
-          $ref: '#/components/schemas/StateDetails'
-      type: object
-      required:
-      - type
-      title: State
-      description: Represents the state of a run.
-    WorkPoolStatus:
-      type: string
-      enum:
-      - READY
-      - NOT_READY
-      - PAUSED
-      title: WorkPoolStatus
-      description: Enumeration of work pool statuses.
-    WorkQueueStatusDetail:
-      properties:
-        healthy:
-          type: boolean
-          title: Healthy
-          description: Whether or not the work queue is healthy.
-        late_runs_count:
-          type: integer
-          title: Late Runs Count
-          description: The number of late flow runs in the work queue.
-          default: 0
-        last_polled:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Polled
-          description: The last time an agent polled this queue for work.
-        health_check_policy:
-          $ref: '#/components/schemas/WorkQueueHealthPolicy'
-          description: The policy used to determine whether or not the work queue is healthy.
-      type: object
-      required:
-      - healthy
-      - health_check_policy
-      title: WorkQueueStatusDetail
-    WorkQueueFilterName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of work queue names to include
-          examples:
-          - - wq-1
-            - wq-2
-        startswith_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Startswith
-          description: A list of case-insensitive starts-with matches. For example,  passing 'marvin' will match 'marvin', and 'Marvin-robot', but not 'sad-marvin'.
-          examples:
-          - - marvin
-            - Marvin-robot
-      additionalProperties: false
-      type: object
-      title: WorkQueueFilterName
-      description: Filter by `WorkQueue.name`.
-    WorkQueueHealthPolicy:
-      properties:
-        maximum_late_runs:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Maximum Late Runs
-          description: The maximum number of late runs in the work queue before it is deemed unhealthy. Defaults to `0`.
-          default: 0
-        maximum_seconds_since_last_polled:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Maximum Seconds Since Last Polled
-          description: The maximum number of time in seconds elapsed since work queue has been polled before it is deemed unhealthy. Defaults to `60`.
-          default: 60
-      type: object
-      title: WorkQueueHealthPolicy
-    StateType:
-      type: string
-      enum:
-      - SCHEDULED
-      - PENDING
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      - CANCELLED
-      - CRASHED
-      - PAUSED
-      - CANCELLING
-      title: StateType
-      description: Enumeration of state types.
-    ? Body_read_work_queue_concurrency_status_api_accounts__account_id__workspaces__workspace_id__work_queues__id__concurrency_status_post
-    : properties:
-        page:
-          type: integer
-          minimum: 1.0
-          title: Page
-          default: 1
-        limit:
-          type: integer
-          title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
-      type: object
-      title: Body_read_work_queue_concurrency_status_api_accounts__account_id__workspaces__workspace_id__work_queues__id__concurrency_status_post
-    CreatedBy:
-      properties:
-        id:
+        flow_run_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Id
-          description: The id of the creator of the object.
-        type:
+          title: Flow Run Id
+        task_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Run Id
+        child_flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Child Flow Run Id
+        scheduled_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Scheduled Time
+        cache_key:
           anyOf:
           - type: string
           - type: 'null'
-          title: Type
-          description: The type of the creator of the object.
-        display_value:
+          title: Cache Key
+        cache_expiration:
           anyOf:
           - type: string
+            format: date-time
           - type: 'null'
-          title: Display Value
-          description: The display value for the creator.
-      type: object
-      title: CreatedBy
-    WorkQueueFilterUpdatedBy:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        id_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Id
-          description: A list of updater IDs to include
-        type_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Type
-          description: A list of updater types to include
-        is_null_:
+          title: Cache Expiration
+        deferred:
           anyOf:
           - type: boolean
           - type: 'null'
-          title: Is Null
-          description: If true, only include work queues without an updater
-      additionalProperties: false
+          title: Deferred
+        untrackable_result:
+          type: boolean
+          title: Untrackable Result
+          default: false
+        pause_timeout:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Pause Timeout
+        pause_reschedule:
+          type: boolean
+          title: Pause Reschedule
+          default: false
+        pause_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pause Key
+        run_input_keyset:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Run Input Keyset
+        refresh_cache:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Refresh Cache
+        retriable:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Retriable
+        transition_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Transition Id
+        task_parameters_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Parameters Id
+        traceparent:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Traceparent
+        deployment_concurrency_lease_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Deployment Concurrency Lease Id
       type: object
-      title: WorkQueueFilterUpdatedBy
-      description: Filter by `WorkQueue.updated_by`.
-    WorkQueuePaginatedResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/WorkQueueResponse'
-          type: array
-          title: Results
-        count:
-          type: integer
-          title: Count
-        limit:
-          type: integer
-          title: Limit
-        pages:
-          type: integer
-          title: Pages
-        page:
-          type: integer
-          title: Page
-      type: object
-      required:
-      - results
-      - count
-      - limit
-      - pages
-      - page
-      title: WorkQueuePaginatedResponse
+      title: StateDetails

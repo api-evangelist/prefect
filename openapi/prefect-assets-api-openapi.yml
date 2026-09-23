@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Assets API
+  title: Prefect Cloud Assets API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -665,95 +665,41 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    LatestReference:
+    AssetGraphDependency:
       properties:
-        event_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Event Id
-        occurred:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Occurred
-        flow_run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Flow Run Id
-        task_run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Task Run Id
-        originating_workspace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Originating Workspace Id
-        metadata:
-          additionalProperties: true
-          type: object
-          title: Metadata
+        upstream_asset_key:
+          type: string
+          title: Upstream Asset Key
+        downstream_asset_key:
+          type: string
+          title: Downstream Asset Key
       type: object
-      title: LatestReference
-    LatestMaterialization:
+      required:
+      - upstream_asset_key
+      - downstream_asset_key
+      title: AssetGraphDependency
+      description: A dependency edge between two assets.
+    ValidationError:
       properties:
-        event_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Event Id
-        occurred:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Occurred
-        flow_run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Flow Run Id
-        task_run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Task Run Id
-        originating_workspace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Originating Workspace Id
-        metadata:
-          additionalProperties: true
-          type: object
-          title: Metadata
-        by_tools:
+        loc:
           items:
-            type: string
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: By Tools
-        status:
-          anyOf:
-          - type: string
-            enum:
-            - succeeded
-            - failed
-          - type: 'null'
-          title: Status
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: LatestMaterialization
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     AssetRelatedFilter:
       properties:
         id:
@@ -792,6 +738,34 @@ components:
           description: Only include assets with related resources matching these labels
       type: object
       title: AssetRelatedFilter
+    AssetKeyFilter:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include assets with these exact keys
+        prefix:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Prefix
+          description: Only include assets with keys starting with these prefixes
+        search:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Search
+          description: Only include assets with keys containing these substrings
+      type: object
+      title: AssetKeyFilter
     MaterializationEvent:
       properties:
         asset_key:
@@ -886,100 +860,20 @@ components:
         Captures a historical snapshot of an asset materialization, including the asset''s
 
         properties at the time of materialization (not the current state).'
-    AssetCatalogItem:
-      properties:
-        key:
-          type: string
-          title: Key
-        properties:
-          $ref: '#/components/schemas/AssetProperties'
-        last_seen:
-          type: string
-          format: date-time
-          title: Last Seen
-        latest_reference:
-          $ref: '#/components/schemas/LatestReference'
-        latest_materialization:
-          $ref: '#/components/schemas/LatestMaterialization'
-      type: object
-      required:
-      - key
-      - last_seen
-      title: AssetCatalogItem
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
           type: array
-          title: Detail
       type: object
-      title: HTTPValidationError
-    AssetFilter:
-      properties:
-        key:
-          anyOf:
-          - $ref: '#/components/schemas/AssetKeyFilter'
-          - type: 'null'
-          description: Filter criteria for asset keys
-        occurred:
-          anyOf:
-          - $ref: '#/components/schemas/AssetOccurredFilter'
-          - type: 'null'
-          description: Filter criteria for asset activity timestamps
-        related:
-          anyOf:
-          - $ref: '#/components/schemas/AssetRelatedFilter'
-          - type: 'null'
-          description: Filter criteria for related resources from asset events
-      type: object
-      title: AssetFilter
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    AssetDependency:
-      properties:
-        upstream:
-          type: string
-          title: Upstream
-        downstream:
-          type: string
-          title: Downstream
-        occurred:
-          type: string
-          format: date-time
-          title: Occurred
-        status:
-          type: string
-          enum:
-          - succeeded
-          - failed
-          title: Status
-      type: object
-      required:
-      - upstream
-      - downstream
-      - occurred
-      - status
-      title: AssetDependency
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
     AssetProperties:
       properties:
         name:
@@ -1023,46 +917,73 @@ components:
       - root_asset_key
       title: AssetGraph
       description: Graph of assets with normalized structure.
-    AssetGraphPage:
+    AssetCatalogItem:
       properties:
-        assets:
-          items:
-            $ref: '#/components/schemas/AssetCatalogItem'
-          type: array
-          title: Assets
-        dependencies:
-          items:
-            $ref: '#/components/schemas/AssetDependency'
-          type: array
-          title: Dependencies
-        total:
-          type: integer
-          title: Total
-        next_page:
+        key:
+          type: string
+          title: Key
+        properties:
+          $ref: '#/components/schemas/AssetProperties'
+        last_seen:
+          type: string
+          format: date-time
+          title: Last Seen
+        latest_reference:
+          $ref: '#/components/schemas/LatestReference'
+        latest_materialization:
+          $ref: '#/components/schemas/LatestMaterialization'
+      type: object
+      required:
+      - key
+      - last_seen
+      title: AssetCatalogItem
+    LatestReference:
+      properties:
+        event_id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Next Page
+          title: Event Id
+        occurred:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Occurred
+        flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Flow Run Id
+        task_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Run Id
+        originating_workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Originating Workspace Id
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
       type: object
-      required:
-      - assets
-      - dependencies
-      - total
-      title: AssetGraphPage
-    AssetGraphDependency:
+      title: LatestReference
+    HTTPValidationError:
       properties:
-        upstream_asset_key:
-          type: string
-          title: Upstream Asset Key
-        downstream_asset_key:
-          type: string
-          title: Downstream Asset Key
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - upstream_asset_key
-      - downstream_asset_key
-      title: AssetGraphDependency
-      description: A dependency edge between two assets.
+      title: HTTPValidationError
     Body_filter_assets_api_accounts__account_id__workspaces__workspace_id__assets_filter_post:
       properties:
         limit:
@@ -1097,45 +1018,124 @@ components:
           description: Only include assets seen before this time (inclusive)
       type: object
       title: AssetOccurredFilter
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
+    AssetFilter:
+      properties:
+        key:
+          anyOf:
+          - $ref: '#/components/schemas/AssetKeyFilter'
+          - type: 'null'
+          description: Filter criteria for asset keys
+        occurred:
+          anyOf:
+          - $ref: '#/components/schemas/AssetOccurredFilter'
+          - type: 'null'
+          description: Filter criteria for asset activity timestamps
+        related:
+          anyOf:
+          - $ref: '#/components/schemas/AssetRelatedFilter'
+          - type: 'null'
+          description: Filter criteria for related resources from asset events
+      type: object
+      title: AssetFilter
+    AssetDependency:
+      properties:
+        upstream:
+          type: string
+          title: Upstream
+        downstream:
+          type: string
+          title: Downstream
+        occurred:
+          type: string
+          format: date-time
+          title: Occurred
+        status:
+          type: string
+          enum:
+          - succeeded
+          - failed
+          title: Status
+      type: object
+      required:
+      - upstream
+      - downstream
+      - occurred
+      - status
+      title: AssetDependency
+    AssetGraphPage:
+      properties:
+        assets:
+          items:
+            $ref: '#/components/schemas/AssetCatalogItem'
+          type: array
+          title: Assets
+        dependencies:
+          items:
+            $ref: '#/components/schemas/AssetDependency'
+          type: array
+          title: Dependencies
+        total:
+          type: integer
+          title: Total
+        next_page:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Page
+      type: object
+      required:
+      - assets
+      - dependencies
+      - total
+      title: AssetGraphPage
+    LatestMaterialization:
+      properties:
+        event_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Event Id
+        occurred:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Occurred
+        flow_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Flow Run Id
+        task_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Task Run Id
+        originating_workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Originating Workspace Id
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+        by_tools:
+          items:
             type: string
           type: array
+          title: By Tools
+        status:
+          anyOf:
+          - type: string
+            enum:
+            - succeeded
+            - failed
+          - type: 'null'
+          title: Status
       type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
-
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'
-    AssetKeyFilter:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include assets with these exact keys
-        prefix:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Prefix
-          description: Only include assets with keys starting with these prefixes
-        search:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Search
-          description: Only include assets with keys containing these substrings
-      type: object
-      title: AssetKeyFilter
+      title: LatestMaterialization

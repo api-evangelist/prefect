@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Accounts API
+  title: Prefect Cloud Accounts API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -312,6 +312,112 @@ paths:
       - Accounts
 components:
   schemas:
+    AccountDefaultResultStorage-Input:
+      properties:
+        block_type:
+          $ref: '#/components/schemas/AccountDefaultResultStorageBlockType'
+          description: The block type to materialize into inheriting workspaces.
+        block_schema:
+          $ref: '#/components/schemas/AccountDefaultResultStorageBlockSchema'
+          description: The block schema to materialize into inheriting workspaces.
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
+          description: The block data to materialize into inheriting workspaces.
+        block_document_references:
+          additionalProperties:
+            $ref: '#/components/schemas/AccountDefaultResultStorage-Input'
+          type: object
+          title: Block Document References
+          description: Nested account-owned block templates keyed by the field they are referenced under.
+      type: object
+      required:
+      - block_type
+      - block_schema
+      title: AccountDefaultResultStorage
+    AccountStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - DELINQUENT
+      - FROZEN
+      title: AccountStatus
+    AccountUpdate:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Name
+          description: The account name.
+        handle:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Handle
+          description: A unique identifier for the account containing only lowercase letters, numbers, and dashes.
+        location:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Location
+          description: An optional physical location for the account, e.g. Washington, D.C.
+        link:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Link
+          description: An optional for an external url associated with the account, e.g. https://prefect.io/.
+        workos_directory_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Workos Directory Ids
+          description: WorkOS directory_ids that are connected for Directory Sync / SCIM.
+        workos_organization_id:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Workos Organization Id
+          description: The organization_id for this account in WorkOS.
+        workos_connection_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Workos Connection Ids
+          description: WorkOS connection_ids that can be used to authenticate against this account.
+        auth_expiration_seconds:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Auth Expiration Seconds
+          description: The number of seconds a user should be considered to be authenticated against this Account.
+        settings:
+          anyOf:
+          - $ref: '#/components/schemas/AccountSettings-Input'
+          - type: 'null'
+          description: The account settings.
+        billing_email:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Billing Email
+          description: Billing email to apply to the account's stripe customer.
+      additionalProperties: false
+      type: object
+      title: AccountUpdate
+      description: Data used by API to update an account
     AccountDefaultResultStorageBlockSchema:
       properties:
         checksum:
@@ -338,6 +444,61 @@ components:
       required:
       - checksum
       title: AccountDefaultResultStorageBlockSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AccountSettings-Input:
+      properties:
+        allow_public_workspaces:
+          type: boolean
+          title: Allow Public Workspaces
+          description: Whether or not this account allows public workspaces.
+          default: false
+        ai_log_summaries:
+          type: boolean
+          title: Ai Log Summaries
+          description: Whether to use AI to generate log summaries.
+          default: false
+        managed_execution:
+          type: boolean
+          title: Managed Execution
+          description: Whether to enable the use of managed work pools
+          default: true
+        enforce_ip_allowlist:
+          type: boolean
+          title: Enforce Ip Allowlist
+          description: Whether to enforce account's IP allowlist.
+          default: false
+        enforce_webhook_authentication:
+          type: boolean
+          title: Enforce Webhook Authentication
+          description: Whether to enforce webhook authentication.
+          default: false
+        self_healing_enabled:
+          type: boolean
+          title: Self Healing Enabled
+          description: Whether to automatically create managed automations for new workspaces.
+          default: false
+        enabled_feature_flags:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+          title: Enabled Feature Flags
+          description: Feature flags enabled for the account.
+        default_result_storage:
+          anyOf:
+          - $ref: '#/components/schemas/AccountDefaultResultStorage-Input'
+          - type: 'null'
+          description: The account-owned template to use when materializing the account's default result storage into inheriting workspaces.
+      type: object
+      title: AccountSettings
     ValidationError:
       properties:
         loc:
@@ -359,30 +520,86 @@ components:
       - msg
       - type
       title: ValidationError
-    AccountDefaultResultStorage-Output:
+    AccountPermission:
+      type: string
+      enum:
+      - read:account
+      - update:account
+      - delete:account
+      - read:account_membership
+      - update:account_membership
+      - delete:account_membership
+      - create:account_role
+      - read:account_role
+      - update:account_role
+      - delete:account_role
+      - add:account_member
+      - read:sso
+      - administrate:sso
+      - bypass:sso
+      - read:billing
+      - update:billing
+      - create:bot
+      - read:bot
+      - update:bot
+      - delete:bot
+      - create:team
+      - read:team
+      - update:team
+      - delete:team
+      - create:invitation
+      - read:invitation
+      - update:invitation
+      - create:workspace_invitation
+      - read:workspace_invitation
+      - update:workspace_invitation
+      - administrate:workspace
+      - create:workspace
+      - read:workspace
+      - delete:workspace
+      - create:workspace_role
+      - read:workspace_role
+      - update:workspace_role
+      - delete:workspace_role
+      - create:audit_event
+      - read:audit_event
+      - update:ip_allowlist
+      - read:ip_allowlist
+      - read:mex-storage
+      - update:mex-storage
+      - delete:mex-storage
+      - read:integrations
+      - update:integrations
+      title: AccountPermission
+      description: Enumerates possible permissions over an account
+    AccountSSOState:
+      type: string
+      enum:
+      - DISABLED
+      - NEEDS_CONFIGURATION
+      - ENABLED
+      title: AccountSSOState
+    Body_update_account_domains_api_accounts__account_id__domains_patch:
       properties:
-        block_type:
-          $ref: '#/components/schemas/AccountDefaultResultStorageBlockType'
-          description: The block type to materialize into inheriting workspaces.
-        block_schema:
-          $ref: '#/components/schemas/AccountDefaultResultStorageBlockSchema'
-          description: The block schema to materialize into inheriting workspaces.
-        data:
-          additionalProperties: true
-          type: object
-          title: Data
-          description: The block data to materialize into inheriting workspaces.
-        block_document_references:
-          additionalProperties:
-            $ref: '#/components/schemas/AccountDefaultResultStorage-Output'
-          type: object
-          title: Block Document References
-          description: Nested account-owned block templates keyed by the field they are referenced under.
+        domain_names:
+          items:
+            type: string
+          type: array
+          title: Domain Names
       type: object
       required:
-      - block_type
-      - block_schema
-      title: AccountDefaultResultStorage
+      - domain_names
+      title: Body_update_account_domains_api_accounts__account_id__domains_patch
+    AccountPlanTier:
+      type: string
+      enum:
+      - FREE_2025_04
+      - PRO
+      - ENTERPRISE
+      - PRO_2024_04
+      - STARTER
+      - TEAM
+      title: AccountPlanTier
     UsageLimitsResponse:
       properties:
         audit_log_retention_days:
@@ -485,23 +702,6 @@ components:
       - workspace_limit
       title: UsageLimitsResponse
       description: Data returned by the API when reading a workspace's usage limits
-    AccountPlanTier:
-      type: string
-      enum:
-      - FREE_2025_04
-      - PRO
-      - ENTERPRISE
-      - PRO_2024_04
-      - STARTER
-      - TEAM
-      title: AccountPlanTier
-    AccountSSOState:
-      type: string
-      enum:
-      - DISABLED
-      - NEEDS_CONFIGURATION
-      - ENABLED
-      title: AccountSSOState
     AccountResponse:
       properties:
         location:
@@ -717,72 +917,30 @@ components:
       - managed_work_pools
       title: WorkspaceUsageResponse
       description: Data returned by the API when reading a workspace's usage limits
-    AccountPlanType:
-      type: string
-      enum:
-      - ORGANIZATION
-      - PERSONAL
-      - ENTERPRISE
-      title: AccountPlanType
-    HTTPValidationError:
+    AccountDefaultResultStorage-Output:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    AccountDefaultResultStorageBlockType:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The block type name.
-        slug:
-          type: string
-          title: Slug
-          description: The block type slug.
-        logo_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Logo Url
-          description: Web URL for the block type's logo.
-        documentation_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Documentation Url
-          description: Web URL for the block type's documentation.
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: A short description of the block type.
-        code_example:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Code Example
-          description: A code example for the block type.
+        block_type:
+          $ref: '#/components/schemas/AccountDefaultResultStorageBlockType'
+          description: The block type to materialize into inheriting workspaces.
+        block_schema:
+          $ref: '#/components/schemas/AccountDefaultResultStorageBlockSchema'
+          description: The block schema to materialize into inheriting workspaces.
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
+          description: The block data to materialize into inheriting workspaces.
+        block_document_references:
+          additionalProperties:
+            $ref: '#/components/schemas/AccountDefaultResultStorage-Output'
+          type: object
+          title: Block Document References
+          description: Nested account-owned block templates keyed by the field they are referenced under.
       type: object
       required:
-      - name
-      - slug
-      title: AccountDefaultResultStorageBlockType
-    Body_update_account_domains_api_accounts__account_id__domains_patch:
-      properties:
-        domain_names:
-          items:
-            type: string
-          type: array
-          title: Domain Names
-      type: object
-      required:
-      - domain_names
-      title: Body_update_account_domains_api_accounts__account_id__domains_patch
+      - block_type
+      - block_schema
+      title: AccountDefaultResultStorage
     AccountSettingsUpdate:
       properties:
         allow_public_workspaces:
@@ -830,6 +988,53 @@ components:
       type: object
       title: AccountSettingsUpdate
       description: Data used by API to update an account settings
+    AccountDefaultResultStorageBlockType:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The block type name.
+        slug:
+          type: string
+          title: Slug
+          description: The block type slug.
+        logo_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Logo Url
+          description: Web URL for the block type's logo.
+        documentation_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Documentation Url
+          description: Web URL for the block type's documentation.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A short description of the block type.
+        code_example:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code Example
+          description: A code example for the block type.
+      type: object
+      required:
+      - name
+      - slug
+      title: AccountDefaultResultStorageBlockType
+    AccountSCIMState:
+      type: string
+      enum:
+      - DISABLED
+      - NEEDS_ORGANIZATION_ID
+      - NEEDS_CONFIGURATION
+      - ENABLED
+      title: AccountSCIMState
     AccountSettings-Output:
       properties:
         allow_public_workspaces:
@@ -875,215 +1080,10 @@ components:
           description: The account-owned template to use when materializing the account's default result storage into inheriting workspaces.
       type: object
       title: AccountSettings
-    AccountDefaultResultStorage-Input:
-      properties:
-        block_type:
-          $ref: '#/components/schemas/AccountDefaultResultStorageBlockType'
-          description: The block type to materialize into inheriting workspaces.
-        block_schema:
-          $ref: '#/components/schemas/AccountDefaultResultStorageBlockSchema'
-          description: The block schema to materialize into inheriting workspaces.
-        data:
-          additionalProperties: true
-          type: object
-          title: Data
-          description: The block data to materialize into inheriting workspaces.
-        block_document_references:
-          additionalProperties:
-            $ref: '#/components/schemas/AccountDefaultResultStorage-Input'
-          type: object
-          title: Block Document References
-          description: Nested account-owned block templates keyed by the field they are referenced under.
-      type: object
-      required:
-      - block_type
-      - block_schema
-      title: AccountDefaultResultStorage
-    AccountUpdate:
-      properties:
-        name:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Name
-          description: The account name.
-        handle:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Handle
-          description: A unique identifier for the account containing only lowercase letters, numbers, and dashes.
-        location:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Location
-          description: An optional physical location for the account, e.g. Washington, D.C.
-        link:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Link
-          description: An optional for an external url associated with the account, e.g. https://prefect.io/.
-        workos_directory_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Workos Directory Ids
-          description: WorkOS directory_ids that are connected for Directory Sync / SCIM.
-        workos_organization_id:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Workos Organization Id
-          description: The organization_id for this account in WorkOS.
-        workos_connection_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Workos Connection Ids
-          description: WorkOS connection_ids that can be used to authenticate against this account.
-        auth_expiration_seconds:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Auth Expiration Seconds
-          description: The number of seconds a user should be considered to be authenticated against this Account.
-        settings:
-          anyOf:
-          - $ref: '#/components/schemas/AccountSettings-Input'
-          - type: 'null'
-          description: The account settings.
-        billing_email:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Billing Email
-          description: Billing email to apply to the account's stripe customer.
-      additionalProperties: false
-      type: object
-      title: AccountUpdate
-      description: Data used by API to update an account
-    AccountPermission:
+    AccountPlanType:
       type: string
       enum:
-      - read:account
-      - update:account
-      - delete:account
-      - read:account_membership
-      - update:account_membership
-      - delete:account_membership
-      - create:account_role
-      - read:account_role
-      - update:account_role
-      - delete:account_role
-      - add:account_member
-      - read:sso
-      - administrate:sso
-      - bypass:sso
-      - read:billing
-      - update:billing
-      - create:bot
-      - read:bot
-      - update:bot
-      - delete:bot
-      - create:team
-      - read:team
-      - update:team
-      - delete:team
-      - create:invitation
-      - read:invitation
-      - update:invitation
-      - create:workspace_invitation
-      - read:workspace_invitation
-      - update:workspace_invitation
-      - administrate:workspace
-      - create:workspace
-      - read:workspace
-      - delete:workspace
-      - create:workspace_role
-      - read:workspace_role
-      - update:workspace_role
-      - delete:workspace_role
-      - create:audit_event
-      - read:audit_event
-      - update:ip_allowlist
-      - read:ip_allowlist
-      - read:mex-storage
-      - update:mex-storage
-      - delete:mex-storage
-      - read:integrations
-      - update:integrations
-      title: AccountPermission
-      description: Enumerates possible permissions over an account
-    AccountSettings-Input:
-      properties:
-        allow_public_workspaces:
-          type: boolean
-          title: Allow Public Workspaces
-          description: Whether or not this account allows public workspaces.
-          default: false
-        ai_log_summaries:
-          type: boolean
-          title: Ai Log Summaries
-          description: Whether to use AI to generate log summaries.
-          default: false
-        managed_execution:
-          type: boolean
-          title: Managed Execution
-          description: Whether to enable the use of managed work pools
-          default: true
-        enforce_ip_allowlist:
-          type: boolean
-          title: Enforce Ip Allowlist
-          description: Whether to enforce account's IP allowlist.
-          default: false
-        enforce_webhook_authentication:
-          type: boolean
-          title: Enforce Webhook Authentication
-          description: Whether to enforce webhook authentication.
-          default: false
-        self_healing_enabled:
-          type: boolean
-          title: Self Healing Enabled
-          description: Whether to automatically create managed automations for new workspaces.
-          default: false
-        enabled_feature_flags:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-          title: Enabled Feature Flags
-          description: Feature flags enabled for the account.
-        default_result_storage:
-          anyOf:
-          - $ref: '#/components/schemas/AccountDefaultResultStorage-Input'
-          - type: 'null'
-          description: The account-owned template to use when materializing the account's default result storage into inheriting workspaces.
-      type: object
-      title: AccountSettings
-    AccountStatus:
-      type: string
-      enum:
-      - ACTIVE
-      - DELINQUENT
-      - FROZEN
-      title: AccountStatus
-    AccountSCIMState:
-      type: string
-      enum:
-      - DISABLED
-      - NEEDS_ORGANIZATION_ID
-      - NEEDS_CONFIGURATION
-      - ENABLED
-      title: AccountSCIMState
+      - ORGANIZATION
+      - PERSONAL
+      - ENTERPRISE
+      title: AccountPlanType

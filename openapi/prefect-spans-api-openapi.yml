@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Spans API
+  title: Prefect Cloud Spans API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -285,7 +285,35 @@ paths:
       tags:
       - Spans
       summary: Read Trace Observed States
-      description: "Get observed state type/name combinations used in a specific trace.\n\nReturns distinct state combinations used in the trace.\nUseful for showing what states were actually used in a flow run and\nproviding autocomplete/filtering options.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID to analyze\n    query: Optional prefix search on state_type or state_name\n    order_by: Order by name (alphabetically) or recency (most recent first)\n    limit: Maximum number of results\n\nReturns:\n    List of ObservedState objects\n\nRequired workspace scopes: `see_flows`"
+      description: 'Get observed state type/name combinations used in a specific trace.
+
+
+        Returns distinct state combinations used in the trace.
+
+        Useful for showing what states were actually used in a flow run and
+
+        providing autocomplete/filtering options.
+
+
+        Args:
+
+        workspace_id: The workspace ID
+
+        trace_id: The trace (flow run) ID to analyze
+
+        query: Optional prefix search on state_type or state_name
+
+        order_by: Order by name (alphabetically) or recency (most recent first)
+
+        limit: Maximum number of results
+
+
+        Returns:
+
+        List of ObservedState objects
+
+
+        Required workspace scopes: `see_flows`'
       operationId: read_trace_observed_states_api_accounts__account_id__workspaces__workspace_id__traces__trace_id__observed_states_get
       parameters:
       - name: account_id
@@ -368,7 +396,27 @@ paths:
       tags:
       - Spans
       summary: Read Trace Observed Tags
-      description: "Get all observed tags and their counts for a specific trace.\n\nReturns all tags used in spans within the trace with their occurrence counts.\nUseful for showing what tags were used in a flow run and their frequency.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID to analyze\n\nReturns:\n    List of ObservedTag objects with tag names and counts\n\nRequired workspace scopes: `see_flows`"
+      description: 'Get all observed tags and their counts for a specific trace.
+
+
+        Returns all tags used in spans within the trace with their occurrence counts.
+
+        Useful for showing what tags were used in a flow run and their frequency.
+
+
+        Args:
+
+        workspace_id: The workspace ID
+
+        trace_id: The trace (flow run) ID to analyze
+
+
+        Returns:
+
+        List of ObservedTag objects with tag names and counts
+
+
+        Required workspace scopes: `see_flows`'
       operationId: read_trace_observed_tags_api_accounts__account_id__workspaces__workspace_id__traces__trace_id__observed_tags_get
       parameters:
       - name: workspace_id
@@ -432,7 +480,29 @@ paths:
       tags:
       - Spans
       summary: Read Single Span
-      description: "Get a single span by ID within a specific trace.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID containing the span\n    span_id: The span ID to retrieve\n\nReturns:\n    SpanResponse with has_children and child_count computed\n\nRaises:\n    HTTPException: 404 if span not found or doesn't belong to trace\n\nRequired workspace scopes: `see_flows`"
+      description: 'Get a single span by ID within a specific trace.
+
+
+        Args:
+
+        workspace_id: The workspace ID
+
+        trace_id: The trace (flow run) ID containing the span
+
+        span_id: The span ID to retrieve
+
+
+        Returns:
+
+        SpanResponse with has_children and child_count computed
+
+
+        Raises:
+
+        HTTPException: 404 if span not found or doesn''t belong to trace
+
+
+        Required workspace scopes: `see_flows`'
       operationId: read_single_span_api_accounts__account_id__workspaces__workspace_id__traces__trace_id__spans__span_id__get
       parameters:
       - name: workspace_id
@@ -491,7 +561,34 @@ paths:
       tags:
       - Spans
       summary: Read Spans By Ids
-      description: "Get multiple spans by IDs within a specific trace.\n\nReturns only spans that exist and belong to the specified trace.\nEmpty IDs list or no matches returns empty list.\n\nArgs:\n    workspace_id: The workspace ID\n    trace_id: The trace (flow run) ID containing the spans\n    ids: List of span IDs to retrieve\n\nReturns:\n    List of SpanResponse objects with has_children and child_count computed\n\nRaises:\n    HTTPException: 404 if trace doesn't exist\n\nRequired workspace scopes: `see_flows`"
+      description: 'Get multiple spans by IDs within a specific trace.
+
+
+        Returns only spans that exist and belong to the specified trace.
+
+        Empty IDs list or no matches returns empty list.
+
+
+        Args:
+
+        workspace_id: The workspace ID
+
+        trace_id: The trace (flow run) ID containing the spans
+
+        ids: List of span IDs to retrieve
+
+
+        Returns:
+
+        List of SpanResponse objects with has_children and child_count computed
+
+
+        Raises:
+
+        HTTPException: 404 if trace doesn''t exist
+
+
+        Required workspace scopes: `see_flows`'
       operationId: read_spans_by_ids_api_accounts__account_id__workspaces__workspace_id__traces__trace_id__spans_get
       parameters:
       - name: workspace_id
@@ -556,7 +653,34 @@ paths:
       tags:
       - Spans
       summary: Lookup Span By Run Id
-      description: "Look up trace and span information for a given run ID.\n\nTreats the run_id as a span_id and returns the trace_id and span_id\nof the found span. This is useful for navigating from a child run ID\nto its trace view.\n\nArgs:\n    workspace_id: The workspace ID\n    run_id: The run ID to look up (treated as span_id)\n\nReturns:\n    SpanIdentifierResponse containing trace_id and span_id\n\nRaises:\n    HTTPException: 404 if span not found\n\nRequired workspace scopes: `see_flows`"
+      description: 'Look up trace and span information for a given run ID.
+
+
+        Treats the run_id as a span_id and returns the trace_id and span_id
+
+        of the found span. This is useful for navigating from a child run ID
+
+        to its trace view.
+
+
+        Args:
+
+        workspace_id: The workspace ID
+
+        run_id: The run ID to look up (treated as span_id)
+
+
+        Returns:
+
+        SpanIdentifierResponse containing trace_id and span_id
+
+
+        Raises:
+
+        HTTPException: 404 if span not found
+
+
+        Required workspace scopes: `see_flows`'
       operationId: lookup_span_by_run_id_api_accounts__account_id__workspaces__workspace_id__spans_lookup__run_id__get
       parameters:
       - name: workspace_id
@@ -606,7 +730,27 @@ paths:
       tags:
       - Spans
       summary: Read Span Observed Tags
-      description: "Get all observed tags and their counts for a specific span and all its descendants.\n\nUses a recursive query to find all descendant spans, then aggregates tags\nfrom the target span and all its children recursively.\n\nArgs:\n    workspace_id: The workspace ID\n    span_id: The span ID to analyze (includes this span + all descendants)\n\nReturns:\n    List of ObservedTag objects with tag names and occurrence counts\n\nRequired workspace scopes: `see_flows`"
+      description: 'Get all observed tags and their counts for a specific span and all its descendants.
+
+
+        Uses a recursive query to find all descendant spans, then aggregates tags
+
+        from the target span and all its children recursively.
+
+
+        Args:
+
+        workspace_id: The workspace ID
+
+        span_id: The span ID to analyze (includes this span + all descendants)
+
+
+        Returns:
+
+        List of ObservedTag objects with tag names and occurrence counts
+
+
+        Required workspace scopes: `see_flows`'
       operationId: read_span_observed_tags_api_accounts__account_id__workspaces__workspace_id__spans__span_id__observed_tags_get
       parameters:
       - name: workspace_id
@@ -670,7 +814,35 @@ paths:
       tags:
       - Spans
       summary: Read Workspace Observed States
-      description: "Get observed state type/name combinations for a workspace.\n\nReturns distinct state combinations across all traces in the workspace.\nResults are filtered by workspace retention policy.\nUseful for providing autocomplete/filtering options in the UI.\n\nArgs:\n    account_id: The account ID\n    workspace_id: The workspace ID\n    query: Optional prefix search on state_type or state_name\n    order_by: Order by name (alphabetically) or recency (most recent first)\n    limit: Maximum number of results\n\nReturns:\n    List of ObservedState objects\n\nRequired workspace scopes: `see_flows`"
+      description: 'Get observed state type/name combinations for a workspace.
+
+
+        Returns distinct state combinations across all traces in the workspace.
+
+        Results are filtered by workspace retention policy.
+
+        Useful for providing autocomplete/filtering options in the UI.
+
+
+        Args:
+
+        account_id: The account ID
+
+        workspace_id: The workspace ID
+
+        query: Optional prefix search on state_type or state_name
+
+        order_by: Order by name (alphabetically) or recency (most recent first)
+
+        limit: Maximum number of results
+
+
+        Returns:
+
+        List of ObservedState objects
+
+
+        Required workspace scopes: `see_flows`'
       operationId: read_workspace_observed_states_api_accounts__account_id__workspaces__workspace_id__observed_states_get
       parameters:
       - name: account_id
@@ -743,6 +915,84 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ObservedState:
+      properties:
+        state_type:
+          type: string
+          title: State Type
+          description: The state type (e.g., 'COMPLETED', 'FAILED')
+        state_name:
+          type: string
+          title: State Name
+          description: The state name (e.g., 'Completed', 'Failed', 'Cancelled')
+        first_seen:
+          type: string
+          format: date-time
+          title: First Seen
+          description: When this state combination was first observed
+        last_seen:
+          type: string
+          format: date-time
+          title: Last Seen
+          description: When this state combination was last observed
+      type: object
+      required:
+      - state_type
+      - state_name
+      - first_seen
+      - last_seen
+      title: ObservedState
+      description: An observed state type/name combination from spans.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ObservedStateSort:
+      type: string
+      enum:
+      - NAME_ASC
+      - LAST_SEEN_DESC
+      title: ObservedStateSort
+      description: Defines observed state sorting options.
+    SpansResponse:
+      properties:
+        spans:
+          items:
+            $ref: '#/components/schemas/SpanResponse'
+          type: array
+          title: Spans
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+        prev_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev Cursor
+      type: object
+      required:
+      - spans
+      title: SpansResponse
+      description: Unified response for both list and context endpoints.
     HTTPValidationError:
       properties:
         detail:
@@ -752,6 +1002,24 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    SpanIdentifierResponse:
+      properties:
+        trace_id:
+          type: string
+          format: uuid
+          title: Trace Id
+          description: The trace ID containing this span
+        span_id:
+          type: string
+          format: uuid
+          title: Span Id
+          description: The span ID
+      type: object
+      required:
+      - trace_id
+      - span_id
+      title: SpanIdentifierResponse
+      description: Response containing trace_id and span_id for a span lookup.
     SpanResponse:
       properties:
         span_id:
@@ -854,74 +1122,6 @@ components:
       - attributes
       title: SpanResponse
       description: Span with additional computed fields for API responses.
-    SpanIdentifierResponse:
-      properties:
-        trace_id:
-          type: string
-          format: uuid
-          title: Trace Id
-          description: The trace ID containing this span
-        span_id:
-          type: string
-          format: uuid
-          title: Span Id
-          description: The span ID
-      type: object
-      required:
-      - trace_id
-      - span_id
-      title: SpanIdentifierResponse
-      description: Response containing trace_id and span_id for a span lookup.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    SpansResponse:
-      properties:
-        spans:
-          items:
-            $ref: '#/components/schemas/SpanResponse'
-          type: array
-          title: Spans
-        next_cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Cursor
-        prev_cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prev Cursor
-      type: object
-      required:
-      - spans
-      title: SpansResponse
-      description: Unified response for both list and context endpoints.
-    ObservedStateSort:
-      type: string
-      enum:
-      - NAME_ASC
-      - LAST_SEEN_DESC
-      title: ObservedStateSort
-      description: Defines observed state sorting options.
     ObservedTag:
       properties:
         tag:
@@ -938,31 +1138,3 @@ components:
       - count
       title: ObservedTag
       description: An observed tag from spans within a trace.
-    ObservedState:
-      properties:
-        state_type:
-          type: string
-          title: State Type
-          description: The state type (e.g., 'COMPLETED', 'FAILED')
-        state_name:
-          type: string
-          title: State Name
-          description: The state name (e.g., 'Completed', 'Failed', 'Cancelled')
-        first_seen:
-          type: string
-          format: date-time
-          title: First Seen
-          description: When this state combination was first observed
-        last_seen:
-          type: string
-          format: date-time
-          title: Last Seen
-          description: When this state combination was last observed
-      type: object
-      required:
-      - state_type
-      - state_name
-      - first_seen
-      - last_seen
-      title: ObservedState
-      description: An observed state type/name combination from spans.

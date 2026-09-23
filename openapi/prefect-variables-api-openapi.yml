@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Variables API
+  title: Prefect Cloud Variables API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -11,10 +11,7 @@ paths:
       tags:
       - Variables
       summary: Create Variable
-      description: '
-
-
-        Required workspace scopes: `write_variables`'
+      description: 'Required workspace scopes: `write_variables`'
       operationId: create_variable_api_accounts__account_id__workspaces__workspace_id__variables__post
       parameters:
       - name: account_id
@@ -61,10 +58,7 @@ paths:
       tags:
       - Variables
       summary: Read Variable
-      description: '
-
-
-        Required workspace scopes: `see_variables`'
+      description: 'Required workspace scopes: `see_variables`'
       operationId: read_variable_api_accounts__account_id__workspaces__workspace_id__variables__id__get
       parameters:
       - name: id
@@ -111,10 +105,7 @@ paths:
       tags:
       - Variables
       summary: Update Variable
-      description: '
-
-
-        Required workspace scopes: `write_variables`'
+      description: 'Required workspace scopes: `write_variables`'
       operationId: update_variable_api_accounts__account_id__workspaces__workspace_id__variables__id__patch
       parameters:
       - name: id
@@ -163,10 +154,7 @@ paths:
       tags:
       - Variables
       summary: Delete Variable
-      description: '
-
-
-        Required workspace scopes: `manage_variables`'
+      description: 'Required workspace scopes: `manage_variables`'
       operationId: delete_variable_api_accounts__account_id__workspaces__workspace_id__variables__id__delete
       parameters:
       - name: id
@@ -210,10 +198,7 @@ paths:
       tags:
       - Variables
       summary: Read Variable By Name
-      description: '
-
-
-        Required workspace scopes: `see_variables`'
+      description: 'Required workspace scopes: `see_variables`'
       operationId: read_variable_by_name_api_accounts__account_id__workspaces__workspace_id__variables_name__name__get
       parameters:
       - name: name
@@ -259,10 +244,7 @@ paths:
       tags:
       - Variables
       summary: Update Variable By Name
-      description: '
-
-
-        Required workspace scopes: `write_variables`'
+      description: 'Required workspace scopes: `write_variables`'
       operationId: update_variable_by_name_api_accounts__account_id__workspaces__workspace_id__variables_name__name__patch
       parameters:
       - name: name
@@ -310,10 +292,7 @@ paths:
       tags:
       - Variables
       summary: Delete Variable By Name
-      description: '
-
-
-        Required workspace scopes: `manage_variables`'
+      description: 'Required workspace scopes: `manage_variables`'
       operationId: delete_variable_by_name_api_accounts__account_id__workspaces__workspace_id__variables_name__name__delete
       parameters:
       - name: name
@@ -356,10 +335,7 @@ paths:
       tags:
       - Variables
       summary: Read Variables
-      description: '
-
-
-        Required workspace scopes: `see_variables`'
+      description: 'Required workspace scopes: `see_variables`'
       operationId: read_variables_api_accounts__account_id__workspaces__workspace_id__variables_filter_post
       parameters:
       - name: account_id
@@ -408,10 +384,7 @@ paths:
       tags:
       - Variables
       summary: Count Variables
-      description: '
-
-
-        Required workspace scopes: `see_variables`'
+      description: 'Required workspace scopes: `see_variables`'
       operationId: count_variables_api_accounts__account_id__workspaces__workspace_id__variables_count_post
       parameters:
       - name: account_id
@@ -455,11 +428,128 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    VariableCreate:
+    VariableFilterTags:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        all_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: All
+          description: A list of tags. Variables will be returned only if their tags are a superset of the list
+          examples:
+          - - tag-1
+            - tag-2
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include Variables without tags
+      additionalProperties: false
+      type: object
+      title: VariableFilterTags
+      description: Filter by `Variable.tags`.
+    VariableFilterValue:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of variables value to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A string to match variable value against. This can include SQL wildcard characters like `%` and `_`.
+          examples:
+          - my-value-%
+      additionalProperties: false
+      type: object
+      title: VariableFilterValue
+      description: Filter by `Variable.value`.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_count_variables_api_accounts__account_id__workspaces__workspace_id__variables_count_post:
+      properties:
+        variables:
+          anyOf:
+          - $ref: '#/components/schemas/VariableFilter'
+          - type: 'null'
+      type: object
+      title: Body_count_variables_api_accounts__account_id__workspaces__workspace_id__variables_count_post
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
+    VariableFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/VariableFilterId'
+          - type: 'null'
+          description: Filter criteria for `Variable.id`
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/VariableFilterName'
+          - type: 'null'
+          description: Filter criteria for `Variable.name`
+        value:
+          anyOf:
+          - $ref: '#/components/schemas/VariableFilterValue'
+          - type: 'null'
+          description: Filter criteria for `Variable.value`
+        tags:
+          anyOf:
+          - $ref: '#/components/schemas/VariableFilterTags'
+          - type: 'null'
+          description: Filter criteria for `Variable.tags`
+      additionalProperties: false
+      type: object
+      title: VariableFilter
+      description: Filter variables. Only variables matching all criteria will be returned
+    VariableUpdate:
       properties:
         name:
-          type: string
-          maxLength: 255
+          anyOf:
+          - type: string
+            maxLength: 255
+          - type: 'null'
           title: Name
           description: The name of the variable
           examples:
@@ -492,11 +582,8 @@ components:
             - tag-2
       additionalProperties: false
       type: object
-      required:
-      - name
-      - value
-      title: VariableCreate
-      description: Data used by the Orion API to create a Variable.
+      title: VariableUpdate
+      description: Data used by the Orion API to update a Variable.
     HTTPValidationError:
       properties:
         detail:
@@ -506,6 +593,21 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    VariableFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of variable ids to include
+      additionalProperties: false
+      type: object
+      title: VariableFilterId
+      description: Filter by `Variable.id`.
     Variable:
       properties:
         id:
@@ -560,164 +662,11 @@ components:
       - name
       - value
       title: Variable
-    VariableFilterTags:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        all_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: All
-          description: A list of tags. Variables will be returned only if their tags are a superset of the list
-          examples:
-          - - tag-1
-            - tag-2
-        is_null_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Null
-          description: If true, only include Variables without tags
-      additionalProperties: false
-      type: object
-      title: VariableFilterTags
-      description: Filter by `Variable.tags`.
-    Body_read_variables_api_accounts__account_id__workspaces__workspace_id__variables_filter_post:
-      properties:
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        variables:
-          anyOf:
-          - $ref: '#/components/schemas/VariableFilter'
-          - type: 'null'
-        sort:
-          $ref: '#/components/schemas/VariableSort'
-          default: NAME_ASC
-        limit:
-          type: integer
-          title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
-      type: object
-      title: Body_read_variables_api_accounts__account_id__workspaces__workspace_id__variables_filter_post
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    VariableFilter:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/VariableFilterId'
-          - type: 'null'
-          description: Filter criteria for `Variable.id`
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/VariableFilterName'
-          - type: 'null'
-          description: Filter criteria for `Variable.name`
-        value:
-          anyOf:
-          - $ref: '#/components/schemas/VariableFilterValue'
-          - type: 'null'
-          description: Filter criteria for `Variable.value`
-        tags:
-          anyOf:
-          - $ref: '#/components/schemas/VariableFilterTags'
-          - type: 'null'
-          description: Filter criteria for `Variable.tags`
-      additionalProperties: false
-      type: object
-      title: VariableFilter
-      description: Filter variables. Only variables matching all criteria will be returned
-    VariableFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of variable ids to include
-      additionalProperties: false
-      type: object
-      title: VariableFilterId
-      description: Filter by `Variable.id`.
-    prefect_cloud__orion__schemas__filters__Operator:
-      type: string
-      enum:
-      - and_
-      - or_
-      title: Operator
-      description: Operators for combining filter criteria.
-    VariableSort:
-      type: string
-      enum:
-      - CREATED_DESC
-      - UPDATED_DESC
-      - NAME_DESC
-      - NAME_ASC
-      title: VariableSort
-      description: Defines variables sorting options.
-    VariableFilterValue:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of variables value to include
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A string to match variable value against. This can include SQL wildcard characters like `%` and `_`.
-          examples:
-          - my-value-%
-      additionalProperties: false
-      type: object
-      title: VariableFilterValue
-      description: Filter by `Variable.value`.
-    VariableUpdate:
+    VariableCreate:
       properties:
         name:
-          anyOf:
-          - type: string
-            maxLength: 255
-          - type: 'null'
+          type: string
+          maxLength: 255
           title: Name
           description: The name of the variable
           examples:
@@ -750,8 +699,11 @@ components:
             - tag-2
       additionalProperties: false
       type: object
-      title: VariableUpdate
-      description: Data used by the Orion API to update a Variable.
+      required:
+      - name
+      - value
+      title: VariableCreate
+      description: Data used by the Orion API to create a Variable.
     VariableFilterName:
       properties:
         any_:
@@ -774,11 +726,32 @@ components:
       type: object
       title: VariableFilterName
       description: Filter by `Variable.name`.
-    Body_count_variables_api_accounts__account_id__workspaces__workspace_id__variables_count_post:
+    VariableSort:
+      type: string
+      enum:
+      - CREATED_DESC
+      - UPDATED_DESC
+      - NAME_DESC
+      - NAME_ASC
+      title: VariableSort
+      description: Defines variables sorting options.
+    Body_read_variables_api_accounts__account_id__workspaces__workspace_id__variables_filter_post:
       properties:
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
         variables:
           anyOf:
           - $ref: '#/components/schemas/VariableFilter'
           - type: 'null'
+        sort:
+          $ref: '#/components/schemas/VariableSort'
+          default: NAME_ASC
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
       type: object
-      title: Body_count_variables_api_accounts__account_id__workspaces__workspace_id__variables_count_post
+      title: Body_read_variables_api_accounts__account_id__workspaces__workspace_id__variables_filter_post

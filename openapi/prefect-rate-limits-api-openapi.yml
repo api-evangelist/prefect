@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Rate Limits API
+  title: Prefect Cloud Rate Limits API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -515,35 +515,35 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    RateLimitUsageByKey:
       properties:
-        detail:
+        limit:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            type: integer
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    RateLimitGroupedUsageByGroup:
-      properties:
+          title: Limit
+        usage:
+          items:
+            type: integer
+          type: array
+          title: Usage
         requested:
           items:
             type: integer
           type: array
           title: Requested
-          description: Tokens requested per minute
         granted:
           items:
             type: integer
           type: array
           title: Granted
-          description: Tokens granted per minute
       type: object
       required:
+      - limit
+      - usage
       - requested
       - granted
-      title: RateLimitGroupedUsageByGroup
-      description: Usage data for a single group over time.
+      title: RateLimitUsageByKey
     ValidationError:
       properties:
         loc:
@@ -565,19 +565,6 @@ components:
       - msg
       - type
       title: ValidationError
-    RateLimitStatusResponse:
-      properties:
-        exceeded_buckets:
-          items:
-            type: string
-          type: array
-          title: Exceeded Buckets
-          description: Rate limit buckets currently exceeded (e.g., 'orchestration-api', 'logs-and-events')
-      type: object
-      required:
-      - exceeded_buckets
-      title: RateLimitStatusResponse
-      description: Current rate limit exceeded status for an account.
     RateLimitUsageResponse:
       properties:
         account:
@@ -611,6 +598,61 @@ components:
       - minutes
       - keys
       title: RateLimitUsageResponse
+    RateLimitStatusResponse:
+      properties:
+        exceeded_buckets:
+          items:
+            type: string
+          type: array
+          title: Exceeded Buckets
+          description: Rate limit buckets currently exceeded (e.g., 'orchestration-api', 'logs-and-events')
+      type: object
+      required:
+      - exceeded_buckets
+      title: RateLimitStatusResponse
+      description: Current rate limit exceeded status for an account.
+    DistinctValuesResponse:
+      properties:
+        values:
+          items:
+            type: string
+          type: array
+          title: Values
+          description: List of distinct values
+      type: object
+      required:
+      - values
+      title: DistinctValuesResponse
+      description: Response model for distinct values endpoints.
+    RateLimitGroupedUsageByGroup:
+      properties:
+        requested:
+          items:
+            type: integer
+          type: array
+          title: Requested
+          description: Tokens requested per minute
+        granted:
+          items:
+            type: integer
+          type: array
+          title: Granted
+          description: Tokens granted per minute
+      type: object
+      required:
+      - requested
+      - granted
+      title: RateLimitGroupedUsageByGroup
+      description: Usage data for a single group over time.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     RateLimitGroupedUsageResponse:
       properties:
         account:
@@ -655,45 +697,3 @@ components:
       - groups
       title: RateLimitGroupedUsageResponse
       description: Response model for rate limit usage grouped by a dimension over time.
-    DistinctValuesResponse:
-      properties:
-        values:
-          items:
-            type: string
-          type: array
-          title: Values
-          description: List of distinct values
-      type: object
-      required:
-      - values
-      title: DistinctValuesResponse
-      description: Response model for distinct values endpoints.
-    RateLimitUsageByKey:
-      properties:
-        limit:
-          items:
-            type: integer
-          type: array
-          title: Limit
-        usage:
-          items:
-            type: integer
-          type: array
-          title: Usage
-        requested:
-          items:
-            type: integer
-          type: array
-          title: Requested
-        granted:
-          items:
-            type: integer
-          type: array
-          title: Granted
-      type: object
-      required:
-      - limit
-      - usage
-      - requested
-      - granted
-      title: RateLimitUsageByKey

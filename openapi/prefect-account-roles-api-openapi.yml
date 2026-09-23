@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Account Roles API
+  title: Prefect Cloud Account Roles API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -161,80 +161,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    AccountRoleFilterName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include account roles matching these names
-      additionalProperties: false
-      type: object
-      title: AccountRoleFilterName
-    AccountPermission:
-      type: string
-      enum:
-      - read:account
-      - update:account
-      - delete:account
-      - read:account_membership
-      - update:account_membership
-      - delete:account_membership
-      - create:account_role
-      - read:account_role
-      - update:account_role
-      - delete:account_role
-      - add:account_member
-      - read:sso
-      - administrate:sso
-      - bypass:sso
-      - read:billing
-      - update:billing
-      - create:bot
-      - read:bot
-      - update:bot
-      - delete:bot
-      - create:team
-      - read:team
-      - update:team
-      - delete:team
-      - create:invitation
-      - read:invitation
-      - update:invitation
-      - create:workspace_invitation
-      - read:workspace_invitation
-      - update:workspace_invitation
-      - administrate:workspace
-      - create:workspace
-      - read:workspace
-      - delete:workspace
-      - create:workspace_role
-      - read:workspace_role
-      - update:workspace_role
-      - delete:workspace_role
-      - create:audit_event
-      - read:audit_event
-      - update:ip_allowlist
-      - read:ip_allowlist
-      - read:mex-storage
-      - update:mex-storage
-      - delete:mex-storage
-      - read:integrations
-      - update:integrations
-      title: AccountPermission
-      description: Enumerates possible permissions over an account
     ValidationError:
       properties:
         loc:
@@ -301,6 +227,67 @@ components:
       - name
       - permissions
       title: AccountRole
+    AccountPermission:
+      type: string
+      enum:
+      - read:account
+      - update:account
+      - delete:account
+      - read:account_membership
+      - update:account_membership
+      - delete:account_membership
+      - create:account_role
+      - read:account_role
+      - update:account_role
+      - delete:account_role
+      - add:account_member
+      - read:sso
+      - administrate:sso
+      - bypass:sso
+      - read:billing
+      - update:billing
+      - create:bot
+      - read:bot
+      - update:bot
+      - delete:bot
+      - create:team
+      - read:team
+      - update:team
+      - delete:team
+      - create:invitation
+      - read:invitation
+      - update:invitation
+      - create:workspace_invitation
+      - read:workspace_invitation
+      - update:workspace_invitation
+      - administrate:workspace
+      - create:workspace
+      - read:workspace
+      - delete:workspace
+      - create:workspace_role
+      - read:workspace_role
+      - update:workspace_role
+      - delete:workspace_role
+      - create:audit_event
+      - read:audit_event
+      - update:ip_allowlist
+      - read:ip_allowlist
+      - read:mex-storage
+      - update:mex-storage
+      - delete:mex-storage
+      - read:integrations
+      - update:integrations
+      title: AccountPermission
+      description: Enumerates possible permissions over an account
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     AccountRoleFilter:
       properties:
         name:
@@ -351,3 +338,16 @@ components:
       type: object
       title: AccountRoleUpdate
       description: Data used by API to update an account role
+    AccountRoleFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include account roles matching these names
+      additionalProperties: false
+      type: object
+      title: AccountRoleFilterName

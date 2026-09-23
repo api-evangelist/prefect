@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Resources API
+  title: Prefect Cloud Resources API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -409,70 +409,24 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Body_get_related_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_related_count_post:
+    EventOrder:
+      type: string
+      enum:
+      - ASC
+      - DESC
+      title: EventOrder
+    ResourceExclusionList:
       properties:
-        filter:
-          $ref: '#/components/schemas/EventLineageRelatedFilter'
-          description: Additional optional filter criteria to narrow down the set of Events
-      type: object
-      title: Body_get_related_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_related_count_post
-    Body_filter_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          description: The number of events to return with each page
-          default: 50
-        filter:
-          anyOf:
-          - $ref: '#/components/schemas/EventLineageFilter'
-          - type: 'null'
-          description: Additional optional filter criteria to narrow down the set of Resources
-      type: object
-      title: Body_filter_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_filter_post
-    ValidationError:
-      properties:
-        loc:
+        paths:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            type: string
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Paths
+          description: The paths of the resources to exclude
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Body_filter_related_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_related_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          description: The number of events to return with each page
-          default: 50
-        filter:
-          $ref: '#/components/schemas/EventLineageRelatedFilter'
-          description: Additional optional filter criteria to narrow down the set of Events
-      type: object
-      title: Body_filter_related_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_related_post
-    Resource:
-      additionalProperties:
-        type: string
-      type: object
-      title: Resource
-      description: An observable business object of interest to the user
+      - paths
+      title: ResourceExclusionList
     RelatedResourceResult:
       properties:
         direction:
@@ -493,12 +447,99 @@ components:
       - direction
       - resources
       title: RelatedResourceResult
-    EventOrder:
+    Body_get_related_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_related_count_post:
+      properties:
+        filter:
+          $ref: '#/components/schemas/EventLineageRelatedFilter'
+          description: Additional optional filter criteria to narrow down the set of Events
+      type: object
+      title: Body_get_related_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_related_count_post
+    ResourcePage:
+      properties:
+        resources:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Resources
+          description: The Resources matching the query
+        total:
+          type: integer
+          title: Total
+          description: The total number of matching Resources
+        next_page:
+          anyOf:
+          - type: string
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Next Page
+          description: The URL for the next page of results, if there are more
+      type: object
+      required:
+      - resources
+      - total
+      - next_page
+      title: ResourcePage
+      description: 'A single page of resources returned from the API, with an optional link to the
+
+        next page of results'
+    Body_filter_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of events to return with each page
+          default: 50
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/EventLineageFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down the set of Resources
+      type: object
+      title: Body_filter_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_filter_post
+    Body_filter_related_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_related_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of events to return with each page
+          default: 50
+        filter:
+          $ref: '#/components/schemas/EventLineageRelatedFilter'
+          description: Additional optional filter criteria to narrow down the set of Events
+      type: object
+      title: Body_filter_related_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_related_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EventDirection:
       type: string
       enum:
-      - ASC
-      - DESC
-      title: EventOrder
+      - downstream
+      - upstream
+      title: EventDirection
+    ResourceExclusions:
+      properties:
+        paths:
+          items:
+            type: string
+          type: array
+          title: Paths
+          description: The paths of the resources to exclude
+      type: object
+      required:
+      - paths
+      title: ResourceExclusions
     Body_read_resources_hierarchy_api_accounts__account_id__workspaces__workspace_id__resources_hierarchy_filter_post:
       properties:
         depth:
@@ -522,6 +563,78 @@ components:
       required:
       - depth
       title: Body_read_resources_hierarchy_api_accounts__account_id__workspaces__workspace_id__resources_hierarchy_filter_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_get_filtered_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_filter_count_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of events to return with each page
+          default: 50
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/EventLineageFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down the set of Resources
+      type: object
+      title: Body_get_filtered_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_filter_count_post
+    LineageResourceOccurredFilter:
+      properties:
+        since:
+          type: string
+          format: date-time
+          title: Since
+        until:
+          type: string
+          format: date-time
+          title: Until
+          description: Only include events prior to this time (inclusive)
+      additionalProperties: false
+      type: object
+      title: LineageResourceOccurredFilter
+    EventScopeFilter:
+      properties:
+        account:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Account
+          description: Only include events for this account
+        workspace:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace
+          description: Only include events for these workspaces
+      additionalProperties: false
+      type: object
+      title: EventScopeFilter
     EventLineageFilter:
       properties:
         id:
@@ -611,15 +724,12 @@ components:
         select a set of resources in a query or automation.  A resource must match at least
 
         one value of all of the provided labels'
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+    Resource:
+      additionalProperties:
+        type: string
       type: object
-      title: HTTPValidationError
+      title: Resource
+      description: An observable business object of interest to the user
     EventLineageRelatedFilter:
       properties:
         id:
@@ -715,116 +825,6 @@ components:
       additionalProperties: false
       type: object
       title: EventLineageRelatedFilter
-    ResourceExclusions:
-      properties:
-        paths:
-          items:
-            type: string
-          type: array
-          title: Paths
-          description: The paths of the resources to exclude
-      type: object
-      required:
-      - paths
-      title: ResourceExclusions
-    Body_get_filtered_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_filter_count_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          description: The number of events to return with each page
-          default: 50
-        filter:
-          anyOf:
-          - $ref: '#/components/schemas/EventLineageFilter'
-          - type: 'null'
-          description: Additional optional filter criteria to narrow down the set of Resources
-      type: object
-      title: Body_get_filtered_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_filter_count_post
-    EventScopeFilter:
-      properties:
-        account:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Account
-          description: Only include events for this account
-        workspace:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Workspace
-          description: Only include events for these workspaces
-      additionalProperties: false
-      type: object
-      title: EventScopeFilter
-    EventDirection:
-      type: string
-      enum:
-      - downstream
-      - upstream
-      title: EventDirection
-    ResourceExclusionList:
-      properties:
-        paths:
-          items:
-            type: string
-          type: array
-          title: Paths
-          description: The paths of the resources to exclude
-      type: object
-      required:
-      - paths
-      title: ResourceExclusionList
-    ResourcePage:
-      properties:
-        resources:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Resources
-          description: The Resources matching the query
-        total:
-          type: integer
-          title: Total
-          description: The total number of matching Resources
-        next_page:
-          anyOf:
-          - type: string
-            minLength: 1
-            format: uri
-          - type: 'null'
-          title: Next Page
-          description: The URL for the next page of results, if there are more
-      type: object
-      required:
-      - resources
-      - total
-      - next_page
-      title: ResourcePage
-      description: 'A single page of resources returned from the API, with an optional link to the
-
-        next page of results'
-    LineageResourceOccurredFilter:
-      properties:
-        since:
-          type: string
-          format: date-time
-          title: Since
-        until:
-          type: string
-          format: date-time
-          title: Until
-          description: Only include events prior to this time (inclusive)
-      additionalProperties: false
-      type: object
-      title: LineageResourceOccurredFilter
     RelatedResourcePage:
       properties:
         resources:

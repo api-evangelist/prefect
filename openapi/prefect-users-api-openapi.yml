@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Users API
+  title: Prefect Cloud Users API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -229,6 +229,167 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    APIKeyCreateResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        name:
+          type: string
+          title: Name
+          description: The name of the api key.
+        expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expiration
+          description: The time at which the api key expires. If `None`, the api key will not expire.
+        key:
+          type: string
+          title: Key
+          description: The Prefect API Key.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - key
+      title: APIKeyCreateResponse
+      description: Data returned by the api after creating a new api_key. This includes an un-hashed api key.
+    UserSettings:
+      properties:
+        default_timezone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Timezone
+          description: Default timezone for the user.
+        default_color_palette:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Color Palette
+          description: Default color settings for the users UI.
+        tutorial_completed:
+          type: boolean
+          title: Tutorial Completed
+          description: Whether the user has gone through the first time tutorial.
+          default: false
+        feature_previews:
+          items:
+            type: string
+          type: array
+          title: Feature Previews
+          description: A list of feature previews enabled for the user.
+      type: object
+      title: UserSettings
+    UserUpdate:
+      properties:
+        handle:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Handle
+          description: A unique handle for the user, containing only lowercase letters, numbers, and dashes.
+        first_name:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: First Name
+          description: The first name of a user.
+        last_name:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Last Name
+          description: The last name of a user.
+        email:
+          anyOf:
+          - type: string
+            format: email
+          - type: 'null'
+          title: Email
+          description: User email.
+        location:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Location
+          description: An optional physical location for a user, e.g. Washington, D.C.
+        title:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Title
+          description: An optional title for the user.
+        image_location:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Image Location
+          description: A url linking to an image for the user.
+        settings:
+          anyOf:
+          - $ref: '#/components/schemas/UserSettings'
+          - type: 'null'
+          description: The user's default color settings
+          default:
+            tutorial_completed: false
+            feature_previews: []
+        last_login:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Login
+          description: The last time the user logged in.
+      additionalProperties: false
+      type: object
+      title: UserUpdate
+      description: Data used by API to update a user
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     User:
       properties:
         title:
@@ -325,42 +486,6 @@ components:
       - email
       title: User
       description: An ORM representation of an User
-    UserSettings:
-      properties:
-        default_timezone:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Default Timezone
-          description: Default timezone for the user.
-        default_color_palette:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Default Color Palette
-          description: Default color settings for the users UI.
-        tutorial_completed:
-          type: boolean
-          title: Tutorial Completed
-          description: Whether the user has gone through the first time tutorial.
-          default: false
-        feature_previews:
-          items:
-            type: string
-          type: array
-          title: Feature Previews
-          description: A list of feature previews enabled for the user.
-      type: object
-      title: UserSettings
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     APIKeyReadResponse:
       properties:
         id:
@@ -396,61 +521,6 @@ components:
       - name
       title: APIKeyReadResponse
       description: Data returned by the api when reading api_keys
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    APIKeyCreateResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created
-        name:
-          type: string
-          title: Name
-          description: The name of the api key.
-        expiration:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Expiration
-          description: The time at which the api key expires. If `None`, the api key will not expire.
-        key:
-          type: string
-          title: Key
-          description: The Prefect API Key.
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      - key
-      title: APIKeyCreateResponse
-      description: Data returned by the api after creating a new api_key. This includes an un-hashed api key.
     APIKeyCreate:
       properties:
         name:
@@ -471,73 +541,3 @@ components:
       - name
       title: APIKeyCreate
       description: Data used by the api to create a new api_key
-    UserUpdate:
-      properties:
-        handle:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Handle
-          description: A unique handle for the user, containing only lowercase letters, numbers, and dashes.
-        first_name:
-          anyOf:
-          - type: string
-            maxLength: 500
-          - type: 'null'
-          title: First Name
-          description: The first name of a user.
-        last_name:
-          anyOf:
-          - type: string
-            maxLength: 500
-          - type: 'null'
-          title: Last Name
-          description: The last name of a user.
-        email:
-          anyOf:
-          - type: string
-            format: email
-          - type: 'null'
-          title: Email
-          description: User email.
-        location:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Location
-          description: An optional physical location for a user, e.g. Washington, D.C.
-        title:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Title
-          description: An optional title for the user.
-        image_location:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Image Location
-          description: A url linking to an image for the user.
-        settings:
-          anyOf:
-          - $ref: '#/components/schemas/UserSettings'
-          - type: 'null'
-          description: The user's default color settings
-          default:
-            tutorial_completed: false
-            feature_previews: []
-        last_login:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Login
-          description: The last time the user logged in.
-      additionalProperties: false
-      type: object
-      title: UserUpdate
-      description: Data used by API to update a user

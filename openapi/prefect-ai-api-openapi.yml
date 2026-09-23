@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing AI API
+  title: Prefect Cloud AI API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -58,22 +58,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    MarvinResult:
+    HTTPValidationError:
       properties:
-        result:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Result
-          description: Result returned by an LLM, if any.
         detail:
-          anyOf:
-          - type: string
-          - type: 'null'
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
           title: Detail
-          description: Details about an error that occurred while running the LLM, if any.
       type: object
-      title: MarvinResult
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -95,12 +88,19 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    MarvinResult:
       properties:
+        result:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Result
+          description: Result returned by an LLM, if any.
         detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
+          anyOf:
+          - type: string
+          - type: 'null'
           title: Detail
+          description: Details about an error that occurred while running the LLM, if any.
       type: object
-      title: HTTPValidationError
+      title: MarvinResult

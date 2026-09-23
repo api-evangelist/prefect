@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Concurrency Limits API
+  title: Prefect Cloud Concurrency Limits API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -15,10 +15,7 @@ paths:
       tags:
       - Concurrency Limits
       summary: Create Concurrency Limit
-      description: '
-
-
-        Required workspace scopes: `manage_concurrency_limits`'
+      description: 'Required workspace scopes: `manage_concurrency_limits`'
       operationId: create_concurrency_limit_api_accounts__account_id__workspaces__workspace_id__concurrency_limits__post
       parameters:
       - name: account_id
@@ -122,10 +119,7 @@ paths:
       tags:
       - Concurrency Limits
       summary: Delete Concurrency Limit
-      description: '
-
-
-        Required workspace scopes: `manage_concurrency_limits`'
+      description: 'Required workspace scopes: `manage_concurrency_limits`'
       operationId: delete_concurrency_limit_api_accounts__account_id__workspaces__workspace_id__concurrency_limits__id__delete
       parameters:
       - name: id
@@ -230,10 +224,7 @@ paths:
       tags:
       - Concurrency Limits
       summary: Delete Concurrency Limit By Tag
-      description: '
-
-
-        Required workspace scopes: `manage_concurrency_limits`'
+      description: 'Required workspace scopes: `manage_concurrency_limits`'
       operationId: delete_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__delete
       parameters:
       - name: tag
@@ -338,10 +329,7 @@ paths:
       tags:
       - Concurrency Limits
       summary: Reset Concurrency Limit By Tag
-      description: '
-
-
-        Required workspace scopes: `manage_concurrency_limits`'
+      description: 'Required workspace scopes: `manage_concurrency_limits`'
       operationId: reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post
       parameters:
       - name: tag
@@ -394,10 +382,7 @@ paths:
       tags:
       - Concurrency Limits
       summary: Increment Concurrency Limits V1
-      description: '
-
-
-        Required workspace scopes: `run_flows`'
+      description: 'Required workspace scopes: `run_flows`'
       operationId: increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post
       parameters:
       - name: account_id
@@ -447,10 +432,7 @@ paths:
       tags:
       - Concurrency Limits
       summary: Decrement Concurrency Limits V1
-      description: '
-
-
-        Required workspace scopes: `run_flows`'
+      description: 'Required workspace scopes: `run_flows`'
       operationId: decrement_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_decrement_post
       parameters:
       - name: workspace_id
@@ -497,6 +479,95 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    MinimalConcurrencyLimitResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - id
+      - name
+      - limit
+      title: MinimalConcurrencyLimitResponse
+    ? Body_reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post
+    : properties:
+        slot_override:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Slot Override
+          description: Manual override for active concurrency limit slots.
+      type: object
+      title: Body_reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_decrement_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_decrement_post:
+      properties:
+        names:
+          items:
+            type: string
+          type: array
+          title: Names
+          description: The tags to release a slot for
+        task_run_id:
+          type: string
+          format: uuid
+          title: Task Run Id
+          description: The ID of the task run releasing the slot
+      type: object
+      required:
+      - names
+      - task_run_id
+      title: Body_decrement_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_decrement_post
+    ConcurrencyLimitCreate:
+      properties:
+        tag:
+          type: string
+          maxLength: 5000
+          title: Tag
+          description: A tag the concurrency limit is applied to.
+        concurrency_limit:
+          type: integer
+          minimum: 0.0
+          title: Concurrency Limit
+          description: The concurrency limit.
+      additionalProperties: false
+      type: object
+      required:
+      - tag
+      - concurrency_limit
+      title: ConcurrencyLimitCreate
+      description: Data used by the Orion API to create a concurrency limit.
     Body_read_concurrency_limits_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_filter_post:
       properties:
         offset:
@@ -519,6 +590,24 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    Body_increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post:
+      properties:
+        names:
+          items:
+            type: string
+          type: array
+          title: Names
+          description: The tags to acquire a slot for
+        task_run_id:
+          type: string
+          format: uuid
+          title: Task Run Id
+          description: The ID of the task run acquiring the slot
+      type: object
+      required:
+      - names
+      - task_run_id
+      title: Body_increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post
     ConcurrencyLimit:
       properties:
         id:
@@ -558,110 +647,3 @@ components:
       - concurrency_limit
       title: ConcurrencyLimit
       description: An ORM representation of a concurrency limit.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ? Body_reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post
-    : properties:
-        slot_override:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Slot Override
-          description: Manual override for active concurrency limit slots.
-      type: object
-      title: Body_reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post
-    Body_increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post:
-      properties:
-        names:
-          items:
-            type: string
-          type: array
-          title: Names
-          description: The tags to acquire a slot for
-        task_run_id:
-          type: string
-          format: uuid
-          title: Task Run Id
-          description: The ID of the task run acquiring the slot
-      type: object
-      required:
-      - names
-      - task_run_id
-      title: Body_increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post
-    MinimalConcurrencyLimitResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        name:
-          type: string
-          title: Name
-        limit:
-          type: integer
-          title: Limit
-      type: object
-      required:
-      - id
-      - name
-      - limit
-      title: MinimalConcurrencyLimitResponse
-    ConcurrencyLimitCreate:
-      properties:
-        tag:
-          type: string
-          maxLength: 5000
-          title: Tag
-          description: A tag the concurrency limit is applied to.
-        concurrency_limit:
-          type: integer
-          minimum: 0.0
-          title: Concurrency Limit
-          description: The concurrency limit.
-      additionalProperties: false
-      type: object
-      required:
-      - tag
-      - concurrency_limit
-      title: ConcurrencyLimitCreate
-      description: Data used by the Orion API to create a concurrency limit.
-    Body_decrement_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_decrement_post:
-      properties:
-        names:
-          items:
-            type: string
-          type: array
-          title: Names
-          description: The tags to release a slot for
-        task_run_id:
-          type: string
-          format: uuid
-          title: Task Run Id
-          description: The ID of the task run releasing the slot
-      type: object
-      required:
-      - names
-      - task_run_id
-      title: Body_decrement_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_decrement_post

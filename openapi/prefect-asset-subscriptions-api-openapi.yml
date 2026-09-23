@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Asset Subscriptions API
+  title: Prefect Cloud Asset Subscriptions API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -50,31 +50,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    AssetSubscriptionCreate:
-      properties:
-        publication_id:
-          type: string
-          format: uuid
-          title: Publication Id
-      type: object
-      required:
-      - publication_id
-      title: AssetSubscriptionCreate
-      description: 'POST body for creating an asset subscription.
-
-
-        The caller provides a publication_id; the server constructs the underlying
-
-        SubscriptionCreate with the correct event patterns.'
     ValidationError:
       properties:
         loc:
@@ -96,6 +71,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     SubscriptionResponse:
       properties:
         id:
@@ -167,6 +151,22 @@ components:
       - publication_exists
       title: SubscriptionResponse
       description: Response model — subscription + publication status.
+    AssetSubscriptionCreate:
+      properties:
+        publication_id:
+          type: string
+          format: uuid
+          title: Publication Id
+      type: object
+      required:
+      - publication_id
+      title: AssetSubscriptionCreate
+      description: 'POST body for creating an asset subscription.
+
+
+        The caller provides a publication_id; the server constructs the underlying
+
+        SubscriptionCreate with the correct event patterns.'
     ResourceSpecification:
       additionalProperties:
         anyOf:

@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Prefect Cloud Account Billing API
   description: Prefect Cloud REST API documentation.
@@ -74,10 +74,7 @@ paths:
       tags:
       - Account Billing
       summary: Cancel Org Subscription At Period End
-      description: '
-
-
-        Required account permissions: `update:billing`'
+      description: 'Required account permissions: `update:billing`'
       operationId: cancel_org_subscription_at_period_end_api_billing__account_id__cancel_org_subscription_post
       parameters:
       - name: account_id
@@ -104,10 +101,7 @@ paths:
       tags:
       - Account Billing
       summary: Update Slots
-      description: '
-
-
-        Required account permissions: `update:billing`'
+      description: 'Required account permissions: `update:billing`'
       operationId: update_slots_api_billing__account_id__update_slots_post
       parameters:
       - name: account_id
@@ -212,10 +206,7 @@ paths:
       tags:
       - Account Billing
       summary: Get Checkout Link
-      description: '
-
-
-        Required account permissions: `update:billing`'
+      description: 'Required account permissions: `update:billing`'
       operationId: get_checkout_link_api_billing__account_id__subscribe_post
       parameters:
       - name: account_id
@@ -290,102 +281,28 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Body_manage_subscription_api_billing__account_id__manage_subscription_post:
+    BillingRestrictionsResponse:
       properties:
-        return_url:
-          type: string
-          title: Return Url
-          description: The URL to return to after managing the subscription.
-      type: object
-      required:
-      - return_url
-      title: Body_manage_subscription_api_billing__account_id__manage_subscription_post
-    BillingObjectDetailsResponse:
-      properties:
-        free_slots:
-          type: integer
-          title: Free Slots
-          description: Number of free slots for object.
-        minimum_slots:
-          type: integer
-          title: Minimum Slots
-          description: Minimum number of slots for object plan needs to maintain.
-        used_slots:
-          type: integer
-          title: Used Slots
-          description: Number of slots currently in use for object.
-        slots:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: 'null'
-          title: Slots
-          description: Total number of slots for object. If `None` there is no limit.
-        price:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Price
-          description: Per unit cost of the object. None if there is no subscription.
+        can_upgrade:
+          type: boolean
+          title: Can Upgrade
+          description: Whether the account can upgrade to a higher tier based on current usage.
+          default: false
+        can_cancel:
+          type: boolean
+          title: Can Cancel
+          description: Whether the account can cancel their subscription based on current usage.
+          default: false
+        available_tiers:
+          items:
+            type: string
+          type: array
+          title: Available Tiers
+          description: List of account plan tiers that are available based on current usage.
       additionalProperties: false
       type: object
-      required:
-      - free_slots
-      - minimum_slots
-      - used_slots
-      - slots
-      - price
-      title: BillingObjectDetailsResponse
-      description: Data returned by the api for details about a billable object
-    Body_validate_subscription_status_api_billing__account_id__validate_subscription_status_post:
-      properties:
-        stripe_session_id:
-          type: string
-          title: Stripe Session Id
-          description: The id of the stripe session to validate.
-      type: object
-      required:
-      - stripe_session_id
-      title: Body_validate_subscription_status_api_billing__account_id__validate_subscription_status_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Body_get_checkout_link_api_billing__account_id__subscribe_post:
-      properties:
-        tier:
-          $ref: '#/components/schemas/AccountPlanTier'
-          description: The pricing tier to create a checkout session for.
-      type: object
-      required:
-      - tier
-      title: Body_get_checkout_link_api_billing__account_id__subscribe_post
+      title: BillingRestrictionsResponse
+      description: Data returned by the API about billing restrictions for an account.
     BillingDetailsResponse:
       properties:
         stripe_customer_id:
@@ -451,6 +368,83 @@ components:
       - workspaces
       title: BillingDetailsResponse
       description: Data returned by the api for details about an account's billing
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_get_checkout_link_api_billing__account_id__subscribe_post:
+      properties:
+        tier:
+          $ref: '#/components/schemas/AccountPlanTier'
+          description: The pricing tier to create a checkout session for.
+      type: object
+      required:
+      - tier
+      title: Body_get_checkout_link_api_billing__account_id__subscribe_post
+    BillingObjectDetailsResponse:
+      properties:
+        free_slots:
+          type: integer
+          title: Free Slots
+          description: Number of free slots for object.
+        minimum_slots:
+          type: integer
+          title: Minimum Slots
+          description: Minimum number of slots for object plan needs to maintain.
+        used_slots:
+          type: integer
+          title: Used Slots
+          description: Number of slots currently in use for object.
+        slots:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Slots
+          description: Total number of slots for object. If `None` there is no limit.
+        price:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Price
+          description: Per unit cost of the object. None if there is no subscription.
+      additionalProperties: false
+      type: object
+      required:
+      - free_slots
+      - minimum_slots
+      - used_slots
+      - slots
+      - price
+      title: BillingObjectDetailsResponse
+      description: Data returned by the api for details about a billable object
+    Body_validate_subscription_status_api_billing__account_id__validate_subscription_status_post:
+      properties:
+        stripe_session_id:
+          type: string
+          title: Stripe Session Id
+          description: The id of the stripe session to validate.
+      type: object
+      required:
+      - stripe_session_id
+      title: Body_validate_subscription_status_api_billing__account_id__validate_subscription_status_post
     Body_create_billing_portal_session_api_billing__account_id__create_billing_portal_session_post:
       properties:
         return_url:
@@ -461,13 +455,16 @@ components:
       required:
       - return_url
       title: Body_create_billing_portal_session_api_billing__account_id__create_billing_portal_session_post
-    AccountPlanType:
+    AccountPlanTier:
       type: string
       enum:
-      - ORGANIZATION
-      - PERSONAL
+      - FREE_2025_04
+      - PRO
       - ENTERPRISE
-      title: AccountPlanType
+      - PRO_2024_04
+      - STARTER
+      - TEAM
+      title: AccountPlanTier
     Body_update_slots_api_billing__account_id__update_slots_post:
       properties:
         additional_workspace_slots:
@@ -486,35 +483,29 @@ components:
           description: The number of additional user slots to update to.
       type: object
       title: Body_update_slots_api_billing__account_id__update_slots_post
-    AccountPlanTier:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_manage_subscription_api_billing__account_id__manage_subscription_post:
+      properties:
+        return_url:
+          type: string
+          title: Return Url
+          description: The URL to return to after managing the subscription.
+      type: object
+      required:
+      - return_url
+      title: Body_manage_subscription_api_billing__account_id__manage_subscription_post
+    AccountPlanType:
       type: string
       enum:
-      - FREE_2025_04
-      - PRO
+      - ORGANIZATION
+      - PERSONAL
       - ENTERPRISE
-      - PRO_2024_04
-      - STARTER
-      - TEAM
-      title: AccountPlanTier
-    BillingRestrictionsResponse:
-      properties:
-        can_upgrade:
-          type: boolean
-          title: Can Upgrade
-          description: Whether the account can upgrade to a higher tier based on current usage.
-          default: false
-        can_cancel:
-          type: boolean
-          title: Can Cancel
-          description: Whether the account can cancel their subscription based on current usage.
-          default: false
-        available_tiers:
-          items:
-            type: string
-          type: array
-          title: Available Tiers
-          description: List of account plan tiers that are available based on current usage.
-      additionalProperties: false
-      type: object
-      title: BillingRestrictionsResponse
-      description: Data returned by the API about billing restrictions for an account.
+      title: AccountPlanType

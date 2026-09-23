@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Invitations API
+  title: Prefect Cloud Invitations API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -275,6 +275,48 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    InvitationFilterEmail:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of invitation emails to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: InvitationFilterEmail
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     InvitationFilterExpiration:
       properties:
         before_:
@@ -294,6 +336,26 @@ components:
       additionalProperties: false
       type: object
       title: InvitationFilterExpiration
+    InvitationFilter:
+      properties:
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterStatus'
+          - type: 'null'
+          description: Filter criteria for Invitation.status
+        expiration:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterExpiration'
+          - type: 'null'
+          description: Filter criteria for Invitation.expiration
+        email:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterEmail'
+          - type: 'null'
+          description: Filter criteria for Invitation.email
+      additionalProperties: false
+      type: object
+      title: InvitationFilter
     HTTPValidationError:
       properties:
         detail:
@@ -331,46 +393,6 @@ components:
           default: 0
       type: object
       title: Body_read_invitations_api_accounts__account_id__invitations_filter_post
-    InvitationCreate:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-          description: The email of the user to invite
-        account_role_id:
-          type: string
-          format: uuid
-          title: Account Role Id
-          description: The role id to assign the user
-      additionalProperties: false
-      type: object
-      required:
-      - email
-      - account_role_id
-      title: InvitationCreate
-      description: Data used by the api to create an invitation
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     Body_count_invitations_api_accounts__account_id__invitations_count_post:
       properties:
         invitations:
@@ -392,27 +414,25 @@ components:
       additionalProperties: false
       type: object
       title: InvitationFilterStatus
-    InvitationFilterEmail:
+    InvitationCreate:
       properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of invitation emails to include
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
-          examples:
-          - marvin
+        email:
+          type: string
+          format: email
+          title: Email
+          description: The email of the user to invite
+        account_role_id:
+          type: string
+          format: uuid
+          title: Account Role Id
+          description: The role id to assign the user
       additionalProperties: false
       type: object
-      title: InvitationFilterEmail
+      required:
+      - email
+      - account_role_id
+      title: InvitationCreate
+      description: Data used by the api to create an invitation
     InvitationReadResponse:
       properties:
         id:
@@ -464,23 +484,3 @@ components:
       - expiration
       title: InvitationReadResponse
       description: Data returned by the api when reading an invitation
-    InvitationFilter:
-      properties:
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilterStatus'
-          - type: 'null'
-          description: Filter criteria for Invitation.status
-        expiration:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilterExpiration'
-          - type: 'null'
-          description: Filter criteria for Invitation.expiration
-        email:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilterEmail'
-          - type: 'null'
-          description: Filter criteria for Invitation.email
-      additionalProperties: false
-      type: object
-      title: InvitationFilter

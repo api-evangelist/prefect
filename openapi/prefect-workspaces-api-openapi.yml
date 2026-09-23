@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Prefect Cloud Account Billing Workspaces API
+  title: Prefect Cloud Workspaces API
   description: Prefect Cloud REST API documentation.
   version: 0.8.4
 tags:
@@ -162,7 +162,21 @@ paths:
       tags:
       - Workspaces
       summary: Read Managed Execution Details
-      description: "Retrieves information about the managed execution usage and terms for a given workspace.\nThis includes the total compute time in seconds utilized by the workspace during the current billing period,\nas well as limits pertaining to the account terms, such as concurrency, work pool, and compute limits.\n\nReturns:\n    WorkspaceLimitsUsageResponse: An object containing the compute usage in seconds and limits on\n    concurrency, work pool, and compute usage for the specified workspace.\n\nRequired account permissions: `read:workspace`"
+      description: 'Retrieves information about the managed execution usage and terms for a given workspace.
+
+        This includes the total compute time in seconds utilized by the workspace during the current billing period,
+
+        as well as limits pertaining to the account terms, such as concurrency, work pool, and compute limits.
+
+
+        Returns:
+
+        WorkspaceLimitsUsageResponse: An object containing the compute usage in seconds and limits on
+
+        concurrency, work pool, and compute usage for the specified workspace.
+
+
+        Required account permissions: `read:workspace`'
       operationId: read_managed_execution_details_api_accounts__account_id__workspaces__workspace_id__managed_execution_details_get
       parameters:
       - name: workspace_id
@@ -427,124 +441,19 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Body_read_workspaces_api_accounts__account_id__workspaces_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        workspaces:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceFilter'
-          - type: 'null'
-      type: object
-      title: Body_read_workspaces_api_accounts__account_id__workspaces_filter_post
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    WorkspaceFilter:
-      properties:
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceFilterId'
-          - type: 'null'
-          description: Filter criteria for Workspace.id
-        handle:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceFilterHandle'
-          - type: 'null'
-          description: Filter criteria for Workspace.handle
-      additionalProperties: false
-      type: object
-      title: WorkspaceFilter
-    Body_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__transfer_post:
-      properties:
-        to_account_id:
-          type: string
-          format: uuid
-          title: To Account Id
-        new_handle:
-          type: string
-          title: New Handle
-      type: object
-      required:
-      - to_account_id
-      title: Body_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__transfer_post
-    WorkspaceFilterId:
+    WorkspaceFilterHandle:
       properties:
         any_:
           anyOf:
           - items:
               type: string
-              format: uuid
             type: array
           - type: 'null'
           title: Any
-          description: Only include workspaces matching these ids
+          description: Only include workspaces matching these handles
       additionalProperties: false
       type: object
-      title: WorkspaceFilterId
-    WorkspaceCreate:
-      properties:
-        name:
-          type: string
-          maxLength: 5000
-          title: Name
-          description: The workspace name
-        description:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Description
-          description: A description of the workspace
-          default: ''
-        handle:
-          type: string
-          maxLength: 5000
-          title: Handle
-          description: A unique handle for the workspace
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      - handle
-      title: WorkspaceCreate
-      description: Data used by the api to create a workspace
+      title: WorkspaceFilterHandle
     WorkspaceUpdate:
       properties:
         name:
@@ -580,6 +489,141 @@ components:
       type: object
       title: WorkspaceUpdate
       description: Data used by the api to update a workspace
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    WorkspaceSettingsUpdate:
+      properties:
+        inherit_default_result_storage:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Inherit Default Result Storage
+          description: Whether the workspace should inherit its default result storage from the account.
+        default_result_storage_block_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Result Storage Block Id
+          description: The block document ID of the workspace's default result storage block.
+      additionalProperties: false
+      type: object
+      title: WorkspaceSettingsUpdate
+      description: Data used by API to update workspace settings
+    Body_read_workspaces_api_accounts__account_id__workspaces_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        workspaces:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceFilter'
+          - type: 'null'
+      type: object
+      title: Body_read_workspaces_api_accounts__account_id__workspaces_filter_post
+    WorkspaceFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include workspaces matching these ids
+      additionalProperties: false
+      type: object
+      title: WorkspaceFilterId
+    Body_validate_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__validate_transfer_post:
+      properties:
+        to_account_id:
+          type: string
+          format: uuid
+          title: To Account Id
+        new_handle:
+          type: string
+          title: New Handle
+      type: object
+      required:
+      - to_account_id
+      title: Body_validate_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__validate_transfer_post
+    WorkspaceCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The workspace name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Description
+          description: A description of the workspace
+          default: ''
+        handle:
+          type: string
+          maxLength: 5000
+          title: Handle
+          description: A unique handle for the workspace
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - handle
+      title: WorkspaceCreate
+      description: Data used by the api to create a workspace
+    Body_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__transfer_post:
+      properties:
+        to_account_id:
+          type: string
+          format: uuid
+          title: To Account Id
+        new_handle:
+          type: string
+          title: New Handle
+      type: object
+      required:
+      - to_account_id
+      title: Body_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__transfer_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     Workspace:
       properties:
         id:
@@ -637,38 +681,21 @@ components:
       - handle
       title: Workspace
       description: An ORM representation of a Workspace
-    WorkspaceFilterHandle:
+    WorkspaceFilter:
       properties:
-        any_:
+        id:
           anyOf:
-          - items:
-              type: string
-            type: array
+          - $ref: '#/components/schemas/WorkspaceFilterId'
           - type: 'null'
-          title: Any
-          description: Only include workspaces matching these handles
+          description: Filter criteria for Workspace.id
+        handle:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceFilterHandle'
+          - type: 'null'
+          description: Filter criteria for Workspace.handle
       additionalProperties: false
       type: object
-      title: WorkspaceFilterHandle
-    WorkspaceSettingsUpdate:
-      properties:
-        inherit_default_result_storage:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Inherit Default Result Storage
-          description: Whether the workspace should inherit its default result storage from the account.
-        default_result_storage_block_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Default Result Storage Block Id
-          description: The block document ID of the workspace's default result storage block.
-      additionalProperties: false
-      type: object
-      title: WorkspaceSettingsUpdate
-      description: Data used by API to update workspace settings
+      title: WorkspaceFilter
     WorkspaceSettings:
       properties:
         inherit_default_result_storage:
@@ -685,16 +712,3 @@ components:
           description: The block document ID of the workspace's default result storage block.
       type: object
       title: WorkspaceSettings
-    Body_validate_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__validate_transfer_post:
-      properties:
-        to_account_id:
-          type: string
-          format: uuid
-          title: To Account Id
-        new_handle:
-          type: string
-          title: New Handle
-      type: object
-      required:
-      - to_account_id
-      title: Body_validate_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__validate_transfer_post
