@@ -665,6 +665,145 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    AssetOccurredFilter:
+      properties:
+        since:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Since
+          description: Only include assets seen after this time (inclusive)
+        until:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Until
+          description: Only include assets seen before this time (inclusive)
+      type: object
+      title: AssetOccurredFilter
+    AssetKeyFilter:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include assets with these exact keys
+        prefix:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Prefix
+          description: Only include assets with keys starting with these prefixes
+        search:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Search
+          description: Only include assets with keys containing these substrings
+      type: object
+      title: AssetKeyFilter
+    AssetDependency:
+      properties:
+        upstream:
+          type: string
+          title: Upstream
+        downstream:
+          type: string
+          title: Downstream
+        occurred:
+          type: string
+          format: date-time
+          title: Occurred
+        status:
+          type: string
+          enum:
+          - succeeded
+          - failed
+          title: Status
+      type: object
+      required:
+      - upstream
+      - downstream
+      - occurred
+      - status
+      title: AssetDependency
+    AssetFilter:
+      properties:
+        key:
+          anyOf:
+          - $ref: '#/components/schemas/AssetKeyFilter'
+          - type: 'null'
+          description: Filter criteria for asset keys
+        occurred:
+          anyOf:
+          - $ref: '#/components/schemas/AssetOccurredFilter'
+          - type: 'null'
+          description: Filter criteria for asset activity timestamps
+        related:
+          anyOf:
+          - $ref: '#/components/schemas/AssetRelatedFilter'
+          - type: 'null'
+          description: Filter criteria for related resources from asset events
+      type: object
+      title: AssetFilter
+    AssetGraphPage:
+      properties:
+        assets:
+          items:
+            $ref: '#/components/schemas/AssetCatalogItem'
+          type: array
+          title: Assets
+        dependencies:
+          items:
+            $ref: '#/components/schemas/AssetDependency'
+          type: array
+          title: Dependencies
+        total:
+          type: integer
+          title: Total
+        next_page:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Page
+      type: object
+      required:
+      - assets
+      - dependencies
+      - total
+      title: AssetGraphPage
     AssetGraphDependency:
       properties:
         upstream_asset_key:
@@ -700,72 +839,6 @@ components:
       - msg
       - type
       title: ValidationError
-    AssetRelatedFilter:
-      properties:
-        id:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Id
-          description: Only include assets with related resources matching these IDs
-        role:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Role
-          description: Only include assets with related resources in these roles
-        resources_in_roles:
-          anyOf:
-          - items:
-              prefixItems:
-              - type: string
-              - type: string
-              type: array
-              maxItems: 2
-              minItems: 2
-            type: array
-          - type: 'null'
-          title: Resources In Roles
-          description: Only include assets with specific related resources in specific roles
-        labels:
-          anyOf:
-          - $ref: '#/components/schemas/ResourceSpecification'
-          - type: 'null'
-          description: Only include assets with related resources matching these labels
-      type: object
-      title: AssetRelatedFilter
-    AssetKeyFilter:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include assets with these exact keys
-        prefix:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Prefix
-          description: Only include assets with keys starting with these prefixes
-        search:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Search
-          description: Only include assets with keys containing these substrings
-      type: object
-      title: AssetKeyFilter
     MaterializationEvent:
       properties:
         asset_key:
@@ -860,20 +933,6 @@ components:
         Captures a historical snapshot of an asset materialization, including the asset''s
 
         properties at the time of materialization (not the current state).'
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
-            type: string
-          type: array
-      type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
-
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'
     AssetProperties:
       properties:
         name:
@@ -917,6 +976,44 @@ components:
       - root_asset_key
       title: AssetGraph
       description: Graph of assets with normalized structure.
+    AssetRelatedFilter:
+      properties:
+        id:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id
+          description: Only include assets with related resources matching these IDs
+        role:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Role
+          description: Only include assets with related resources in these roles
+        resources_in_roles:
+          anyOf:
+          - items:
+              prefixItems:
+              - type: string
+              - type: string
+              type: array
+              maxItems: 2
+              minItems: 2
+            type: array
+          - type: 'null'
+          title: Resources In Roles
+          description: Only include assets with specific related resources in specific roles
+        labels:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - type: 'null'
+          description: Only include assets with related resources matching these labels
+      type: object
+      title: AssetRelatedFilter
     AssetCatalogItem:
       properties:
         key:
@@ -975,119 +1072,6 @@ components:
           title: Metadata
       type: object
       title: LatestReference
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Body_filter_assets_api_accounts__account_id__workspaces__workspace_id__assets_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          description: The number of assets to return with each page
-          default: 50
-        filter:
-          anyOf:
-          - $ref: '#/components/schemas/AssetFilter'
-          - type: 'null'
-          description: Additional optional filter criteria to narrow down assets
-      type: object
-      title: Body_filter_assets_api_accounts__account_id__workspaces__workspace_id__assets_filter_post
-    AssetOccurredFilter:
-      properties:
-        since:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Since
-          description: Only include assets seen after this time (inclusive)
-        until:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Until
-          description: Only include assets seen before this time (inclusive)
-      type: object
-      title: AssetOccurredFilter
-    AssetFilter:
-      properties:
-        key:
-          anyOf:
-          - $ref: '#/components/schemas/AssetKeyFilter'
-          - type: 'null'
-          description: Filter criteria for asset keys
-        occurred:
-          anyOf:
-          - $ref: '#/components/schemas/AssetOccurredFilter'
-          - type: 'null'
-          description: Filter criteria for asset activity timestamps
-        related:
-          anyOf:
-          - $ref: '#/components/schemas/AssetRelatedFilter'
-          - type: 'null'
-          description: Filter criteria for related resources from asset events
-      type: object
-      title: AssetFilter
-    AssetDependency:
-      properties:
-        upstream:
-          type: string
-          title: Upstream
-        downstream:
-          type: string
-          title: Downstream
-        occurred:
-          type: string
-          format: date-time
-          title: Occurred
-        status:
-          type: string
-          enum:
-          - succeeded
-          - failed
-          title: Status
-      type: object
-      required:
-      - upstream
-      - downstream
-      - occurred
-      - status
-      title: AssetDependency
-    AssetGraphPage:
-      properties:
-        assets:
-          items:
-            $ref: '#/components/schemas/AssetCatalogItem'
-          type: array
-          title: Assets
-        dependencies:
-          items:
-            $ref: '#/components/schemas/AssetDependency'
-          type: array
-          title: Dependencies
-        total:
-          type: integer
-          title: Total
-        next_page:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Page
-      type: object
-      required:
-      - assets
-      - dependencies
-      - total
-      title: AssetGraphPage
     LatestMaterialization:
       properties:
         event_id:
@@ -1139,3 +1123,19 @@ components:
           title: Status
       type: object
       title: LatestMaterialization
+    Body_filter_assets_api_accounts__account_id__workspaces__workspace_id__assets_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of assets to return with each page
+          default: 50
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/AssetFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down assets
+      type: object
+      title: Body_filter_assets_api_accounts__account_id__workspaces__workspace_id__assets_filter_post

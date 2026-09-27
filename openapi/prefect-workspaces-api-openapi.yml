@@ -441,6 +441,21 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    WorkspaceFilter:
+      properties:
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceFilterId'
+          - type: 'null'
+          description: Filter criteria for Workspace.id
+        handle:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceFilterHandle'
+          - type: 'null'
+          description: Filter criteria for Workspace.handle
+      additionalProperties: false
+      type: object
+      title: WorkspaceFilter
     WorkspaceFilterHandle:
       properties:
         any_:
@@ -454,6 +469,33 @@ components:
       additionalProperties: false
       type: object
       title: WorkspaceFilterHandle
+    WorkspaceCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The workspace name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Description
+          description: A description of the workspace
+          default: ''
+        handle:
+          type: string
+          maxLength: 5000
+          title: Handle
+          description: A unique handle for the workspace
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - handle
+      title: WorkspaceCreate
+      description: Data used by the api to create a workspace
     WorkspaceUpdate:
       properties:
         name:
@@ -489,79 +531,15 @@ components:
       type: object
       title: WorkspaceUpdate
       description: Data used by the api to update a workspace
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    WorkspaceSettingsUpdate:
-      properties:
-        inherit_default_result_storage:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Inherit Default Result Storage
-          description: Whether the workspace should inherit its default result storage from the account.
-        default_result_storage_block_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Default Result Storage Block Id
-          description: The block document ID of the workspace's default result storage block.
-      additionalProperties: false
-      type: object
-      title: WorkspaceSettingsUpdate
-      description: Data used by API to update workspace settings
-    Body_read_workspaces_api_accounts__account_id__workspaces_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        workspaces:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceFilter'
-          - type: 'null'
-      type: object
-      title: Body_read_workspaces_api_accounts__account_id__workspaces_filter_post
-    WorkspaceFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include workspaces matching these ids
-      additionalProperties: false
-      type: object
-      title: WorkspaceFilterId
+      title: HTTPValidationError
     Body_validate_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__validate_transfer_post:
       properties:
         to_account_id:
@@ -575,55 +553,6 @@ components:
       required:
       - to_account_id
       title: Body_validate_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__validate_transfer_post
-    WorkspaceCreate:
-      properties:
-        name:
-          type: string
-          maxLength: 5000
-          title: Name
-          description: The workspace name
-        description:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Description
-          description: A description of the workspace
-          default: ''
-        handle:
-          type: string
-          maxLength: 5000
-          title: Handle
-          description: A unique handle for the workspace
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      - handle
-      title: WorkspaceCreate
-      description: Data used by the api to create a workspace
-    Body_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__transfer_post:
-      properties:
-        to_account_id:
-          type: string
-          format: uuid
-          title: To Account Id
-        new_handle:
-          type: string
-          title: New Handle
-      type: object
-      required:
-      - to_account_id
-      title: Body_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__transfer_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     Workspace:
       properties:
         id:
@@ -681,21 +610,39 @@ components:
       - handle
       title: Workspace
       description: An ORM representation of a Workspace
-    WorkspaceFilter:
+    WorkspaceSettingsUpdate:
       properties:
-        id:
+        inherit_default_result_storage:
           anyOf:
-          - $ref: '#/components/schemas/WorkspaceFilterId'
+          - type: boolean
           - type: 'null'
-          description: Filter criteria for Workspace.id
-        handle:
+          title: Inherit Default Result Storage
+          description: Whether the workspace should inherit its default result storage from the account.
+        default_result_storage_block_id:
           anyOf:
-          - $ref: '#/components/schemas/WorkspaceFilterHandle'
+          - type: string
+            format: uuid
           - type: 'null'
-          description: Filter criteria for Workspace.handle
+          title: Default Result Storage Block Id
+          description: The block document ID of the workspace's default result storage block.
       additionalProperties: false
       type: object
-      title: WorkspaceFilter
+      title: WorkspaceSettingsUpdate
+      description: Data used by API to update workspace settings
+    WorkspaceFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include workspaces matching these ids
+      additionalProperties: false
+      type: object
+      title: WorkspaceFilterId
     WorkspaceSettings:
       properties:
         inherit_default_result_storage:
@@ -712,3 +659,56 @@ components:
           description: The block document ID of the workspace's default result storage block.
       type: object
       title: WorkspaceSettings
+    Body_read_workspaces_api_accounts__account_id__workspaces_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        workspaces:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceFilter'
+          - type: 'null'
+      type: object
+      title: Body_read_workspaces_api_accounts__account_id__workspaces_filter_post
+    Body_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__transfer_post:
+      properties:
+        to_account_id:
+          type: string
+          format: uuid
+          title: To Account Id
+        new_handle:
+          type: string
+          title: New Handle
+      type: object
+      required:
+      - to_account_id
+      title: Body_transfer_workspace_api_accounts__account_id__workspaces__workspace_id__transfer_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

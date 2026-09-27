@@ -145,6 +145,69 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_read_workspace_team_accesses_api_accounts__account_id__workspaces__workspace_id__team_access_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+      type: object
+      title: Body_read_workspace_team_accesses_api_accounts__account_id__workspaces__workspace_id__team_access_filter_post
+    WorkspaceTeamAccess:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        team_id:
+          type: string
+          format: uuid
+          title: Team Id
+          description: The team id
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+          description: The workspace id
+        workspace_role_id:
+          type: string
+          format: uuid
+          title: Workspace Role Id
+          description: The workspace role id
+      type: object
+      required:
+      - team_id
+      - workspace_id
+      - workspace_role_id
+      title: WorkspaceTeamAccess
     WorkspaceTeamAccessCreate:
       properties:
         team_id:
@@ -185,54 +248,6 @@ components:
       - msg
       - type
       title: ValidationError
-    WorkspaceTeamAccess:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created
-        updated:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated
-        team_id:
-          type: string
-          format: uuid
-          title: Team Id
-          description: The team id
-        workspace_id:
-          type: string
-          format: uuid
-          title: Workspace Id
-          description: The workspace id
-        workspace_role_id:
-          type: string
-          format: uuid
-          title: Workspace Role Id
-          description: The workspace role id
-      type: object
-      required:
-      - team_id
-      - workspace_id
-      - workspace_role_id
-      title: WorkspaceTeamAccess
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     WorkspaceTeamAccessResponse:
       properties:
         id:
@@ -279,18 +294,3 @@ components:
       - team_name
       title: WorkspaceTeamAccessResponse
       description: Data returned by the api after creating a new team workspace access
-    Body_read_workspace_team_accesses_api_accounts__account_id__workspaces__workspace_id__team_access_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-      type: object
-      title: Body_read_workspace_team_accesses_api_accounts__account_id__workspaces__workspace_id__team_access_filter_post

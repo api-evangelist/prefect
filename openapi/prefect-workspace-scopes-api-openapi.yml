@@ -34,6 +34,36 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     WorkspaceScope:
       properties:
         name:
@@ -147,33 +177,3 @@ components:
       - manage_webhooks
       title: WorkspaceScopeName
       description: "Canonical list of workspace scope names.\n\nScope names should be semantically meaningful, roughly in the form of\n`<verb>_<obj>`. For example, `see_flows` allows viewing of flows within\nthe workspace.\n\nA few common patterns to follow:\n    - `see_*`: ability to view objects\n    - `write_*`: ability to create, update or view objects\n    - `manage_*`: ability to create, update, view, or delete objects"
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError

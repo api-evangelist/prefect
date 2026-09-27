@@ -515,56 +515,41 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    RateLimitUsageByKey:
+    HTTPValidationError:
       properties:
-        limit:
+        detail:
           items:
-            type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Limit
-        usage:
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DistinctValuesResponse:
+      properties:
+        values:
           items:
-            type: integer
+            type: string
           type: array
-          title: Usage
-        requested:
-          items:
-            type: integer
-          type: array
-          title: Requested
-        granted:
-          items:
-            type: integer
-          type: array
-          title: Granted
+          title: Values
+          description: List of distinct values
       type: object
       required:
-      - limit
-      - usage
-      - requested
-      - granted
-      title: RateLimitUsageByKey
-    ValidationError:
+      - values
+      title: DistinctValuesResponse
+      description: Response model for distinct values endpoints.
+    RateLimitStatusResponse:
       properties:
-        loc:
+        exceeded_buckets:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            type: string
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Exceeded Buckets
+          description: Rate limit buckets currently exceeded (e.g., 'orchestration-api', 'logs-and-events')
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - exceeded_buckets
+      title: RateLimitStatusResponse
+      description: Current rate limit exceeded status for an account.
     RateLimitUsageResponse:
       properties:
         account:
@@ -598,61 +583,6 @@ components:
       - minutes
       - keys
       title: RateLimitUsageResponse
-    RateLimitStatusResponse:
-      properties:
-        exceeded_buckets:
-          items:
-            type: string
-          type: array
-          title: Exceeded Buckets
-          description: Rate limit buckets currently exceeded (e.g., 'orchestration-api', 'logs-and-events')
-      type: object
-      required:
-      - exceeded_buckets
-      title: RateLimitStatusResponse
-      description: Current rate limit exceeded status for an account.
-    DistinctValuesResponse:
-      properties:
-        values:
-          items:
-            type: string
-          type: array
-          title: Values
-          description: List of distinct values
-      type: object
-      required:
-      - values
-      title: DistinctValuesResponse
-      description: Response model for distinct values endpoints.
-    RateLimitGroupedUsageByGroup:
-      properties:
-        requested:
-          items:
-            type: integer
-          type: array
-          title: Requested
-          description: Tokens requested per minute
-        granted:
-          items:
-            type: integer
-          type: array
-          title: Granted
-          description: Tokens granted per minute
-      type: object
-      required:
-      - requested
-      - granted
-      title: RateLimitGroupedUsageByGroup
-      description: Usage data for a single group over time.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     RateLimitGroupedUsageResponse:
       properties:
         account:
@@ -697,3 +627,73 @@ components:
       - groups
       title: RateLimitGroupedUsageResponse
       description: Response model for rate limit usage grouped by a dimension over time.
+    RateLimitGroupedUsageByGroup:
+      properties:
+        requested:
+          items:
+            type: integer
+          type: array
+          title: Requested
+          description: Tokens requested per minute
+        granted:
+          items:
+            type: integer
+          type: array
+          title: Granted
+          description: Tokens granted per minute
+      type: object
+      required:
+      - requested
+      - granted
+      title: RateLimitGroupedUsageByGroup
+      description: Usage data for a single group over time.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RateLimitUsageByKey:
+      properties:
+        limit:
+          items:
+            type: integer
+          type: array
+          title: Limit
+        usage:
+          items:
+            type: integer
+          type: array
+          title: Usage
+        requested:
+          items:
+            type: integer
+          type: array
+          title: Requested
+        granted:
+          items:
+            type: integer
+          type: array
+          title: Granted
+      type: object
+      required:
+      - limit
+      - usage
+      - requested
+      - granted
+      title: RateLimitUsageByKey

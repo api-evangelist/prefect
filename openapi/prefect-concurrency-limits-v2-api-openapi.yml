@@ -550,85 +550,146 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ? Body_paginate_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_paginate_post
-    : properties:
-        page:
-          type: integer
-          minimum: 1.0
-          title: Page
-          default: 1
+    ConcurrencyLimitV2Create:
+      properties:
+        active:
+          type: boolean
+          title: Active
+          description: Whether the concurrency limit is active.
+          default: true
+        name:
+          type: string
+          maxLength: 5000
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: The name of the concurrency limit.
         limit:
           type: integer
+          minimum: 0.0
           title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
-      type: object
-      title: Body_paginate_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_paginate_post
-    ? Body_renew_concurrency_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_leases__lease_id__renew_post
-    : properties:
-        lease_duration:
+          description: The concurrency limit.
+        active_slots:
+          type: integer
+          minimum: 0.0
+          title: Active Slots
+          description: The number of active slots.
+          default: 0
+        denied_slots:
+          type: integer
+          minimum: 0.0
+          title: Denied Slots
+          description: The number of denied slots.
+          default: 0
+        slot_decay_per_second:
           type: number
-          maximum: 86400.0
-          minimum: 60.0
-          title: Lease Duration
-          description: The duration of the lease in seconds.
-          default: 300
+          maximum: 1000000.0
+          minimum: 0.0
+          title: Slot Decay Per Second
+          description: The decay rate for active slots when used as a rate limit.
+          default: 0
+      additionalProperties: false
       type: object
-      title: Body_renew_concurrency_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_leases__lease_id__renew_post
-    MinimalConcurrencyLimitResponse:
+      required:
+      - name
+      - limit
+      title: ConcurrencyLimitV2Create
+      description: Data used by the Orion API to create a v2 concurrency limit.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GlobalConcurrencyLimitResponse:
       properties:
         id:
           type: string
           format: uuid
           title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        active:
+          type: boolean
+          title: Active
+          description: Whether the global concurrency limit is active.
+          default: true
         name:
           type: string
           title: Name
+          description: The name of the global concurrency limit.
         limit:
           type: integer
           title: Limit
+          description: The concurrency limit.
+        active_slots:
+          type: integer
+          title: Active Slots
+          description: The number of active slots.
+        slot_decay_per_second:
+          type: number
+          title: Slot Decay Per Second
+          description: The decay rate for active slots when used as a rate limit.
+          default: 0.0
       type: object
       required:
-      - id
       - name
       - limit
-      title: MinimalConcurrencyLimitResponse
-    ConcurrencyLimitWithLeaseResponse:
+      - active_slots
+      title: GlobalConcurrencyLimitResponse
+      description: A response object for global concurrency limits.
+    Body_read_all_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_filter_post:
       properties:
-        lease_id:
-          type: string
-          format: uuid
-          title: Lease Id
-        limits:
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_all_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_filter_post
+    ConcurrencyLimitV2PaginationResponse:
+      properties:
+        results:
           items:
-            $ref: '#/components/schemas/MinimalConcurrencyLimitResponse'
+            $ref: '#/components/schemas/GlobalConcurrencyLimitResponse'
           type: array
-          title: Limits
+          title: Results
+        count:
+          type: integer
+          title: Count
+        limit:
+          type: integer
+          title: Limit
+        pages:
+          type: integer
+          title: Pages
+        page:
+          type: integer
+          title: Page
       type: object
       required:
-      - lease_id
-      - limits
-      title: ConcurrencyLimitWithLeaseResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - results
+      - count
+      - limit
+      - pages
+      - page
+      title: ConcurrencyLimitV2PaginationResponse
     Body_bulk_decrement_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_post:
       properties:
         slots:
@@ -659,26 +720,37 @@ components:
       - slots
       - names
       title: Body_bulk_decrement_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_post
-    ConcurrencyLeaseHolder:
+    Body_bulk_increment_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_post:
       properties:
-        type:
+        slots:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Slots
+        names:
+          items:
+            type: string
+            pattern: ^[^/%&><]+$
+          type: array
+          title: Names
+          min_items: 1
+        mode:
           type: string
           enum:
-          - flow_run
-          - task_run
-          - deployment
-          title: Type
-        id:
-          type: string
-          format: uuid
-          title: Id
-      additionalProperties: false
+          - concurrency
+          - rate_limit
+          title: Mode
+          default: concurrency
+        create_if_missing:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Create If Missing
+          deprecated: true
       type: object
       required:
-      - type
-      - id
-      title: ConcurrencyLeaseHolder
-      description: Model for validating concurrency lease holder information.
+      - slots
+      - names
+      title: Body_bulk_increment_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_post
     ConcurrencyLimitV2:
       properties:
         id:
@@ -738,37 +810,58 @@ components:
       - limit
       title: ConcurrencyLimitV2
       description: An ORM representation of a v2 concurrency limit.
-    Body_bulk_increment_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_post:
+    ValidationError:
       properties:
-        slots:
-          type: integer
-          exclusiveMinimum: 0.0
-          title: Slots
-        names:
+        loc:
           items:
-            type: string
-            pattern: ^[^/%&><]+$
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Names
-          min_items: 1
-        mode:
+          title: Location
+        msg:
           type: string
-          enum:
-          - concurrency
-          - rate_limit
-          title: Mode
-          default: concurrency
-        create_if_missing:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Create If Missing
-          deprecated: true
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - slots
-      - names
-      title: Body_bulk_increment_active_slots_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_post
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ConcurrencyLeaseHolder:
+      properties:
+        type:
+          type: string
+          enum:
+          - flow_run
+          - task_run
+          - deployment
+          title: Type
+        id:
+          type: string
+          format: uuid
+          title: Id
+      additionalProperties: false
+      type: object
+      required:
+      - type
+      - id
+      title: ConcurrencyLeaseHolder
+      description: Model for validating concurrency lease holder information.
+    ? Body_bulk_decrement_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_with_lease_post
+    : properties:
+        lease_id:
+          type: string
+          format: uuid
+          title: Lease Id
+          description: The ID of the lease to use for decrementing active slots.
+      type: object
+      required:
+      - lease_id
+      title: Body_bulk_decrement_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_with_lease_post
     ? Body_bulk_increment_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_with_lease_post
     : properties:
         slots:
@@ -806,30 +899,6 @@ components:
       - slots
       - names
       title: Body_bulk_increment_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_increment_with_lease_post
-    Body_read_all_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_filter_post:
-      properties:
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        limit:
-          type: integer
-          title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
-      type: object
-      title: Body_read_all_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_filter_post
-    ? Body_bulk_decrement_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_with_lease_post
-    : properties:
-        lease_id:
-          type: string
-          format: uuid
-          title: Lease Id
-          description: The ID of the lease to use for decrementing active slots.
-      type: object
-      required:
-      - lease_id
-      title: Body_bulk_decrement_active_slots_with_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_decrement_with_lease_post
     ConcurrencyLimitV2Update:
       properties:
         active:
@@ -873,130 +942,61 @@ components:
       type: object
       title: ConcurrencyLimitV2Update
       description: Data used by the Orion API to update a v2 concurrency limit.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+    ? Body_paginate_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_paginate_post
+    : properties:
+        page:
+          type: integer
+          minimum: 1.0
+          title: Page
+          default: 1
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
       type: object
-      title: HTTPValidationError
-    GlobalConcurrencyLimitResponse:
+      title: Body_paginate_concurrency_limits_v2_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_paginate_post
+    MinimalConcurrencyLimitResponse:
       properties:
         id:
           type: string
           format: uuid
           title: Id
-        created:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created
-        updated:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated
-        active:
-          type: boolean
-          title: Active
-          description: Whether the global concurrency limit is active.
-          default: true
         name:
           type: string
           title: Name
-          description: The name of the global concurrency limit.
         limit:
           type: integer
           title: Limit
-          description: The concurrency limit.
-        active_slots:
-          type: integer
-          title: Active Slots
-          description: The number of active slots.
-        slot_decay_per_second:
-          type: number
-          title: Slot Decay Per Second
-          description: The decay rate for active slots when used as a rate limit.
-          default: 0.0
       type: object
       required:
+      - id
       - name
       - limit
-      - active_slots
-      title: GlobalConcurrencyLimitResponse
-      description: A response object for global concurrency limits.
-    ConcurrencyLimitV2Create:
+      title: MinimalConcurrencyLimitResponse
+    ? Body_renew_concurrency_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_leases__lease_id__renew_post
+    : properties:
+        lease_duration:
+          type: number
+          maximum: 86400.0
+          minimum: 60.0
+          title: Lease Duration
+          description: The duration of the lease in seconds.
+          default: 300
+      type: object
+      title: Body_renew_concurrency_lease_api_accounts__account_id__workspaces__workspace_id__v2_concurrency_limits_leases__lease_id__renew_post
+    ConcurrencyLimitWithLeaseResponse:
       properties:
-        active:
-          type: boolean
-          title: Active
-          description: Whether the concurrency limit is active.
-          default: true
-        name:
+        lease_id:
           type: string
-          maxLength: 5000
-          pattern: ^[^/%&><]+$
-          title: Name
-          description: The name of the concurrency limit.
-        limit:
-          type: integer
-          minimum: 0.0
-          title: Limit
-          description: The concurrency limit.
-        active_slots:
-          type: integer
-          minimum: 0.0
-          title: Active Slots
-          description: The number of active slots.
-          default: 0
-        denied_slots:
-          type: integer
-          minimum: 0.0
-          title: Denied Slots
-          description: The number of denied slots.
-          default: 0
-        slot_decay_per_second:
-          type: number
-          maximum: 1000000.0
-          minimum: 0.0
-          title: Slot Decay Per Second
-          description: The decay rate for active slots when used as a rate limit.
-          default: 0
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      - limit
-      title: ConcurrencyLimitV2Create
-      description: Data used by the Orion API to create a v2 concurrency limit.
-    ConcurrencyLimitV2PaginationResponse:
-      properties:
-        results:
+          format: uuid
+          title: Lease Id
+        limits:
           items:
-            $ref: '#/components/schemas/GlobalConcurrencyLimitResponse'
+            $ref: '#/components/schemas/MinimalConcurrencyLimitResponse'
           type: array
-          title: Results
-        count:
-          type: integer
-          title: Count
-        limit:
-          type: integer
-          title: Limit
-        pages:
-          type: integer
-          title: Pages
-        page:
-          type: integer
-          title: Page
+          title: Limits
       type: object
       required:
-      - results
-      - count
-      - limit
-      - pages
-      - page
-      title: ConcurrencyLimitV2PaginationResponse
+      - lease_id
+      - limits
+      title: ConcurrencyLimitWithLeaseResponse

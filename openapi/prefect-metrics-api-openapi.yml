@@ -368,13 +368,41 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    RelatedResource:
-      additionalProperties:
-        type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: RelatedResource
-      description: A Resource with a specific role in an Event
-    GroupedMetricQuery-Output:
+      title: HTTPValidationError
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    DeploymentResourcePeaksResponse:
+      properties:
+        peaks:
+          items:
+            $ref: '#/components/schemas/ResourcePeak'
+          type: array
+          title: Peaks
+      type: object
+      required:
+      - peaks
+      title: DeploymentResourcePeaksResponse
+    TimeseriesMetricQuery-Output:
       properties:
         after:
           type: string
@@ -420,27 +448,83 @@ components:
           minItems: 1
           title: Aggregates
           description: The aggregate functions to apply.  The order they are specified here will determine the order of the returned data columns.
-        group_by:
-          type: string
+        resolution:
+          type: integer
           enum:
-          - flow
-          - deployment
-          - work-pool
-          - tag
-          title: Group By
-          description: The role of the related resource to group by.  There will be one result for each distinct related resource with that role in the time period, and optionally another null result for those that do not have the requested related resource.
-        order_by:
-          items:
-            $ref: '#/components/schemas/Ordering'
-          type: array
-          title: Order By
-          description: The order to sort the groups by
+          - 1
+          - 5
+          - 15
+          - 60
+          - 360
+          - 1440
+          title: Resolution
+          description: The resolution of the time series, in minutes
       type: object
       required:
       - after
       - aggregates
-      - group_by
-      title: GroupedMetricQuery
+      - resolution
+      title: TimeseriesMetricQuery
+    Mean:
+      properties:
+        function:
+          type: string
+          const: MEAN
+          title: Function
+          default: MEAN
+      type: object
+      title: Mean
+    MapAggregate:
+      properties:
+        function:
+          type: string
+          const: MAP_AGG
+          title: Function
+          default: MAP_AGG
+        key:
+          type: string
+          title: Key
+          description: The key to map the column to
+        aggregate:
+          type: string
+          enum:
+          - SUM
+          - MEAN
+          - MIN
+          - MAX
+          - COUNT
+          title: Aggregate
+          description: The aggregate to apply
+      type: object
+      required:
+      - key
+      - aggregate
+      title: MapAggregate
+      description: For aggregating over a value in a map column.
+    Minimum:
+      properties:
+        function:
+          type: string
+          const: MIN
+          title: Function
+          default: MIN
+      type: object
+      title: Minimum
+    Count:
+      properties:
+        function:
+          type: string
+          const: COUNT
+          title: Function
+          default: COUNT
+      type: object
+      title: Count
+    RelatedResource:
+      additionalProperties:
+        type: string
+      type: object
+      title: RelatedResource
+      description: A Resource with a specific role in an Event
     TimeseriesMetricResponse:
       properties:
         metric:
@@ -474,69 +558,6 @@ components:
       - rollup
       - series
       title: TimeseriesMetricResponse
-    Maximum:
-      properties:
-        function:
-          type: string
-          const: MAX
-          title: Function
-          default: MAX
-      type: object
-      title: Maximum
-    GroupedMetricResponse:
-      properties:
-        metric:
-          $ref: '#/components/schemas/PrefectMetric'
-          description: The metric that was queried
-        query:
-          $ref: '#/components/schemas/GroupedMetricQuery-Output'
-          description: The metric query that was executed
-        results:
-          items:
-            prefixItems:
-            - anyOf:
-              - $ref: '#/components/schemas/RelatedResource'
-              - type: 'null'
-            - items: {}
-              type: array
-            type: array
-            maxItems: 2
-            minItems: 2
-          type: array
-          title: Results
-          description: The results of the query, with each item being a tuple of the Resource and the row of values of metrics in the same order as `query.aggregates`.
-      type: object
-      required:
-      - metric
-      - query
-      - results
-      title: GroupedMetricResponse
-    Quantile:
-      properties:
-        function:
-          type: string
-          const: QUANTILE
-          title: Function
-          default: QUANTILE
-        level:
-          type: number
-          maximum: 1.0
-          minimum: 0.0
-          title: Level
-          description: The quantile level to compute
-      type: object
-      required:
-      - level
-      title: Quantile
-    StandardDeviation:
-      properties:
-        function:
-          type: string
-          const: STDDEV
-          title: Function
-          default: STDDEV
-      type: object
-      title: StandardDeviation
     CountIf:
       properties:
         function:
@@ -629,24 +650,136 @@ components:
       - aggregates
       - resolution
       title: TimeseriesMetricQuery
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Count:
+    StandardDeviation:
       properties:
         function:
           type: string
-          const: COUNT
+          const: STDDEV
           title: Function
-          default: COUNT
+          default: STDDEV
       type: object
-      title: Count
+      title: StandardDeviation
+    GroupedMetricQuery-Output:
+      properties:
+        after:
+          type: string
+          format: date-time
+          title: After
+          description: The start of the time series
+        before:
+          type: string
+          format: date-time
+          title: Before
+          description: The end of the time series, defaulting to now
+        timezone:
+          type: string
+          title: Timezone
+          description: The timezone to use for the time series
+          default: Etc/UTC
+        resource:
+          $ref: '#/components/schemas/ResourceSpecification'
+          description: Filter to only flow runs matching these labels
+        related:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          title: Related
+          description: Filter to only flow runs with a related resource matching these labels
+        aggregates:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/Count'
+            - $ref: '#/components/schemas/CountIf'
+            - $ref: '#/components/schemas/Sum'
+            - $ref: '#/components/schemas/Mean'
+            - $ref: '#/components/schemas/Minimum'
+            - $ref: '#/components/schemas/Maximum'
+            - $ref: '#/components/schemas/StandardDeviation'
+            - $ref: '#/components/schemas/Quantile'
+            - $ref: '#/components/schemas/Ratio'
+            - $ref: '#/components/schemas/MapAggregate'
+          type: array
+          maxItems: 10
+          minItems: 1
+          title: Aggregates
+          description: The aggregate functions to apply.  The order they are specified here will determine the order of the returned data columns.
+        group_by:
+          type: string
+          enum:
+          - flow
+          - deployment
+          - work-pool
+          - tag
+          title: Group By
+          description: The role of the related resource to group by.  There will be one result for each distinct related resource with that role in the time period, and optionally another null result for those that do not have the requested related resource.
+        order_by:
+          items:
+            $ref: '#/components/schemas/Ordering'
+          type: array
+          title: Order By
+          description: The order to sort the groups by
+      type: object
+      required:
+      - after
+      - aggregates
+      - group_by
+      title: GroupedMetricQuery
+    Ordering:
+      properties:
+        aggregate:
+          type: integer
+          title: Aggregate
+          description: The index of the aggregate to order by
+        direction:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          title: Direction
+          description: The direction to sort the results by
+          default: DESC
+      type: object
+      required:
+      - aggregate
+      title: Ordering
+    Ratio:
+      properties:
+        function:
+          type: string
+          const: RATIO
+          title: Function
+          default: RATIO
+        numerator:
+          anyOf:
+          - $ref: '#/components/schemas/Count'
+          - $ref: '#/components/schemas/CountIf'
+          - $ref: '#/components/schemas/Sum'
+          - $ref: '#/components/schemas/Mean'
+          - $ref: '#/components/schemas/Minimum'
+          - $ref: '#/components/schemas/Maximum'
+          - $ref: '#/components/schemas/StandardDeviation'
+          - $ref: '#/components/schemas/Quantile'
+          title: Numerator
+          description: The numerator of the ratio
+        denominator:
+          anyOf:
+          - $ref: '#/components/schemas/Count'
+          - $ref: '#/components/schemas/CountIf'
+          - $ref: '#/components/schemas/Sum'
+          - $ref: '#/components/schemas/Mean'
+          - $ref: '#/components/schemas/Minimum'
+          - $ref: '#/components/schemas/Maximum'
+          - $ref: '#/components/schemas/StandardDeviation'
+          - $ref: '#/components/schemas/Quantile'
+          title: Denominator
+          description: The denominator of the ratio
+      type: object
+      required:
+      - numerator
+      - denominator
+      title: Ratio
     Sum:
       properties:
         function:
@@ -656,6 +789,32 @@ components:
           default: SUM
       type: object
       title: Sum
+    Quantile:
+      properties:
+        function:
+          type: string
+          const: QUANTILE
+          title: Function
+          default: QUANTILE
+        level:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Level
+          description: The quantile level to compute
+      type: object
+      required:
+      - level
+      title: Quantile
+    Maximum:
+      properties:
+        function:
+          type: string
+          const: MAX
+          title: Function
+          default: MAX
+      type: object
+      title: Maximum
     GroupedMetricQuery-Input:
       properties:
         after:
@@ -744,6 +903,34 @@ components:
       - msg
       - type
       title: ValidationError
+    GroupedMetricResponse:
+      properties:
+        metric:
+          $ref: '#/components/schemas/PrefectMetric'
+          description: The metric that was queried
+        query:
+          $ref: '#/components/schemas/GroupedMetricQuery-Output'
+          description: The metric query that was executed
+        results:
+          items:
+            prefixItems:
+            - anyOf:
+              - $ref: '#/components/schemas/RelatedResource'
+              - type: 'null'
+            - items: {}
+              type: array
+            type: array
+            maxItems: 2
+            minItems: 2
+          type: array
+          title: Results
+          description: The results of the query, with each item being a tuple of the Resource and the row of values of metrics in the same order as `query.aggregates`.
+      type: object
+      required:
+      - metric
+      - query
+      - results
+      title: GroupedMetricResponse
     PrefectMetric:
       type: string
       enum:
@@ -775,190 +962,3 @@ components:
       - max_value
       - flow_run_id
       title: ResourcePeak
-    Ordering:
-      properties:
-        aggregate:
-          type: integer
-          title: Aggregate
-          description: The index of the aggregate to order by
-        direction:
-          type: string
-          enum:
-          - ASC
-          - DESC
-          title: Direction
-          description: The direction to sort the results by
-          default: DESC
-      type: object
-      required:
-      - aggregate
-      title: Ordering
-    Mean:
-      properties:
-        function:
-          type: string
-          const: MEAN
-          title: Function
-          default: MEAN
-      type: object
-      title: Mean
-    MapAggregate:
-      properties:
-        function:
-          type: string
-          const: MAP_AGG
-          title: Function
-          default: MAP_AGG
-        key:
-          type: string
-          title: Key
-          description: The key to map the column to
-        aggregate:
-          type: string
-          enum:
-          - SUM
-          - MEAN
-          - MIN
-          - MAX
-          - COUNT
-          title: Aggregate
-          description: The aggregate to apply
-      type: object
-      required:
-      - key
-      - aggregate
-      title: MapAggregate
-      description: For aggregating over a value in a map column.
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
-            type: string
-          type: array
-      type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
-
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'
-    Minimum:
-      properties:
-        function:
-          type: string
-          const: MIN
-          title: Function
-          default: MIN
-      type: object
-      title: Minimum
-    Ratio:
-      properties:
-        function:
-          type: string
-          const: RATIO
-          title: Function
-          default: RATIO
-        numerator:
-          anyOf:
-          - $ref: '#/components/schemas/Count'
-          - $ref: '#/components/schemas/CountIf'
-          - $ref: '#/components/schemas/Sum'
-          - $ref: '#/components/schemas/Mean'
-          - $ref: '#/components/schemas/Minimum'
-          - $ref: '#/components/schemas/Maximum'
-          - $ref: '#/components/schemas/StandardDeviation'
-          - $ref: '#/components/schemas/Quantile'
-          title: Numerator
-          description: The numerator of the ratio
-        denominator:
-          anyOf:
-          - $ref: '#/components/schemas/Count'
-          - $ref: '#/components/schemas/CountIf'
-          - $ref: '#/components/schemas/Sum'
-          - $ref: '#/components/schemas/Mean'
-          - $ref: '#/components/schemas/Minimum'
-          - $ref: '#/components/schemas/Maximum'
-          - $ref: '#/components/schemas/StandardDeviation'
-          - $ref: '#/components/schemas/Quantile'
-          title: Denominator
-          description: The denominator of the ratio
-      type: object
-      required:
-      - numerator
-      - denominator
-      title: Ratio
-    TimeseriesMetricQuery-Output:
-      properties:
-        after:
-          type: string
-          format: date-time
-          title: After
-          description: The start of the time series
-        before:
-          type: string
-          format: date-time
-          title: Before
-          description: The end of the time series, defaulting to now
-        timezone:
-          type: string
-          title: Timezone
-          description: The timezone to use for the time series
-          default: Etc/UTC
-        resource:
-          $ref: '#/components/schemas/ResourceSpecification'
-          description: Filter to only flow runs matching these labels
-        related:
-          anyOf:
-          - $ref: '#/components/schemas/ResourceSpecification'
-          - items:
-              $ref: '#/components/schemas/ResourceSpecification'
-            type: array
-          title: Related
-          description: Filter to only flow runs with a related resource matching these labels
-        aggregates:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/Count'
-            - $ref: '#/components/schemas/CountIf'
-            - $ref: '#/components/schemas/Sum'
-            - $ref: '#/components/schemas/Mean'
-            - $ref: '#/components/schemas/Minimum'
-            - $ref: '#/components/schemas/Maximum'
-            - $ref: '#/components/schemas/StandardDeviation'
-            - $ref: '#/components/schemas/Quantile'
-            - $ref: '#/components/schemas/Ratio'
-            - $ref: '#/components/schemas/MapAggregate'
-          type: array
-          maxItems: 10
-          minItems: 1
-          title: Aggregates
-          description: The aggregate functions to apply.  The order they are specified here will determine the order of the returned data columns.
-        resolution:
-          type: integer
-          enum:
-          - 1
-          - 5
-          - 15
-          - 60
-          - 360
-          - 1440
-          title: Resolution
-          description: The resolution of the time series, in minutes
-      type: object
-      required:
-      - after
-      - aggregates
-      - resolution
-      title: TimeseriesMetricQuery
-    DeploymentResourcePeaksResponse:
-      properties:
-        peaks:
-          items:
-            $ref: '#/components/schemas/ResourcePeak'
-          type: array
-          title: Peaks
-      type: object
-      required:
-      - peaks
-      title: DeploymentResourcePeaksResponse

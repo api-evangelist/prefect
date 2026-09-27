@@ -61,6 +61,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -82,6 +91,66 @@ components:
       - msg
       - type
       title: ValidationError
+    AssetProperties:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          default: ''
+        url:
+          type: string
+          maxLength: 5000
+          title: Url
+          default: ''
+        description:
+          type: string
+          title: Description
+          default: ''
+        owners:
+          items:
+            type: string
+          type: array
+          title: Owners
+      type: object
+      title: AssetProperties
+    AvailableAssetsPage:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AvailableAsset'
+          type: array
+          title: Results
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - results
+      title: AvailableAssetsPage
+      description: Paginated list of available assets with an opaque cursor for the next page.
+    AssetCatalogItem:
+      properties:
+        key:
+          type: string
+          title: Key
+        properties:
+          $ref: '#/components/schemas/AssetProperties'
+        last_seen:
+          type: string
+          format: date-time
+          title: Last Seen
+        latest_reference:
+          $ref: '#/components/schemas/LatestReference'
+        latest_materialization:
+          $ref: '#/components/schemas/LatestMaterialization'
+      type: object
+      required:
+      - key
+      - last_seen
+      title: AssetCatalogItem
     AvailableAsset:
       properties:
         key:
@@ -118,75 +187,6 @@ components:
       description: 'A single asset key from a cross-workspace publication, optionally
 
         enriched with ClickHouse metadata.'
-    AvailableAssetsPage:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/AvailableAsset'
-          type: array
-          title: Results
-        next_cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Cursor
-      type: object
-      required:
-      - results
-      title: AvailableAssetsPage
-      description: Paginated list of available assets with an opaque cursor for the next page.
-    AssetProperties:
-      properties:
-        name:
-          type: string
-          maxLength: 5000
-          title: Name
-          default: ''
-        url:
-          type: string
-          maxLength: 5000
-          title: Url
-          default: ''
-        description:
-          type: string
-          title: Description
-          default: ''
-        owners:
-          items:
-            type: string
-          type: array
-          title: Owners
-      type: object
-      title: AssetProperties
-    AssetCatalogItem:
-      properties:
-        key:
-          type: string
-          title: Key
-        properties:
-          $ref: '#/components/schemas/AssetProperties'
-        last_seen:
-          type: string
-          format: date-time
-          title: Last Seen
-        latest_reference:
-          $ref: '#/components/schemas/LatestReference'
-        latest_materialization:
-          $ref: '#/components/schemas/LatestMaterialization'
-      type: object
-      required:
-      - key
-      - last_seen
-      title: AssetCatalogItem
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     LatestReference:
       properties:
         event_id:

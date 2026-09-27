@@ -239,6 +239,46 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SubscriptionPage:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/SubscriptionResponse'
+          type: array
+          title: Results
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - results
+      title: SubscriptionPage
+      description: Paginated list of subscriptions with an opaque cursor for the next page.
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
     ValidationError:
       properties:
         loc:
@@ -260,23 +300,6 @@ components:
       - msg
       - type
       title: ValidationError
-    SubscriptionPage:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/SubscriptionResponse'
-          type: array
-          title: Results
-        next_cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Cursor
-      type: object
-      required:
-      - results
-      title: SubscriptionPage
-      description: Paginated list of subscriptions with an opaque cursor for the next page.
     SubscriptionUpdate:
       properties:
         enabled:
@@ -308,15 +331,37 @@ components:
       type: object
       title: SubscriptionUpdate
       description: PATCH body — all fields optional, only provided fields are updated.
-    HTTPValidationError:
+    SubscriptionCreate:
       properties:
-        detail:
+        publication_id:
+          type: string
+          format: uuid
+          title: Publication Id
+        event:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            type: string
           type: array
-          title: Detail
+          title: Event
+        resource:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Resource
+        related:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Related
       type: object
-      title: HTTPValidationError
+      required:
+      - publication_id
+      - event
+      title: SubscriptionCreate
+      description: POST body for creating a subscription.
     SubscriptionResponse:
       properties:
         id:
@@ -388,48 +433,3 @@ components:
       - publication_exists
       title: SubscriptionResponse
       description: Response model — subscription + publication status.
-    SubscriptionCreate:
-      properties:
-        publication_id:
-          type: string
-          format: uuid
-          title: Publication Id
-        event:
-          items:
-            type: string
-          type: array
-          title: Event
-        resource:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ResourceSpecification'
-            type: array
-          - type: 'null'
-          title: Resource
-        related:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ResourceSpecification'
-            type: array
-          - type: 'null'
-          title: Related
-      type: object
-      required:
-      - publication_id
-      - event
-      title: SubscriptionCreate
-      description: POST body for creating a subscription.
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
-            type: string
-          type: array
-      type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
-
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'

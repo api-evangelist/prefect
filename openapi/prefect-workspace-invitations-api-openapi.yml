@@ -200,6 +200,56 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    InvitationStatus:
+      type: string
+      enum:
+      - ACCEPTED
+      - PENDING
+      - REJECTED
+      - REVOKED
+      title: InvitationStatus
+      description: Enumeration of Invitation status
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InvitationFilterExpiration:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include invitations expiring at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include invitations expiring at or after this time
+      additionalProperties: false
+      type: object
+      title: InvitationFilterExpiration
+    InvitationFilterStatus:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/InvitationStatus'
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of invitation statuses to include
+      additionalProperties: false
+      type: object
+      title: InvitationFilterStatus
     InvitationFilterEmail:
       properties:
         any_:
@@ -221,46 +271,6 @@ components:
       additionalProperties: false
       type: object
       title: InvitationFilterEmail
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    InvitationFilterExpiration:
-      properties:
-        before_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Before
-          description: Only include invitations expiring at or before this time
-        after_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: After
-          description: Only include invitations expiring at or after this time
-      additionalProperties: false
-      type: object
-      title: InvitationFilterExpiration
     WorkspaceInvitationReadResponse:
       properties:
         id:
@@ -324,6 +334,19 @@ components:
       - expiration
       title: WorkspaceInvitationReadResponse
       description: Data returned by the api when reading a workspace invitation
+    WorkspaceInvitationCreate:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+          description: The email of the user to invite
+      additionalProperties: false
+      type: object
+      required:
+      - email
+      title: WorkspaceInvitationCreate
+      description: Data used by the api to create an invitation
     InvitationFilter:
       properties:
         status:
@@ -344,50 +367,27 @@ components:
       additionalProperties: false
       type: object
       title: InvitationFilter
-    WorkspaceInvitationCreate:
+    ValidationError:
       properties:
-        email:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          format: email
-          title: Email
-          description: The email of the user to invite
-      additionalProperties: false
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - email
-      title: WorkspaceInvitationCreate
-      description: Data used by the api to create an invitation
-    InvitationStatus:
-      type: string
-      enum:
-      - ACCEPTED
-      - PENDING
-      - REJECTED
-      - REVOKED
-      title: InvitationStatus
-      description: Enumeration of Invitation status
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    InvitationFilterStatus:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/InvitationStatus'
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of invitation statuses to include
-      additionalProperties: false
-      type: object
-      title: InvitationFilterStatus
+      - loc
+      - msg
+      - type
+      title: ValidationError
     Body_read_workspace_invitations_api_accounts__account_id__workspaces__workspace_id__invitations_filter_post:
       properties:
         workspace_invitations:

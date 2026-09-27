@@ -409,110 +409,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    EventOrder:
-      type: string
-      enum:
-      - ASC
-      - DESC
-      title: EventOrder
-    ResourceExclusionList:
-      properties:
-        paths:
-          items:
-            type: string
-          type: array
-          title: Paths
-          description: The paths of the resources to exclude
-      type: object
-      required:
-      - paths
-      title: ResourceExclusionList
-    RelatedResourceResult:
-      properties:
-        direction:
-          type: string
-          enum:
-          - upstream
-          - downstream
-          title: Direction
-          description: The direction of the interaction
-        resources:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Resources
-          description: The Resources that were interacted with
-      type: object
-      required:
-      - direction
-      - resources
-      title: RelatedResourceResult
-    Body_get_related_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_related_count_post:
-      properties:
-        filter:
-          $ref: '#/components/schemas/EventLineageRelatedFilter'
-          description: Additional optional filter criteria to narrow down the set of Events
-      type: object
-      title: Body_get_related_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_related_count_post
-    ResourcePage:
-      properties:
-        resources:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Resources
-          description: The Resources matching the query
-        total:
-          type: integer
-          title: Total
-          description: The total number of matching Resources
-        next_page:
-          anyOf:
-          - type: string
-            minLength: 1
-            format: uri
-          - type: 'null'
-          title: Next Page
-          description: The URL for the next page of results, if there are more
-      type: object
-      required:
-      - resources
-      - total
-      - next_page
-      title: ResourcePage
-      description: 'A single page of resources returned from the API, with an optional link to the
-
-        next page of results'
-    Body_filter_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          description: The number of events to return with each page
-          default: 50
-        filter:
-          anyOf:
-          - $ref: '#/components/schemas/EventLineageFilter'
-          - type: 'null'
-          description: Additional optional filter criteria to narrow down the set of Resources
-      type: object
-      title: Body_filter_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_filter_post
-    Body_filter_related_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_related_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          description: The number of events to return with each page
-          default: 50
-        filter:
-          $ref: '#/components/schemas/EventLineageRelatedFilter'
-          description: Additional optional filter criteria to narrow down the set of Events
-      type: object
-      title: Body_filter_related_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_related_post
     HTTPValidationError:
       properties:
         detail:
@@ -522,68 +418,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    EventDirection:
-      type: string
-      enum:
-      - downstream
-      - upstream
-      title: EventDirection
-    ResourceExclusions:
-      properties:
-        paths:
-          items:
-            type: string
-          type: array
-          title: Paths
-          description: The paths of the resources to exclude
-      type: object
-      required:
-      - paths
-      title: ResourceExclusions
-    Body_read_resources_hierarchy_api_accounts__account_id__workspaces__workspace_id__resources_hierarchy_filter_post:
-      properties:
-        depth:
-          type: integer
-          minimum: 0.0
-          title: Depth
-          description: The depth of the hierarchy to return
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          description: The number of events to return with each page
-          default: 50
-        filter:
-          anyOf:
-          - $ref: '#/components/schemas/EventLineageFilter'
-          - type: 'null'
-          description: Additional optional filter criteria to narrow down the set of Resources
-      type: object
-      required:
-      - depth
-      title: Body_read_resources_hierarchy_api_accounts__account_id__workspaces__workspace_id__resources_hierarchy_filter_post
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     Body_get_filtered_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_filter_count_post:
       properties:
         limit:
@@ -600,20 +434,20 @@ components:
           description: Additional optional filter criteria to narrow down the set of Resources
       type: object
       title: Body_get_filtered_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_filter_count_post
-    LineageResourceOccurredFilter:
-      properties:
-        since:
-          type: string
-          format: date-time
-          title: Since
-        until:
-          type: string
-          format: date-time
-          title: Until
-          description: Only include events prior to this time (inclusive)
-      additionalProperties: false
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
       type: object
-      title: LineageResourceOccurredFilter
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
     EventScopeFilter:
       properties:
         account:
@@ -635,6 +469,26 @@ components:
       additionalProperties: false
       type: object
       title: EventScopeFilter
+    Body_filter_related_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_related_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of events to return with each page
+          default: 50
+        filter:
+          $ref: '#/components/schemas/EventLineageRelatedFilter'
+          description: Additional optional filter criteria to narrow down the set of Events
+      type: object
+      title: Body_filter_related_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_related_post
+    EventOrder:
+      type: string
+      enum:
+      - ASC
+      - DESC
+      title: EventOrder
     EventLineageFilter:
       properties:
         id:
@@ -710,20 +564,102 @@ components:
       additionalProperties: false
       type: object
       title: EventLineageFilter
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
+    RelatedResourceResult:
+      properties:
+        direction:
+          type: string
+          enum:
+          - upstream
+          - downstream
+          title: Direction
+          description: The direction of the interaction
+        resources:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Resources
+          description: The Resources that were interacted with
+      type: object
+      required:
+      - direction
+      - resources
+      title: RelatedResourceResult
+    ResourcePage:
+      properties:
+        resources:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Resources
+          description: The Resources matching the query
+        total:
+          type: integer
+          title: Total
+          description: The total number of matching Resources
+        next_page:
+          anyOf:
+          - type: string
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Next Page
+          description: The URL for the next page of results, if there are more
+      type: object
+      required:
+      - resources
+      - total
+      - next_page
+      title: ResourcePage
+      description: 'A single page of resources returned from the API, with an optional link to the
+
+        next page of results'
+    ResourceExclusionList:
+      properties:
+        paths:
+          items:
             type: string
           type: array
+          title: Paths
+          description: The paths of the resources to exclude
       type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
-
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'
+      required:
+      - paths
+      title: ResourceExclusionList
+    ResourceExclusions:
+      properties:
+        paths:
+          items:
+            type: string
+          type: array
+          title: Paths
+          description: The paths of the resources to exclude
+      type: object
+      required:
+      - paths
+      title: ResourceExclusions
+    Body_read_resources_hierarchy_api_accounts__account_id__workspaces__workspace_id__resources_hierarchy_filter_post:
+      properties:
+        depth:
+          type: integer
+          minimum: 0.0
+          title: Depth
+          description: The depth of the hierarchy to return
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of events to return with each page
+          default: 50
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/EventLineageFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down the set of Resources
+      type: object
+      required:
+      - depth
+      title: Body_read_resources_hierarchy_api_accounts__account_id__workspaces__workspace_id__resources_hierarchy_filter_post
     Resource:
       additionalProperties:
         type: string
@@ -851,3 +787,67 @@ components:
       - total
       - next_page
       title: RelatedResourcePage
+    LineageResourceOccurredFilter:
+      properties:
+        since:
+          type: string
+          format: date-time
+          title: Since
+        until:
+          type: string
+          format: date-time
+          title: Until
+          description: Only include events prior to this time (inclusive)
+      additionalProperties: false
+      type: object
+      title: LineageResourceOccurredFilter
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_filter_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          description: The number of events to return with each page
+          default: 50
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/EventLineageFilter'
+          - type: 'null'
+          description: Additional optional filter criteria to narrow down the set of Resources
+      type: object
+      title: Body_filter_workspace_resources_api_accounts__account_id__workspaces__workspace_id__resources_filter_post
+    EventDirection:
+      type: string
+      enum:
+      - downstream
+      - upstream
+      title: EventDirection
+    Body_get_related_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_related_count_post:
+      properties:
+        filter:
+          $ref: '#/components/schemas/EventLineageRelatedFilter'
+          description: Additional optional filter criteria to narrow down the set of Events
+      type: object
+      title: Body_get_related_resources_count_api_accounts__account_id__workspaces__workspace_id__resources_related_count_post

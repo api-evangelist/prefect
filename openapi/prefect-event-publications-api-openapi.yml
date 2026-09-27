@@ -316,84 +316,15 @@ components:
       - results
       title: PublicationPage
       description: Paginated list of publications with an opaque cursor for the next page.
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PublicationUpdate:
-      properties:
-        enabled:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Enabled
-        event:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Event
-        resource:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ResourceSpecification'
-            type: array
-          - type: 'null'
-          title: Resource
-        related:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ResourceSpecification'
-            type: array
-          - type: 'null'
-          title: Related
-      type: object
-      title: PublicationUpdate
-      description: PATCH body — all fields optional, only provided fields are updated.
-    PublicationCreate:
-      properties:
-        event:
-          items:
-            type: string
-          type: array
-          title: Event
-        resource:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ResourceSpecification'
-            type: array
-          - type: 'null'
-          title: Resource
-        related:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ResourceSpecification'
-            type: array
-          - type: 'null'
-          title: Related
-      type: object
-      required:
-      - event
-      title: PublicationCreate
-      description: POST body for creating a publication.
+      title: HTTPValidationError
     PublicationResponse:
       properties:
         id:
@@ -453,6 +384,20 @@ components:
       - updated
       title: PublicationResponse
       description: Response model for a publication.
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
     PublicationSubscriberPage:
       properties:
         results:
@@ -470,6 +415,63 @@ components:
       - results
       title: PublicationSubscriberPage
       description: Paginated list of subscribers to a publication.
+    PublicationCreate:
+      properties:
+        event:
+          items:
+            type: string
+          type: array
+          title: Event
+        resource:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Resource
+        related:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Related
+      type: object
+      required:
+      - event
+      title: PublicationCreate
+      description: POST body for creating a publication.
+    PublicationUpdate:
+      properties:
+        enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enabled
+        event:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Event
+        resource:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Resource
+        related:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Related
+      type: object
+      title: PublicationUpdate
+      description: PATCH body — all fields optional, only provided fields are updated.
     PublicationSubscriber:
       properties:
         workspace_id:
@@ -490,26 +492,24 @@ components:
       - enabled
       title: PublicationSubscriber
       description: Summary of a workspace that subscribes to a publication.
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: HTTPValidationError
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
-            type: string
-          type: array
-      type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
-
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

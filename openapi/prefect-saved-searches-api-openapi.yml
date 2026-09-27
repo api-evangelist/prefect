@@ -217,27 +217,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: HTTPValidationError
     SavedSearch:
       properties:
         id:
@@ -271,25 +259,6 @@ components:
       - name
       title: SavedSearch
       description: An ORM representation of saved search data. Represents a set of filter criteria.
-    SavedSearchCreate:
-      properties:
-        name:
-          type: string
-          maxLength: 5000
-          title: Name
-          description: The name of the saved search.
-        filters:
-          items:
-            $ref: '#/components/schemas/SavedSearchFilter'
-          type: array
-          title: Filters
-          description: The filter set for the saved search.
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      title: SavedSearchCreate
-      description: Data used by the Orion API to create a saved search.
     Body_read_saved_searches_api_accounts__account_id__workspaces__workspace_id__saved_searches_filter_post:
       properties:
         offset:
@@ -303,15 +272,6 @@ components:
           description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
       type: object
       title: Body_read_saved_searches_api_accounts__account_id__workspaces__workspace_id__saved_searches_filter_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     SavedSearchFilter:
       properties:
         object:
@@ -342,3 +302,43 @@ components:
       - value
       title: SavedSearchFilter
       description: A filter for a saved search model. Intended for use by the Prefect UI.
+    SavedSearchCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the saved search.
+        filters:
+          items:
+            $ref: '#/components/schemas/SavedSearchFilter'
+          type: array
+          title: Filters
+          description: The filter set for the saved search.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: SavedSearchCreate
+      description: Data used by the Orion API to create a saved search.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

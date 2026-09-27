@@ -271,6 +271,79 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    BlockSchemaFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        block_type_id:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterBlockTypeId'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.block_type_id`
+        block_capabilities:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterCapabilities'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.capabilities`
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterId'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.id`
+        version:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterVersion'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.version`
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilter
+      description: Filter BlockSchemas
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    BlockSchemaFilterVersion:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of block schema versions.
+          examples:
+          - - 2.0.0
+            - 2.1.0
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilterVersion
+      description: Filter by `BlockSchema.capabilities`
+    Body_read_block_schemas_api_accounts__account_id__workspaces__workspace_id__block_schemas_filter_post:
+      properties:
+        block_schemas:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilter'
+          - type: 'null'
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_block_schemas_api_accounts__account_id__workspaces__workspace_id__block_schemas_filter_post
     BlockSchemaFilterCapabilities:
       properties:
         all_:
@@ -288,6 +361,73 @@ components:
       type: object
       title: BlockSchemaFilterCapabilities
       description: Filter by `BlockSchema.capabilities`
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
+    BlockSchemaFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of IDs to include
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilterId
+      description: Filter by BlockSchema.id
+    BlockSchemaCreate:
+      properties:
+        fields:
+          additionalProperties: true
+          type: object
+          title: Fields
+          description: The block schema's field schema
+        block_type_id:
+          type: string
+          format: uuid
+          title: Block Type Id
+          description: A block type ID
+        capabilities:
+          items:
+            type: string
+          type: array
+          title: Capabilities
+          description: A list of Block capabilities
+        version:
+          type: string
+          maxLength: 5000
+          title: Version
+          description: Human readable identifier for the block schema
+          default: non-versioned
+      additionalProperties: false
+      type: object
+      required:
+      - block_type_id
+      title: BlockSchemaCreate
+      description: Data used by the Prefect REST API to create a block schema.
+    BlockSchemaFilterBlockTypeId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of block type ids to include
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilterBlockTypeId
+      description: Filter by `BlockSchema.block_type_id`.
     ValidationError:
       properties:
         loc:
@@ -309,43 +449,6 @@ components:
       - msg
       - type
       title: ValidationError
-    BlockSchemaFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of IDs to include
-      additionalProperties: false
-      type: object
-      title: BlockSchemaFilterId
-      description: Filter by BlockSchema.id
-    prefect_cloud__orion__schemas__filters__Operator:
-      type: string
-      enum:
-      - and_
-      - or_
-      title: Operator
-      description: Operators for combining filter criteria.
-    BlockSchemaFilterBlockTypeId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of block type ids to include
-      additionalProperties: false
-      type: object
-      title: BlockSchemaFilterBlockTypeId
-      description: Filter by `BlockSchema.block_type_id`.
     BlockType:
       properties:
         id:
@@ -408,53 +511,6 @@ components:
       - slug
       title: BlockType
       description: An ORM representation of a block type
-    Body_read_block_schemas_api_accounts__account_id__workspaces__workspace_id__block_schemas_filter_post:
-      properties:
-        block_schemas:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilter'
-          - type: 'null'
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        limit:
-          type: integer
-          title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
-      type: object
-      title: Body_read_block_schemas_api_accounts__account_id__workspaces__workspace_id__block_schemas_filter_post
-    BlockSchemaFilter:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        block_type_id:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilterBlockTypeId'
-          - type: 'null'
-          description: Filter criteria for `BlockSchema.block_type_id`
-        block_capabilities:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilterCapabilities'
-          - type: 'null'
-          description: Filter criteria for `BlockSchema.capabilities`
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilterId'
-          - type: 'null'
-          description: Filter criteria for `BlockSchema.id`
-        version:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilterVersion'
-          - type: 'null'
-          description: Filter criteria for `BlockSchema.version`
-      additionalProperties: false
-      type: object
-      title: BlockSchemaFilter
-      description: Filter BlockSchemas
     BlockSchema:
       properties:
         id:
@@ -511,59 +567,3 @@ components:
       - block_type_id
       title: BlockSchema
       description: An ORM representation of a block schema.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    BlockSchemaCreate:
-      properties:
-        fields:
-          additionalProperties: true
-          type: object
-          title: Fields
-          description: The block schema's field schema
-        block_type_id:
-          type: string
-          format: uuid
-          title: Block Type Id
-          description: A block type ID
-        capabilities:
-          items:
-            type: string
-          type: array
-          title: Capabilities
-          description: A list of Block capabilities
-        version:
-          type: string
-          maxLength: 5000
-          title: Version
-          description: Human readable identifier for the block schema
-          default: non-versioned
-      additionalProperties: false
-      type: object
-      required:
-      - block_type_id
-      title: BlockSchemaCreate
-      description: Data used by the Prefect REST API to create a block schema.
-    BlockSchemaFilterVersion:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of block schema versions.
-          examples:
-          - - 2.0.0
-            - 2.1.0
-      additionalProperties: false
-      type: object
-      title: BlockSchemaFilterVersion
-      description: Filter by `BlockSchema.capabilities`

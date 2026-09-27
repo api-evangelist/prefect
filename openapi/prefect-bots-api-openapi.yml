@@ -326,21 +326,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    BotFilter:
-      properties:
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/BotFilterId'
-          - type: 'null'
-          description: Filter criteria for Bot.id
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/BotFilterName'
-          - type: 'null'
-          description: Filter criteria for Bot.name
-      additionalProperties: false
-      type: object
-      title: BotFilter
     BotRotateAPIKey:
       properties:
         api_key_expiration:
@@ -362,61 +347,6 @@ components:
       type: object
       title: BotRotateAPIKey
       description: Data used by the api to rotate a bot's api key
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    APIKeyCreateResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created
-        name:
-          type: string
-          title: Name
-          description: The name of the api key.
-        expiration:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Expiration
-          description: The time at which the api key expires. If `None`, the api key will not expire.
-        key:
-          type: string
-          title: Key
-          description: The Prefect API Key.
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      - key
-      title: APIKeyCreateResponse
-      description: Data returned by the api after creating a new api_key. This includes an un-hashed api key.
     BotUpdate:
       properties:
         name:
@@ -437,39 +367,6 @@ components:
       type: object
       title: BotUpdate
       description: Data used by the api to update a bot
-    Body_read_bots_api_accounts__account_id__bots_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        service_accounts:
-          anyOf:
-          - $ref: '#/components/schemas/BotFilter'
-          - type: 'null'
-      type: object
-      title: Body_read_bots_api_accounts__account_id__bots_filter_post
-    BotFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of bot ids to include
-      additionalProperties: false
-      type: object
-      title: BotFilterId
     BotCreate:
       properties:
         name:
@@ -497,54 +394,15 @@ components:
       - name
       title: BotCreate
       description: Data used by the api to create a bot
-    BotCreateResponse:
+    HTTPValidationError:
       properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created
-        updated:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated
-        actor_id:
-          type: string
-          format: uuid
-          title: Actor Id
-          description: The actor id associated with this bot.
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-          description: The bot's account id. Bots can only belong to one account.
-        name:
-          type: string
-          title: Name
-          description: The name of the bot.
-        account_role_name:
-          type: string
-          title: Account Role Name
-          description: The name of the role of the bot's account membership.
-        api_key:
-          $ref: '#/components/schemas/APIKeyCreateResponse'
-          description: API Key associated with the bot.
-      additionalProperties: false
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - actor_id
-      - account_id
-      - name
-      - account_role_name
-      - api_key
-      title: BotCreateResponse
+      title: HTTPValidationError
     BotReadResponse:
       properties:
         id:
@@ -593,53 +451,54 @@ components:
       - account_role_name
       - api_key
       title: BotReadResponse
-    HTTPValidationError:
+    BotCreateResponse:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    BotFilterName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of bot names to include
-        like_:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
           anyOf:
           - type: string
+            format: date-time
           - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
-          examples:
-          - marvin
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+          description: The actor id associated with this bot.
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+          description: The bot's account id. Bots can only belong to one account.
+        name:
+          type: string
+          title: Name
+          description: The name of the bot.
+        account_role_name:
+          type: string
+          title: Account Role Name
+          description: The name of the role of the bot's account membership.
+        api_key:
+          $ref: '#/components/schemas/APIKeyCreateResponse'
+          description: API Key associated with the bot.
       additionalProperties: false
       type: object
-      title: BotFilterName
-    BotAPIKeyReadResponse:
-      properties:
-        active_key:
-          $ref: '#/components/schemas/APIKeyReadResponse'
-          description: The key currently in use by the bot.
-        rotating_keys:
-          items:
-            $ref: '#/components/schemas/APIKeyReadResponse'
-          type: array
-          title: Rotating Keys
-          description: The bot's rotating keys. These keys will expire in 48 hours or less. They can be deleted at any time.
-      type: object
       required:
-      - active_key
-      - rotating_keys
-      title: BotAPIKeyReadResponse
-      description: Data returned by the API when listing a bot's api keys.
+      - actor_id
+      - account_id
+      - name
+      - account_role_name
+      - api_key
+      title: BotCreateResponse
     APIKeyReadResponse:
       properties:
         id:
@@ -675,3 +534,144 @@ components:
       - name
       title: APIKeyReadResponse
       description: Data returned by the api when reading api_keys
+    APIKeyCreateResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        name:
+          type: string
+          title: Name
+          description: The name of the api key.
+        expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expiration
+          description: The time at which the api key expires. If `None`, the api key will not expire.
+        key:
+          type: string
+          title: Key
+          description: The Prefect API Key.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - key
+      title: APIKeyCreateResponse
+      description: Data returned by the api after creating a new api_key. This includes an un-hashed api key.
+    BotFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of bot ids to include
+      additionalProperties: false
+      type: object
+      title: BotFilterId
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BotFilter:
+      properties:
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilterId'
+          - type: 'null'
+          description: Filter criteria for Bot.id
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilterName'
+          - type: 'null'
+          description: Filter criteria for Bot.name
+      additionalProperties: false
+      type: object
+      title: BotFilter
+    BotAPIKeyReadResponse:
+      properties:
+        active_key:
+          $ref: '#/components/schemas/APIKeyReadResponse'
+          description: The key currently in use by the bot.
+        rotating_keys:
+          items:
+            $ref: '#/components/schemas/APIKeyReadResponse'
+          type: array
+          title: Rotating Keys
+          description: The bot's rotating keys. These keys will expire in 48 hours or less. They can be deleted at any time.
+      type: object
+      required:
+      - active_key
+      - rotating_keys
+      title: BotAPIKeyReadResponse
+      description: Data returned by the API when listing a bot's api keys.
+    BotFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of bot names to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: BotFilterName
+    Body_read_bots_api_accounts__account_id__bots_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        service_accounts:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilter'
+          - type: 'null'
+      type: object
+      title: Body_read_bots_api_accounts__account_id__bots_filter_post

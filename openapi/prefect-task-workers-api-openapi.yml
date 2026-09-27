@@ -60,6 +60,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     TaskWorkerFilter:
       properties:
         task_keys:
@@ -71,6 +80,26 @@ components:
       required:
       - task_keys
       title: TaskWorkerFilter
+    TaskWorkerResponse:
+      properties:
+        identifier:
+          type: string
+          title: Identifier
+        task_keys:
+          items:
+            type: string
+          type: array
+          title: Task Keys
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+      type: object
+      required:
+      - identifier
+      - task_keys
+      - timestamp
+      title: TaskWorkerResponse
     ValidationError:
       properties:
         loc:
@@ -101,32 +130,3 @@ components:
           description: The task worker filter
       type: object
       title: Body_read_task_workers_api_accounts__account_id__workspaces__workspace_id__task_workers_filter_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    TaskWorkerResponse:
-      properties:
-        identifier:
-          type: string
-          title: Identifier
-        task_keys:
-          items:
-            type: string
-          type: array
-          title: Task Keys
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-      type: object
-      required:
-      - identifier
-      - task_keys
-      - timestamp
-      title: TaskWorkerResponse
