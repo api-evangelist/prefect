@@ -598,91 +598,99 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    TaskRunFilterId:
+    Body_next_runs_by_flow_api_accounts__account_id__workspaces__workspace_id__ui_flows_next_runs_post:
       properties:
-        any_:
+        flow_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Flow Ids
+          max_items: 200
+      type: object
+      required:
+      - flow_ids
+      title: Body_next_runs_by_flow_api_accounts__account_id__workspaces__workspace_id__ui_flows_next_runs_post
+    FlowRunFilterStartTime:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include flow runs starting at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include flow runs starting at or after this time
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only return flow runs without a start time
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterStartTime
+      description: Filter by `FlowRun.start_time`.
+    DeploymentFilterCreatedBy:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id_:
           anyOf:
           - items:
               type: string
               format: uuid
             type: array
           - type: 'null'
-          title: Any
-          description: A list of task run ids to include
-      additionalProperties: false
-      type: object
-      title: TaskRunFilterId
-      description: Filter by `TaskRun.id`.
-    Body_read_flows_api_accounts__account_id__workspaces__workspace_id__flows_filter_post:
-      properties:
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        flows:
+          title: Id
+          description: A list of creator IDs to include
+        type_:
           anyOf:
-          - $ref: '#/components/schemas/FlowFilter'
+          - items:
+              type: string
+            type: array
           - type: 'null'
-        flow_runs:
-          anyOf:
-          - $ref: '#/components/schemas/FlowRunFilter'
-          - type: 'null'
-        task_runs:
-          anyOf:
-          - $ref: '#/components/schemas/TaskRunFilter'
-          - type: 'null'
-        deployments:
-          anyOf:
-          - $ref: '#/components/schemas/DeploymentFilter'
-          - type: 'null'
-        work_pools:
-          anyOf:
-          - $ref: '#/components/schemas/WorkPoolFilter'
-          - type: 'null'
-        sort:
-          $ref: '#/components/schemas/FlowSort'
-          default: NAME_ASC
-        limit:
-          type: integer
-          title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
-      type: object
-      title: Body_read_flows_api_accounts__account_id__workspaces__workspace_id__flows_filter_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    DeploymentFilterConcurrencyLimit:
-      properties:
-        ge_:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Ge
-          description: Only include deployments with a concurrency limit greater than or equal to this value
-        le_:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Le
-          description: Only include deployments with a concurrency limit less than or equal to this value
+          title: Type
+          description: A list of creator types to include
         is_null_:
           anyOf:
           - type: boolean
           - type: 'null'
           title: Is Null
-          description: If true, only include deployments without a concurrency limit
+          description: If true, only include deployments without a creator
       additionalProperties: false
       type: object
-      title: DeploymentFilterConcurrencyLimit
-      description: 'DEPRECATED: Prefer `Deployment.concurrency_limit_id` over `Deployment.concurrency_limit`.'
-    DeploymentFilterBranch:
+      title: DeploymentFilterCreatedBy
+      description: Filter by `Deployment.created_by`.
+    FlowRunFilterExpectedStartTime:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include flow runs scheduled to start at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include flow runs scheduled to start at or after this time
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterExpectedStartTime
+      description: Filter by `FlowRun.expected_start_time`.
+    FlowRunFilterParentTaskRunId:
       properties:
         operator:
           $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
@@ -692,10 +700,71 @@ components:
           anyOf:
           - items:
               type: string
+              format: uuid
             type: array
           - type: 'null'
           title: Any
-          description: A list of branches to include
+          description: A list of flow run parent_task_run_ids to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include flow runs without parent_task_run_id
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterParentTaskRunId
+      description: Filter by `FlowRun.parent_task_run_id`.
+    TaskRunFilterExpectedStartTime:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include task runs expected to start at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include task runs expected to start at or after this time
+      additionalProperties: false
+      type: object
+      title: TaskRunFilterExpectedStartTime
+      description: Filter by `TaskRun.expected_start_time`.
+    Body_bulk_delete_flows_api_accounts__account_id__workspaces__workspace_id__flows_bulk_delete_post:
+      properties:
+        flows:
+          $ref: '#/components/schemas/FlowFilter'
+          description: Filter to identify flows to delete
+        limit:
+          type: integer
+          maximum: 50.0
+          minimum: 1.0
+          title: Limit
+          description: Maximum number of flows to delete
+          default: 50
+      type: object
+      required:
+      - flows
+      title: Body_bulk_delete_flows_api_accounts__account_id__workspaces__workspace_id__flows_bulk_delete_post
+    FlowFilterTags:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        all_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: All
+          description: A list of tags. Flows will be returned only if their tags are a superset of the list
           examples:
           - - tag-1
             - tag-2
@@ -704,37 +773,96 @@ components:
           - type: boolean
           - type: 'null'
           title: Is Null
-          description: If true, only include root deployments, those without branches
+          description: If true, only include flows without tags
       additionalProperties: false
       type: object
-      title: DeploymentFilterBranch
-      description: Filter by `Deployment.branch`.
-    FlowRunFilterEndTime:
+      title: FlowFilterTags
+      description: Filter by `Flow.tags`.
+    StateType:
+      type: string
+      enum:
+      - SCHEDULED
+      - PENDING
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      - CANCELLED
+      - CRASHED
+      - PAUSED
+      - CANCELLING
+      title: StateType
+      description: Enumeration of state types.
+    FlowUpdate:
       properties:
-        before_:
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: A list of flow tags
+          examples:
+          - - tag-1
+            - tag-2
+        labels:
           anyOf:
-          - type: string
-            format: date-time
+          - additionalProperties:
+              anyOf:
+              - type: boolean
+              - type: integer
+              - type: number
+              - type: string
+            type: object
           - type: 'null'
-          title: Before
-          description: Only include flow runs ending at or before this time
-        after_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: After
-          description: Only include flow runs ending at or after this time
-        is_null_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Null
-          description: If true, only return flow runs without an end time
+          title: Labels
+          description: A dictionary of key-value labels. Values can be strings, numbers, or booleans.
+          examples:
+          - key: value1
+            key2: 42
       additionalProperties: false
       type: object
-      title: FlowRunFilterEndTime
-      description: Filter by `FlowRun.end_time`.
+      title: FlowUpdate
+      description: Data used by the Prefect REST API to update a flow.
+    FlowRunFilterDeploymentVersionInfo:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        deployment_id:
+          type: string
+          format: uuid
+          title: Deployment Id
+          description: The deployment id to filter by
+        any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/VersionInfo'
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run deployment version infos to include
+      additionalProperties: false
+      type: object
+      required:
+      - deployment_id
+      title: FlowRunFilterDeploymentVersionInfo
+      description: Filter by `FlowRun.deployment_version_info`.
+    VersionInfo:
+      properties:
+        type:
+          type: string
+          title: Type
+          description: The type of version info.
+        version:
+          type: string
+          title: Version
+          description: The version of the deployment.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - version
+      title: VersionInfo
     FlowRunFilterIdempotencyKey:
       properties:
         any_:
@@ -757,110 +885,115 @@ components:
       type: object
       title: FlowRunFilterIdempotencyKey
       description: Filter by FlowRun.idempotency_key.
-    FlowRunFilterState:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        type:
-          anyOf:
-          - $ref: '#/components/schemas/FlowRunFilterStateType'
-          - type: 'null'
-          description: Filter criteria for `FlowRun.state_type`
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/FlowRunFilterStateName'
-          - type: 'null'
-          description: Filter criteria for `FlowRun.state_name`
-      additionalProperties: false
-      type: object
-      title: FlowRunFilterState
-    DeploymentFilterFlowId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of flow ids to include
-      additionalProperties: false
-      type: object
-      title: DeploymentFilterFlowId
-      description: Filter by `Deployment.flow_id`.
-    DeploymentFilterWorkQueueName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of work queue names to include
-          examples:
-          - - work_queue_1
-            - work_queue_2
-      additionalProperties: false
-      type: object
-      title: DeploymentFilterWorkQueueName
-      description: Filter by `Deployment.work_queue_name`.
-    WorkPoolFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of work pool ids to include
-      additionalProperties: false
-      type: object
-      title: WorkPoolFilterId
-      description: Filter by `WorkPool.id`.
-    TaskRunFilterName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of task run names to include
-          examples:
-          - - my-task-run-1
-            - my-task-run-2
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: TaskRunFilterName
-      description: Filter by `TaskRun.name`.
-    WorkPoolFilterPaused:
+    DeploymentFilterPaused:
       properties:
         eq_:
           anyOf:
           - type: boolean
           - type: 'null'
           title: Eq
-          description: Only returns where work pool is/is not paused
+          description: Only returns where deployment is/is not paused
       additionalProperties: false
       type: object
-      title: WorkPoolFilterPaused
-      description: Filter by `WorkPool.is_paused`.
-    FlowFilterName:
+      title: DeploymentFilterPaused
+      description: Filter by `Deployment.paused`.
+    FlowFilterUpdatedBy:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+          description: A list of updater IDs to include
+        type_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Type
+          description: A list of updater types to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include flows without an updater
+      additionalProperties: false
+      type: object
+      title: FlowFilterUpdatedBy
+      description: Filter by `Flow.updated_by`.
+    DeploymentFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of deployment ids to include
+        not_any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of deployment ids to exclude
+      additionalProperties: false
+      type: object
+      title: DeploymentFilterId
+      description: Filter by `Deployment.id`.
+    FlowRunFilterDeploymentVersionId:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        deployment_id:
+          type: string
+          format: uuid
+          title: Deployment Id
+          description: The deployment id to filter by
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run deployment version ids to include
+      additionalProperties: false
+      type: object
+      required:
+      - deployment_id
+      title: FlowRunFilterDeploymentVersionId
+      description: Filter by `FlowRun.deployment_version_id`.
+    Body_count_deployments_by_flow_api_accounts__account_id__workspaces__workspace_id__ui_flows_count_deployments_post:
+      properties:
+        flow_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Flow Ids
+          max_items: 200
+      type: object
+      required:
+      - flow_ids
+      title: Body_count_deployments_by_flow_api_accounts__account_id__workspaces__workspace_id__ui_flows_count_deployments_post
+    FlowRunFilterFlowVersion:
       properties:
         any_:
           anyOf:
@@ -869,23 +1002,12 @@ components:
             type: array
           - type: 'null'
           title: Any
-          description: A list of flow names to include
-          examples:
-          - - my-flow-1
-            - my-flow-2
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
-          examples:
-          - marvin
+          description: A list of flow run flow_versions to include
       additionalProperties: false
       type: object
-      title: FlowFilterName
-      description: Filter by `Flow.name`.
-    FlowRunFilterParentFlowRunId:
+      title: FlowRunFilterFlowVersion
+      description: Filter by `FlowRun.flow_version`.
+    FlowRunFilterWorkQueueId:
       properties:
         operator:
           $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
@@ -899,10 +1021,17 @@ components:
             type: array
           - type: 'null'
           title: Any
-          description: A list of parent flow run ids to include
+          description: A list of flow run work queue ids to include
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include flow runs without work queue ids
       additionalProperties: false
       type: object
-      title: FlowRunFilterParentFlowRunId
+      title: FlowRunFilterWorkQueueId
+      description: Filter by `FlowRun.work_queue_id`.
     DeploymentFilter:
       properties:
         operator:
@@ -994,32 +1123,7 @@ components:
       type: object
       title: DeploymentFilter
       description: Filter for deployments. Only deployments matching all criteria will be returned.
-    DeploymentFilterName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of deployment names to include
-          examples:
-          - - my-deployment-1
-            - my-deployment-2
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: DeploymentFilterName
-      description: Filter by `Deployment.name`.
-    TaskRunFilterFlowRunId:
+    FlowRunFilterParentFlowRunId:
       properties:
         operator:
           $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
@@ -1033,18 +1137,50 @@ components:
             type: array
           - type: 'null'
           title: Any
-          description: A list of task run flow run ids to include
+          description: A list of parent flow run ids to include
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterParentFlowRunId
+    DeploymentFilterFlowId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow ids to include
+      additionalProperties: false
+      type: object
+      title: DeploymentFilterFlowId
+      description: Filter by `Deployment.flow_id`.
+    FlowRunFilterDeploymentId:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run deployment ids to include
         is_null_:
           anyOf:
           - type: boolean
           - type: 'null'
           title: Is Null
-          description: Filter for task runs with None as their flow run id
-          default: false
+          description: If true, only include flow runs without deployment ids
       additionalProperties: false
       type: object
-      title: TaskRunFilterFlowRunId
-      description: Filter by `TaskRun.flow_run_id`.
+      title: FlowRunFilterDeploymentId
+      description: Filter by `FlowRun.deployment_id`.
     TaskRunFilter:
       properties:
         operator:
@@ -1100,78 +1236,33 @@ components:
       type: object
       title: TaskRunFilter
       description: Filter task runs. Only task runs matching all criteria will be returned
-    TaskRunFilterState:
+    TaskRunFilterFlowRunId:
       properties:
         operator:
           $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
           description: Operator for combining filter criteria. Defaults to 'and_'.
           default: and_
-        type:
-          anyOf:
-          - $ref: '#/components/schemas/TaskRunFilterStateType'
-          - type: 'null'
-          description: Filter criteria for `TaskRun.state_type`
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/TaskRunFilterStateName'
-          - type: 'null'
-          description: Filter criteria for `TaskRun.state_name`
-      additionalProperties: false
-      type: object
-      title: TaskRunFilterState
-    DeploymentOrFlowNameFilter:
-      properties:
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match on deployment or flow names. For example, passing 'example' might match deployments or flows with 'example' in their names.
-          examples:
-          - example
-      additionalProperties: false
-      type: object
-      title: DeploymentOrFlowNameFilter
-      description: Filter by `Deployment.name` or `Flow.name` with a single input string for ilike filtering.
-    DeploymentFilterTags:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        all_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: All
-          description: A list of tags. Deployments will be returned only if their tags are a superset of the list
-          examples:
-          - - tag-1
-            - tag-2
         any_:
           anyOf:
           - items:
               type: string
+              format: uuid
             type: array
           - type: 'null'
           title: Any
-          description: A list of tags to include
-          examples:
-          - - tag-1
-            - tag-2
+          description: A list of task run flow run ids to include
         is_null_:
           anyOf:
           - type: boolean
           - type: 'null'
           title: Is Null
-          description: If true, only include deployments without tags
+          description: Filter for task runs with None as their flow run id
+          default: false
       additionalProperties: false
       type: object
-      title: DeploymentFilterTags
-      description: Filter by `Deployment.tags`.
-    FlowFilterCreatedBy:
+      title: TaskRunFilterFlowRunId
+      description: Filter by `TaskRun.flow_run_id`.
+    WorkPoolFilterUpdatedBy:
       properties:
         operator:
           $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
@@ -1185,7 +1276,7 @@ components:
             type: array
           - type: 'null'
           title: Id
-          description: A list of creator IDs to include
+          description: A list of updater IDs to include
         type_:
           anyOf:
           - items:
@@ -1193,67 +1284,17 @@ components:
             type: array
           - type: 'null'
           title: Type
-          description: A list of creator types to include
+          description: A list of updater types to include
         is_null_:
           anyOf:
           - type: boolean
           - type: 'null'
           title: Is Null
-          description: If true, only include flows without a creator
+          description: If true, only include work pools without an updater
       additionalProperties: false
       type: object
-      title: FlowFilterCreatedBy
-      description: Filter by `Flow.created_by`.
-    FlowFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of flow ids to include
-        not_any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Not Any
-          description: A list of flow ids to exclude
-      additionalProperties: false
-      type: object
-      title: FlowFilterId
-      description: Filter by `Flow.id`.
-    FlowRunFilterStartTime:
-      properties:
-        before_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Before
-          description: Only include flow runs starting at or before this time
-        after_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: After
-          description: Only include flow runs starting at or after this time
-        is_null_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Null
-          description: If true, only return flow runs without a start time
-      additionalProperties: false
-      type: object
-      title: FlowRunFilterStartTime
-      description: Filter by `FlowRun.start_time`.
+      title: WorkPoolFilterUpdatedBy
+      description: Filter by `WorkPool.updated_by`.
     DeploymentFilterStatus:
       properties:
         any_:
@@ -1268,131 +1309,96 @@ components:
       type: object
       title: DeploymentFilterStatus
       description: Filter by `Deployment.status`.
-    Body_bulk_delete_flows_api_accounts__account_id__workspaces__workspace_id__flows_bulk_delete_post:
-      properties:
-        flows:
-          $ref: '#/components/schemas/FlowFilter'
-          description: Filter to identify flows to delete
-        limit:
-          type: integer
-          maximum: 50.0
-          minimum: 1.0
-          title: Limit
-          description: Maximum number of flows to delete
-          default: 50
-      type: object
-      required:
-      - flows
-      title: Body_bulk_delete_flows_api_accounts__account_id__workspaces__workspace_id__flows_bulk_delete_post
-    FlowRunFilterId:
+    WorkPoolFilterName:
       properties:
         any_:
           anyOf:
           - items:
               type: string
-              format: uuid
             type: array
           - type: 'null'
           title: Any
-          description: A list of flow run ids to include
-        not_any_:
+          description: A list of work pool names to include
+        like_:
           anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
+          - type: string
           - type: 'null'
-          title: Not Any
-          description: A list of flow run ids to exclude
+          title: Like
+          description: A case-insensitive partial match. For example, passing 'my-pool' will match 'my-pool', 'my-pool-1', and 'MY-POOL'.
       additionalProperties: false
       type: object
-      title: FlowRunFilterId
-      description: Filter by FlowRun.id.
-    FlowFilter:
+      title: WorkPoolFilterName
+      description: Filter by `WorkPool.name`.
+    DeploymentFilterRoot:
       properties:
         operator:
           $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
           description: Operator for combining filter criteria. Defaults to 'and_'.
           default: and_
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of deployments that have a root to include
+          examples:
+          - - deployment1
+            - deployment2
+      additionalProperties: false
+      type: object
+      title: DeploymentFilterRoot
+      description: Filter by `Deployment.root`.
+    FlowRunFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run names to include
+          examples:
+          - - my-flow-run-1
+            - my-flow-run-2
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterName
+      description: Filter by `FlowRun.name`.
+    CreatedBy:
+      properties:
         id:
           anyOf:
-          - $ref: '#/components/schemas/FlowFilterId'
+          - type: string
+            format: uuid
           - type: 'null'
-          description: Filter criteria for `Flow.id`
-        deployment:
+          title: Id
+          description: The id of the creator of the object.
+        type:
           anyOf:
-          - $ref: '#/components/schemas/FlowFilterDeployment'
+          - type: string
           - type: 'null'
-          description: Filter criteria for Flow deployments
-        name:
+          title: Type
+          description: The type of the creator of the object.
+        display_value:
           anyOf:
-          - $ref: '#/components/schemas/FlowFilterName'
+          - type: string
           - type: 'null'
-          description: Filter criteria for `Flow.name`
-        tags:
-          anyOf:
-          - $ref: '#/components/schemas/FlowFilterTags'
-          - type: 'null'
-          description: Filter criteria for `Flow.tags`
-        created_by:
-          anyOf:
-          - $ref: '#/components/schemas/FlowFilterCreatedBy'
-          - type: 'null'
-          description: Filter criteria for `Flow.created_by`
-        updated_by:
-          anyOf:
-          - $ref: '#/components/schemas/FlowFilterUpdatedBy'
-          - type: 'null'
-          description: Filter criteria for `Flow.updated_by`
-      additionalProperties: false
+          title: Display Value
+          description: The display value for the creator.
       type: object
-      title: FlowFilter
-      description: Filter for flows. Only flows matching all criteria will be returned.
-    FlowUpdate:
-      properties:
-        tags:
-          items:
-            type: string
-          type: array
-          title: Tags
-          description: A list of flow tags
-          examples:
-          - - tag-1
-            - tag-2
-        labels:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: boolean
-              - type: integer
-              - type: number
-              - type: string
-            type: object
-          - type: 'null'
-          title: Labels
-          description: A dictionary of key-value labels. Values can be strings, numbers, or booleans.
-          examples:
-          - key: value1
-            key2: 42
-      additionalProperties: false
-      type: object
-      title: FlowUpdate
-      description: Data used by the Prefect REST API to update a flow.
-    TaskRunFilterStateType:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/StateType'
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of task run state types to include
-      additionalProperties: false
-      type: object
-      title: TaskRunFilterStateType
-      description: Filter by `TaskRun.state_type`.
-    DeploymentFilterWorkQueueId:
+      title: CreatedBy
+    TaskRunFilterId:
       properties:
         any_:
           anyOf:
@@ -1402,65 +1408,74 @@ components:
             type: array
           - type: 'null'
           title: Any
-          description: A list of work queue ids to include
+          description: A list of task run ids to include
       additionalProperties: false
       type: object
-      title: DeploymentFilterWorkQueueId
-      description: Filter by `Deployment.work_queue_id`
-    FlowFilterDeployment:
+      title: TaskRunFilterId
+      description: Filter by `TaskRun.id`.
+    SimpleNextFlowRun:
       properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The flow run id.
+        flow_id:
+          type: string
+          format: uuid
+          title: Flow Id
+          description: The flow id.
+        name:
+          type: string
+          title: Name
+          description: The flow run name
+        state_name:
+          type: string
+          title: State Name
+          description: The state name.
+        state_type:
+          $ref: '#/components/schemas/StateType'
+          description: The state type.
+        next_scheduled_start_time:
+          type: string
+          format: date-time
+          title: Next Scheduled Start Time
+          description: The next scheduled start time
+      type: object
+      required:
+      - id
+      - flow_id
+      - name
+      - state_name
+      - state_type
+      - next_scheduled_start_time
+      title: SimpleNextFlowRun
+    TaskRunFilterEndTime:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include task runs ending at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include task runs ending at or after this time
         is_null_:
           anyOf:
           - type: boolean
           - type: 'null'
           title: Is Null
-          description: If true, only include flows without deployments
+          description: If true, only return task runs without an end time
       additionalProperties: false
       type: object
-      title: FlowFilterDeployment
-      description: Filter by flows by deployment
-    FlowRunFilterTags:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        all_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: All
-          description: A list of tags. Flow runs will be returned only if their tags are a superset of the list
-          examples:
-          - - tag-1
-            - tag-2
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of tags. Flow runs will be returned if their tags contain any of the tags in the list
-          examples:
-          - - tag-1
-            - tag-2
-        is_null_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Null
-          description: If true, only include flow runs without tags
-      additionalProperties: false
-      type: object
-      title: FlowRunFilterTags
-      description: Filter by `FlowRun.tags`.
+      title: TaskRunFilterEndTime
+      description: Filter by `TaskRun.end_time`.
     WorkPoolFilterCreatedBy:
       properties:
         operator:
@@ -1494,399 +1509,6 @@ components:
       type: object
       title: WorkPoolFilterCreatedBy
       description: Filter by `WorkPool.created_by`.
-    FlowRunFilterDeploymentVersionId:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        deployment_id:
-          type: string
-          format: uuid
-          title: Deployment Id
-          description: The deployment id to filter by
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of flow run deployment version ids to include
-      additionalProperties: false
-      type: object
-      required:
-      - deployment_id
-      title: FlowRunFilterDeploymentVersionId
-      description: Filter by `FlowRun.deployment_version_id`.
-    FlowFilterTags:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        all_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: All
-          description: A list of tags. Flows will be returned only if their tags are a superset of the list
-          examples:
-          - - tag-1
-            - tag-2
-        is_null_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Null
-          description: If true, only include flows without tags
-      additionalProperties: false
-      type: object
-      title: FlowFilterTags
-      description: Filter by `Flow.tags`.
-    prefect_cloud__orion__schemas__filters__Operator:
-      type: string
-      enum:
-      - and_
-      - or_
-      title: Operator
-      description: Operators for combining filter criteria.
-    FlowRunFilterCreatedBy:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        id_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Id
-          description: A list of creator IDs to include
-        type_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Type
-          description: A list of creator types to include. For example, 'DEPLOYMENT' for scheduled runs or 'AUTOMATION' for runs triggered by automations.
-          examples:
-          - - DEPLOYMENT
-            - AUTOMATION
-        is_null_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Null
-          description: If true, only include flow runs without a creator
-      additionalProperties: false
-      type: object
-      title: FlowRunFilterCreatedBy
-      description: Filter by `FlowRun.created_by`.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    FlowRunFilterFlowId:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of flow run flow ids to include
-      additionalProperties: false
-      type: object
-      title: FlowRunFilterFlowId
-      description: Filter by `FlowRun.flow_id`.
-    BulkDeleteResponse:
-      properties:
-        deleted:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Deleted
-          description: List of IDs that were successfully deleted
-      type: object
-      title: BulkDeleteResponse
-      description: Response from a bulk deletion operation.
-    FlowRunFilterExpectedStartTime:
-      properties:
-        before_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Before
-          description: Only include flow runs scheduled to start at or before this time
-        after_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: After
-          description: Only include flow runs scheduled to start at or after this time
-      additionalProperties: false
-      type: object
-      title: FlowRunFilterExpectedStartTime
-      description: Filter by `FlowRun.expected_start_time`.
-    FlowRunFilterParentTaskRunId:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of flow run parent_task_run_ids to include
-        is_null_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Null
-          description: If true, only include flow runs without parent_task_run_id
-      additionalProperties: false
-      type: object
-      title: FlowRunFilterParentTaskRunId
-      description: Filter by `FlowRun.parent_task_run_id`.
-    Body_next_runs_by_flow_api_accounts__account_id__workspaces__workspace_id__ui_flows_next_runs_post:
-      properties:
-        flow_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Flow Ids
-          max_items: 200
-      type: object
-      required:
-      - flow_ids
-      title: Body_next_runs_by_flow_api_accounts__account_id__workspaces__workspace_id__ui_flows_next_runs_post
-    FlowRunFilterWorkQueueId:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of flow run work queue ids to include
-        is_null_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Null
-          description: If true, only include flow runs without work queue ids
-      additionalProperties: false
-      type: object
-      title: FlowRunFilterWorkQueueId
-      description: Filter by `FlowRun.work_queue_id`.
-    DeploymentFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of deployment ids to include
-        not_any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Not Any
-          description: A list of deployment ids to exclude
-      additionalProperties: false
-      type: object
-      title: DeploymentFilterId
-      description: Filter by `Deployment.id`.
-    DeploymentFilterPaused:
-      properties:
-        eq_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Eq
-          description: Only returns where deployment is/is not paused
-      additionalProperties: false
-      type: object
-      title: DeploymentFilterPaused
-      description: Filter by `Deployment.paused`.
-    DeploymentFilterCreatedBy:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        id_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Id
-          description: A list of creator IDs to include
-        type_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Type
-          description: A list of creator types to include
-        is_null_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Null
-          description: If true, only include deployments without a creator
-      additionalProperties: false
-      type: object
-      title: DeploymentFilterCreatedBy
-      description: Filter by `Deployment.created_by`.
-    UpdatedBy:
-      properties:
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
-          description: The id of the updater of the object.
-        type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Type
-          description: The type of the updater of the object.
-        display_value:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Display Value
-          description: The display value for the updater.
-      type: object
-      title: UpdatedBy
-    StateType:
-      type: string
-      enum:
-      - SCHEDULED
-      - PENDING
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      - CANCELLED
-      - CRASHED
-      - PAUSED
-      - CANCELLING
-      title: StateType
-      description: Enumeration of state types.
-    WorkPoolFilter:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/WorkPoolFilterId'
-          - type: 'null'
-          description: Filter criteria for `WorkPool.id`
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/WorkPoolFilterName'
-          - type: 'null'
-          description: Filter criteria for `WorkPool.name`
-        type:
-          anyOf:
-          - $ref: '#/components/schemas/WorkPoolFilterType'
-          - type: 'null'
-          description: Filter criteria for `WorkPool.type`
-        paused:
-          anyOf:
-          - $ref: '#/components/schemas/WorkPoolFilterPaused'
-          - type: 'null'
-          description: Filter criteria for `WorkPool.is_paused`
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/WorkPoolFilterStatus'
-          - type: 'null'
-          description: Filter criteria for `WorkPool.status`
-        created_by:
-          anyOf:
-          - $ref: '#/components/schemas/WorkPoolFilterCreatedBy'
-          - type: 'null'
-          description: Filter criteria for `WorkPool.created_by`
-        updated_by:
-          anyOf:
-          - $ref: '#/components/schemas/WorkPoolFilterUpdatedBy'
-          - type: 'null'
-          description: Filter criteria for `WorkPool.updated_by`
-      additionalProperties: false
-      type: object
-      title: WorkPoolFilter
-    TaskRunFilterSubFlowRuns:
-      properties:
-        exists_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Exists
-          description: If true, only include task runs that are subflow run parents; if false, exclude parent task runs
-      additionalProperties: false
-      type: object
-      title: TaskRunFilterSubFlowRuns
-      description: Filter by `TaskRun.subflow_run`.
     FlowRunFilter:
       properties:
         operator:
@@ -1992,113 +1614,16 @@ components:
       type: object
       title: FlowRunFilter
       description: Filter flow runs. Only flow runs matching all criteria will be returned
-    DeploymentFilterUpdatedBy:
+    WorkPoolStatus:
+      type: string
+      enum:
+      - READY
+      - NOT_READY
+      - PAUSED
+      title: WorkPoolStatus
+      description: Enumeration of work pool statuses.
+    TaskRunFilterName:
       properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        id_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Id
-          description: A list of updater IDs to include
-        type_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Type
-          description: A list of updater types to include
-        is_null_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Null
-          description: If true, only include deployments without an updater
-      additionalProperties: false
-      type: object
-      title: DeploymentFilterUpdatedBy
-      description: Filter by `Deployment.updated_by`.
-    FlowCreate:
-      properties:
-        name:
-          type: string
-          maxLength: 5000
-          pattern: ^[^/%&><]+$
-          title: Name
-          description: The name of the flow
-          examples:
-          - my-flow
-        tags:
-          items:
-            type: string
-          type: array
-          title: Tags
-          description: A list of flow tags
-          examples:
-          - - tag-1
-            - tag-2
-            - tag-3
-        labels:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: boolean
-              - type: integer
-              - type: number
-              - type: string
-            type: object
-          - type: 'null'
-          title: Labels
-          description: A dictionary of key-value labels. Values can be strings, numbers, or booleans.
-          examples:
-          - key: value1
-            key2: 42
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      title: FlowCreate
-      description: Data used by the Orion API to create a flow.
-    FlowPaginationResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/Flow'
-          type: array
-          title: Results
-        count:
-          type: integer
-          title: Count
-        limit:
-          type: integer
-          title: Limit
-        pages:
-          type: integer
-          title: Pages
-        page:
-          type: integer
-          title: Page
-      type: object
-      required:
-      - results
-      - count
-      - limit
-      - pages
-      - page
-      title: FlowPaginationResponse
-    FlowRunFilterWorkQueueName:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
         any_:
           anyOf:
           - items:
@@ -2106,20 +1631,59 @@ components:
             type: array
           - type: 'null'
           title: Any
-          description: A list of work queue names to include
+          description: A list of task run names to include
           examples:
-          - - work_queue_1
-            - work_queue_2
-        is_null_:
+          - - my-task-run-1
+            - my-task-run-2
+        like_:
           anyOf:
-          - type: boolean
+          - type: string
           - type: 'null'
-          title: Is Null
-          description: If true, only include flow runs without work queue names
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
+          examples:
+          - marvin
       additionalProperties: false
       type: object
-      title: FlowRunFilterWorkQueueName
-      description: Filter by `FlowRun.work_queue_name`.
+      title: TaskRunFilterName
+      description: Filter by `TaskRun.name`.
+    WorkPoolFilterStatus:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/WorkPoolStatus'
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work pool statuses to include
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilterStatus
+      description: Filter by `WorkPool.status`.
+    WorkPoolFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work pool ids to include
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilterId
+      description: Filter by `WorkPool.id`.
+    DeploymentStatus:
+      type: string
+      enum:
+      - READY
+      - NOT_READY
+      - DISABLED
+      title: DeploymentStatus
+      description: Enumeration of deployment statuses.
     Body_paginate_flows_api_accounts__account_id__workspaces__workspace_id__flows_paginate_post:
       properties:
         page:
@@ -2156,7 +1720,7 @@ components:
           description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
       type: object
       title: Body_paginate_flows_api_accounts__account_id__workspaces__workspace_id__flows_paginate_post
-    WorkPoolFilterType:
+    TaskRunFilterStateName:
       properties:
         any_:
           anyOf:
@@ -2165,94 +1729,75 @@ components:
             type: array
           - type: 'null'
           title: Any
-          description: A list of work pool types to include
+          description: A list of task run state names to include
       additionalProperties: false
       type: object
-      title: WorkPoolFilterType
-      description: Filter by `WorkPool.type`.
-    WorkPoolStatus:
-      type: string
-      enum:
-      - READY
-      - NOT_READY
-      - PAUSED
-      title: WorkPoolStatus
-      description: Enumeration of work pool statuses.
-    FlowRunFilterFlowVersion:
+      title: TaskRunFilterStateName
+    TaskRunFilterState:
       properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of flow run flow_versions to include
-      additionalProperties: false
-      type: object
-      title: FlowRunFilterFlowVersion
-      description: Filter by `FlowRun.flow_version`.
-    CreatedBy:
-      properties:
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
-          description: The id of the creator of the object.
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
         type:
           anyOf:
-          - type: string
+          - $ref: '#/components/schemas/TaskRunFilterStateType'
           - type: 'null'
-          title: Type
-          description: The type of the creator of the object.
-        display_value:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Display Value
-          description: The display value for the creator.
-      type: object
-      title: CreatedBy
-    SimpleNextFlowRun:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The flow run id.
-        flow_id:
-          type: string
-          format: uuid
-          title: Flow Id
-          description: The flow id.
+          description: Filter criteria for `TaskRun.state_type`
         name:
-          type: string
-          title: Name
-          description: The flow run name
-        state_name:
-          type: string
-          title: State Name
-          description: The state name.
-        state_type:
-          $ref: '#/components/schemas/StateType'
-          description: The state type.
-        next_scheduled_start_time:
-          type: string
-          format: date-time
-          title: Next Scheduled Start Time
-          description: The next scheduled start time
+          anyOf:
+          - $ref: '#/components/schemas/TaskRunFilterStateName'
+          - type: 'null'
+          description: Filter criteria for `TaskRun.state_name`
+      additionalProperties: false
       type: object
-      required:
-      - id
-      - flow_id
-      - name
-      - state_name
-      - state_type
-      - next_scheduled_start_time
-      title: SimpleNextFlowRun
-    FlowFilterUpdatedBy:
+      title: TaskRunFilterState
+    DeploymentFilterBase:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of deployments that have a base to include
+          examples:
+          - - deployment1
+            - deployment2
+      additionalProperties: false
+      type: object
+      title: DeploymentFilterBase
+      description: Filter by `Deployment.base`.
+    Body_count_flows_api_accounts__account_id__workspaces__workspace_id__flows_count_post:
+      properties:
+        flows:
+          anyOf:
+          - $ref: '#/components/schemas/FlowFilter'
+          - type: 'null'
+        flow_runs:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilter'
+          - type: 'null'
+        task_runs:
+          anyOf:
+          - $ref: '#/components/schemas/TaskRunFilter'
+          - type: 'null'
+        deployments:
+          anyOf:
+          - $ref: '#/components/schemas/DeploymentFilter'
+          - type: 'null'
+        work_pools:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilter'
+          - type: 'null'
+      type: object
+      title: Body_count_flows_api_accounts__account_id__workspaces__workspace_id__flows_count_post
+    FlowRunFilterCreatedBy:
       properties:
         operator:
           $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
@@ -2266,7 +1811,7 @@ components:
             type: array
           - type: 'null'
           title: Id
-          description: A list of updater IDs to include
+          description: A list of creator IDs to include
         type_:
           anyOf:
           - items:
@@ -2274,17 +1819,29 @@ components:
             type: array
           - type: 'null'
           title: Type
-          description: A list of updater types to include
+          description: A list of creator types to include. For example, 'DEPLOYMENT' for scheduled runs or 'AUTOMATION' for runs triggered by automations.
+          examples:
+          - - DEPLOYMENT
+            - AUTOMATION
         is_null_:
           anyOf:
           - type: boolean
           - type: 'null'
           title: Is Null
-          description: If true, only include flows without an updater
+          description: If true, only include flow runs without a creator
       additionalProperties: false
       type: object
-      title: FlowFilterUpdatedBy
-      description: Filter by `Flow.updated_by`.
+      title: FlowRunFilterCreatedBy
+      description: Filter by `FlowRun.created_by`.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     Flow:
       properties:
         id:
@@ -2349,24 +1906,53 @@ components:
       - name
       title: Flow
       description: An ORM representation of flow data.
-    VersionInfo:
+    FlowCreate:
       properties:
-        type:
+        name:
           type: string
-          title: Type
-          description: The type of version info.
-        version:
-          type: string
-          title: Version
-          description: The version of the deployment.
-      additionalProperties: true
+          maxLength: 5000
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: The name of the flow
+          examples:
+          - my-flow
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: A list of flow tags
+          examples:
+          - - tag-1
+            - tag-2
+            - tag-3
+        labels:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: boolean
+              - type: integer
+              - type: number
+              - type: string
+            type: object
+          - type: 'null'
+          title: Labels
+          description: A dictionary of key-value labels. Values can be strings, numbers, or booleans.
+          examples:
+          - key: value1
+            key2: 42
+      additionalProperties: false
       type: object
       required:
-      - type
-      - version
-      title: VersionInfo
-    WorkPoolFilterName:
+      - name
+      title: FlowCreate
+      description: Data used by the Orion API to create a flow.
+    FlowRunFilterWorkQueueName:
       properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
         any_:
           anyOf:
           - items:
@@ -2374,31 +1960,34 @@ components:
             type: array
           - type: 'null'
           title: Any
-          description: A list of work pool names to include
-        like_:
+          description: A list of work queue names to include
+          examples:
+          - - work_queue_1
+            - work_queue_2
+        is_null_:
           anyOf:
-          - type: string
+          - type: boolean
           - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example, passing 'my-pool' will match 'my-pool', 'my-pool-1', and 'MY-POOL'.
+          title: Is Null
+          description: If true, only include flow runs without work queue names
       additionalProperties: false
       type: object
-      title: WorkPoolFilterName
-      description: Filter by `WorkPool.name`.
-    TaskRunFilterTags:
+      title: FlowRunFilterWorkQueueName
+      description: Filter by `FlowRun.work_queue_name`.
+    DeploymentFilterBranch:
       properties:
         operator:
           $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
           description: Operator for combining filter criteria. Defaults to 'and_'.
           default: and_
-        all_:
+        any_:
           anyOf:
           - items:
               type: string
             type: array
           - type: 'null'
-          title: All
-          description: A list of tags. Task runs will be returned only if their tags are a superset of the list
+          title: Any
+          description: A list of branches to include
           examples:
           - - tag-1
             - tag-2
@@ -2407,17 +1996,13 @@ components:
           - type: boolean
           - type: 'null'
           title: Is Null
-          description: If true, only include task runs without tags
+          description: If true, only include root deployments, those without branches
       additionalProperties: false
       type: object
-      title: TaskRunFilterTags
-      description: Filter by `TaskRun.tags`.
-    FlowRunFilterDeploymentId:
+      title: DeploymentFilterBranch
+      description: Filter by `Deployment.branch`.
+    FlowFilterId:
       properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
         any_:
           anyOf:
           - items:
@@ -2426,18 +2011,21 @@ components:
             type: array
           - type: 'null'
           title: Any
-          description: A list of flow run deployment ids to include
-        is_null_:
+          description: A list of flow ids to include
+        not_any_:
           anyOf:
-          - type: boolean
+          - items:
+              type: string
+              format: uuid
+            type: array
           - type: 'null'
-          title: Is Null
-          description: If true, only include flow runs without deployment ids
+          title: Not Any
+          description: A list of flow ids to exclude
       additionalProperties: false
       type: object
-      title: FlowRunFilterDeploymentId
-      description: Filter by `FlowRun.deployment_id`.
-    TaskRunFilterStateName:
+      title: FlowFilterId
+      description: Filter by `Flow.id`.
+    DeploymentFilterWorkQueueName:
       properties:
         any_:
           anyOf:
@@ -2446,33 +2034,29 @@ components:
             type: array
           - type: 'null'
           title: Any
-          description: A list of task run state names to include
+          description: A list of work queue names to include
+          examples:
+          - - work_queue_1
+            - work_queue_2
       additionalProperties: false
       type: object
-      title: TaskRunFilterStateName
-    FlowRunFilterStateType:
+      title: DeploymentFilterWorkQueueName
+      description: Filter by `Deployment.work_queue_name`.
+    DeploymentOrFlowNameFilter:
       properties:
-        any_:
+        like_:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/StateType'
-            type: array
+          - type: string
           - type: 'null'
-          title: Any
-          description: A list of flow run state types to include
-        not_any_:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/StateType'
-            type: array
-          - type: 'null'
-          title: Not Any
-          description: A list of flow run state types to exclude
+          title: Like
+          description: A case-insensitive partial match on deployment or flow names. For example, passing 'example' might match deployments or flows with 'example' in their names.
+          examples:
+          - example
       additionalProperties: false
       type: object
-      title: FlowRunFilterStateType
-      description: Filter by `FlowRun.state_type`.
-    WorkPoolFilterUpdatedBy:
+      title: DeploymentOrFlowNameFilter
+      description: Filter by `Deployment.name` or `Flow.name` with a single input string for ilike filtering.
+    DeploymentFilterUpdatedBy:
       properties:
         operator:
           $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
@@ -2500,25 +2084,347 @@ components:
           - type: boolean
           - type: 'null'
           title: Is Null
-          description: If true, only include work pools without an updater
+          description: If true, only include deployments without an updater
       additionalProperties: false
       type: object
-      title: WorkPoolFilterUpdatedBy
-      description: Filter by `WorkPool.updated_by`.
-    WorkPoolFilterStatus:
+      title: DeploymentFilterUpdatedBy
+      description: Filter by `Deployment.updated_by`.
+    FlowRunFilterStateName:
       properties:
         any_:
           anyOf:
           - items:
-              $ref: '#/components/schemas/WorkPoolStatus'
+              type: string
             type: array
           - type: 'null'
           title: Any
-          description: A list of work pool statuses to include
+          description: A list of flow run state names to include
+        not_any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of flow run state names to exclude
       additionalProperties: false
       type: object
-      title: WorkPoolFilterStatus
-      description: Filter by `WorkPool.status`.
+      title: FlowRunFilterStateName
+    WorkPoolFilterPaused:
+      properties:
+        eq_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Eq
+          description: Only returns where work pool is/is not paused
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilterPaused
+      description: Filter by `WorkPool.is_paused`.
+    DeploymentFilterWorkQueueId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work queue ids to include
+      additionalProperties: false
+      type: object
+      title: DeploymentFilterWorkQueueId
+      description: Filter by `Deployment.work_queue_id`
+    FlowFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow names to include
+          examples:
+          - - my-flow-1
+            - my-flow-2
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: FlowFilterName
+      description: Filter by `Flow.name`.
+    WorkPoolFilterType:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of work pool types to include
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilterType
+      description: Filter by `WorkPool.type`.
+    DeploymentFilterIsScheduleActive:
+      properties:
+        eq_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Eq
+          description: Only returns where deployment schedule is/is not active
+      additionalProperties: false
+      type: object
+      title: DeploymentFilterIsScheduleActive
+      description: 'Legacy filter to filter by `Deployment.is_schedule_active` which
+
+        is always the opposite of `Deployment.paused`.'
+    TaskRunFilterStateType:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/StateType'
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of task run state types to include
+      additionalProperties: false
+      type: object
+      title: TaskRunFilterStateType
+      description: Filter by `TaskRun.state_type`.
+    FlowRunFilterStateType:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/StateType'
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run state types to include
+        not_any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/StateType'
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of flow run state types to exclude
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterStateType
+      description: Filter by `FlowRun.state_type`.
+    FlowFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/FlowFilterId'
+          - type: 'null'
+          description: Filter criteria for `Flow.id`
+        deployment:
+          anyOf:
+          - $ref: '#/components/schemas/FlowFilterDeployment'
+          - type: 'null'
+          description: Filter criteria for Flow deployments
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/FlowFilterName'
+          - type: 'null'
+          description: Filter criteria for `Flow.name`
+        tags:
+          anyOf:
+          - $ref: '#/components/schemas/FlowFilterTags'
+          - type: 'null'
+          description: Filter criteria for `Flow.tags`
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/FlowFilterCreatedBy'
+          - type: 'null'
+          description: Filter criteria for `Flow.created_by`
+        updated_by:
+          anyOf:
+          - $ref: '#/components/schemas/FlowFilterUpdatedBy'
+          - type: 'null'
+          description: Filter criteria for `Flow.updated_by`
+      additionalProperties: false
+      type: object
+      title: FlowFilter
+      description: Filter for flows. Only flows matching all criteria will be returned.
+    Body_read_flows_api_accounts__account_id__workspaces__workspace_id__flows_filter_post:
+      properties:
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        flows:
+          anyOf:
+          - $ref: '#/components/schemas/FlowFilter'
+          - type: 'null'
+        flow_runs:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilter'
+          - type: 'null'
+        task_runs:
+          anyOf:
+          - $ref: '#/components/schemas/TaskRunFilter'
+          - type: 'null'
+        deployments:
+          anyOf:
+          - $ref: '#/components/schemas/DeploymentFilter'
+          - type: 'null'
+        work_pools:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilter'
+          - type: 'null'
+        sort:
+          $ref: '#/components/schemas/FlowSort'
+          default: NAME_ASC
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_flows_api_accounts__account_id__workspaces__workspace_id__flows_filter_post
+    FlowRunFilterState:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        type:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterStateType'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.state_type`
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/FlowRunFilterStateName'
+          - type: 'null'
+          description: Filter criteria for `FlowRun.state_name`
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterState
+    FlowRunFilterTags:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        all_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: All
+          description: A list of tags. Flow runs will be returned only if their tags are a superset of the list
+          examples:
+          - - tag-1
+            - tag-2
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of tags. Flow runs will be returned if their tags contain any of the tags in the list
+          examples:
+          - - tag-1
+            - tag-2
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include flow runs without tags
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterTags
+      description: Filter by `FlowRun.tags`.
+    FlowRunFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run ids to include
+        not_any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of flow run ids to exclude
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterId
+      description: Filter by FlowRun.id.
+    FlowRunFilterFlowId:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of flow run flow ids to include
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterFlowId
+      description: Filter by `FlowRun.flow_id`.
+    UpdatedBy:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+          description: The id of the updater of the object.
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+          description: The type of the updater of the object.
+        display_value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Value
+          description: The display value for the updater.
+      type: object
+      title: UpdatedBy
     TaskRunFilterStartTime:
       properties:
         before_:
@@ -2545,12 +2451,50 @@ components:
       type: object
       title: TaskRunFilterStartTime
       description: Filter by `TaskRun.start_time`.
-    DeploymentFilterBase:
+    FlowPaginationResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Flow'
+          type: array
+          title: Results
+        count:
+          type: integer
+          title: Count
+        limit:
+          type: integer
+          title: Limit
+        pages:
+          type: integer
+          title: Pages
+        page:
+          type: integer
+          title: Page
+      type: object
+      required:
+      - results
+      - count
+      - limit
+      - pages
+      - page
+      title: FlowPaginationResponse
+    DeploymentFilterTags:
       properties:
         operator:
           $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
           description: Operator for combining filter criteria. Defaults to 'and_'.
           default: and_
+        all_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: All
+          description: A list of tags. Deployments will be returned only if their tags are a superset of the list
+          examples:
+          - - tag-1
+            - tag-2
         any_:
           anyOf:
           - items:
@@ -2558,14 +2502,245 @@ components:
             type: array
           - type: 'null'
           title: Any
-          description: A list of deployments that have a base to include
+          description: A list of tags to include
           examples:
-          - - deployment1
-            - deployment2
+          - - tag-1
+            - tag-2
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include deployments without tags
       additionalProperties: false
       type: object
-      title: DeploymentFilterBase
-      description: Filter by `Deployment.base`.
+      title: DeploymentFilterTags
+      description: Filter by `Deployment.tags`.
+    FlowRunFilterEndTime:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include flow runs ending at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include flow runs ending at or after this time
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only return flow runs without an end time
+      additionalProperties: false
+      type: object
+      title: FlowRunFilterEndTime
+      description: Filter by `FlowRun.end_time`.
+    DeploymentFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of deployment names to include
+          examples:
+          - - my-deployment-1
+            - my-deployment-2
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: DeploymentFilterName
+      description: Filter by `Deployment.name`.
+    DeploymentFilterConcurrencyLimit:
+      properties:
+        ge_:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Ge
+          description: Only include deployments with a concurrency limit greater than or equal to this value
+        le_:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Le
+          description: Only include deployments with a concurrency limit less than or equal to this value
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include deployments without a concurrency limit
+      additionalProperties: false
+      type: object
+      title: DeploymentFilterConcurrencyLimit
+      description: 'DEPRECATED: Prefer `Deployment.concurrency_limit_id` over `Deployment.concurrency_limit`.'
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BulkDeleteResponse:
+      properties:
+        deleted:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Deleted
+          description: List of IDs that were successfully deleted
+      type: object
+      title: BulkDeleteResponse
+      description: Response from a bulk deletion operation.
+    TaskRunFilterTags:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        all_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: All
+          description: A list of tags. Task runs will be returned only if their tags are a superset of the list
+          examples:
+          - - tag-1
+            - tag-2
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include task runs without tags
+      additionalProperties: false
+      type: object
+      title: TaskRunFilterTags
+      description: Filter by `TaskRun.tags`.
+    TaskRunFilterSubFlowRuns:
+      properties:
+        exists_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Exists
+          description: If true, only include task runs that are subflow run parents; if false, exclude parent task runs
+      additionalProperties: false
+      type: object
+      title: TaskRunFilterSubFlowRuns
+      description: Filter by `TaskRun.subflow_run`.
+    FlowFilterDeployment:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        is_null_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Null
+          description: If true, only include flows without deployments
+      additionalProperties: false
+      type: object
+      title: FlowFilterDeployment
+      description: Filter by flows by deployment
+    WorkPoolFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterId'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.id`
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterName'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.name`
+        type:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterType'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.type`
+        paused:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterPaused'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.is_paused`
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterStatus'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.status`
+        created_by:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterCreatedBy'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.created_by`
+        updated_by:
+          anyOf:
+          - $ref: '#/components/schemas/WorkPoolFilterUpdatedBy'
+          - type: 'null'
+          description: Filter criteria for `WorkPool.updated_by`
+      additionalProperties: false
+      type: object
+      title: WorkPoolFilter
+    FlowSort:
+      type: string
+      enum:
+      - CREATED_DESC
+      - CREATED_ASC
+      - UPDATED_DESC
+      - UPDATED_ASC
+      - NAME_ASC
+      - NAME_DESC
+      title: FlowSort
+      description: Defines flow sorting options.
     FlowRunFilterNextScheduledStartTime:
       properties:
         before_:
@@ -2586,211 +2761,36 @@ components:
       type: object
       title: FlowRunFilterNextScheduledStartTime
       description: Filter by `FlowRun.next_scheduled_start_time`.
-    FlowRunFilterName:
+    FlowFilterCreatedBy:
       properties:
-        any_:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+          description: A list of creator IDs to include
+        type_:
           anyOf:
           - items:
               type: string
             type: array
           - type: 'null'
-          title: Any
-          description: A list of flow run names to include
-          examples:
-          - - my-flow-run-1
-            - my-flow-run-2
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: FlowRunFilterName
-      description: Filter by `FlowRun.name`.
-    DeploymentFilterIsScheduleActive:
-      properties:
-        eq_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Eq
-          description: Only returns where deployment schedule is/is not active
-      additionalProperties: false
-      type: object
-      title: DeploymentFilterIsScheduleActive
-      description: 'Legacy filter to filter by `Deployment.is_schedule_active` which
-
-        is always the opposite of `Deployment.paused`.'
-    Body_count_deployments_by_flow_api_accounts__account_id__workspaces__workspace_id__ui_flows_count_deployments_post:
-      properties:
-        flow_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Flow Ids
-          max_items: 200
-      type: object
-      required:
-      - flow_ids
-      title: Body_count_deployments_by_flow_api_accounts__account_id__workspaces__workspace_id__ui_flows_count_deployments_post
-    TaskRunFilterEndTime:
-      properties:
-        before_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Before
-          description: Only include task runs ending at or before this time
-        after_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: After
-          description: Only include task runs ending at or after this time
+          title: Type
+          description: A list of creator types to include
         is_null_:
           anyOf:
           - type: boolean
           - type: 'null'
           title: Is Null
-          description: If true, only return task runs without an end time
+          description: If true, only include flows without a creator
       additionalProperties: false
       type: object
-      title: TaskRunFilterEndTime
-      description: Filter by `TaskRun.end_time`.
-    DeploymentStatus:
-      type: string
-      enum:
-      - READY
-      - NOT_READY
-      - DISABLED
-      title: DeploymentStatus
-      description: Enumeration of deployment statuses.
-    DeploymentFilterRoot:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of deployments that have a root to include
-          examples:
-          - - deployment1
-            - deployment2
-      additionalProperties: false
-      type: object
-      title: DeploymentFilterRoot
-      description: Filter by `Deployment.root`.
-    Body_count_flows_api_accounts__account_id__workspaces__workspace_id__flows_count_post:
-      properties:
-        flows:
-          anyOf:
-          - $ref: '#/components/schemas/FlowFilter'
-          - type: 'null'
-        flow_runs:
-          anyOf:
-          - $ref: '#/components/schemas/FlowRunFilter'
-          - type: 'null'
-        task_runs:
-          anyOf:
-          - $ref: '#/components/schemas/TaskRunFilter'
-          - type: 'null'
-        deployments:
-          anyOf:
-          - $ref: '#/components/schemas/DeploymentFilter'
-          - type: 'null'
-        work_pools:
-          anyOf:
-          - $ref: '#/components/schemas/WorkPoolFilter'
-          - type: 'null'
-      type: object
-      title: Body_count_flows_api_accounts__account_id__workspaces__workspace_id__flows_count_post
-    TaskRunFilterExpectedStartTime:
-      properties:
-        before_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Before
-          description: Only include task runs expected to start at or before this time
-        after_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: After
-          description: Only include task runs expected to start at or after this time
-      additionalProperties: false
-      type: object
-      title: TaskRunFilterExpectedStartTime
-      description: Filter by `TaskRun.expected_start_time`.
-    FlowRunFilterDeploymentVersionInfo:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        deployment_id:
-          type: string
-          format: uuid
-          title: Deployment Id
-          description: The deployment id to filter by
-        any_:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/VersionInfo'
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of flow run deployment version infos to include
-      additionalProperties: false
-      type: object
-      required:
-      - deployment_id
-      title: FlowRunFilterDeploymentVersionInfo
-      description: Filter by `FlowRun.deployment_version_info`.
-    FlowSort:
-      type: string
-      enum:
-      - CREATED_DESC
-      - CREATED_ASC
-      - UPDATED_DESC
-      - UPDATED_ASC
-      - NAME_ASC
-      - NAME_DESC
-      title: FlowSort
-      description: Defines flow sorting options.
-    FlowRunFilterStateName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of flow run state names to include
-        not_any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Not Any
-          description: A list of flow run state names to exclude
-      additionalProperties: false
-      type: object
-      title: FlowRunFilterStateName
+      title: FlowFilterCreatedBy
+      description: Filter by `Flow.created_by`.

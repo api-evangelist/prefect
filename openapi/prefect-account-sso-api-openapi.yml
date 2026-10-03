@@ -201,24 +201,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Body_validate_api_accounts__account_id__sso_validate_post:
-      properties:
-        redirect_uri:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Redirect Uri
-      type: object
-      title: Body_validate_api_accounts__account_id__sso_validate_post
     WorkOSIntegrationResponse:
       properties:
         organization_id:
@@ -242,3 +224,21 @@ components:
           default: []
       type: object
       title: WorkOSIntegrationResponse
+    Body_validate_api_accounts__account_id__sso_validate_post:
+      properties:
+        redirect_uri:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Redirect Uri
+      type: object
+      title: Body_validate_api_accounts__account_id__sso_validate_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

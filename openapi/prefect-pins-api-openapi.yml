@@ -159,60 +159,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Body_read_user_pins_api_accounts__account_id__workspaces__workspace_id__pins_filter_post:
-      properties:
-        resource_type:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/PinnableResourceType'
-            type: array
-          - type: 'null'
-          title: Resource Type
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        limit:
-          type: integer
-          title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
-      type: object
-      title: Body_read_user_pins_api_accounts__account_id__workspaces__workspace_id__pins_filter_post
-    PinnableResourceType:
-      type: string
-      enum:
-      - flow
-      - deployment
-      - work_pool
-      title: PinnableResourceType
-      description: Resource types that can be pinned by users.
-    UserPinCreate:
-      properties:
-        resource_type:
-          $ref: '#/components/schemas/PinnableResourceType'
-          description: The type of resource to pin.
-        resource_id:
-          type: string
-          format: uuid
-          title: Resource Id
-          description: The ID of the resource to pin.
-      additionalProperties: false
-      type: object
-      required:
-      - resource_type
-      - resource_id
-      title: UserPinCreate
-      description: Data used by the Orion API to create a user pin.
     UserPin:
       properties:
         id:
@@ -257,6 +203,26 @@ components:
       - resource_id
       title: UserPin
       description: An ORM representation of a user pin.
+    Body_read_user_pins_api_accounts__account_id__workspaces__workspace_id__pins_filter_post:
+      properties:
+        resource_type:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/PinnableResourceType'
+            type: array
+          - type: 'null'
+          title: Resource Type
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_user_pins_api_accounts__account_id__workspaces__workspace_id__pins_filter_post
     ValidationError:
       properties:
         loc:
@@ -278,3 +244,37 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UserPinCreate:
+      properties:
+        resource_type:
+          $ref: '#/components/schemas/PinnableResourceType'
+          description: The type of resource to pin.
+        resource_id:
+          type: string
+          format: uuid
+          title: Resource Id
+          description: The ID of the resource to pin.
+      additionalProperties: false
+      type: object
+      required:
+      - resource_type
+      - resource_id
+      title: UserPinCreate
+      description: Data used by the Orion API to create a user pin.
+    PinnableResourceType:
+      type: string
+      enum:
+      - flow
+      - deployment
+      - work_pool
+      title: PinnableResourceType
+      description: Resource types that can be pinned by users.

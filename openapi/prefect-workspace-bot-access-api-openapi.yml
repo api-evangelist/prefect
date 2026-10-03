@@ -193,38 +193,21 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    BotFilter:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    WorkspaceBotAccessSort:
-      type: string
-      enum:
-      - CREATED_ASC
-      - CREATED_DESC
-      - BOT_NAME_ASC
-      - BOT_NAME_DESC
-      title: WorkspaceBotAccessSort
-      description: Sort options for workspace bot accesses
-    WorkspaceActorAccessFilterWorkspaceRoleId:
-      properties:
-        any_:
+        id:
           anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
+          - $ref: '#/components/schemas/BotFilterId'
           - type: 'null'
-          title: Any
-          description: Only include workspace accesses with one of these workspace role ids
+          description: Filter criteria for Bot.id
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilterName'
+          - type: 'null'
+          description: Filter criteria for Bot.name
       additionalProperties: false
       type: object
-      title: WorkspaceActorAccessFilterWorkspaceRoleId
+      title: BotFilter
     Body_read_workspace_bot_accesses_api_accounts__account_id__workspaces__workspace_id__bot_access_filter_post:
       properties:
         limit:
@@ -252,35 +235,27 @@ components:
           - type: 'null'
       type: object
       title: Body_read_workspace_bot_accesses_api_accounts__account_id__workspaces__workspace_id__bot_access_filter_post
-    BotFilterId:
+    ValidationError:
       properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of bot ids to include
-      additionalProperties: false
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: BotFilterId
-    WorkspaceActorAccessFilter:
-      properties:
-        workspace_role_id:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceActorAccessFilterWorkspaceRoleId'
-          - type: 'null'
-          description: Filter criteria for WorkspaceActorAccess.workspace_role_id
-        actor_id:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceActorAccessFilterActorId'
-          - type: 'null'
-          description: Filter criteria for WorkspaceActorAccess.actor_id
-      additionalProperties: false
-      type: object
-      title: WorkspaceActorAccessFilter
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     WorkspaceActorAccessFilterActorId:
       properties:
         any_:
@@ -295,40 +270,50 @@ components:
       additionalProperties: false
       type: object
       title: WorkspaceActorAccessFilterActorId
-    BotFilter:
+    WorkspaceActorAccessFilterWorkspaceRoleId:
       properties:
-        id:
+        any_:
           anyOf:
-          - $ref: '#/components/schemas/BotFilterId'
+          - items:
+              type: string
+              format: uuid
+            type: array
           - type: 'null'
-          description: Filter criteria for Bot.id
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/BotFilterName'
-          - type: 'null'
-          description: Filter criteria for Bot.name
+          title: Any
+          description: Only include workspace accesses with one of these workspace role ids
       additionalProperties: false
       type: object
-      title: BotFilter
-    WorkspaceBotAccessCreate:
+      title: WorkspaceActorAccessFilterWorkspaceRoleId
+    BotFilterName:
       properties:
-        bot_id:
-          type: string
-          format: uuid
-          title: Bot Id
-          description: id of bot to create a workspace access for
-        workspace_role_id:
-          type: string
-          format: uuid
-          title: Workspace Role Id
-          description: The workspace role id
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of bot names to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
       additionalProperties: false
       type: object
-      required:
-      - bot_id
-      - workspace_role_id
-      title: WorkspaceBotAccessCreate
-      description: Data used by the api to create workspace bot access
+      title: BotFilterName
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     WorkspaceBotAccessResponse:
       properties:
         id:
@@ -381,45 +366,60 @@ components:
       - bot_name
       title: WorkspaceBotAccessResponse
       description: Data returned by the api after creating a new user workspace access
-    ValidationError:
+    WorkspaceActorAccessFilter:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        workspace_role_id:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceActorAccessFilterWorkspaceRoleId'
+          - type: 'null'
+          description: Filter criteria for WorkspaceActorAccess.workspace_role_id
+        actor_id:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceActorAccessFilterActorId'
+          - type: 'null'
+          description: Filter criteria for WorkspaceActorAccess.actor_id
+      additionalProperties: false
+      type: object
+      title: WorkspaceActorAccessFilter
+    WorkspaceBotAccessCreate:
+      properties:
+        bot_id:
           type: string
-          title: Message
-        type:
+          format: uuid
+          title: Bot Id
+          description: id of bot to create a workspace access for
+        workspace_role_id:
           type: string
-          title: Error Type
+          format: uuid
+          title: Workspace Role Id
+          description: The workspace role id
+      additionalProperties: false
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    BotFilterName:
+      - bot_id
+      - workspace_role_id
+      title: WorkspaceBotAccessCreate
+      description: Data used by the api to create workspace bot access
+    WorkspaceBotAccessSort:
+      type: string
+      enum:
+      - CREATED_ASC
+      - CREATED_DESC
+      - BOT_NAME_ASC
+      - BOT_NAME_DESC
+      title: WorkspaceBotAccessSort
+      description: Sort options for workspace bot accesses
+    BotFilterId:
       properties:
         any_:
           anyOf:
           - items:
               type: string
+              format: uuid
             type: array
           - type: 'null'
           title: Any
-          description: A list of bot names to include
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
-          examples:
-          - marvin
+          description: A list of bot ids to include
       additionalProperties: false
       type: object
-      title: BotFilterName
+      title: BotFilterId

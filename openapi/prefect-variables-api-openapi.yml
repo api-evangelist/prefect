@@ -437,15 +437,75 @@ components:
       - NAME_ASC
       title: VariableSort
       description: Defines variables sorting options.
-    HTTPValidationError:
+    VariableUpdate:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        name:
+          anyOf:
+          - type: string
+            maxLength: 255
+          - type: 'null'
+          title: Name
+          description: The name of the variable
+          examples:
+          - my_variable
+        value:
+          anyOf:
+          - type: string
+          - type: integer
+          - type: number
+          - type: boolean
+          - additionalProperties: true
+            type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Value
+          description: The value of the variable
+          examples:
+          - my-value
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: A list of variable tags
+          examples:
+          - - tag-1
+            - tag-2
+      additionalProperties: false
       type: object
-      title: HTTPValidationError
+      title: VariableUpdate
+      description: Data used by the Orion API to update a Variable.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
     Body_count_variables_api_accounts__account_id__workspaces__workspace_id__variables_count_post:
       properties:
         variables:
@@ -508,7 +568,7 @@ components:
       - name
       - value
       title: Variable
-    VariableFilterName:
+    VariableFilterValue:
       properties:
         any_:
           anyOf:
@@ -517,67 +577,28 @@ components:
             type: array
           - type: 'null'
           title: Any
-          description: A list of variables names to include
+          description: A list of variables value to include
         like_:
           anyOf:
           - type: string
           - type: 'null'
           title: Like
-          description: A string to match variable names against. This can include SQL wildcard characters like `%` and `_`.
+          description: A string to match variable value against. This can include SQL wildcard characters like `%` and `_`.
           examples:
-          - my_variable_%
+          - my-value-%
       additionalProperties: false
       type: object
-      title: VariableFilterName
-      description: Filter by `Variable.name`.
-    VariableUpdate:
+      title: VariableFilterValue
+      description: Filter by `Variable.value`.
+    HTTPValidationError:
       properties:
-        name:
-          anyOf:
-          - type: string
-            maxLength: 255
-          - type: 'null'
-          title: Name
-          description: The name of the variable
-          examples:
-          - my_variable
-        value:
-          anyOf:
-          - type: string
-          - type: integer
-          - type: number
-          - type: boolean
-          - additionalProperties: true
-            type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Value
-          description: The value of the variable
-          examples:
-          - my-value
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-          description: A list of variable tags
-          examples:
-          - - tag-1
-            - tag-2
-      additionalProperties: false
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: VariableUpdate
-      description: Data used by the Orion API to update a Variable.
-    prefect_cloud__orion__schemas__filters__Operator:
-      type: string
-      enum:
-      - and_
-      - or_
-      title: Operator
-      description: Operators for combining filter criteria.
+      title: HTTPValidationError
     VariableFilterTags:
       properties:
         operator:
@@ -605,6 +626,78 @@ components:
       type: object
       title: VariableFilterTags
       description: Filter by `Variable.tags`.
+    VariableFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of variables names to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A string to match variable names against. This can include SQL wildcard characters like `%` and `_`.
+          examples:
+          - my_variable_%
+      additionalProperties: false
+      type: object
+      title: VariableFilterName
+      description: Filter by `Variable.name`.
+    VariableFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/VariableFilterId'
+          - type: 'null'
+          description: Filter criteria for `Variable.id`
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/VariableFilterName'
+          - type: 'null'
+          description: Filter criteria for `Variable.name`
+        value:
+          anyOf:
+          - $ref: '#/components/schemas/VariableFilterValue'
+          - type: 'null'
+          description: Filter criteria for `Variable.value`
+        tags:
+          anyOf:
+          - $ref: '#/components/schemas/VariableFilterTags'
+          - type: 'null'
+          description: Filter criteria for `Variable.tags`
+      additionalProperties: false
+      type: object
+      title: VariableFilter
+      description: Filter variables. Only variables matching all criteria will be returned
+    Body_read_variables_api_accounts__account_id__workspaces__workspace_id__variables_filter_post:
+      properties:
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        variables:
+          anyOf:
+          - $ref: '#/components/schemas/VariableFilter'
+          - type: 'null'
+        sort:
+          $ref: '#/components/schemas/VariableSort'
+          default: NAME_ASC
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_variables_api_accounts__account_id__workspaces__workspace_id__variables_filter_post
     VariableCreate:
       properties:
         name:
@@ -662,96 +755,3 @@ components:
       type: object
       title: VariableFilterId
       description: Filter by `Variable.id`.
-    Body_read_variables_api_accounts__account_id__workspaces__workspace_id__variables_filter_post:
-      properties:
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        variables:
-          anyOf:
-          - $ref: '#/components/schemas/VariableFilter'
-          - type: 'null'
-        sort:
-          $ref: '#/components/schemas/VariableSort'
-          default: NAME_ASC
-        limit:
-          type: integer
-          title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
-      type: object
-      title: Body_read_variables_api_accounts__account_id__workspaces__workspace_id__variables_filter_post
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    VariableFilter:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/VariableFilterId'
-          - type: 'null'
-          description: Filter criteria for `Variable.id`
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/VariableFilterName'
-          - type: 'null'
-          description: Filter criteria for `Variable.name`
-        value:
-          anyOf:
-          - $ref: '#/components/schemas/VariableFilterValue'
-          - type: 'null'
-          description: Filter criteria for `Variable.value`
-        tags:
-          anyOf:
-          - $ref: '#/components/schemas/VariableFilterTags'
-          - type: 'null'
-          description: Filter criteria for `Variable.tags`
-      additionalProperties: false
-      type: object
-      title: VariableFilter
-      description: Filter variables. Only variables matching all criteria will be returned
-    VariableFilterValue:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of variables value to include
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A string to match variable value against. This can include SQL wildcard characters like `%` and `_`.
-          examples:
-          - my-value-%
-      additionalProperties: false
-      type: object
-      title: VariableFilterValue
-      description: Filter by `Variable.value`.

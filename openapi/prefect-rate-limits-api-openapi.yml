@@ -515,6 +515,56 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    RateLimitUsageByKey:
+      properties:
+        limit:
+          items:
+            type: integer
+          type: array
+          title: Limit
+        usage:
+          items:
+            type: integer
+          type: array
+          title: Usage
+        requested:
+          items:
+            type: integer
+          type: array
+          title: Requested
+        granted:
+          items:
+            type: integer
+          type: array
+          title: Granted
+      type: object
+      required:
+      - limit
+      - usage
+      - requested
+      - granted
+      title: RateLimitUsageByKey
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     HTTPValidationError:
       properties:
         detail:
@@ -537,19 +587,6 @@ components:
       - values
       title: DistinctValuesResponse
       description: Response model for distinct values endpoints.
-    RateLimitStatusResponse:
-      properties:
-        exceeded_buckets:
-          items:
-            type: string
-          type: array
-          title: Exceeded Buckets
-          description: Rate limit buckets currently exceeded (e.g., 'orchestration-api', 'logs-and-events')
-      type: object
-      required:
-      - exceeded_buckets
-      title: RateLimitStatusResponse
-      description: Current rate limit exceeded status for an account.
     RateLimitUsageResponse:
       properties:
         account:
@@ -627,6 +664,19 @@ components:
       - groups
       title: RateLimitGroupedUsageResponse
       description: Response model for rate limit usage grouped by a dimension over time.
+    RateLimitStatusResponse:
+      properties:
+        exceeded_buckets:
+          items:
+            type: string
+          type: array
+          title: Exceeded Buckets
+          description: Rate limit buckets currently exceeded (e.g., 'orchestration-api', 'logs-and-events')
+      type: object
+      required:
+      - exceeded_buckets
+      title: RateLimitStatusResponse
+      description: Current rate limit exceeded status for an account.
     RateLimitGroupedUsageByGroup:
       properties:
         requested:
@@ -647,53 +697,3 @@ components:
       - granted
       title: RateLimitGroupedUsageByGroup
       description: Usage data for a single group over time.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    RateLimitUsageByKey:
-      properties:
-        limit:
-          items:
-            type: integer
-          type: array
-          title: Limit
-        usage:
-          items:
-            type: integer
-          type: array
-          title: Usage
-        requested:
-          items:
-            type: integer
-          type: array
-          title: Requested
-        granted:
-          items:
-            type: integer
-          type: array
-          title: Granted
-      type: object
-      required:
-      - limit
-      - usage
-      - requested
-      - granted
-      title: RateLimitUsageByKey

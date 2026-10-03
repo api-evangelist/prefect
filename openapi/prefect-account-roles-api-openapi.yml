@@ -182,6 +182,59 @@ components:
       type: object
       title: AccountRoleUpdate
       description: Data used by API to update an account role
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AccountRoleFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include account roles matching these names
+      additionalProperties: false
+      type: object
+      title: AccountRoleFilterName
+    Body_read_account_roles_api_accounts__account_id__account_roles_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        account_roles:
+          anyOf:
+          - $ref: '#/components/schemas/AccountRoleFilter'
+          - type: 'null'
+      type: object
+      title: Body_read_account_roles_api_accounts__account_id__account_roles_filter_post
     AccountRole:
       properties:
         id:
@@ -236,6 +289,16 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    AccountRoleFilter:
+      properties:
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/AccountRoleFilterName'
+          - type: 'null'
+          description: Filter criteria for AccountRole.name
+      additionalProperties: false
+      type: object
+      title: AccountRoleFilter
     AccountPermission:
       type: string
       enum:
@@ -288,66 +351,3 @@ components:
       - update:integrations
       title: AccountPermission
       description: Enumerates possible permissions over an account
-    AccountRoleFilterName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include account roles matching these names
-      additionalProperties: false
-      type: object
-      title: AccountRoleFilterName
-    AccountRoleFilter:
-      properties:
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/AccountRoleFilterName'
-          - type: 'null'
-          description: Filter criteria for AccountRole.name
-      additionalProperties: false
-      type: object
-      title: AccountRoleFilter
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Body_read_account_roles_api_accounts__account_id__account_roles_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        account_roles:
-          anyOf:
-          - $ref: '#/components/schemas/AccountRoleFilter'
-          - type: 'null'
-      type: object
-      title: Body_read_account_roles_api_accounts__account_id__account_roles_filter_post

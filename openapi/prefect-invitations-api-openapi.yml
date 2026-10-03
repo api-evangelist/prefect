@@ -275,43 +275,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    InvitationStatus:
-      type: string
-      enum:
-      - ACCEPTED
-      - PENDING
-      - REJECTED
-      - REVOKED
-      title: InvitationStatus
-      description: Enumeration of Invitation status
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Body_read_invitations_api_accounts__account_id__invitations_filter_post:
-      properties:
-        invitations:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilter'
-          - type: 'null'
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-      type: object
-      title: Body_read_invitations_api_accounts__account_id__invitations_filter_post
     InvitationFilterExpiration:
       properties:
         before_:
@@ -344,6 +307,14 @@ components:
       additionalProperties: false
       type: object
       title: InvitationFilterStatus
+    Body_count_invitations_api_accounts__account_id__invitations_count_post:
+      properties:
+        invitations:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilter'
+          - type: 'null'
+      type: object
+      title: Body_count_invitations_api_accounts__account_id__invitations_count_post
     InvitationFilterEmail:
       properties:
         any_:
@@ -365,6 +336,103 @@ components:
       additionalProperties: false
       type: object
       title: InvitationFilterEmail
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InvitationStatus:
+      type: string
+      enum:
+      - ACCEPTED
+      - PENDING
+      - REJECTED
+      - REVOKED
+      title: InvitationStatus
+      description: Enumeration of Invitation status
+    Body_read_invitations_api_accounts__account_id__invitations_filter_post:
+      properties:
+        invitations:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilter'
+          - type: 'null'
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+      type: object
+      title: Body_read_invitations_api_accounts__account_id__invitations_filter_post
+    InvitationCreate:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+          description: The email of the user to invite
+        account_role_id:
+          type: string
+          format: uuid
+          title: Account Role Id
+          description: The role id to assign the user
+      additionalProperties: false
+      type: object
+      required:
+      - email
+      - account_role_id
+      title: InvitationCreate
+      description: Data used by the api to create an invitation
+    InvitationFilter:
+      properties:
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterStatus'
+          - type: 'null'
+          description: Filter criteria for Invitation.status
+        expiration:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterExpiration'
+          - type: 'null'
+          description: Filter criteria for Invitation.expiration
+        email:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterEmail'
+          - type: 'null'
+          description: Filter criteria for Invitation.email
+      additionalProperties: false
+      type: object
+      title: InvitationFilter
     InvitationReadResponse:
       properties:
         id:
@@ -416,71 +484,3 @@ components:
       - expiration
       title: InvitationReadResponse
       description: Data returned by the api when reading an invitation
-    InvitationFilter:
-      properties:
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilterStatus'
-          - type: 'null'
-          description: Filter criteria for Invitation.status
-        expiration:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilterExpiration'
-          - type: 'null'
-          description: Filter criteria for Invitation.expiration
-        email:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilterEmail'
-          - type: 'null'
-          description: Filter criteria for Invitation.email
-      additionalProperties: false
-      type: object
-      title: InvitationFilter
-    InvitationCreate:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-          description: The email of the user to invite
-        account_role_id:
-          type: string
-          format: uuid
-          title: Account Role Id
-          description: The role id to assign the user
-      additionalProperties: false
-      type: object
-      required:
-      - email
-      - account_role_id
-      title: InvitationCreate
-      description: Data used by the api to create an invitation
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Body_count_invitations_api_accounts__account_id__invitations_count_post:
-      properties:
-        invitations:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilter'
-          - type: 'null'
-      type: object
-      title: Body_count_invitations_api_accounts__account_id__invitations_count_post

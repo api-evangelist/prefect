@@ -368,6 +368,48 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    Sum:
+      properties:
+        function:
+          type: string
+          const: SUM
+          title: Function
+          default: SUM
+      type: object
+      title: Sum
+    TimeseriesMetricResponse:
+      properties:
+        metric:
+          $ref: '#/components/schemas/PrefectMetric'
+          description: The metric that was queried
+        query:
+          $ref: '#/components/schemas/TimeseriesMetricQuery-Output'
+          description: The metric query that was executed
+        rollup:
+          items: {}
+          type: array
+          title: Rollup
+          description: A rollup of the time series over the entire time range, in the same order as `query.aggregates`.
+        series:
+          items:
+            prefixItems:
+            - type: string
+              format: date-time
+            - items: {}
+              type: array
+            type: array
+            maxItems: 2
+            minItems: 2
+          type: array
+          title: Series
+          description: The time series, with each row being a pair of an ISO8601 timestamp and the row of values, in the same order as `query.aggregates`.  Each row represents given aggregates over the `query.resolution` minutes starting at the timestamp.
+      type: object
+      required:
+      - metric
+      - query
+      - rollup
+      - series
+      title: TimeseriesMetricResponse
     HTTPValidationError:
       properties:
         detail:
@@ -377,31 +419,58 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
-            type: string
-          type: array
-      type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
-
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'
-    DeploymentResourcePeaksResponse:
+    CountIf:
       properties:
-        peaks:
-          items:
-            $ref: '#/components/schemas/ResourcePeak'
-          type: array
-          title: Peaks
+        function:
+          type: string
+          const: COUNT_IF
+          title: Function
+          default: COUNT_IF
+        operator:
+          type: string
+          enum:
+          - ==
+          - '!='
+          - '>'
+          - '>='
+          - <
+          - <=
+          title: Operator
+          description: The operator to use for the condition
+          default: ==
+        value:
+          anyOf:
+          - type: number
+          - type: integer
+          title: Value
+          description: The value to compare the column to
       type: object
       required:
-      - peaks
-      title: DeploymentResourcePeaksResponse
+      - value
+      title: CountIf
+    Quantile:
+      properties:
+        function:
+          type: string
+          const: QUANTILE
+          title: Function
+          default: QUANTILE
+        level:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Level
+          description: The quantile level to compute
+      type: object
+      required:
+      - level
+      title: Quantile
+    RelatedResource:
+      additionalProperties:
+        type: string
+      type: object
+      title: RelatedResource
+      description: A Resource with a specific role in an Event
     TimeseriesMetricQuery-Output:
       properties:
         after:
@@ -465,42 +534,33 @@ components:
       - aggregates
       - resolution
       title: TimeseriesMetricQuery
-    Mean:
+    Maximum:
       properties:
         function:
           type: string
-          const: MEAN
+          const: MAX
           title: Function
-          default: MEAN
+          default: MAX
       type: object
-      title: Mean
-    MapAggregate:
+      title: Maximum
+    Ordering:
       properties:
-        function:
-          type: string
-          const: MAP_AGG
-          title: Function
-          default: MAP_AGG
-        key:
-          type: string
-          title: Key
-          description: The key to map the column to
         aggregate:
+          type: integer
+          title: Aggregate
+          description: The index of the aggregate to order by
+        direction:
           type: string
           enum:
-          - SUM
-          - MEAN
-          - MIN
-          - MAX
-          - COUNT
-          title: Aggregate
-          description: The aggregate to apply
+          - ASC
+          - DESC
+          title: Direction
+          description: The direction to sort the results by
+          default: DESC
       type: object
       required:
-      - key
       - aggregate
-      title: MapAggregate
-      description: For aggregating over a value in a map column.
+      title: Ordering
     Minimum:
       properties:
         function:
@@ -510,6 +570,87 @@ components:
           default: MIN
       type: object
       title: Minimum
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    DeploymentResourcePeaksResponse:
+      properties:
+        peaks:
+          items:
+            $ref: '#/components/schemas/ResourcePeak'
+          type: array
+          title: Peaks
+      type: object
+      required:
+      - peaks
+      title: DeploymentResourcePeaksResponse
+    GroupedMetricResponse:
+      properties:
+        metric:
+          $ref: '#/components/schemas/PrefectMetric'
+          description: The metric that was queried
+        query:
+          $ref: '#/components/schemas/GroupedMetricQuery-Output'
+          description: The metric query that was executed
+        results:
+          items:
+            prefixItems:
+            - anyOf:
+              - $ref: '#/components/schemas/RelatedResource'
+              - type: 'null'
+            - items: {}
+              type: array
+            type: array
+            maxItems: 2
+            minItems: 2
+          type: array
+          title: Results
+          description: The results of the query, with each item being a tuple of the Resource and the row of values of metrics in the same order as `query.aggregates`.
+      type: object
+      required:
+      - metric
+      - query
+      - results
+      title: GroupedMetricResponse
+    ResourcePeak:
+      properties:
+        metric_name:
+          type: string
+          title: Metric Name
+        unit:
+          type: string
+          title: Unit
+        max_value:
+          type: number
+          title: Max Value
+        flow_run_id:
+          type: string
+          title: Flow Run Id
+      type: object
+      required:
+      - metric_name
+      - unit
+      - max_value
+      - flow_run_id
+      title: ResourcePeak
     Count:
       properties:
         function:
@@ -519,74 +660,6 @@ components:
           default: COUNT
       type: object
       title: Count
-    RelatedResource:
-      additionalProperties:
-        type: string
-      type: object
-      title: RelatedResource
-      description: A Resource with a specific role in an Event
-    TimeseriesMetricResponse:
-      properties:
-        metric:
-          $ref: '#/components/schemas/PrefectMetric'
-          description: The metric that was queried
-        query:
-          $ref: '#/components/schemas/TimeseriesMetricQuery-Output'
-          description: The metric query that was executed
-        rollup:
-          items: {}
-          type: array
-          title: Rollup
-          description: A rollup of the time series over the entire time range, in the same order as `query.aggregates`.
-        series:
-          items:
-            prefixItems:
-            - type: string
-              format: date-time
-            - items: {}
-              type: array
-            type: array
-            maxItems: 2
-            minItems: 2
-          type: array
-          title: Series
-          description: The time series, with each row being a pair of an ISO8601 timestamp and the row of values, in the same order as `query.aggregates`.  Each row represents given aggregates over the `query.resolution` minutes starting at the timestamp.
-      type: object
-      required:
-      - metric
-      - query
-      - rollup
-      - series
-      title: TimeseriesMetricResponse
-    CountIf:
-      properties:
-        function:
-          type: string
-          const: COUNT_IF
-          title: Function
-          default: COUNT_IF
-        operator:
-          type: string
-          enum:
-          - ==
-          - '!='
-          - '>'
-          - '>='
-          - <
-          - <=
-          title: Operator
-          description: The operator to use for the condition
-          default: ==
-        value:
-          anyOf:
-          - type: number
-          - type: integer
-          title: Value
-          description: The value to compare the column to
-      type: object
-      required:
-      - value
-      title: CountIf
     TimeseriesMetricQuery-Input:
       properties:
         after:
@@ -650,15 +723,6 @@ components:
       - aggregates
       - resolution
       title: TimeseriesMetricQuery
-    StandardDeviation:
-      properties:
-        function:
-          type: string
-          const: STDDEV
-          title: Function
-          default: STDDEV
-      type: object
-      title: StandardDeviation
     GroupedMetricQuery-Output:
       properties:
         after:
@@ -726,24 +790,75 @@ components:
       - aggregates
       - group_by
       title: GroupedMetricQuery
-    Ordering:
+    PrefectMetric:
+      type: string
+      enum:
+      - lateness
+      - duration
+      - successes
+      - volume
+      - sla_violations
+      - sla_violations_by_severity
+      title: PrefectMetric
+    MapAggregate:
       properties:
+        function:
+          type: string
+          const: MAP_AGG
+          title: Function
+          default: MAP_AGG
+        key:
+          type: string
+          title: Key
+          description: The key to map the column to
         aggregate:
-          type: integer
-          title: Aggregate
-          description: The index of the aggregate to order by
-        direction:
           type: string
           enum:
-          - ASC
-          - DESC
-          title: Direction
-          description: The direction to sort the results by
-          default: DESC
+          - SUM
+          - MEAN
+          - MIN
+          - MAX
+          - COUNT
+          title: Aggregate
+          description: The aggregate to apply
       type: object
       required:
+      - key
       - aggregate
-      title: Ordering
+      title: MapAggregate
+      description: For aggregating over a value in a map column.
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    StandardDeviation:
+      properties:
+        function:
+          type: string
+          const: STDDEV
+          title: Function
+          default: STDDEV
+      type: object
+      title: StandardDeviation
+    Mean:
+      properties:
+        function:
+          type: string
+          const: MEAN
+          title: Function
+          default: MEAN
+      type: object
+      title: Mean
     Ratio:
       properties:
         function:
@@ -780,41 +895,6 @@ components:
       - numerator
       - denominator
       title: Ratio
-    Sum:
-      properties:
-        function:
-          type: string
-          const: SUM
-          title: Function
-          default: SUM
-      type: object
-      title: Sum
-    Quantile:
-      properties:
-        function:
-          type: string
-          const: QUANTILE
-          title: Function
-          default: QUANTILE
-        level:
-          type: number
-          maximum: 1.0
-          minimum: 0.0
-          title: Level
-          description: The quantile level to compute
-      type: object
-      required:
-      - level
-      title: Quantile
-    Maximum:
-      properties:
-        function:
-          type: string
-          const: MAX
-          title: Function
-          default: MAX
-      type: object
-      title: Maximum
     GroupedMetricQuery-Input:
       properties:
         after:
@@ -882,83 +962,3 @@ components:
       - aggregates
       - group_by
       title: GroupedMetricQuery
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    GroupedMetricResponse:
-      properties:
-        metric:
-          $ref: '#/components/schemas/PrefectMetric'
-          description: The metric that was queried
-        query:
-          $ref: '#/components/schemas/GroupedMetricQuery-Output'
-          description: The metric query that was executed
-        results:
-          items:
-            prefixItems:
-            - anyOf:
-              - $ref: '#/components/schemas/RelatedResource'
-              - type: 'null'
-            - items: {}
-              type: array
-            type: array
-            maxItems: 2
-            minItems: 2
-          type: array
-          title: Results
-          description: The results of the query, with each item being a tuple of the Resource and the row of values of metrics in the same order as `query.aggregates`.
-      type: object
-      required:
-      - metric
-      - query
-      - results
-      title: GroupedMetricResponse
-    PrefectMetric:
-      type: string
-      enum:
-      - lateness
-      - duration
-      - successes
-      - volume
-      - sla_violations
-      - sla_violations_by_severity
-      title: PrefectMetric
-    ResourcePeak:
-      properties:
-        metric_name:
-          type: string
-          title: Metric Name
-        unit:
-          type: string
-          title: Unit
-        max_value:
-          type: number
-          title: Max Value
-        flow_run_id:
-          type: string
-          title: Flow Run Id
-      type: object
-      required:
-      - metric_name
-      - unit
-      - max_value
-      - flow_run_id
-      title: ResourcePeak

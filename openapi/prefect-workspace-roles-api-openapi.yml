@@ -198,31 +198,19 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    WorkspaceRoleUpdate:
+    WorkspaceRoleCreate:
       properties:
         name:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
+          type: string
+          maxLength: 5000
           title: Name
-          description: The workspace role name.
+          description: The workspace role name
         description:
-          anyOf:
-          - type: string
-            maxLength: 140
-          - type: 'null'
+          type: string
+          maxLength: 140
           title: Description
           description: A short description of the role.
+          default: ''
         scopes:
           items:
             type: string
@@ -238,40 +226,10 @@ components:
           description: An optional built-in workspace role id from which this workspace role inherits.
       additionalProperties: false
       type: object
-      title: WorkspaceRoleUpdate
-      description: Data used by the api to update a workspace role
-    WorkspaceRoleFilterName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include workspace roles matching these names
-      additionalProperties: false
-      type: object
-      title: WorkspaceRoleFilterName
-    Body_read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        workspace_roles:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceRoleFilter'
-          - type: 'null'
-      type: object
-      title: Body_read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post
+      required:
+      - name
+      title: WorkspaceRoleCreate
+      description: Data used by the api to create a workspace role
     WorkspaceRole:
       properties:
         id:
@@ -333,22 +291,6 @@ components:
       - name
       title: WorkspaceRole
       description: An ORM representation of a WorkspaceRole
-    WorkspaceRoleFilter:
-      properties:
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceRoleFilterName'
-          - type: 'null'
-          description: Filter criteria for WorkspaceRole.name
-        is_global:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Global
-          description: "\n        If True, only return global built-in roles. If False,\n        only return workspace roles from this account. Defaults to `None`, which includes both.\n        "
-      additionalProperties: false
-      type: object
-      title: WorkspaceRoleFilter
     ValidationError:
       properties:
         loc:
@@ -370,19 +312,22 @@ components:
       - msg
       - type
       title: ValidationError
-    WorkspaceRoleCreate:
+    WorkspaceRoleUpdate:
       properties:
         name:
-          type: string
-          maxLength: 5000
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
           title: Name
-          description: The workspace role name
+          description: The workspace role name.
         description:
-          type: string
-          maxLength: 140
+          anyOf:
+          - type: string
+            maxLength: 140
+          - type: 'null'
           title: Description
           description: A short description of the role.
-          default: ''
         scopes:
           items:
             type: string
@@ -398,7 +343,62 @@ components:
           description: An optional built-in workspace role id from which this workspace role inherits.
       additionalProperties: false
       type: object
-      required:
-      - name
-      title: WorkspaceRoleCreate
-      description: Data used by the api to create a workspace role
+      title: WorkspaceRoleUpdate
+      description: Data used by the api to update a workspace role
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    WorkspaceRoleFilter:
+      properties:
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceRoleFilterName'
+          - type: 'null'
+          description: Filter criteria for WorkspaceRole.name
+        is_global:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Global
+          description: "\n        If True, only return global built-in roles. If False,\n        only return workspace roles from this account. Defaults to `None`, which includes both.\n        "
+      additionalProperties: false
+      type: object
+      title: WorkspaceRoleFilter
+    Body_read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        workspace_roles:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceRoleFilter'
+          - type: 'null'
+      type: object
+      title: Body_read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post
+    WorkspaceRoleFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include workspace roles matching these names
+      additionalProperties: false
+      type: object
+      title: WorkspaceRoleFilterName

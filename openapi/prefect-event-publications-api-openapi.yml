@@ -299,23 +299,87 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    PublicationPage:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PublicationResponse'
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
           type: array
-          title: Results
-        next_cursor:
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    PublicationCreate:
+      properties:
+        event:
+          items:
+            type: string
+          type: array
+          title: Event
+        resource:
           anyOf:
-          - type: string
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
           - type: 'null'
-          title: Next Cursor
+          title: Resource
+        related:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResourceSpecification'
+            type: array
+          - type: 'null'
+          title: Related
       type: object
       required:
-      - results
-      title: PublicationPage
-      description: Paginated list of publications with an opaque cursor for the next page.
+      - event
+      title: PublicationCreate
+      description: POST body for creating a publication.
+    PublicationSubscriber:
+      properties:
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+        subscription_id:
+          type: string
+          format: uuid
+          title: Subscription Id
+        enabled:
+          type: boolean
+          title: Enabled
+      type: object
+      required:
+      - workspace_id
+      - subscription_id
+      - enabled
+      title: PublicationSubscriber
+      description: Summary of a workspace that subscribes to a publication.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     HTTPValidationError:
       properties:
         detail:
@@ -384,25 +448,11 @@ components:
       - updated
       title: PublicationResponse
       description: Response model for a publication.
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
-            type: string
-          type: array
-      type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
-
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'
-    PublicationSubscriberPage:
+    PublicationPage:
       properties:
         results:
           items:
-            $ref: '#/components/schemas/PublicationSubscriber'
+            $ref: '#/components/schemas/PublicationResponse'
           type: array
           title: Results
         next_cursor:
@@ -413,34 +463,8 @@ components:
       type: object
       required:
       - results
-      title: PublicationSubscriberPage
-      description: Paginated list of subscribers to a publication.
-    PublicationCreate:
-      properties:
-        event:
-          items:
-            type: string
-          type: array
-          title: Event
-        resource:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ResourceSpecification'
-            type: array
-          - type: 'null'
-          title: Resource
-        related:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ResourceSpecification'
-            type: array
-          - type: 'null'
-          title: Related
-      type: object
-      required:
-      - event
-      title: PublicationCreate
-      description: POST body for creating a publication.
+      title: PublicationPage
+      description: Paginated list of publications with an opaque cursor for the next page.
     PublicationUpdate:
       properties:
         enabled:
@@ -472,44 +496,20 @@ components:
       type: object
       title: PublicationUpdate
       description: PATCH body — all fields optional, only provided fields are updated.
-    PublicationSubscriber:
+    PublicationSubscriberPage:
       properties:
-        workspace_id:
-          type: string
-          format: uuid
-          title: Workspace Id
-        subscription_id:
-          type: string
-          format: uuid
-          title: Subscription Id
-        enabled:
-          type: boolean
-          title: Enabled
-      type: object
-      required:
-      - workspace_id
-      - subscription_id
-      - enabled
-      title: PublicationSubscriber
-      description: Summary of a workspace that subscribes to a publication.
-    ValidationError:
-      properties:
-        loc:
+        results:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/PublicationSubscriber'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Results
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - results
+      title: PublicationSubscriberPage
+      description: Paginated list of subscribers to a publication.

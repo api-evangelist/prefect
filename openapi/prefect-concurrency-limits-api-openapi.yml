@@ -479,28 +479,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Body_read_concurrency_limits_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_filter_post:
-      properties:
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        limit:
-          type: integer
-          title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
-      type: object
-      title: Body_read_concurrency_limits_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_filter_post
     Body_decrement_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_decrement_post:
       properties:
         names:
@@ -519,56 +497,6 @@ components:
       - names
       - task_run_id
       title: Body_decrement_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_decrement_post
-    Body_increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post:
-      properties:
-        names:
-          items:
-            type: string
-          type: array
-          title: Names
-          description: The tags to acquire a slot for
-        task_run_id:
-          type: string
-          format: uuid
-          title: Task Run Id
-          description: The ID of the task run acquiring the slot
-      type: object
-      required:
-      - names
-      - task_run_id
-      title: Body_increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post
-    ? Body_reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post
-    : properties:
-        slot_override:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Slot Override
-          description: Manual override for active concurrency limit slots.
-      type: object
-      title: Body_reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post
-    ConcurrencyLimitCreate:
-      properties:
-        tag:
-          type: string
-          maxLength: 5000
-          title: Tag
-          description: A tag the concurrency limit is applied to.
-        concurrency_limit:
-          type: integer
-          minimum: 0.0
-          title: Concurrency Limit
-          description: The concurrency limit.
-      additionalProperties: false
-      type: object
-      required:
-      - tag
-      - concurrency_limit
-      title: ConcurrencyLimitCreate
-      description: Data used by the Orion API to create a concurrency limit.
     ValidationError:
       properties:
         loc:
@@ -590,24 +518,59 @@ components:
       - msg
       - type
       title: ValidationError
-    MinimalConcurrencyLimitResponse:
+    ? Body_reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post
+    : properties:
+        slot_override:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Slot Override
+          description: Manual override for active concurrency limit slots.
+      type: object
+      title: Body_reset_concurrency_limit_by_tag_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_tag__tag__reset_post
+    HTTPValidationError:
       properties:
-        id:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post:
+      properties:
+        names:
+          items:
+            type: string
+          type: array
+          title: Names
+          description: The tags to acquire a slot for
+        task_run_id:
           type: string
           format: uuid
-          title: Id
-        name:
-          type: string
-          title: Name
+          title: Task Run Id
+          description: The ID of the task run acquiring the slot
+      type: object
+      required:
+      - names
+      - task_run_id
+      title: Body_increment_concurrency_limits_v1_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_increment_post
+    Body_read_concurrency_limits_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_filter_post:
+      properties:
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
         limit:
           type: integer
           title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
       type: object
-      required:
-      - id
-      - name
-      - limit
-      title: MinimalConcurrencyLimitResponse
+      title: Body_read_concurrency_limits_api_accounts__account_id__workspaces__workspace_id__concurrency_limits_filter_post
     ConcurrencyLimit:
       properties:
         id:
@@ -647,3 +610,40 @@ components:
       - concurrency_limit
       title: ConcurrencyLimit
       description: An ORM representation of a concurrency limit.
+    ConcurrencyLimitCreate:
+      properties:
+        tag:
+          type: string
+          maxLength: 5000
+          title: Tag
+          description: A tag the concurrency limit is applied to.
+        concurrency_limit:
+          type: integer
+          minimum: 0.0
+          title: Concurrency Limit
+          description: The concurrency limit.
+      additionalProperties: false
+      type: object
+      required:
+      - tag
+      - concurrency_limit
+      title: ConcurrencyLimitCreate
+      description: Data used by the Orion API to create a concurrency limit.
+    MinimalConcurrencyLimitResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        limit:
+          type: integer
+          title: Limit
+      type: object
+      required:
+      - id
+      - name
+      - limit
+      title: MinimalConcurrencyLimitResponse

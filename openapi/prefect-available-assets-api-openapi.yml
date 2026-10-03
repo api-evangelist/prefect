@@ -61,59 +61,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    AssetProperties:
-      properties:
-        name:
-          type: string
-          maxLength: 5000
-          title: Name
-          default: ''
-        url:
-          type: string
-          maxLength: 5000
-          title: Url
-          default: ''
-        description:
-          type: string
-          title: Description
-          default: ''
-        owners:
-          items:
-            type: string
-          type: array
-          title: Owners
-      type: object
-      title: AssetProperties
     AvailableAssetsPage:
       properties:
         results:
@@ -131,62 +78,6 @@ components:
       - results
       title: AvailableAssetsPage
       description: Paginated list of available assets with an opaque cursor for the next page.
-    AssetCatalogItem:
-      properties:
-        key:
-          type: string
-          title: Key
-        properties:
-          $ref: '#/components/schemas/AssetProperties'
-        last_seen:
-          type: string
-          format: date-time
-          title: Last Seen
-        latest_reference:
-          $ref: '#/components/schemas/LatestReference'
-        latest_materialization:
-          $ref: '#/components/schemas/LatestMaterialization'
-      type: object
-      required:
-      - key
-      - last_seen
-      title: AssetCatalogItem
-    AvailableAsset:
-      properties:
-        key:
-          type: string
-          title: Key
-        publication_id:
-          type: string
-          format: uuid
-          title: Publication Id
-        publishing_workspace_id:
-          type: string
-          format: uuid
-          title: Publishing Workspace Id
-        publication_event:
-          items:
-            type: string
-          type: array
-          title: Publication Event
-        publication_enabled:
-          type: boolean
-          title: Publication Enabled
-        asset:
-          anyOf:
-          - $ref: '#/components/schemas/AssetCatalogItem'
-          - type: 'null'
-      type: object
-      required:
-      - key
-      - publication_id
-      - publishing_workspace_id
-      - publication_event
-      - publication_enabled
-      title: AvailableAsset
-      description: 'A single asset key from a cross-workspace publication, optionally
-
-        enriched with ClickHouse metadata.'
     LatestReference:
       properties:
         event_id:
@@ -276,3 +167,112 @@ components:
           title: Status
       type: object
       title: LatestMaterialization
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AssetProperties:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          default: ''
+        url:
+          type: string
+          maxLength: 5000
+          title: Url
+          default: ''
+        description:
+          type: string
+          title: Description
+          default: ''
+        owners:
+          items:
+            type: string
+          type: array
+          title: Owners
+      type: object
+      title: AssetProperties
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AssetCatalogItem:
+      properties:
+        key:
+          type: string
+          title: Key
+        properties:
+          $ref: '#/components/schemas/AssetProperties'
+        last_seen:
+          type: string
+          format: date-time
+          title: Last Seen
+        latest_reference:
+          $ref: '#/components/schemas/LatestReference'
+        latest_materialization:
+          $ref: '#/components/schemas/LatestMaterialization'
+      type: object
+      required:
+      - key
+      - last_seen
+      title: AssetCatalogItem
+    AvailableAsset:
+      properties:
+        key:
+          type: string
+          title: Key
+        publication_id:
+          type: string
+          format: uuid
+          title: Publication Id
+        publishing_workspace_id:
+          type: string
+          format: uuid
+          title: Publishing Workspace Id
+        publication_event:
+          items:
+            type: string
+          type: array
+          title: Publication Event
+        publication_enabled:
+          type: boolean
+          title: Publication Enabled
+        asset:
+          anyOf:
+          - $ref: '#/components/schemas/AssetCatalogItem'
+          - type: 'null'
+      type: object
+      required:
+      - key
+      - publication_id
+      - publishing_workspace_id
+      - publication_event
+      - publication_enabled
+      title: AvailableAsset
+      description: 'A single asset key from a cross-workspace publication, optionally
+
+        enriched with ClickHouse metadata.'

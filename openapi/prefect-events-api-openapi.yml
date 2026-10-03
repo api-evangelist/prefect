@@ -544,81 +544,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ReceivedEvent:
-      properties:
-        occurred:
-          type: string
-          format: date-time
-          title: Occurred
-          description: When the event happened from the sender's perspective
-        event:
-          type: string
-          maxLength: 1024
-          title: Event
-          description: The name of the event that happened
-        resource:
-          $ref: '#/components/schemas/Resource'
-          description: The primary Resource this event concerns
-        related:
-          items:
-            $ref: '#/components/schemas/RelatedResource'
-          type: array
-          title: Related
-          description: A list of additional Resources involved in this event
-        payload:
-          additionalProperties: true
-          type: object
-          title: Payload
-          description: An open-ended set of data describing what happened
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The client-provided identifier of this event
-        follows:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Follows
-          description: The ID of an event that is known to have occurred prior to this one. If set, this may be used to establish a more precise ordering of causally-related events when they occur close enough together in time that the system may receive them out-of-order.
-        account:
-          type: string
-          format: uuid
-          title: Account
-          description: The Prefect Cloud Account for which this event happened
-        workspace:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Workspace
-          description: The optional Prefect Cloud Workspace in which this event happened
-        received:
-          type: string
-          format: date-time
-          title: Received
-          description: When the event was received by Prefect Cloud
-      type: object
-      required:
-      - occurred
-      - event
-      - resource
-      - id
-      - account
-      title: ReceivedEvent
-      description: 'The server-side view of an event that has happened to a Resource after it has
-
-        been received by the server in the context of an account and optional workspace'
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     EventFilter:
       properties:
         occurred:
@@ -686,20 +611,126 @@ components:
       additionalProperties: false
       type: object
       title: EventFilter
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
-            type: string
-          type: array
+    EventRelatedFilter:
+      properties:
+        id:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id
+          description: Only include events for related resources with these IDs
+        role:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Role
+          description: Only include events for related resources in these roles
+        resources_in_roles:
+          anyOf:
+          - items:
+              prefixItems:
+              - type: string
+              - type: string
+              type: array
+              maxItems: 2
+              minItems: 2
+            type: array
+          - type: 'null'
+          title: Resources In Roles
+          description: Only include events with specific related resources in specific roles
+        labels:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - type: 'null'
+          description: Only include events for related resources with these labels
+      additionalProperties: false
       type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
+      title: EventRelatedFilter
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ReceivedEvent:
+      properties:
+        occurred:
+          type: string
+          format: date-time
+          title: Occurred
+          description: When the event happened from the sender's perspective
+        event:
+          type: string
+          maxLength: 1024
+          title: Event
+          description: The name of the event that happened
+        resource:
+          $ref: '#/components/schemas/Resource'
+          description: The primary Resource this event concerns
+        related:
+          items:
+            $ref: '#/components/schemas/RelatedResource'
+          type: array
+          title: Related
+          description: A list of additional Resources involved in this event
+        payload:
+          additionalProperties: true
+          type: object
+          title: Payload
+          description: An open-ended set of data describing what happened
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The client-provided identifier of this event
+        follows:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Follows
+          description: The ID of an event that is known to have occurred prior to this one. If set, this may be used to establish a more precise ordering of causally-related events when they occur close enough together in time that the system may receive them out-of-order.
+        account:
+          type: string
+          format: uuid
+          title: Account
+          description: The Prefect Cloud Account for which this event happened
+        workspace:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace
+          description: The optional Prefect Cloud Workspace in which this event happened
+        received:
+          type: string
+          format: date-time
+          title: Received
+          description: When the event was received by Prefect Cloud
+      type: object
+      required:
+      - occurred
+      - event
+      - resource
+      - id
+      - account
+      title: ReceivedEvent
+      description: 'The server-side view of an event that has happened to a Resource after it has
 
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'
+        been received by the server in the context of an account and optional workspace'
+    RelatedResource:
+      additionalProperties:
+        type: string
+      type: object
+      title: RelatedResource
+      description: A Resource with a specific role in an Event
     EventScopeFilter:
       properties:
         account:
@@ -721,36 +752,92 @@ components:
       additionalProperties: false
       type: object
       title: EventScopeFilter
-    EventTextFilter:
+    EventIDFilter:
       properties:
-        query:
-          type: string
-          maxLength: 200
-          title: Query
-          description: Text search query string
-          examples:
-          - error
-          - error -debug
-          - '"connection timeout"'
-          - +required -excluded
+        id:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+          description: Only include events with one of these IDs
       additionalProperties: false
       type: object
-      required:
-      - query
-      title: EventTextFilter
-      description: Filter by text search across event content.
-    EventOrder:
+      title: EventIDFilter
+    TimeUnit:
       type: string
       enum:
-      - ASC
-      - DESC
-      title: EventOrder
-    RelatedResource:
-      additionalProperties:
-        type: string
+      - week
+      - day
+      - hour
+      - minute
+      - second
+      title: TimeUnit
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: RelatedResource
-      description: A Resource with a specific role in an Event
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EventCount:
+      properties:
+        value:
+          type: string
+          title: Value
+          description: The value to use for filtering
+        label:
+          type: string
+          title: Label
+          description: The value to display for this count
+        count:
+          type: integer
+          title: Count
+          description: The count of matching events
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+          description: The start time of this group of events
+        end_time:
+          type: string
+          format: date-time
+          title: End Time
+          description: The end time of this group of events
+      type: object
+      required:
+      - value
+      - label
+      - count
+      - start_time
+      - end_time
+      title: EventCount
+      description: The count of events with the given filter value
+    TagSort:
+      type: string
+      enum:
+      - NAME_ASC
+      - NAME_DESC
+      - LAST_SEEN_ASC
+      - LAST_SEEN_DESC
+      title: TagSort
+      description: Defines tags sorting options.
     Body_count_account_events_api_accounts__account_id__events_count_by__countable__post:
       properties:
         time_unit:
@@ -768,69 +855,12 @@ components:
           description: Additional optional filter criteria to narrow down the set of Events
       type: object
       title: Body_count_account_events_api_accounts__account_id__events_count_by__countable__post
-    EventResourceFilter:
-      properties:
-        id:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Id
-          description: Only include events for resources with these IDs
-        id_prefix:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Id Prefix
-          description: Only include events for resources with IDs starting with these prefixes.
-        labels:
-          anyOf:
-          - $ref: '#/components/schemas/ResourceSpecification'
-          - type: 'null'
-          description: Only include events for resources with these labels
-        distinct:
-          type: boolean
-          title: Distinct
-          description: Only include events for distinct resources
-          default: false
-      additionalProperties: false
-      type: object
-      title: EventResourceFilter
-    TimeUnit:
+    EventOrder:
       type: string
       enum:
-      - week
-      - day
-      - hour
-      - minute
-      - second
-      title: TimeUnit
-    TagSort:
-      type: string
-      enum:
-      - NAME_ASC
-      - NAME_DESC
-      - LAST_SEEN_ASC
-      - LAST_SEEN_DESC
-      title: TagSort
-      description: Defines tags sorting options.
-    EventIDFilter:
-      properties:
-        id:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Id
-          description: Only include events with one of these IDs
-      additionalProperties: false
-      type: object
-      title: EventIDFilter
+      - ASC
+      - DESC
+      title: EventOrder
     Body_read_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_filter_post:
       properties:
         limit:
@@ -847,40 +877,32 @@ components:
           description: Additional optional filter criteria to narrow down the set of Events
       type: object
       title: Body_read_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_filter_post
-    Tag:
+    EventAnyResourceFilter:
       properties:
-        name:
-          type: string
-          title: Name
-        first_seen:
-          type: string
-          format: date-time
-          title: First Seen
-        last_seen:
-          type: string
-          format: date-time
-          title: Last Seen
-      type: object
-      required:
-      - name
-      - first_seen
-      - last_seen
-      title: Tag
-    EventOccurredFilter:
-      properties:
-        since:
-          type: string
-          format: date-time
-          title: Since
-          description: Only include events after this time (inclusive)
-        until:
-          type: string
-          format: date-time
-          title: Until
-          description: Only include events prior to this time (inclusive)
+        id:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id
+          description: Only include events for resources with these IDs
+        id_prefix:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Id Prefix
+          description: Only include events for resources with IDs starting with these prefixes
+        labels:
+          anyOf:
+          - $ref: '#/components/schemas/ResourceSpecification'
+          - type: 'null'
+          description: Only include events for related resources with these labels
       additionalProperties: false
       type: object
-      title: EventOccurredFilter
+      title: EventAnyResourceFilter
     EventNameFilter:
       properties:
         prefix:
@@ -934,12 +956,6 @@ components:
           description: Additional optional filter criteria to narrow down the set of Events
       type: object
       title: Body_read_account_events_api_accounts__account_id__events_filter_post
-    Resource:
-      additionalProperties:
-        type: string
-      type: object
-      title: Resource
-      description: An observable business object of interest to the user
     TagPaginationResponse:
       properties:
         results:
@@ -967,35 +983,6 @@ components:
       - pages
       - page
       title: TagPaginationResponse
-    EventPage:
-      properties:
-        events:
-          items:
-            $ref: '#/components/schemas/ReceivedEvent'
-          type: array
-          title: Events
-          description: The Events matching the query
-        total:
-          type: integer
-          title: Total
-          description: The total number of matching Events
-        next_page:
-          anyOf:
-          - type: string
-            minLength: 1
-            format: uri
-          - type: 'null'
-          title: Next Page
-          description: The URL for the next page of results, if there are more
-      type: object
-      required:
-      - events
-      - total
-      - next_page
-      title: EventPage
-      description: 'A single page of events returned from the API, with an optional link to the
-
-        next page of results'
     Event:
       properties:
         occurred:
@@ -1042,38 +1029,7 @@ components:
       - id
       title: Event
       description: The client-side view of an event that has happened to a Resource
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Countable:
-      type: string
-      enum:
-      - day
-      - time
-      - event
-      - resource
-      - workspace
-      - actor
-      title: Countable
-    EventAnyResourceFilter:
+    EventResourceFilter:
       properties:
         id:
           anyOf:
@@ -1090,48 +1046,55 @@ components:
             type: array
           - type: 'null'
           title: Id Prefix
-          description: Only include events for resources with IDs starting with these prefixes
+          description: Only include events for resources with IDs starting with these prefixes.
         labels:
           anyOf:
           - $ref: '#/components/schemas/ResourceSpecification'
           - type: 'null'
-          description: Only include events for related resources with these labels
+          description: Only include events for resources with these labels
+        distinct:
+          type: boolean
+          title: Distinct
+          description: Only include events for distinct resources
+          default: false
       additionalProperties: false
       type: object
-      title: EventAnyResourceFilter
-    EventCount:
-      properties:
-        value:
-          type: string
-          title: Value
-          description: The value to use for filtering
-        label:
-          type: string
-          title: Label
-          description: The value to display for this count
-        count:
-          type: integer
-          title: Count
-          description: The count of matching events
-        start_time:
-          type: string
-          format: date-time
-          title: Start Time
-          description: The start time of this group of events
-        end_time:
-          type: string
-          format: date-time
-          title: End Time
-          description: The end time of this group of events
+      title: EventResourceFilter
+    Resource:
+      additionalProperties:
+        type: string
       type: object
-      required:
-      - value
-      - label
-      - count
-      - start_time
-      - end_time
-      title: EventCount
-      description: The count of events with the given filter value
+      title: Resource
+      description: An observable business object of interest to the user
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    EventOccurredFilter:
+      properties:
+        since:
+          type: string
+          format: date-time
+          title: Since
+          description: Only include events after this time (inclusive)
+        until:
+          type: string
+          format: date-time
+          title: Until
+          description: Only include events prior to this time (inclusive)
+      additionalProperties: false
+      type: object
+      title: EventOccurredFilter
     Body_count_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_count_by__countable__post:
       properties:
         time_unit:
@@ -1149,42 +1112,79 @@ components:
           description: Additional optional filter criteria to narrow down the set of Events
       type: object
       title: Body_count_workspace_events_api_accounts__account_id__workspaces__workspace_id__events_count_by__countable__post
-    EventRelatedFilter:
+    Tag:
       properties:
-        id:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Id
-          description: Only include events for related resources with these IDs
-        role:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Role
-          description: Only include events for related resources in these roles
-        resources_in_roles:
-          anyOf:
-          - items:
-              prefixItems:
-              - type: string
-              - type: string
-              type: array
-              maxItems: 2
-              minItems: 2
-            type: array
-          - type: 'null'
-          title: Resources In Roles
-          description: Only include events with specific related resources in specific roles
-        labels:
-          anyOf:
-          - $ref: '#/components/schemas/ResourceSpecification'
-          - type: 'null'
-          description: Only include events for related resources with these labels
+        name:
+          type: string
+          title: Name
+        first_seen:
+          type: string
+          format: date-time
+          title: First Seen
+        last_seen:
+          type: string
+          format: date-time
+          title: Last Seen
+      type: object
+      required:
+      - name
+      - first_seen
+      - last_seen
+      title: Tag
+    EventTextFilter:
+      properties:
+        query:
+          type: string
+          maxLength: 200
+          title: Query
+          description: Text search query string
+          examples:
+          - error
+          - error -debug
+          - '"connection timeout"'
+          - +required -excluded
       additionalProperties: false
       type: object
-      title: EventRelatedFilter
+      required:
+      - query
+      title: EventTextFilter
+      description: Filter by text search across event content.
+    EventPage:
+      properties:
+        events:
+          items:
+            $ref: '#/components/schemas/ReceivedEvent'
+          type: array
+          title: Events
+          description: The Events matching the query
+        total:
+          type: integer
+          title: Total
+          description: The total number of matching Events
+        next_page:
+          anyOf:
+          - type: string
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Next Page
+          description: The URL for the next page of results, if there are more
+      type: object
+      required:
+      - events
+      - total
+      - next_page
+      title: EventPage
+      description: 'A single page of events returned from the API, with an optional link to the
+
+        next page of results'
+    Countable:
+      type: string
+      enum:
+      - day
+      - time
+      - event
+      - resource
+      - workspace
+      - actor
+      title: Countable

@@ -204,28 +204,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    WorkspaceUserAccessSort:
-      type: string
-      enum:
-      - CREATED_ASC
-      - CREATED_DESC
-      - NAME_ASC
-      - NAME_DESC
-      - EMAIL_ASC
-      - EMAIL_DESC
-      - HANDLE_ASC
-      - HANDLE_DESC
-      title: WorkspaceUserAccessSort
-      description: Sort options for workspace user accesses
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     UserFilter:
       properties:
         id:
@@ -251,6 +229,115 @@ components:
       additionalProperties: false
       type: object
       title: UserFilter
+    UserFilterHandle:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of user handles to include
+          examples:
+          - - marvin-ops
+            - ceo-marvin
+            - marvin-engineering
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: UserFilterHandle
+      description: Filter by `User.handle`.
+    UserFilterEmail:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of user emails to include
+          examples:
+          - - marvin@prefect.example
+            - marvin.jr@prefect.example
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin@prefect.example', 'sad-Marvin@prefect.example', and 'marvin-robot@prefect.example'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: UserFilterEmail
+      description: Filter by `UserEmail.email`.
+    UserFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of user ids to include
+        not_any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of user ids to exclude
+      additionalProperties: false
+      type: object
+      title: UserFilterId
+    WorkspaceActorAccessFilterActorId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include workspace accesses with one of these actor ids
+      additionalProperties: false
+      type: object
+      title: WorkspaceActorAccessFilterActorId
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     WorkspaceActorAccessFilterWorkspaceRoleId:
       properties:
         any_:
@@ -265,6 +352,48 @@ components:
       additionalProperties: false
       type: object
       title: WorkspaceActorAccessFilterWorkspaceRoleId
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UserFilterName:
+      properties:
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match on first_name or last_name. For example, passing 'marvin' will match users with 'marvin' in their first or last name.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: UserFilterName
+      description: Filter by `User.first_name` or `User.last_name`.
+    WorkspaceUserAccessCreate:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+          description: id of user to create a workspace access for
+        workspace_role_id:
+          type: string
+          format: uuid
+          title: Workspace Role Id
+          description: The workspace role id
+      additionalProperties: false
+      type: object
+      required:
+      - user_id
+      - workspace_role_id
+      title: WorkspaceUserAccessCreate
+      description: Data used by the api to create workspace actor access
     WorkspaceUserAccessResponse:
       properties:
         id:
@@ -332,29 +461,34 @@ components:
       - handle
       title: WorkspaceUserAccessResponse
       description: Data returned by the API after creating a new user workspace access
-    UserFilterId:
+    WorkspaceActorAccessFilter:
       properties:
-        any_:
+        workspace_role_id:
           anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
+          - $ref: '#/components/schemas/WorkspaceActorAccessFilterWorkspaceRoleId'
           - type: 'null'
-          title: Any
-          description: A list of user ids to include
-        not_any_:
+          description: Filter criteria for WorkspaceActorAccess.workspace_role_id
+        actor_id:
           anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
+          - $ref: '#/components/schemas/WorkspaceActorAccessFilterActorId'
           - type: 'null'
-          title: Not Any
-          description: A list of user ids to exclude
+          description: Filter criteria for WorkspaceActorAccess.actor_id
       additionalProperties: false
       type: object
-      title: UserFilterId
+      title: WorkspaceActorAccessFilter
+    WorkspaceUserAccessSort:
+      type: string
+      enum:
+      - CREATED_ASC
+      - CREATED_DESC
+      - NAME_ASC
+      - NAME_DESC
+      - EMAIL_ASC
+      - EMAIL_DESC
+      - HANDLE_ASC
+      - HANDLE_DESC
+      title: WorkspaceUserAccessSort
+      description: Sort options for workspace user accesses
     Body_read_workspace_user_accesses_api_accounts__account_id__workspaces__workspace_id__user_access_filter_post:
       properties:
         limit:
@@ -382,137 +516,3 @@ components:
           - type: 'null'
       type: object
       title: Body_read_workspace_user_accesses_api_accounts__account_id__workspaces__workspace_id__user_access_filter_post
-    UserFilterHandle:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of user handles to include
-          examples:
-          - - marvin-ops
-            - ceo-marvin
-            - marvin-engineering
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: UserFilterHandle
-      description: Filter by `User.handle`.
-    WorkspaceActorAccessFilter:
-      properties:
-        workspace_role_id:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceActorAccessFilterWorkspaceRoleId'
-          - type: 'null'
-          description: Filter criteria for WorkspaceActorAccess.workspace_role_id
-        actor_id:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceActorAccessFilterActorId'
-          - type: 'null'
-          description: Filter criteria for WorkspaceActorAccess.actor_id
-      additionalProperties: false
-      type: object
-      title: WorkspaceActorAccessFilter
-    WorkspaceActorAccessFilterActorId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include workspace accesses with one of these actor ids
-      additionalProperties: false
-      type: object
-      title: WorkspaceActorAccessFilterActorId
-    WorkspaceUserAccessCreate:
-      properties:
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-          description: id of user to create a workspace access for
-        workspace_role_id:
-          type: string
-          format: uuid
-          title: Workspace Role Id
-          description: The workspace role id
-      additionalProperties: false
-      type: object
-      required:
-      - user_id
-      - workspace_role_id
-      title: WorkspaceUserAccessCreate
-      description: Data used by the api to create workspace actor access
-    UserFilterEmail:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of user emails to include
-          examples:
-          - - marvin@prefect.example
-            - marvin.jr@prefect.example
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin@prefect.example', 'sad-Marvin@prefect.example', and 'marvin-robot@prefect.example'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: UserFilterEmail
-      description: Filter by `UserEmail.email`.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    UserFilterName:
-      properties:
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match on first_name or last_name. For example, passing 'marvin' will match users with 'marvin' in their first or last name.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: UserFilterName
-      description: Filter by `User.first_name` or `User.last_name`.

@@ -379,6 +379,59 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    AccountMembershipFilterName:
+      properties:
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match on first_name or last_name. For example, passing 'marvin' will match users with 'marvin' in their first or last name.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilterName
+      description: Filter by user first_name/last_name for account memberships.
+    AccountMembershipFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        account_role_id:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilterAccountRoleId'
+          - type: 'null'
+          description: Filter criteria for AccountMembership.account_role_id
+        user_id:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilterUserId'
+          - type: 'null'
+          description: Filter criteria for AccountMembership.actor.user_id
+        email:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilterEmail'
+          - type: 'null'
+          description: Filter criteria for UserEmail.email
+        handle:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilterHandle'
+          - type: 'null'
+          description: Filter criteria for User.handle
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilterName'
+          - type: 'null'
+          description: Filter criteria for User.first_name or User.last_name
+        actor_id:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilterActorId'
+          - type: 'null'
+          description: Filter criteria for AccountMembership.actor_id
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilter
     AccountMembershipFilterHandle:
       properties:
         any_:
@@ -401,6 +454,48 @@ components:
       type: object
       title: AccountMembershipFilterHandle
       description: Filter by `User.handle` for account memberships.
+    AccountMembershipFilterAccountRoleId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include account memberships matching one of these account role id
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilterAccountRoleId
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
     AccountMembershipBulkSetActive:
       properties:
         membership_ids:
@@ -421,6 +516,256 @@ components:
       - active
       title: AccountMembershipBulkSetActive
       description: Data used by the api to bulk set account memberships' active status
+    AccountMembershipsResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The account membership id.
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+          description: The actor id of the member.
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+          description: The id of the user. None for bots.
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+          description: The first name of the user. None for bots.
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+          description: The last name of the user. None for bots.
+        handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Handle
+          description: The user's unique handle. None for bots.
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+          description: The user's email. None for bots.
+        account_role_name:
+          type: string
+          title: Account Role Name
+          description: The name of the account role associated with the membership.
+        account_role_id:
+          type: string
+          format: uuid
+          title: Account Role Id
+          description: The id of the account role associated with the membership.
+        last_login:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Login
+          description: The last time the user logged in.
+        active:
+          type: boolean
+          title: Active
+          description: Whether the membership is active.
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - actor_id
+      - account_role_name
+      - account_role_id
+      - active
+      title: AccountMembershipsResponse
+    AccountMembershipUpdate:
+      properties:
+        account_role_id:
+          type: string
+          format: uuid
+          title: Account Role Id
+          description: The account role id. The account role defines permissions for the actor in this account.
+      additionalProperties: false
+      type: object
+      required:
+      - account_role_id
+      title: AccountMembershipUpdate
+      description: Data used by the api to update an account membership
+    AccountMembershipFilterEmail:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of membership emails to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilterEmail
+    Body_count_account_memberships_api_accounts__account_id__account_memberships_count_post:
+      properties:
+        account_memberships:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilter'
+          - type: 'null'
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilter'
+          - type: 'null'
+        only_users:
+          type: boolean
+          title: Only Users
+          default: false
+        only_bots:
+          type: boolean
+          title: Only Bots
+          default: false
+        active:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Active
+      type: object
+      title: Body_count_account_memberships_api_accounts__account_id__account_memberships_count_post
+    AccountMembershipFilterUserId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of user ids to include
+        not_any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of user ids to exclude
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilterUserId
+    Body_read_account_memberships_api_accounts__account_id__account_memberships_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        account_memberships:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipFilter'
+          - type: 'null'
+        sort:
+          anyOf:
+          - $ref: '#/components/schemas/AccountMembershipSort'
+          - type: 'null'
+        only_users:
+          type: boolean
+          title: Only Users
+          default: false
+        only_bots:
+          type: boolean
+          title: Only Bots
+          default: false
+        active:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Active
+      type: object
+      title: Body_read_account_memberships_api_accounts__account_id__account_memberships_filter_post
+    AccountMembershipFilterActorId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of actor ids to include
+      additionalProperties: false
+      type: object
+      title: AccountMembershipFilterActorId
+      description: Filter by `AccountMembership.actor_id`.
+    AccountMembershipSort:
+      type: string
+      enum:
+      - CREATED_ASC
+      - CREATED_DESC
+      - LAST_LOGIN_ASC
+      - LAST_LOGIN_DESC
+      - NAME_ASC
+      - NAME_DESC
+      - HANDLE_ASC
+      - HANDLE_DESC
+      - EMAIL_ASC
+      - EMAIL_DESC
+      - ACCOUNT_ROLE_NAME_ASC
+      - ACCOUNT_ROLE_NAME_DESC
+      title: AccountMembershipSort
+      description: Sort options for account memberships
+    AccountMembershipSetActive:
+      properties:
+        active:
+          type: boolean
+          title: Active
+      additionalProperties: false
+      type: object
+      required:
+      - active
+      title: AccountMembershipSetActive
+      description: Data used by the api to toggle an account membership's active status
+    TeamSummary:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The team id.
+        name:
+          type: string
+          title: Name
+          description: The team name.
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - name
+      title: TeamSummary
     AccountMemberSummaryResponse:
       properties:
         id:
@@ -534,348 +879,3 @@ components:
         Includes all fields from the previous AccountMembership response
 
         (account_id, directory_id, created, updated) for backward compatibility.'
-    TeamSummary:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The team id.
-        name:
-          type: string
-          title: Name
-          description: The team name.
-      additionalProperties: false
-      type: object
-      required:
-      - id
-      - name
-      title: TeamSummary
-    AccountMembershipUpdate:
-      properties:
-        account_role_id:
-          type: string
-          format: uuid
-          title: Account Role Id
-          description: The account role id. The account role defines permissions for the actor in this account.
-      additionalProperties: false
-      type: object
-      required:
-      - account_role_id
-      title: AccountMembershipUpdate
-      description: Data used by the api to update an account membership
-    Body_read_account_memberships_api_accounts__account_id__account_memberships_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        account_memberships:
-          anyOf:
-          - $ref: '#/components/schemas/AccountMembershipFilter'
-          - type: 'null'
-        sort:
-          anyOf:
-          - $ref: '#/components/schemas/AccountMembershipSort'
-          - type: 'null'
-        only_users:
-          type: boolean
-          title: Only Users
-          default: false
-        only_bots:
-          type: boolean
-          title: Only Bots
-          default: false
-        active:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Active
-      type: object
-      title: Body_read_account_memberships_api_accounts__account_id__account_memberships_filter_post
-    AccountMembershipFilterAccountRoleId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include account memberships matching one of these account role id
-      additionalProperties: false
-      type: object
-      title: AccountMembershipFilterAccountRoleId
-    AccountMembershipSort:
-      type: string
-      enum:
-      - CREATED_ASC
-      - CREATED_DESC
-      - LAST_LOGIN_ASC
-      - LAST_LOGIN_DESC
-      - NAME_ASC
-      - NAME_DESC
-      - HANDLE_ASC
-      - HANDLE_DESC
-      - EMAIL_ASC
-      - EMAIL_DESC
-      - ACCOUNT_ROLE_NAME_ASC
-      - ACCOUNT_ROLE_NAME_DESC
-      title: AccountMembershipSort
-      description: Sort options for account memberships
-    AccountMembershipFilterEmail:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of membership emails to include
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: AccountMembershipFilterEmail
-    Body_count_account_memberships_api_accounts__account_id__account_memberships_count_post:
-      properties:
-        account_memberships:
-          anyOf:
-          - $ref: '#/components/schemas/AccountMembershipFilter'
-          - type: 'null'
-        filter:
-          anyOf:
-          - $ref: '#/components/schemas/AccountMembershipFilter'
-          - type: 'null'
-        only_users:
-          type: boolean
-          title: Only Users
-          default: false
-        only_bots:
-          type: boolean
-          title: Only Bots
-          default: false
-        active:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Active
-      type: object
-      title: Body_count_account_memberships_api_accounts__account_id__account_memberships_count_post
-    prefect_cloud__orion__schemas__filters__Operator:
-      type: string
-      enum:
-      - and_
-      - or_
-      title: Operator
-      description: Operators for combining filter criteria.
-    AccountMembershipFilterActorId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of actor ids to include
-      additionalProperties: false
-      type: object
-      title: AccountMembershipFilterActorId
-      description: Filter by `AccountMembership.actor_id`.
-    AccountMembershipFilter:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        account_role_id:
-          anyOf:
-          - $ref: '#/components/schemas/AccountMembershipFilterAccountRoleId'
-          - type: 'null'
-          description: Filter criteria for AccountMembership.account_role_id
-        user_id:
-          anyOf:
-          - $ref: '#/components/schemas/AccountMembershipFilterUserId'
-          - type: 'null'
-          description: Filter criteria for AccountMembership.actor.user_id
-        email:
-          anyOf:
-          - $ref: '#/components/schemas/AccountMembershipFilterEmail'
-          - type: 'null'
-          description: Filter criteria for UserEmail.email
-        handle:
-          anyOf:
-          - $ref: '#/components/schemas/AccountMembershipFilterHandle'
-          - type: 'null'
-          description: Filter criteria for User.handle
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/AccountMembershipFilterName'
-          - type: 'null'
-          description: Filter criteria for User.first_name or User.last_name
-        actor_id:
-          anyOf:
-          - $ref: '#/components/schemas/AccountMembershipFilterActorId'
-          - type: 'null'
-          description: Filter criteria for AccountMembership.actor_id
-      additionalProperties: false
-      type: object
-      title: AccountMembershipFilter
-    AccountMembershipFilterUserId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of user ids to include
-        not_any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Not Any
-          description: A list of user ids to exclude
-      additionalProperties: false
-      type: object
-      title: AccountMembershipFilterUserId
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    AccountMembershipFilterName:
-      properties:
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match on first_name or last_name. For example, passing 'marvin' will match users with 'marvin' in their first or last name.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: AccountMembershipFilterName
-      description: Filter by user first_name/last_name for account memberships.
-    AccountMembershipsResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The account membership id.
-        actor_id:
-          type: string
-          format: uuid
-          title: Actor Id
-          description: The actor id of the member.
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-          description: The id of the user. None for bots.
-        first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: First Name
-          description: The first name of the user. None for bots.
-        last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Name
-          description: The last name of the user. None for bots.
-        handle:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Handle
-          description: The user's unique handle. None for bots.
-        email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Email
-          description: The user's email. None for bots.
-        account_role_name:
-          type: string
-          title: Account Role Name
-          description: The name of the account role associated with the membership.
-        account_role_id:
-          type: string
-          format: uuid
-          title: Account Role Id
-          description: The id of the account role associated with the membership.
-        last_login:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Login
-          description: The last time the user logged in.
-        active:
-          type: boolean
-          title: Active
-          description: Whether the membership is active.
-      additionalProperties: false
-      type: object
-      required:
-      - id
-      - actor_id
-      - account_role_name
-      - account_role_id
-      - active
-      title: AccountMembershipsResponse
-    AccountMembershipSetActive:
-      properties:
-        active:
-          type: boolean
-          title: Active
-      additionalProperties: false
-      type: object
-      required:
-      - active
-      title: AccountMembershipSetActive
-      description: Data used by the api to toggle an account membership's active status

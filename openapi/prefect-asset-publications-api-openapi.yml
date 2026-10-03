@@ -50,6 +50,60 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    AssetPublicationCreate:
+      properties:
+        resource_ids:
+          items:
+            type: string
+          type: array
+          title: Resource Ids
+      type: object
+      required:
+      - resource_ids
+      title: AssetPublicationCreate
+      description: 'POST body for creating an asset publication.
+
+
+        The caller provides literal asset keys; the server constructs the underlying
+
+        PublicationCreate with the correct event patterns and resource spec so the
+
+        publication is visible to the Available Assets browse experience.'
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     HTTPValidationError:
       properties:
         detail:
@@ -118,57 +172,3 @@ components:
       - updated
       title: PublicationResponse
       description: Response model for a publication.
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
-            type: string
-          type: array
-      type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
-
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    AssetPublicationCreate:
-      properties:
-        resource_ids:
-          items:
-            type: string
-          type: array
-          title: Resource Ids
-      type: object
-      required:
-      - resource_ids
-      title: AssetPublicationCreate
-      description: 'POST body for creating an asset publication.
-
-
-        The caller provides literal asset keys; the server constructs the underlying
-
-        PublicationCreate with the correct event patterns and resource spec so the
-
-        publication is visible to the Available Assets browse experience.'

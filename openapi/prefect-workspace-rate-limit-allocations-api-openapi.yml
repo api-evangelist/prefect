@@ -86,15 +86,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     WorkspaceRateLimitAllocationsUpsert:
       properties:
         allocations:
@@ -107,6 +98,27 @@ components:
       type: object
       title: WorkspaceRateLimitAllocationsUpsert
       description: Data used to upsert all workspace rate limit allocations for an account.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     WorkspaceRateLimitAllocationEntry:
       properties:
         workspace_id:
@@ -168,24 +180,12 @@ components:
       - rate_limit_percentage
       title: WorkspaceRateLimitAllocation
       description: A percentage-based rate limit allocation for a workspace.
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: HTTPValidationError
