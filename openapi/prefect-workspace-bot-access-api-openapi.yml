@@ -193,97 +193,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    BotFilter:
-      properties:
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/BotFilterId'
-          - type: 'null'
-          description: Filter criteria for Bot.id
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/BotFilterName'
-          - type: 'null'
-          description: Filter criteria for Bot.name
-      additionalProperties: false
-      type: object
-      title: BotFilter
-    Body_read_workspace_bot_accesses_api_accounts__account_id__workspaces__workspace_id__bot_access_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        workspace_accesses:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceActorAccessFilter'
-          - type: 'null'
-        bots:
-          anyOf:
-          - $ref: '#/components/schemas/BotFilter'
-          - type: 'null'
-        sort:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceBotAccessSort'
-          - type: 'null'
-      type: object
-      title: Body_read_workspace_bot_accesses_api_accounts__account_id__workspaces__workspace_id__bot_access_filter_post
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    WorkspaceActorAccessFilterActorId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include workspace accesses with one of these actor ids
-      additionalProperties: false
-      type: object
-      title: WorkspaceActorAccessFilterActorId
-    WorkspaceActorAccessFilterWorkspaceRoleId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include workspace accesses with one of these workspace role ids
-      additionalProperties: false
-      type: object
-      title: WorkspaceActorAccessFilterWorkspaceRoleId
     BotFilterName:
       properties:
         any_:
@@ -314,6 +223,84 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BotFilter:
+      properties:
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilterId'
+          - type: 'null'
+          description: Filter criteria for Bot.id
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilterName'
+          - type: 'null'
+          description: Filter criteria for Bot.name
+      additionalProperties: false
+      type: object
+      title: BotFilter
+    WorkspaceActorAccessFilterWorkspaceRoleId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include workspace accesses with one of these workspace role ids
+      additionalProperties: false
+      type: object
+      title: WorkspaceActorAccessFilterWorkspaceRoleId
+    WorkspaceBotAccessSort:
+      type: string
+      enum:
+      - CREATED_ASC
+      - CREATED_DESC
+      - BOT_NAME_ASC
+      - BOT_NAME_DESC
+      title: WorkspaceBotAccessSort
+      description: Sort options for workspace bot accesses
+    WorkspaceBotAccessCreate:
+      properties:
+        bot_id:
+          type: string
+          format: uuid
+          title: Bot Id
+          description: id of bot to create a workspace access for
+        workspace_role_id:
+          type: string
+          format: uuid
+          title: Workspace Role Id
+          description: The workspace role id
+      additionalProperties: false
+      type: object
+      required:
+      - bot_id
+      - workspace_role_id
+      title: WorkspaceBotAccessCreate
+      description: Data used by the api to create workspace bot access
     WorkspaceBotAccessResponse:
       properties:
         id:
@@ -366,6 +353,61 @@ components:
       - bot_name
       title: WorkspaceBotAccessResponse
       description: Data returned by the api after creating a new user workspace access
+    BotFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of bot ids to include
+      additionalProperties: false
+      type: object
+      title: BotFilterId
+    Body_read_workspace_bot_accesses_api_accounts__account_id__workspaces__workspace_id__bot_access_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        workspace_accesses:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceActorAccessFilter'
+          - type: 'null'
+        bots:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilter'
+          - type: 'null'
+        sort:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceBotAccessSort'
+          - type: 'null'
+      type: object
+      title: Body_read_workspace_bot_accesses_api_accounts__account_id__workspaces__workspace_id__bot_access_filter_post
+    WorkspaceActorAccessFilterActorId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include workspace accesses with one of these actor ids
+      additionalProperties: false
+      type: object
+      title: WorkspaceActorAccessFilterActorId
     WorkspaceActorAccessFilter:
       properties:
         workspace_role_id:
@@ -381,45 +423,3 @@ components:
       additionalProperties: false
       type: object
       title: WorkspaceActorAccessFilter
-    WorkspaceBotAccessCreate:
-      properties:
-        bot_id:
-          type: string
-          format: uuid
-          title: Bot Id
-          description: id of bot to create a workspace access for
-        workspace_role_id:
-          type: string
-          format: uuid
-          title: Workspace Role Id
-          description: The workspace role id
-      additionalProperties: false
-      type: object
-      required:
-      - bot_id
-      - workspace_role_id
-      title: WorkspaceBotAccessCreate
-      description: Data used by the api to create workspace bot access
-    WorkspaceBotAccessSort:
-      type: string
-      enum:
-      - CREATED_ASC
-      - CREATED_DESC
-      - BOT_NAME_ASC
-      - BOT_NAME_DESC
-      title: WorkspaceBotAccessSort
-      description: Sort options for workspace bot accesses
-    BotFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of bot ids to include
-      additionalProperties: false
-      type: object
-      title: BotFilterId

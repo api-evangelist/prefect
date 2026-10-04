@@ -229,76 +229,91 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    UserUpdate:
+    APIKeyCreate:
       properties:
-        handle:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Handle
-          description: A unique handle for the user, containing only lowercase letters, numbers, and dashes.
-        first_name:
-          anyOf:
-          - type: string
-            maxLength: 500
-          - type: 'null'
-          title: First Name
-          description: The first name of a user.
-        last_name:
-          anyOf:
-          - type: string
-            maxLength: 500
-          - type: 'null'
-          title: Last Name
-          description: The last name of a user.
-        email:
-          anyOf:
-          - type: string
-            format: email
-          - type: 'null'
-          title: Email
-          description: User email.
-        location:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Location
-          description: An optional physical location for a user, e.g. Washington, D.C.
-        title:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Title
-          description: An optional title for the user.
-        image_location:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Image Location
-          description: A url linking to an image for the user.
-        settings:
-          anyOf:
-          - $ref: '#/components/schemas/UserSettings'
-          - type: 'null'
-          description: The user's default color settings
-          default:
-            tutorial_completed: false
-            feature_previews: []
-        last_login:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the api key.
+        expiration:
           anyOf:
           - type: string
             format: date-time
           - type: 'null'
-          title: Last Login
-          description: The last time the user logged in.
+          title: Expiration
+          description: The time at which the api key expires. If `None`, the api key will not expire.
       additionalProperties: false
       type: object
-      title: UserUpdate
-      description: Data used by API to update a user
+      required:
+      - name
+      title: APIKeyCreate
+      description: Data used by the api to create a new api_key
+    APIKeyReadResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        name:
+          type: string
+          title: Name
+          description: The name of the api key.
+        expiration:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expiration
+          description: The time at which the api key expires. If `None`, the api key will not expire.
+        masked_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Masked Key
+          description: Masked API key showing prefix and last 4 characters (e.g., pnu_...a1b2).
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: APIKeyReadResponse
+      description: Data returned by the api when reading api_keys
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     User:
       properties:
         title:
@@ -395,27 +410,76 @@ components:
       - email
       title: User
       description: An ORM representation of an User
-    ValidationError:
+    UserUpdate:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
+        handle:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Handle
+          description: A unique handle for the user, containing only lowercase letters, numbers, and dashes.
+        first_name:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: First Name
+          description: The first name of a user.
+        last_name:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Last Name
+          description: The last name of a user.
+        email:
+          anyOf:
+          - type: string
+            format: email
+          - type: 'null'
+          title: Email
+          description: User email.
+        location:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
           title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          description: An optional physical location for a user, e.g. Washington, D.C.
+        title:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Title
+          description: An optional title for the user.
+        image_location:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Image Location
+          description: A url linking to an image for the user.
+        settings:
+          anyOf:
+          - $ref: '#/components/schemas/UserSettings'
+          - type: 'null'
+          description: The user's default color settings
+          default:
+            tutorial_completed: false
+            feature_previews: []
+        last_login:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Login
+          description: The last time the user logged in.
+      additionalProperties: false
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: UserUpdate
+      description: Data used by API to update a user
     APIKeyCreateResponse:
       properties:
         id:
@@ -450,70 +514,6 @@ components:
       - key
       title: APIKeyCreateResponse
       description: Data returned by the api after creating a new api_key. This includes an un-hashed api key.
-    APIKeyReadResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created
-        name:
-          type: string
-          title: Name
-          description: The name of the api key.
-        expiration:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Expiration
-          description: The time at which the api key expires. If `None`, the api key will not expire.
-        masked_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Masked Key
-          description: Masked API key showing prefix and last 4 characters (e.g., pnu_...a1b2).
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      title: APIKeyReadResponse
-      description: Data returned by the api when reading api_keys
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    APIKeyCreate:
-      properties:
-        name:
-          type: string
-          maxLength: 5000
-          title: Name
-          description: The name of the api key.
-        expiration:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Expiration
-          description: The time at which the api key expires. If `None`, the api key will not expire.
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      title: APIKeyCreate
-      description: Data used by the api to create a new api_key
     UserSettings:
       properties:
         default_timezone:

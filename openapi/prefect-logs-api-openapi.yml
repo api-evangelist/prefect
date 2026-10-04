@@ -565,51 +565,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    LogFilter:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        level:
-          anyOf:
-          - $ref: '#/components/schemas/LogFilterLevel'
-          - type: 'null'
-          description: Filter criteria for `Log.level`
-        timestamp:
-          anyOf:
-          - $ref: '#/components/schemas/LogFilterTimestamp'
-          - type: 'null'
-          description: Filter criteria for `Log.timestamp`
-        flow_run_id:
-          anyOf:
-          - $ref: '#/components/schemas/LogFilterFlowRunId'
-          - type: 'null'
-          description: Filter criteria for `Log.flow_run_id`
-        task_run_id:
-          anyOf:
-          - $ref: '#/components/schemas/LogFilterTaskRunId'
-          - type: 'null'
-          description: Filter criteria for `Log.task_run_id`
-        worker_id:
-          anyOf:
-          - $ref: '#/components/schemas/LogFilterWorkerId'
-          - type: 'null'
-          description: Filter criteria for `Log.worker_id`
-        loggers:
-          anyOf:
-          - $ref: '#/components/schemas/LogFilterLoggers'
-          - type: 'null'
-          description: Filter criteria for `Log.name` (logger name)
-        text:
-          anyOf:
-          - $ref: '#/components/schemas/LogFilterTextSearch'
-          - type: 'null'
-          description: Filter criteria for text search across log content
-      additionalProperties: false
-      type: object
-      title: LogFilter
-      description: Filter logs. Only logs matching all criteria will be returned
     LogFilterTaskRunId:
       properties:
         any_:
@@ -631,83 +586,35 @@ components:
       type: object
       title: LogFilterTaskRunId
       description: Filter by `Log.task_run_id`.
-    Body_read_logs_api_accounts__account_id__workspaces__workspace_id__logs_filter_post:
+    LogFilterFlowRunId:
       properties:
-        offset:
-          type: integer
-          maximum: 20000.0
-          minimum: 0.0
-          title: Offset
-          default: 0
-        logs:
+        any_:
           anyOf:
-          - $ref: '#/components/schemas/LogFilter'
+          - items:
+              type: string
+              format: uuid
+            type: array
           - type: 'null'
-        sort:
-          $ref: '#/components/schemas/LogSort'
-          default: TIMESTAMP_ASC
-        limit:
-          type: integer
-          title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+          title: Any
+          description: A list of flow run IDs to include
+      additionalProperties: false
       type: object
-      title: Body_read_logs_api_accounts__account_id__workspaces__workspace_id__logs_filter_post
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ObservedLogger:
-      properties:
-        logger_name:
-          type: string
-          title: Logger Name
-          description: The logger name
-        count:
-          type: integer
-          title: Count
-          description: Number of log entries from this logger
-        first_seen:
-          type: string
-          format: date-time
-          title: First Seen
-          description: When this logger was first observed
-        last_seen:
-          type: string
-          format: date-time
-          title: Last Seen
-          description: When this logger was last observed
-      type: object
-      required:
-      - logger_name
-      - count
-      - first_seen
-      - last_seen
-      title: ObservedLogger
-      description: An observed logger name from logs.
-    ObservedLoggerSort:
+      title: LogFilterFlowRunId
+      description: Filter by `Log.flow_run_id`.
+    LogSort:
       type: string
       enum:
-      - NAME_ASC
-      - LAST_SEEN_DESC
-      title: ObservedLoggerSort
-      description: Defines observed logger sorting options.
+      - TIMESTAMP_ASC
+      - TIMESTAMP_DESC
+      title: LogSort
+      description: Defines log sorting options.
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
     Log:
       properties:
         id:
@@ -772,6 +679,44 @@ components:
       - timestamp
       title: Log
       description: An ORM representation of log data.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ObservedLoggerSort:
+      type: string
+      enum:
+      - NAME_ASC
+      - LAST_SEEN_DESC
+      title: ObservedLoggerSort
+      description: Defines observed logger sorting options.
+    LogFilterLevel:
+      properties:
+        ge_:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Ge
+          description: Include logs with a level greater than or equal to this level
+          examples:
+          - 20
+        le_:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Le
+          description: Include logs with a level less than or equal to this level
+          examples:
+          - 50
+      additionalProperties: false
+      type: object
+      title: LogFilterLevel
+      description: Filter by `Log.level`.
     LogFilterWorkerId:
       properties:
         any_:
@@ -802,29 +747,94 @@ components:
       type: object
       title: LogFilterWorkerId
       description: Filter by `Log.worker_id`.
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: HTTPValidationError
-    LogSort:
-      type: string
-      enum:
-      - TIMESTAMP_ASC
-      - TIMESTAMP_DESC
-      title: LogSort
-      description: Defines log sorting options.
-    prefect_cloud__orion__schemas__filters__Operator:
-      type: string
-      enum:
-      - and_
-      - or_
-      title: Operator
-      description: Operators for combining filter criteria.
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_read_logs_api_accounts__account_id__workspaces__workspace_id__logs_filter_post:
+      properties:
+        offset:
+          type: integer
+          maximum: 20000.0
+          minimum: 0.0
+          title: Offset
+          default: 0
+        logs:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilter'
+          - type: 'null'
+        sort:
+          $ref: '#/components/schemas/LogSort'
+          default: TIMESTAMP_ASC
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_logs_api_accounts__account_id__workspaces__workspace_id__logs_filter_post
+    LogFilterTextSearch:
+      properties:
+        query:
+          type: string
+          maxLength: 200
+          title: Query
+          description: Text search query string
+          examples:
+          - error
+          - error -debug
+          - '"connection timeout"'
+          - +required -excluded
+      additionalProperties: false
+      type: object
+      required:
+      - query
+      title: LogFilterTextSearch
+      description: Filter by text search across log content.
+    ObservedLogger:
+      properties:
+        logger_name:
+          type: string
+          title: Logger Name
+          description: The logger name
+        count:
+          type: integer
+          title: Count
+          description: Number of log entries from this logger
+        first_seen:
+          type: string
+          format: date-time
+          title: First Seen
+          description: When this logger was first observed
+        last_seen:
+          type: string
+          format: date-time
+          title: Last Seen
+          description: When this logger was last observed
+      type: object
+      required:
+      - logger_name
+      - count
+      - first_seen
+      - last_seen
+      title: ObservedLogger
+      description: An observed logger name from logs.
     LogFilterTimestamp:
       properties:
         before_:
@@ -845,61 +855,6 @@ components:
       type: object
       title: LogFilterTimestamp
       description: Filter by `Log.timestamp`.
-    LogFilterFlowRunId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of flow run IDs to include
-      additionalProperties: false
-      type: object
-      title: LogFilterFlowRunId
-      description: Filter by `Log.flow_run_id`.
-    LogFilterLevel:
-      properties:
-        ge_:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Ge
-          description: Include logs with a level greater than or equal to this level
-          examples:
-          - 20
-        le_:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Le
-          description: Include logs with a level less than or equal to this level
-          examples:
-          - 50
-      additionalProperties: false
-      type: object
-      title: LogFilterLevel
-      description: Filter by `Log.level`.
-    LogFilterTextSearch:
-      properties:
-        query:
-          type: string
-          maxLength: 200
-          title: Query
-          description: Text search query string
-          examples:
-          - error
-          - error -debug
-          - '"connection timeout"'
-          - +required -excluded
-      additionalProperties: false
-      type: object
-      required:
-      - query
-      title: LogFilterTextSearch
-      description: Filter by text search across log content.
     LogCreate:
       properties:
         name:
@@ -965,3 +920,48 @@ components:
       type: object
       title: LogFilterLoggers
       description: Filter by `Log.name` (logger name).
+    LogFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        level:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterLevel'
+          - type: 'null'
+          description: Filter criteria for `Log.level`
+        timestamp:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterTimestamp'
+          - type: 'null'
+          description: Filter criteria for `Log.timestamp`
+        flow_run_id:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterFlowRunId'
+          - type: 'null'
+          description: Filter criteria for `Log.flow_run_id`
+        task_run_id:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterTaskRunId'
+          - type: 'null'
+          description: Filter criteria for `Log.task_run_id`
+        worker_id:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterWorkerId'
+          - type: 'null'
+          description: Filter criteria for `Log.worker_id`
+        loggers:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterLoggers'
+          - type: 'null'
+          description: Filter criteria for `Log.name` (logger name)
+        text:
+          anyOf:
+          - $ref: '#/components/schemas/LogFilterTextSearch'
+          - type: 'null'
+          description: Filter criteria for text search across log content
+      additionalProperties: false
+      type: object
+      title: LogFilter
+      description: Filter logs. Only logs matching all criteria will be returned

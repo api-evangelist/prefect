@@ -515,35 +515,28 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    RateLimitUsageByKey:
+    DistinctValuesResponse:
       properties:
-        limit:
+        values:
           items:
-            type: integer
+            type: string
           type: array
-          title: Limit
-        usage:
-          items:
-            type: integer
-          type: array
-          title: Usage
-        requested:
-          items:
-            type: integer
-          type: array
-          title: Requested
-        granted:
-          items:
-            type: integer
-          type: array
-          title: Granted
+          title: Values
+          description: List of distinct values
       type: object
       required:
-      - limit
-      - usage
-      - requested
-      - granted
-      title: RateLimitUsageByKey
+      - values
+      title: DistinctValuesResponse
+      description: Response model for distinct values endpoints.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -565,28 +558,26 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    RateLimitGroupedUsageByGroup:
       properties:
-        detail:
+        requested:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            type: integer
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    DistinctValuesResponse:
-      properties:
-        values:
+          title: Requested
+          description: Tokens requested per minute
+        granted:
           items:
-            type: string
+            type: integer
           type: array
-          title: Values
-          description: List of distinct values
+          title: Granted
+          description: Tokens granted per minute
       type: object
       required:
-      - values
-      title: DistinctValuesResponse
-      description: Response model for distinct values endpoints.
+      - requested
+      - granted
+      title: RateLimitGroupedUsageByGroup
+      description: Usage data for a single group over time.
     RateLimitUsageResponse:
       properties:
         account:
@@ -620,6 +611,19 @@ components:
       - minutes
       - keys
       title: RateLimitUsageResponse
+    RateLimitStatusResponse:
+      properties:
+        exceeded_buckets:
+          items:
+            type: string
+          type: array
+          title: Exceeded Buckets
+          description: Rate limit buckets currently exceeded (e.g., 'orchestration-api', 'logs-and-events')
+      type: object
+      required:
+      - exceeded_buckets
+      title: RateLimitStatusResponse
+      description: Current rate limit exceeded status for an account.
     RateLimitGroupedUsageResponse:
       properties:
         account:
@@ -664,36 +668,32 @@ components:
       - groups
       title: RateLimitGroupedUsageResponse
       description: Response model for rate limit usage grouped by a dimension over time.
-    RateLimitStatusResponse:
+    RateLimitUsageByKey:
       properties:
-        exceeded_buckets:
+        limit:
           items:
-            type: string
+            type: integer
           type: array
-          title: Exceeded Buckets
-          description: Rate limit buckets currently exceeded (e.g., 'orchestration-api', 'logs-and-events')
-      type: object
-      required:
-      - exceeded_buckets
-      title: RateLimitStatusResponse
-      description: Current rate limit exceeded status for an account.
-    RateLimitGroupedUsageByGroup:
-      properties:
+          title: Limit
+        usage:
+          items:
+            type: integer
+          type: array
+          title: Usage
         requested:
           items:
             type: integer
           type: array
           title: Requested
-          description: Tokens requested per minute
         granted:
           items:
             type: integer
           type: array
           title: Granted
-          description: Tokens granted per minute
       type: object
       required:
+      - limit
+      - usage
       - requested
       - granted
-      title: RateLimitGroupedUsageByGroup
-      description: Usage data for a single group over time.
+      title: RateLimitUsageByKey

@@ -217,46 +217,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    SavedSearchCreate:
-      properties:
-        name:
-          type: string
-          maxLength: 5000
-          title: Name
-          description: The name of the saved search.
-        filters:
-          items:
-            $ref: '#/components/schemas/SavedSearchFilter'
-          type: array
-          title: Filters
-          description: The filter set for the saved search.
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      title: SavedSearchCreate
-      description: Data used by the Orion API to create a saved search.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     SavedSearch:
       properties:
         id:
@@ -299,6 +259,27 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     Body_read_saved_searches_api_accounts__account_id__workspaces__workspace_id__saved_searches_filter_post:
       properties:
         offset:
@@ -342,3 +323,22 @@ components:
       - value
       title: SavedSearchFilter
       description: A filter for a saved search model. Intended for use by the Prefect UI.
+    SavedSearchCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the saved search.
+        filters:
+          items:
+            $ref: '#/components/schemas/SavedSearchFilter'
+          type: array
+          title: Filters
+          description: The filter set for the saved search.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: SavedSearchCreate
+      description: Data used by the Orion API to create a saved search.

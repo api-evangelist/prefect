@@ -60,35 +60,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    TaskWorkerResponse:
+    HTTPValidationError:
       properties:
-        identifier:
-          type: string
-          title: Identifier
-        task_keys:
+        detail:
           items:
-            type: string
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Task Keys
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
+          title: Detail
       type: object
-      required:
-      - identifier
-      - task_keys
-      - timestamp
-      title: TaskWorkerResponse
-    Body_read_task_workers_api_accounts__account_id__workspaces__workspace_id__task_workers_filter_post:
-      properties:
-        task_worker_filter:
-          anyOf:
-          - $ref: '#/components/schemas/TaskWorkerFilter'
-          - type: 'null'
-          description: The task worker filter
-      type: object
-      title: Body_read_task_workers_api_accounts__account_id__workspaces__workspace_id__task_workers_filter_post
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -110,15 +90,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     TaskWorkerFilter:
       properties:
         task_keys:
@@ -130,3 +101,32 @@ components:
       required:
       - task_keys
       title: TaskWorkerFilter
+    Body_read_task_workers_api_accounts__account_id__workspaces__workspace_id__task_workers_filter_post:
+      properties:
+        task_worker_filter:
+          anyOf:
+          - $ref: '#/components/schemas/TaskWorkerFilter'
+          - type: 'null'
+          description: The task worker filter
+      type: object
+      title: Body_read_task_workers_api_accounts__account_id__workspaces__workspace_id__task_workers_filter_post
+    TaskWorkerResponse:
+      properties:
+        identifier:
+          type: string
+          title: Identifier
+        task_keys:
+          items:
+            type: string
+          type: array
+          title: Task Keys
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+      type: object
+      required:
+      - identifier
+      - task_keys
+      - timestamp
+      title: TaskWorkerResponse

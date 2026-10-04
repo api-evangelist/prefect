@@ -306,6 +306,43 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    WebhookCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the webhook
+        description:
+          type: string
+          maxLength: 5000
+          title: Description
+          description: A longer description of the webhook
+          default: ''
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether the webhook is enabled
+          default: true
+        service_account_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Service Account Id
+          description: The Service Account to which this webhook belongs
+        template:
+          type: string
+          maxLength: 30000
+          title: Template
+          description: The template which translates the incoming HTTP headers and body into a Prefect Event
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - template
+      title: WebhookCreate
+      description: Defines an inbound webhook to receive events from external systems
     Body_query_webhooks_api_accounts__account_id__workspaces__workspace_id__webhooks_filter_post:
       properties:
         sort:
@@ -322,6 +359,36 @@ components:
           description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
       type: object
       title: Body_query_webhooks_api_accounts__account_id__workspaces__workspace_id__webhooks_filter_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     WebhookRead:
       properties:
         name:
@@ -397,6 +464,110 @@ components:
       - workspace
       - service_account
       title: WebhookRead
+    BotPartial:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+          description: The actor id associated with this bot.
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+          description: The bot's account id. Bots can only belong to one account.
+        name:
+          type: string
+          title: Name
+          description: The name of the bot.
+        api_key:
+          $ref: '#/components/schemas/APIKey'
+          description: The API Key the bot owns.
+      type: object
+      required:
+      - actor_id
+      - account_id
+      - name
+      - api_key
+      title: BotPartial
+      description: An ORM representation of a Bot
+    WebhookSort:
+      type: string
+      enum:
+      - CREATED_ASC
+      - CREATED_DESC
+      - UPDATED_ASC
+      - UPDATED_DESC
+      - NAME_ASC
+      - NAME_DESC
+      - KEY_EXPIRATION_ASC
+      - KEY_EXPIRATION_DESC
+      title: WebhookSort
+      description: Defines webhook sorting options.
+    WebhookPartialUpdate:
+      properties:
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether the webhook is enabled
+          default: true
+      additionalProperties: false
+      type: object
+      title: WebhookPartialUpdate
+      description: Defines an inbound webhook to receive events from external systems
+    WebhookUpdate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the webhook
+        description:
+          type: string
+          maxLength: 5000
+          title: Description
+          description: A longer description of the webhook
+          default: ''
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether the webhook is enabled
+          default: true
+        service_account_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Service Account Id
+          description: The Service Account to which this webhook belongs
+        template:
+          type: string
+          maxLength: 30000
+          title: Template
+          description: The template which translates the incoming HTTP headers and body into a Prefect Event
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - template
+      title: WebhookUpdate
+      description: Defines an inbound webhook to receive events from external systems
     Webhook:
       properties:
         name:
@@ -466,140 +637,6 @@ components:
       - workspace
       title: Webhook
       description: Defines an inbound webhook to receive events from external systems
-    WebhookCreate:
-      properties:
-        name:
-          type: string
-          maxLength: 5000
-          title: Name
-          description: The name of the webhook
-        description:
-          type: string
-          maxLength: 5000
-          title: Description
-          description: A longer description of the webhook
-          default: ''
-        enabled:
-          type: boolean
-          title: Enabled
-          description: Whether the webhook is enabled
-          default: true
-        service_account_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Service Account Id
-          description: The Service Account to which this webhook belongs
-        template:
-          type: string
-          maxLength: 30000
-          title: Template
-          description: The template which translates the incoming HTTP headers and body into a Prefect Event
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      - template
-      title: WebhookCreate
-      description: Defines an inbound webhook to receive events from external systems
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    WebhookSort:
-      type: string
-      enum:
-      - CREATED_ASC
-      - CREATED_DESC
-      - UPDATED_ASC
-      - UPDATED_DESC
-      - NAME_ASC
-      - NAME_DESC
-      - KEY_EXPIRATION_ASC
-      - KEY_EXPIRATION_DESC
-      title: WebhookSort
-      description: Defines webhook sorting options.
-    WebhookPartialUpdate:
-      properties:
-        enabled:
-          type: boolean
-          title: Enabled
-          description: Whether the webhook is enabled
-          default: true
-      additionalProperties: false
-      type: object
-      title: WebhookPartialUpdate
-      description: Defines an inbound webhook to receive events from external systems
-    BotPartial:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created
-        updated:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated
-        actor_id:
-          type: string
-          format: uuid
-          title: Actor Id
-          description: The actor id associated with this bot.
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-          description: The bot's account id. Bots can only belong to one account.
-        name:
-          type: string
-          title: Name
-          description: The name of the bot.
-        api_key:
-          $ref: '#/components/schemas/APIKey'
-          description: The API Key the bot owns.
-      type: object
-      required:
-      - actor_id
-      - account_id
-      - name
-      - api_key
-      title: BotPartial
-      description: An ORM representation of a Bot
     APIKey:
       properties:
         id:
@@ -649,40 +686,3 @@ components:
       - hash
       title: APIKey
       description: An ORM representation of an APIKey
-    WebhookUpdate:
-      properties:
-        name:
-          type: string
-          maxLength: 5000
-          title: Name
-          description: The name of the webhook
-        description:
-          type: string
-          maxLength: 5000
-          title: Description
-          description: A longer description of the webhook
-          default: ''
-        enabled:
-          type: boolean
-          title: Enabled
-          description: Whether the webhook is enabled
-          default: true
-        service_account_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Service Account Id
-          description: The Service Account to which this webhook belongs
-        template:
-          type: string
-          maxLength: 30000
-          title: Template
-          description: The template which translates the incoming HTTP headers and body into a Prefect Event
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      - template
-      title: WebhookUpdate
-      description: Defines an inbound webhook to receive events from external systems

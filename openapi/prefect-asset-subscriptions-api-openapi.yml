@@ -121,20 +121,15 @@ components:
       - publication_exists
       title: SubscriptionResponse
       description: Response model — subscription + publication status.
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
-            type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
           type: array
+          title: Detail
       type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
-
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -156,15 +151,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     AssetSubscriptionCreate:
       properties:
         publication_id:
@@ -181,3 +167,17 @@ components:
         The caller provides a publication_id; the server constructs the underlying
 
         SubscriptionCreate with the correct event patterns.'
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'

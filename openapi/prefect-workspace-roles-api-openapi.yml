@@ -198,6 +198,36 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     WorkspaceRoleCreate:
       properties:
         name:
@@ -230,6 +260,58 @@ components:
       - name
       title: WorkspaceRoleCreate
       description: Data used by the api to create a workspace role
+    Body_read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        workspace_roles:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceRoleFilter'
+          - type: 'null'
+      type: object
+      title: Body_read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post
+    WorkspaceRoleUpdate:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Name
+          description: The workspace role name.
+        description:
+          anyOf:
+          - type: string
+            maxLength: 140
+          - type: 'null'
+          title: Description
+          description: A short description of the role.
+        scopes:
+          items:
+            type: string
+          type: array
+          title: Scopes
+          description: The workspace role's scopes.
+        inherited_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Inherited Role Id
+          description: An optional built-in workspace role id from which this workspace role inherits.
+      additionalProperties: false
+      type: object
+      title: WorkspaceRoleUpdate
+      description: Data used by the api to update a workspace role
     WorkspaceRole:
       properties:
         id:
@@ -291,69 +373,19 @@ components:
       - name
       title: WorkspaceRole
       description: An ORM representation of a WorkspaceRole
-    ValidationError:
+    WorkspaceRoleFilterName:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    WorkspaceRoleUpdate:
-      properties:
-        name:
+        any_:
           anyOf:
-          - type: string
-            maxLength: 5000
+          - items:
+              type: string
+            type: array
           - type: 'null'
-          title: Name
-          description: The workspace role name.
-        description:
-          anyOf:
-          - type: string
-            maxLength: 140
-          - type: 'null'
-          title: Description
-          description: A short description of the role.
-        scopes:
-          items:
-            type: string
-          type: array
-          title: Scopes
-          description: The workspace role's scopes.
-        inherited_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Inherited Role Id
-          description: An optional built-in workspace role id from which this workspace role inherits.
+          title: Any
+          description: Only include workspace roles matching these names
       additionalProperties: false
       type: object
-      title: WorkspaceRoleUpdate
-      description: Data used by the api to update a workspace role
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      title: WorkspaceRoleFilterName
     WorkspaceRoleFilter:
       properties:
         name:
@@ -370,35 +402,3 @@ components:
       additionalProperties: false
       type: object
       title: WorkspaceRoleFilter
-    Body_read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        workspace_roles:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceRoleFilter'
-          - type: 'null'
-      type: object
-      title: Body_read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post
-    WorkspaceRoleFilterName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include workspace roles matching these names
-      additionalProperties: false
-      type: object
-      title: WorkspaceRoleFilterName

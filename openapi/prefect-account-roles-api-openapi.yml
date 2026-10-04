@@ -161,27 +161,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AccountRoleUpdate:
+    HTTPValidationError:
       properties:
-        name:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Name
-          description: The name of the account role.
-        permissions:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AccountPermission'
-            type: array
-          - type: 'null'
-          title: Permissions
-          description: The list of account permissions held by this role. Defines the actions account members assigned this role are allowed to take.
-      additionalProperties: false
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: AccountRoleUpdate
-      description: Data used by API to update an account role
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -203,19 +191,6 @@ components:
       - msg
       - type
       title: ValidationError
-    AccountRoleFilterName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include account roles matching these names
-      additionalProperties: false
-      type: object
-      title: AccountRoleFilterName
     Body_read_account_roles_api_accounts__account_id__account_roles_filter_post:
       properties:
         limit:
@@ -280,15 +255,27 @@ components:
       - name
       - permissions
       title: AccountRole
-    HTTPValidationError:
+    AccountRoleUpdate:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        name:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Name
+          description: The name of the account role.
+        permissions:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AccountPermission'
+            type: array
+          - type: 'null'
+          title: Permissions
+          description: The list of account permissions held by this role. Defines the actions account members assigned this role are allowed to take.
+      additionalProperties: false
       type: object
-      title: HTTPValidationError
+      title: AccountRoleUpdate
+      description: Data used by API to update an account role
     AccountRoleFilter:
       properties:
         name:
@@ -351,3 +338,16 @@ components:
       - update:integrations
       title: AccountPermission
       description: Enumerates possible permissions over an account
+    AccountRoleFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include account roles matching these names
+      additionalProperties: false
+      type: object
+      title: AccountRoleFilterName

@@ -275,25 +275,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    InvitationFilterExpiration:
-      properties:
-        before_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Before
-          description: Only include invitations expiring at or before this time
-        after_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: After
-          description: Only include invitations expiring at or after this time
-      additionalProperties: false
-      type: object
-      title: InvitationFilterExpiration
+    InvitationStatus:
+      type: string
+      enum:
+      - ACCEPTED
+      - PENDING
+      - REJECTED
+      - REVOKED
+      title: InvitationStatus
+      description: Enumeration of Invitation status
     InvitationFilterStatus:
       properties:
         any_:
@@ -307,35 +297,15 @@ components:
       additionalProperties: false
       type: object
       title: InvitationFilterStatus
-    Body_count_invitations_api_accounts__account_id__invitations_count_post:
+    HTTPValidationError:
       properties:
-        invitations:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilter'
-          - type: 'null'
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: Body_count_invitations_api_accounts__account_id__invitations_count_post
-    InvitationFilterEmail:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of invitation emails to include
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: InvitationFilterEmail
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -357,24 +327,46 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    InvitationFilterExpiration:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include invitations expiring at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include invitations expiring at or after this time
+      additionalProperties: false
       type: object
-      title: HTTPValidationError
-    InvitationStatus:
-      type: string
-      enum:
-      - ACCEPTED
-      - PENDING
-      - REJECTED
-      - REVOKED
-      title: InvitationStatus
-      description: Enumeration of Invitation status
+      title: InvitationFilterExpiration
+    InvitationFilterEmail:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of invitation emails to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: InvitationFilterEmail
     Body_read_invitations_api_accounts__account_id__invitations_filter_post:
       properties:
         invitations:
@@ -394,6 +386,14 @@ components:
           default: 0
       type: object
       title: Body_read_invitations_api_accounts__account_id__invitations_filter_post
+    Body_count_invitations_api_accounts__account_id__invitations_count_post:
+      properties:
+        invitations:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilter'
+          - type: 'null'
+      type: object
+      title: Body_count_invitations_api_accounts__account_id__invitations_count_post
     InvitationCreate:
       properties:
         email:
@@ -413,26 +413,6 @@ components:
       - account_role_id
       title: InvitationCreate
       description: Data used by the api to create an invitation
-    InvitationFilter:
-      properties:
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilterStatus'
-          - type: 'null'
-          description: Filter criteria for Invitation.status
-        expiration:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilterExpiration'
-          - type: 'null'
-          description: Filter criteria for Invitation.expiration
-        email:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilterEmail'
-          - type: 'null'
-          description: Filter criteria for Invitation.email
-      additionalProperties: false
-      type: object
-      title: InvitationFilter
     InvitationReadResponse:
       properties:
         id:
@@ -484,3 +464,23 @@ components:
       - expiration
       title: InvitationReadResponse
       description: Data returned by the api when reading an invitation
+    InvitationFilter:
+      properties:
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterStatus'
+          - type: 'null'
+          description: Filter criteria for Invitation.status
+        expiration:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterExpiration'
+          - type: 'null'
+          description: Filter criteria for Invitation.expiration
+        email:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilterEmail'
+          - type: 'null'
+          description: Filter criteria for Invitation.email
+      additionalProperties: false
+      type: object
+      title: InvitationFilter

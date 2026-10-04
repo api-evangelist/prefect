@@ -485,7 +485,28 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    BlockSchema:
+    Body_read_block_types_api_accounts__account_id__workspaces__workspace_id__block_types_filter_post:
+      properties:
+        block_types:
+          anyOf:
+          - $ref: '#/components/schemas/BlockTypeFilter'
+          - type: 'null'
+        block_schemas:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilter'
+          - type: 'null'
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          title: Limit
+          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+      type: object
+      title: Body_read_block_types_api_accounts__account_id__workspaces__workspace_id__block_types_filter_post
+    BlockType:
       properties:
         id:
           type: string
@@ -503,58 +524,59 @@ components:
             format: date-time
           - type: 'null'
           title: Updated
-        checksum:
+        name:
           type: string
-          title: Checksum
-          description: The block schema's unique checksum
-        fields:
-          additionalProperties: true
-          type: object
-          title: Fields
-          description: The block schema's field schema
-        block_type_id:
+          pattern: ^[^/%&><]+$
+          title: Name
+          description: A block type's name
+        slug:
+          type: string
+          title: Slug
+          description: A block type's slug
+        logo_url:
           anyOf:
           - type: string
-            format: uuid
           - type: 'null'
-          title: Block Type Id
-          description: A block type ID
-        block_type:
+          title: Logo Url
+          description: Web URL for the block type's logo
+        documentation_url:
           anyOf:
-          - $ref: '#/components/schemas/BlockType'
+          - type: string
           - type: 'null'
-          description: The associated block type
-        capabilities:
-          items:
-            type: string
-          type: array
-          title: Capabilities
-          description: A list of Block capabilities
-        version:
-          type: string
-          title: Version
-          description: Human readable identifier for the block schema
-          default: non-versioned
+          title: Documentation Url
+          description: Web URL for the block type's documentation
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A short blurb about the corresponding block's intended use
+        code_example:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code Example
+          description: A code snippet demonstrating use of the corresponding block
+        is_protected:
+          type: boolean
+          title: Is Protected
+          description: Protected block types cannot be modified via API.
+          default: false
       type: object
       required:
-      - checksum
-      - block_type_id
-      title: BlockSchema
-      description: An ORM representation of a block schema.
-    BlockTypeFilterName:
+      - name
+      - slug
+      title: BlockType
+      description: An ORM representation of a block type
+    HTTPValidationError:
       properties:
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
-          examples:
-          - marvin
-      additionalProperties: false
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: BlockTypeFilterName
-      description: Filter by `BlockType.name`
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -657,6 +679,50 @@ components:
       - block_type_id
       title: BlockDocument
       description: An ORM representation of a block document.
+    BlockTypeFilterName:
+      properties:
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: BlockTypeFilterName
+      description: Filter by `BlockType.name`
+    BlockSchemaFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        block_type_id:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterBlockTypeId'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.block_type_id`
+        block_capabilities:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterCapabilities'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.capabilities`
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterId'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.id`
+        version:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterVersion'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.version`
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilter
+      description: Filter BlockSchemas
     BlockTypeCreate:
       properties:
         name:
@@ -709,98 +775,21 @@ components:
       - slug
       title: BlockTypeCreate
       description: Data used by the Prefect REST API to create a block type.
-    Body_read_block_types_api_accounts__account_id__workspaces__workspace_id__block_types_filter_post:
+    BlockSchemaFilterBlockTypeId:
       properties:
-        block_types:
+        any_:
           anyOf:
-          - $ref: '#/components/schemas/BlockTypeFilter'
+          - items:
+              type: string
+              format: uuid
+            type: array
           - type: 'null'
-        block_schemas:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilter'
-          - type: 'null'
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        limit:
-          type: integer
-          title: Limit
-          description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
+          title: Any
+          description: A list of block type ids to include
+      additionalProperties: false
       type: object
-      title: Body_read_block_types_api_accounts__account_id__workspaces__workspace_id__block_types_filter_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    BlockType:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created
-        updated:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated
-        name:
-          type: string
-          pattern: ^[^/%&><]+$
-          title: Name
-          description: A block type's name
-        slug:
-          type: string
-          title: Slug
-          description: A block type's slug
-        logo_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Logo Url
-          description: Web URL for the block type's logo
-        documentation_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Documentation Url
-          description: Web URL for the block type's documentation
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: A short blurb about the corresponding block's intended use
-        code_example:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Code Example
-          description: A code snippet demonstrating use of the corresponding block
-        is_protected:
-          type: boolean
-          title: Is Protected
-          description: Protected block types cannot be modified via API.
-          default: false
-      type: object
-      required:
-      - name
-      - slug
-      title: BlockType
-      description: An ORM representation of a block type
+      title: BlockSchemaFilterBlockTypeId
+      description: Filter by `BlockSchema.block_type_id`.
     BlockSchemaFilterId:
       properties:
         any_:
@@ -816,6 +805,23 @@ components:
       type: object
       title: BlockSchemaFilterId
       description: Filter by BlockSchema.id
+    BlockSchemaFilterVersion:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of block schema versions.
+          examples:
+          - - 2.0.0
+            - 2.1.0
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilterVersion
+      description: Filter by `BlockSchema.capabilities`
     BlockTypeFilter:
       properties:
         name:
@@ -832,23 +838,6 @@ components:
       type: object
       title: BlockTypeFilter
       description: Filter BlockTypes
-    BlockSchemaFilterCapabilities:
-      properties:
-        all_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: All
-          description: A list of block capabilities. Block entities will be returned only if an associated block schema has a superset of the defined capabilities.
-          examples:
-          - - write-storage
-            - read-storage
-      additionalProperties: false
-      type: object
-      title: BlockSchemaFilterCapabilities
-      description: Filter by `BlockSchema.capabilities`
     BlockTypeUpdate:
       properties:
         logo_url:
@@ -897,65 +886,76 @@ components:
       type: object
       title: BlockTypeFilterSlug
       description: Filter by `BlockType.slug`
-    BlockSchemaFilterVersion:
+    BlockSchema:
       properties:
-        any_:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
           anyOf:
-          - items:
-              type: string
-            type: array
+          - type: string
+            format: date-time
           - type: 'null'
-          title: Any
-          description: A list of block schema versions.
-          examples:
-          - - 2.0.0
-            - 2.1.0
-      additionalProperties: false
-      type: object
-      title: BlockSchemaFilterVersion
-      description: Filter by `BlockSchema.capabilities`
-    BlockSchemaFilter:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        checksum:
+          type: string
+          title: Checksum
+          description: The block schema's unique checksum
+        fields:
+          additionalProperties: true
+          type: object
+          title: Fields
+          description: The block schema's field schema
         block_type_id:
           anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilterBlockTypeId'
+          - type: string
+            format: uuid
           - type: 'null'
-          description: Filter criteria for `BlockSchema.block_type_id`
-        block_capabilities:
+          title: Block Type Id
+          description: A block type ID
+        block_type:
           anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilterCapabilities'
+          - $ref: '#/components/schemas/BlockType'
           - type: 'null'
-          description: Filter criteria for `BlockSchema.capabilities`
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilterId'
-          - type: 'null'
-          description: Filter criteria for `BlockSchema.id`
+          description: The associated block type
+        capabilities:
+          items:
+            type: string
+          type: array
+          title: Capabilities
+          description: A list of Block capabilities
         version:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilterVersion'
-          - type: 'null'
-          description: Filter criteria for `BlockSchema.version`
-      additionalProperties: false
+          type: string
+          title: Version
+          description: Human readable identifier for the block schema
+          default: non-versioned
       type: object
-      title: BlockSchemaFilter
-      description: Filter BlockSchemas
-    BlockSchemaFilterBlockTypeId:
+      required:
+      - checksum
+      - block_type_id
+      title: BlockSchema
+      description: An ORM representation of a block schema.
+    BlockSchemaFilterCapabilities:
       properties:
-        any_:
+        all_:
           anyOf:
           - items:
               type: string
-              format: uuid
             type: array
           - type: 'null'
-          title: Any
-          description: A list of block type ids to include
+          title: All
+          description: A list of block capabilities. Block entities will be returned only if an associated block schema has a superset of the defined capabilities.
+          examples:
+          - - write-storage
+            - read-storage
       additionalProperties: false
       type: object
-      title: BlockSchemaFilterBlockTypeId
-      description: Filter by `BlockSchema.block_type_id`.
+      title: BlockSchemaFilterCapabilities
+      description: Filter by `BlockSchema.capabilities`

@@ -34,74 +34,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    WorkspaceScope:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the scope.
-          examples:
-          - see_flows
-        title:
-          type: string
-          title: Title
-          description: "\n            A human readable title for the scope that describes the marginal permissions granted by this scope.\n            For example, although `manage_deployments` grants the right to take any action\n            against a deployment, the marginal permission given is to delete deployments, as\n            `write_deployments` grants everything except this.\n\n            These titles are only used by the UI for display purposes.\n            "
-          examples:
-          - See flows and runs
-        feature_group:
-          type: string
-          title: Feature Group
-          description: The feature to which this scope relates. Used for grouping scopes in the UI.
-        includes_scopes:
-          items:
-            type: string
-          type: array
-          title: Includes Scopes
-          description: Optional list of scopes from which this scope inherits.
-          examples:
-          - - see_flows
-            - see_deployments
-        see_scope:
-          anyOf:
-          - $ref: '#/components/schemas/WorkspaceScopeName'
-          - type: 'null'
-          description: Which scope grants access to see the object
-      type: object
-      required:
-      - name
-      - title
-      - feature_group
-      - see_scope
-      title: WorkspaceScope
-      description: 'A workspace scope represents permissions to take a set of actions
-
-        within a Prefect Cloud workspace.
-
-
-        Only `name` and `includes_scopes` should be relied on for
-
-        authorization logic.'
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     WorkspaceScopeName:
       type: string
       enum:
@@ -177,3 +109,71 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    WorkspaceScope:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the scope.
+          examples:
+          - see_flows
+        title:
+          type: string
+          title: Title
+          description: "\n            A human readable title for the scope that describes the marginal permissions granted by this scope.\n            For example, although `manage_deployments` grants the right to take any action\n            against a deployment, the marginal permission given is to delete deployments, as\n            `write_deployments` grants everything except this.\n\n            These titles are only used by the UI for display purposes.\n            "
+          examples:
+          - See flows and runs
+        feature_group:
+          type: string
+          title: Feature Group
+          description: The feature to which this scope relates. Used for grouping scopes in the UI.
+        includes_scopes:
+          items:
+            type: string
+          type: array
+          title: Includes Scopes
+          description: Optional list of scopes from which this scope inherits.
+          examples:
+          - - see_flows
+            - see_deployments
+        see_scope:
+          anyOf:
+          - $ref: '#/components/schemas/WorkspaceScopeName'
+          - type: 'null'
+          description: Which scope grants access to see the object
+      type: object
+      required:
+      - name
+      - title
+      - feature_group
+      - see_scope
+      title: WorkspaceScope
+      description: 'A workspace scope represents permissions to take a set of actions
+
+        within a Prefect Cloud workspace.
+
+
+        Only `name` and `includes_scopes` should be relied on for
+
+        authorization logic.'
