@@ -256,22 +256,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    LogSort:
-      type: string
-      enum:
-      - TIMESTAMP_ASC
-      - TIMESTAMP_DESC
-      title: LogSort
-      description: Defines log sorting options.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -293,3 +277,19 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LogSort:
+      type: string
+      enum:
+      - TIMESTAMP_ASC
+      - TIMESTAMP_DESC
+      title: LogSort
+      description: Defines log sorting options.

@@ -69,6 +69,17 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    TaskWorkerFilter:
+      properties:
+        task_keys:
+          items:
+            type: string
+          type: array
+          title: Task Keys
+      type: object
+      required:
+      - task_keys
+      title: TaskWorkerFilter
     ValidationError:
       properties:
         loc:
@@ -90,17 +101,6 @@ components:
       - msg
       - type
       title: ValidationError
-    TaskWorkerFilter:
-      properties:
-        task_keys:
-          items:
-            type: string
-          type: array
-          title: Task Keys
-      type: object
-      required:
-      - task_keys
-      title: TaskWorkerFilter
     Body_read_task_workers_api_accounts__account_id__workspaces__workspace_id__task_workers_filter_post:
       properties:
         task_worker_filter:

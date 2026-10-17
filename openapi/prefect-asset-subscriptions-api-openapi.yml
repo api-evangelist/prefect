@@ -50,6 +50,66 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AssetSubscriptionCreate:
+      properties:
+        publication_id:
+          type: string
+          format: uuid
+          title: Publication Id
+      type: object
+      required:
+      - publication_id
+      title: AssetSubscriptionCreate
+      description: 'POST body for creating an asset subscription.
+
+
+        The caller provides a publication_id; the server constructs the underlying
+
+        SubscriptionCreate with the correct event patterns.'
     SubscriptionResponse:
       properties:
         id:
@@ -121,63 +181,3 @@ components:
       - publication_exists
       title: SubscriptionResponse
       description: Response model — subscription + publication status.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    AssetSubscriptionCreate:
-      properties:
-        publication_id:
-          type: string
-          format: uuid
-          title: Publication Id
-      type: object
-      required:
-      - publication_id
-      title: AssetSubscriptionCreate
-      description: 'POST body for creating an asset subscription.
-
-
-        The caller provides a publication_id; the server constructs the underlying
-
-        SubscriptionCreate with the correct event patterns.'
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
-            type: string
-          type: array
-      type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
-
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'

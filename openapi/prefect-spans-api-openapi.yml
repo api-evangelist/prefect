@@ -915,6 +915,38 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ObservedStateSort:
+      type: string
+      enum:
+      - NAME_ASC
+      - LAST_SEEN_DESC
+      title: ObservedStateSort
+      description: Defines observed state sorting options.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ObservedTag:
+      properties:
+        tag:
+          type: string
+          title: Tag
+          description: The tag name
+        count:
+          type: integer
+          title: Count
+          description: Number of spans with this tag in the trace
+      type: object
+      required:
+      - tag
+      - count
+      title: ObservedTag
+      description: An observed tag from spans within a trace.
     ObservedState:
       properties:
         state_type:
@@ -943,15 +975,6 @@ components:
       - last_seen
       title: ObservedState
       description: An observed state type/name combination from spans.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -973,13 +996,24 @@ components:
       - msg
       - type
       title: ValidationError
-    ObservedStateSort:
-      type: string
-      enum:
-      - NAME_ASC
-      - LAST_SEEN_DESC
-      title: ObservedStateSort
-      description: Defines observed state sorting options.
+    SpanIdentifierResponse:
+      properties:
+        trace_id:
+          type: string
+          format: uuid
+          title: Trace Id
+          description: The trace ID containing this span
+        span_id:
+          type: string
+          format: uuid
+          title: Span Id
+          description: The span ID
+      type: object
+      required:
+      - trace_id
+      - span_id
+      title: SpanIdentifierResponse
+      description: Response containing trace_id and span_id for a span lookup.
     SpanResponse:
       properties:
         span_id:
@@ -1082,22 +1116,6 @@ components:
       - attributes
       title: SpanResponse
       description: Span with additional computed fields for API responses.
-    ObservedTag:
-      properties:
-        tag:
-          type: string
-          title: Tag
-          description: The tag name
-        count:
-          type: integer
-          title: Count
-          description: Number of spans with this tag in the trace
-      type: object
-      required:
-      - tag
-      - count
-      title: ObservedTag
-      description: An observed tag from spans within a trace.
     SpansResponse:
       properties:
         spans:
@@ -1120,21 +1138,3 @@ components:
       - spans
       title: SpansResponse
       description: Unified response for both list and context endpoints.
-    SpanIdentifierResponse:
-      properties:
-        trace_id:
-          type: string
-          format: uuid
-          title: Trace Id
-          description: The trace ID containing this span
-        span_id:
-          type: string
-          format: uuid
-          title: Span Id
-          description: The span ID
-      type: object
-      required:
-      - trace_id
-      - span_id
-      title: SpanIdentifierResponse
-      description: Response containing trace_id and span_id for a span lookup.

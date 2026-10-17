@@ -128,64 +128,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    State:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        type:
-          $ref: '#/components/schemas/StateType'
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
-          examples:
-          - Run started
-        data:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Data
-          description: Data associated with the state, e.g. a result. Content must be storable as JSON.
-        state_details:
-          $ref: '#/components/schemas/StateDetails'
-      type: object
-      required:
-      - type
-      title: State
-      description: Represents the state of a run.
     StateDetails:
       properties:
         flow_run_id:
@@ -303,3 +245,61 @@ components:
       - CANCELLING
       title: StateType
       description: Enumeration of state types.
+    State:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        type:
+          $ref: '#/components/schemas/StateType'
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+          examples:
+          - Run started
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+          description: Data associated with the state, e.g. a result. Content must be storable as JSON.
+        state_details:
+          $ref: '#/components/schemas/StateDetails'
+      type: object
+      required:
+      - type
+      title: State
+      description: Represents the state of a run.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

@@ -86,6 +86,38 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    WorkspaceRateLimitAllocationEntry:
+      properties:
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+          description: The workspace ID to allocate rate limits for.
+        rate_limit_percentage:
+          type: number
+          maximum: 100.0
+          minimum: 0.1
+          title: Rate Limit Percentage
+          description: Percentage of account's rate limits allocated to this workspace (0.1-100).
+      additionalProperties: false
+      type: object
+      required:
+      - workspace_id
+      - rate_limit_percentage
+      title: WorkspaceRateLimitAllocationEntry
+      description: A single workspace allocation entry for bulk upsert.
+    WorkspaceRateLimitAllocationsUpsert:
+      properties:
+        allocations:
+          items:
+            $ref: '#/components/schemas/WorkspaceRateLimitAllocationEntry'
+          type: array
+          title: Allocations
+          description: List of workspace allocations. Workspaces not in this list will have their allocations removed.
+      additionalProperties: false
+      type: object
+      title: WorkspaceRateLimitAllocationsUpsert
+      description: Data used to upsert all workspace rate limit allocations for an account.
     HTTPValidationError:
       properties:
         detail:
@@ -95,27 +127,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     WorkspaceRateLimitAllocation:
       properties:
         id:
@@ -157,35 +168,24 @@ components:
       - rate_limit_percentage
       title: WorkspaceRateLimitAllocation
       description: A percentage-based rate limit allocation for a workspace.
-    WorkspaceRateLimitAllocationEntry:
+    ValidationError:
       properties:
-        workspace_id:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          format: uuid
-          title: Workspace Id
-          description: The workspace ID to allocate rate limits for.
-        rate_limit_percentage:
-          type: number
-          maximum: 100.0
-          minimum: 0.1
-          title: Rate Limit Percentage
-          description: Percentage of account's rate limits allocated to this workspace (0.1-100).
-      additionalProperties: false
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - workspace_id
-      - rate_limit_percentage
-      title: WorkspaceRateLimitAllocationEntry
-      description: A single workspace allocation entry for bulk upsert.
-    WorkspaceRateLimitAllocationsUpsert:
-      properties:
-        allocations:
-          items:
-            $ref: '#/components/schemas/WorkspaceRateLimitAllocationEntry'
-          type: array
-          title: Allocations
-          description: List of workspace allocations. Workspaces not in this list will have their allocations removed.
-      additionalProperties: false
-      type: object
-      title: WorkspaceRateLimitAllocationsUpsert
-      description: Data used to upsert all workspace rate limit allocations for an account.
+      - loc
+      - msg
+      - type
+      title: ValidationError

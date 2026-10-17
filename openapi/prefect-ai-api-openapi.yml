@@ -58,15 +58,22 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    MarvinResult:
       properties:
+        result:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Result
+          description: Result returned by an LLM, if any.
         detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
+          anyOf:
+          - type: string
+          - type: 'null'
           title: Detail
+          description: Details about an error that occurred while running the LLM, if any.
       type: object
-      title: HTTPValidationError
+      title: MarvinResult
     ValidationError:
       properties:
         loc:
@@ -88,19 +95,12 @@ components:
       - msg
       - type
       title: ValidationError
-    MarvinResult:
+    HTTPValidationError:
       properties:
-        result:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Result
-          description: Result returned by an LLM, if any.
         detail:
-          anyOf:
-          - type: string
-          - type: 'null'
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
           title: Detail
-          description: Details about an error that occurred while running the LLM, if any.
       type: object
-      title: MarvinResult
+      title: HTTPValidationError

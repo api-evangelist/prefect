@@ -278,21 +278,230 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    BotFilter:
+    BotFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of bot ids to include
+      additionalProperties: false
+      type: object
+      title: BotFilterId
+    TeamUpdate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the team.
+        description:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Description
+          description: An optional description of the team.
+          default: ''
+        workos_directory_group_id:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Workos Directory Group Id
+          description: The id of the WorkOS directory group that this team should be associated with.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: TeamUpdate
+      description: Data used by the api to update a team
+    UserFilterName:
+      properties:
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match on first_name or last_name. For example, passing 'marvin' will match users with 'marvin' in their first or last name.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: UserFilterName
+      description: Filter by `User.first_name` or `User.last_name`.
+    TeamSort:
+      type: string
+      enum:
+      - NAME_ASC
+      - NAME_DESC
+      - CREATED_ASC
+      - CREATED_DESC
+      title: TeamSort
+      description: Sort options for teams
+    TeamMembershipCreate:
+      properties:
+        member_id:
+          type: string
+          format: uuid
+          title: Member Id
+          description: The id of the user or service account to add to the team.
+        member_type:
+          type: string
+          enum:
+          - user
+          - service_account
+          title: Member Type
+          description: The type of member to add to the team.
+      additionalProperties: false
+      type: object
+      required:
+      - member_id
+      - member_type
+      title: TeamMembershipCreate
+    TeamCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          title: Name
+          description: The name of the team.
+        description:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Description
+          description: An optional description of the team.
+          default: ''
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: TeamCreate
+      description: Data used by the api to create a new team
+    TeamFilterDirectoryId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include teams with one of these directory ids
+      additionalProperties: false
+      type: object
+      title: TeamFilterDirectoryId
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TeamFilterWorkspaceId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include teams with access to one of these workspace ids
+      additionalProperties: false
+      type: object
+      title: TeamFilterWorkspaceId
+    BotFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of bot names to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: BotFilterName
+    TeamFilter:
       properties:
         id:
           anyOf:
-          - $ref: '#/components/schemas/BotFilterId'
+          - $ref: '#/components/schemas/TeamFilterId'
           - type: 'null'
-          description: Filter criteria for Bot.id
+          description: Filter criteria for Team.id
         name:
           anyOf:
-          - $ref: '#/components/schemas/BotFilterName'
+          - $ref: '#/components/schemas/TeamNameFilter'
           - type: 'null'
-          description: Filter criteria for Bot.name
+          description: Filter criteria for Team.name
+        directory_id:
+          anyOf:
+          - $ref: '#/components/schemas/TeamFilterDirectoryId'
+          - type: 'null'
+          description: Filter criteria for Team.workos_directory_id
+        workspace_id:
+          anyOf:
+          - $ref: '#/components/schemas/TeamFilterWorkspaceId'
+          - type: 'null'
+          description: Filter criteria for WorkspaceTeamAccess.workspace_id
+        workspace_role_id:
+          anyOf:
+          - $ref: '#/components/schemas/TeamFilterWorkspaceRoleId'
+          - type: 'null'
+          description: Filter criteria for WorkspaceTeamAccess.workspace_role_id
+        member_id:
+          anyOf:
+          - $ref: '#/components/schemas/TeamFilterMemberId'
+          - type: 'null'
+          description: Filter criteria for TeamMembership.actor_id
       additionalProperties: false
       type: object
-      title: BotFilter
+      title: TeamFilter
+    TeamFilterMemberId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include teams with a member matching one of these actor ids
+      additionalProperties: false
+      type: object
+      title: TeamFilterMemberId
     TeamResponse:
       properties:
         id:
@@ -351,6 +560,189 @@ components:
       - name
       title: TeamResponse
       description: Data returned by the API when reading a team.
+    UserFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of user ids to include
+        not_any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Not Any
+          description: A list of user ids to exclude
+      additionalProperties: false
+      type: object
+      title: UserFilterId
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TeamFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include teams with one of these ids
+      additionalProperties: false
+      type: object
+      title: TeamFilterId
+    UserFilter:
+      properties:
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/UserFilterId'
+          - type: 'null'
+          description: Filter criteria for User.id
+        email:
+          anyOf:
+          - $ref: '#/components/schemas/UserFilterEmail'
+          - type: 'null'
+          description: Filter criteria for UserEmail.email
+        handle:
+          anyOf:
+          - $ref: '#/components/schemas/UserFilterHandle'
+          - type: 'null'
+          description: Filter criteria for User.handle
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/UserFilterName'
+          - type: 'null'
+          description: Filter criteria for User.first_name or User.last_name
+      additionalProperties: false
+      type: object
+      title: UserFilter
+    UserFilterEmail:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of user emails to include
+          examples:
+          - - marvin@prefect.example
+            - marvin.jr@prefect.example
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin@prefect.example', 'sad-Marvin@prefect.example', and 'marvin-robot@prefect.example'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: UserFilterEmail
+      description: Filter by `UserEmail.email`.
+    TeamNameFilter:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include teams matching these names
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: TeamNameFilter
+    Body_upsert_team_members_api_accounts__account_id__teams__id__members_put:
+      properties:
+        members:
+          items:
+            $ref: '#/components/schemas/TeamMembershipCreate'
+          type: array
+          title: Members
+      type: object
+      required:
+      - members
+      title: Body_upsert_team_members_api_accounts__account_id__teams__id__members_put
+    BotFilter:
+      properties:
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilterId'
+          - type: 'null'
+          description: Filter criteria for Bot.id
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/BotFilterName'
+          - type: 'null'
+          description: Filter criteria for Bot.name
+      additionalProperties: false
+      type: object
+      title: BotFilter
+    UserFilterHandle:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of user handles to include
+          examples:
+          - - marvin-ops
+            - ceo-marvin
+            - marvin-engineering
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: UserFilterHandle
+      description: Filter by `User.handle`.
+    TeamFilterWorkspaceRoleId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include teams with one of these workspace role ids
+      additionalProperties: false
+      type: object
+      title: TeamFilterWorkspaceRoleId
     TeamWorkspaceAccess:
       properties:
         workspace_id:
@@ -379,111 +771,6 @@ components:
       - workspace_role_name
       title: TeamWorkspaceAccess
       description: Describes the access a team has to a workspace.
-    TeamFilter:
-      properties:
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/TeamFilterId'
-          - type: 'null'
-          description: Filter criteria for Team.id
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/TeamNameFilter'
-          - type: 'null'
-          description: Filter criteria for Team.name
-        directory_id:
-          anyOf:
-          - $ref: '#/components/schemas/TeamFilterDirectoryId'
-          - type: 'null'
-          description: Filter criteria for Team.workos_directory_id
-        workspace_id:
-          anyOf:
-          - $ref: '#/components/schemas/TeamFilterWorkspaceId'
-          - type: 'null'
-          description: Filter criteria for WorkspaceTeamAccess.workspace_id
-        workspace_role_id:
-          anyOf:
-          - $ref: '#/components/schemas/TeamFilterWorkspaceRoleId'
-          - type: 'null'
-          description: Filter criteria for WorkspaceTeamAccess.workspace_role_id
-        member_id:
-          anyOf:
-          - $ref: '#/components/schemas/TeamFilterMemberId'
-          - type: 'null'
-          description: Filter criteria for TeamMembership.actor_id
-      additionalProperties: false
-      type: object
-      title: TeamFilter
-    TeamFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include teams with one of these ids
-      additionalProperties: false
-      type: object
-      title: TeamFilterId
-    UserFilterName:
-      properties:
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match on first_name or last_name. For example, passing 'marvin' will match users with 'marvin' in their first or last name.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: UserFilterName
-      description: Filter by `User.first_name` or `User.last_name`.
-    BotFilterName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of bot names to include
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: BotFilterName
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     TeamMemberResponse:
       properties:
         id:
@@ -521,98 +808,6 @@ components:
       - type
       title: TeamMemberResponse
       description: Describes a member of a team.
-    UserFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of user ids to include
-        not_any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Not Any
-          description: A list of user ids to exclude
-      additionalProperties: false
-      type: object
-      title: UserFilterId
-    TeamNameFilter:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include teams matching these names
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: TeamNameFilter
-    UserFilterEmail:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of user emails to include
-          examples:
-          - - marvin@prefect.example
-            - marvin.jr@prefect.example
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin@prefect.example', 'sad-Marvin@prefect.example', and 'marvin-robot@prefect.example'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: UserFilterEmail
-      description: Filter by `UserEmail.email`.
-    TeamFilterWorkspaceRoleId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include teams with one of these workspace role ids
-      additionalProperties: false
-      type: object
-      title: TeamFilterWorkspaceRoleId
-    TeamSort:
-      type: string
-      enum:
-      - NAME_ASC
-      - NAME_DESC
-      - CREATED_ASC
-      - CREATED_DESC
-      title: TeamSort
-      description: Sort options for teams
     Body_read_teams_api_accounts__account_id__teams_filter_post:
       properties:
         teams:
@@ -638,198 +833,3 @@ components:
           default: 0
       type: object
       title: Body_read_teams_api_accounts__account_id__teams_filter_post
-    TeamCreate:
-      properties:
-        name:
-          type: string
-          maxLength: 5000
-          title: Name
-          description: The name of the team.
-        description:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Description
-          description: An optional description of the team.
-          default: ''
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      title: TeamCreate
-      description: Data used by the api to create a new team
-    TeamFilterWorkspaceId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include teams with access to one of these workspace ids
-      additionalProperties: false
-      type: object
-      title: TeamFilterWorkspaceId
-    TeamFilterDirectoryId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include teams with one of these directory ids
-      additionalProperties: false
-      type: object
-      title: TeamFilterDirectoryId
-    TeamFilterMemberId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include teams with a member matching one of these actor ids
-      additionalProperties: false
-      type: object
-      title: TeamFilterMemberId
-    UserFilterHandle:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of user handles to include
-          examples:
-          - - marvin-ops
-            - ceo-marvin
-            - marvin-engineering
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: UserFilterHandle
-      description: Filter by `User.handle`.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    UserFilter:
-      properties:
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/UserFilterId'
-          - type: 'null'
-          description: Filter criteria for User.id
-        email:
-          anyOf:
-          - $ref: '#/components/schemas/UserFilterEmail'
-          - type: 'null'
-          description: Filter criteria for UserEmail.email
-        handle:
-          anyOf:
-          - $ref: '#/components/schemas/UserFilterHandle'
-          - type: 'null'
-          description: Filter criteria for User.handle
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/UserFilterName'
-          - type: 'null'
-          description: Filter criteria for User.first_name or User.last_name
-      additionalProperties: false
-      type: object
-      title: UserFilter
-    BotFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of bot ids to include
-      additionalProperties: false
-      type: object
-      title: BotFilterId
-    Body_upsert_team_members_api_accounts__account_id__teams__id__members_put:
-      properties:
-        members:
-          items:
-            $ref: '#/components/schemas/TeamMembershipCreate'
-          type: array
-          title: Members
-      type: object
-      required:
-      - members
-      title: Body_upsert_team_members_api_accounts__account_id__teams__id__members_put
-    TeamMembershipCreate:
-      properties:
-        member_id:
-          type: string
-          format: uuid
-          title: Member Id
-          description: The id of the user or service account to add to the team.
-        member_type:
-          type: string
-          enum:
-          - user
-          - service_account
-          title: Member Type
-          description: The type of member to add to the team.
-      additionalProperties: false
-      type: object
-      required:
-      - member_id
-      - member_type
-      title: TeamMembershipCreate
-    TeamUpdate:
-      properties:
-        name:
-          type: string
-          maxLength: 5000
-          title: Name
-          description: The name of the team.
-        description:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Description
-          description: An optional description of the team.
-          default: ''
-        workos_directory_group_id:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Workos Directory Group Id
-          description: The id of the WorkOS directory group that this team should be associated with.
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      title: TeamUpdate
-      description: Data used by the api to update a team

@@ -198,6 +198,19 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    WorkspaceRoleFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: Only include workspace roles matching these names
+      additionalProperties: false
+      type: object
+      title: WorkspaceRoleFilterName
     HTTPValidationError:
       properties:
         detail:
@@ -207,27 +220,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     WorkspaceRoleCreate:
       properties:
         name:
@@ -279,39 +271,43 @@ components:
           - type: 'null'
       type: object
       title: Body_read_workspace_roles_api_accounts__account_id__workspace_roles_filter_post
-    WorkspaceRoleUpdate:
+    WorkspaceRoleFilter:
       properties:
         name:
           anyOf:
-          - type: string
-            maxLength: 5000
+          - $ref: '#/components/schemas/WorkspaceRoleFilterName'
           - type: 'null'
-          title: Name
-          description: The workspace role name.
-        description:
+          description: Filter criteria for WorkspaceRole.name
+        is_global:
           anyOf:
-          - type: string
-            maxLength: 140
+          - type: boolean
           - type: 'null'
-          title: Description
-          description: A short description of the role.
-        scopes:
-          items:
-            type: string
-          type: array
-          title: Scopes
-          description: The workspace role's scopes.
-        inherited_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Inherited Role Id
-          description: An optional built-in workspace role id from which this workspace role inherits.
+          title: Is Global
+          description: "\n        If True, only return global built-in roles. If False,\n        only return workspace roles from this account. Defaults to `None`, which includes both.\n        "
       additionalProperties: false
       type: object
-      title: WorkspaceRoleUpdate
-      description: Data used by the api to update a workspace role
+      title: WorkspaceRoleFilter
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     WorkspaceRole:
       properties:
         id:
@@ -373,32 +369,36 @@ components:
       - name
       title: WorkspaceRole
       description: An ORM representation of a WorkspaceRole
-    WorkspaceRoleFilterName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: Only include workspace roles matching these names
-      additionalProperties: false
-      type: object
-      title: WorkspaceRoleFilterName
-    WorkspaceRoleFilter:
+    WorkspaceRoleUpdate:
       properties:
         name:
           anyOf:
-          - $ref: '#/components/schemas/WorkspaceRoleFilterName'
+          - type: string
+            maxLength: 5000
           - type: 'null'
-          description: Filter criteria for WorkspaceRole.name
-        is_global:
+          title: Name
+          description: The workspace role name.
+        description:
           anyOf:
-          - type: boolean
+          - type: string
+            maxLength: 140
           - type: 'null'
-          title: Is Global
-          description: "\n        If True, only return global built-in roles. If False,\n        only return workspace roles from this account. Defaults to `None`, which includes both.\n        "
+          title: Description
+          description: A short description of the role.
+        scopes:
+          items:
+            type: string
+          type: array
+          title: Scopes
+          description: The workspace role's scopes.
+        inherited_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Inherited Role Id
+          description: An optional built-in workspace role id from which this workspace role inherits.
       additionalProperties: false
       type: object
-      title: WorkspaceRoleFilter
+      title: WorkspaceRoleUpdate
+      description: Data used by the api to update a workspace role

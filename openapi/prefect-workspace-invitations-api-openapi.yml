@@ -200,111 +200,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    WorkspaceInvitationCreate:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-          description: The email of the user to invite
-      additionalProperties: false
-      type: object
-      required:
-      - email
-      title: WorkspaceInvitationCreate
-      description: Data used by the api to create an invitation
-    InvitationStatus:
-      type: string
-      enum:
-      - ACCEPTED
-      - PENDING
-      - REJECTED
-      - REVOKED
-      title: InvitationStatus
-      description: Enumeration of Invitation status
-    InvitationFilterStatus:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/InvitationStatus'
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of invitation statuses to include
-      additionalProperties: false
-      type: object
-      title: InvitationFilterStatus
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    InvitationFilterExpiration:
-      properties:
-        before_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Before
-          description: Only include invitations expiring at or before this time
-        after_:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: After
-          description: Only include invitations expiring at or after this time
-      additionalProperties: false
-      type: object
-      title: InvitationFilterExpiration
-    InvitationFilterEmail:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of invitation emails to include
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: InvitationFilterEmail
     WorkspaceInvitationReadResponse:
       properties:
         id:
@@ -368,25 +263,41 @@ components:
       - expiration
       title: WorkspaceInvitationReadResponse
       description: Data returned by the api when reading a workspace invitation
-    Body_read_workspace_invitations_api_accounts__account_id__workspaces__workspace_id__invitations_filter_post:
+    HTTPValidationError:
       properties:
-        workspace_invitations:
-          anyOf:
-          - $ref: '#/components/schemas/InvitationFilter'
-          - type: 'null'
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: Body_read_workspace_invitations_api_accounts__account_id__workspaces__workspace_id__invitations_filter_post
+      title: HTTPValidationError
+    InvitationFilterStatus:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/InvitationStatus'
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of invitation statuses to include
+      additionalProperties: false
+      type: object
+      title: InvitationFilterStatus
+    WorkspaceInvitationCreate:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+          description: The email of the user to invite
+      additionalProperties: false
+      type: object
+      required:
+      - email
+      title: WorkspaceInvitationCreate
+      description: Data used by the api to create an invitation
     InvitationFilter:
       properties:
         status:
@@ -407,3 +318,92 @@ components:
       additionalProperties: false
       type: object
       title: InvitationFilter
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    InvitationFilterExpiration:
+      properties:
+        before_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Before
+          description: Only include invitations expiring at or before this time
+        after_:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: After
+          description: Only include invitations expiring at or after this time
+      additionalProperties: false
+      type: object
+      title: InvitationFilterExpiration
+    InvitationFilterEmail:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of invitation emails to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin-ops', 'ceo-marvin', and 'marvin-engineering'.
+          examples:
+          - marvin
+      additionalProperties: false
+      type: object
+      title: InvitationFilterEmail
+    InvitationStatus:
+      type: string
+      enum:
+      - ACCEPTED
+      - PENDING
+      - REJECTED
+      - REVOKED
+      title: InvitationStatus
+      description: Enumeration of Invitation status
+    Body_read_workspace_invitations_api_accounts__account_id__workspaces__workspace_id__invitations_filter_post:
+      properties:
+        workspace_invitations:
+          anyOf:
+          - $ref: '#/components/schemas/InvitationFilter'
+          - type: 'null'
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+      type: object
+      title: Body_read_workspace_invitations_api_accounts__account_id__workspaces__workspace_id__invitations_filter_post

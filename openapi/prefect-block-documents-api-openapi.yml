@@ -658,38 +658,49 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    BlockDocumentFilter:
+    BlockTypeFilterName:
       properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        id:
+        like_:
           anyOf:
-          - $ref: '#/components/schemas/BlockDocumentFilterId'
+          - type: string
           - type: 'null'
-          description: Filter criteria for `BlockDocument.id`
-        is_anonymous:
-          anyOf:
-          - $ref: '#/components/schemas/BlockDocumentFilterIsAnonymous'
-          - type: 'null'
-          description: Filter criteria for `BlockDocument.is_anonymous`. Defaults to excluding anonymous blocks.
-          default:
-            eq_: false
-        block_type_id:
-          anyOf:
-          - $ref: '#/components/schemas/BlockDocumentFilterBlockTypeId'
-          - type: 'null'
-          description: Filter criteria for `BlockDocument.block_type_id`
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/BlockDocumentFilterName'
-          - type: 'null'
-          description: Filter criteria for `BlockDocument.name`
+          title: Like
+          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
+          examples:
+          - marvin
       additionalProperties: false
       type: object
-      title: BlockDocumentFilter
-      description: Filter BlockDocuments. Only BlockDocuments matching all criteria will be returned
+      title: BlockTypeFilterName
+      description: Filter by `BlockType.name`
+    BlockDocumentSort:
+      type: string
+      enum:
+      - NAME_DESC
+      - NAME_ASC
+      - BLOCK_TYPE_AND_NAME_ASC
+      title: BlockDocumentSort
+      description: Defines block document sorting options.
+    BlockTypeFilterSlug:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of slugs to match
+      additionalProperties: false
+      type: object
+      title: BlockTypeFilterSlug
+      description: Filter by `BlockType.slug`
+    prefect_cloud__orion__schemas__filters__Operator:
+      type: string
+      enum:
+      - and_
+      - or_
+      title: Operator
+      description: Operators for combining filter criteria.
     BlockDocumentFilterBlockTypeId:
       properties:
         any_:
@@ -705,27 +716,15 @@ components:
       type: object
       title: BlockDocumentFilterBlockTypeId
       description: Filter by `BlockDocument.block_type_id`.
-    BlockDocumentFilterIsAnonymous:
+    Body_set_block_document_access_api_accounts__account_id__workspaces__workspace_id__block_documents__id__access_put:
       properties:
-        eq_:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Eq
-          description: Filter block documents for only those that are or are not anonymous.
-      additionalProperties: false
+        access_control:
+          $ref: '#/components/schemas/ReplaceBlockDocumentAccess'
       type: object
-      title: BlockDocumentFilterIsAnonymous
-      description: Filter by `BlockDocument.is_anonymous`.
-    BlockDocumentSort:
-      type: string
-      enum:
-      - NAME_DESC
-      - NAME_ASC
-      - BLOCK_TYPE_AND_NAME_ASC
-      title: BlockDocumentSort
-      description: Defines block document sorting options.
-    BlockSchemaFilterId:
+      required:
+      - access_control
+      title: Body_set_block_document_access_api_accounts__account_id__workspaces__workspace_id__block_documents__id__access_put
+    BlockSchemaFilterBlockTypeId:
       properties:
         any_:
           anyOf:
@@ -735,11 +734,11 @@ components:
             type: array
           - type: 'null'
           title: Any
-          description: A list of IDs to include
+          description: A list of block type ids to include
       additionalProperties: false
       type: object
-      title: BlockSchemaFilterId
-      description: Filter by BlockSchema.id
+      title: BlockSchemaFilterBlockTypeId
+      description: Filter by `BlockSchema.block_type_id`.
     Body_read_block_documents_api_accounts__account_id__workspaces__workspace_id__block_documents_filter_post:
       properties:
         block_documents:
@@ -775,101 +774,6 @@ components:
           description: Defaults to PREFECT_ORION_API_DEFAULT_LIMIT if not provided.
       type: object
       title: Body_read_block_documents_api_accounts__account_id__workspaces__workspace_id__block_documents_filter_post
-    BlockTypeFilter:
-      properties:
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/BlockTypeFilterName'
-          - type: 'null'
-          description: Filter criteria for `BlockType.name`
-        slug:
-          anyOf:
-          - $ref: '#/components/schemas/BlockTypeFilterSlug'
-          - type: 'null'
-          description: Filter criteria for `BlockType.slug`
-      additionalProperties: false
-      type: object
-      title: BlockTypeFilter
-      description: Filter BlockTypes
-    BlockDocumentFilterId:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of block ids to include
-      additionalProperties: false
-      type: object
-      title: BlockDocumentFilterId
-      description: Filter by `BlockDocument.id`.
-    Body_read_actors_block_document_access_api_accounts__account_id__workspaces__workspace_id__block_documents_my_access_post:
-      properties:
-        block_document_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Block Document Ids
-      type: object
-      required:
-      - block_document_ids
-      title: Body_read_actors_block_document_access_api_accounts__account_id__workspaces__workspace_id__block_documents_my_access_post
-    BlockTypeFilterSlug:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of slugs to match
-      additionalProperties: false
-      type: object
-      title: BlockTypeFilterSlug
-      description: Filter by `BlockType.slug`
-    BlockSchemaFilterCapabilities:
-      properties:
-        all_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: All
-          description: A list of block capabilities. Block entities will be returned only if an associated block schema has a superset of the defined capabilities.
-          examples:
-          - - write-storage
-            - read-storage
-      additionalProperties: false
-      type: object
-      title: BlockSchemaFilterCapabilities
-      description: Filter by `BlockSchema.capabilities`
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     BlockDocumentCreate:
       properties:
         name:
@@ -906,138 +810,78 @@ components:
       - block_type_id
       title: BlockDocumentCreate
       description: Data used by the Prefect REST API to create a block document.
-    Body_count_block_documents_api_accounts__account_id__workspaces__workspace_id__block_documents_count_post:
-      properties:
-        block_documents:
-          anyOf:
-          - $ref: '#/components/schemas/BlockDocumentFilter'
-          - type: 'null'
-        block_types:
-          anyOf:
-          - $ref: '#/components/schemas/BlockTypeFilter'
-          - type: 'null'
-        block_schemas:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilter'
-          - type: 'null'
-      type: object
-      title: Body_count_block_documents_api_accounts__account_id__workspaces__workspace_id__block_documents_count_post
-    BlockDocumentFilterName:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of block names to include
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A string to match block names against. This can include SQL wildcard characters like `%` and `_`.
-          examples:
-          - my-block%
-      additionalProperties: false
-      type: object
-      title: BlockDocumentFilterName
-      description: Filter by `BlockDocument.name`.
-    BlockSchemaFilterVersion:
-      properties:
-        any_:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Any
-          description: A list of block schema versions.
-          examples:
-          - - 2.0.0
-            - 2.1.0
-      additionalProperties: false
-      type: object
-      title: BlockSchemaFilterVersion
-      description: Filter by `BlockSchema.capabilities`
-    ObjectActorAccess:
+    BlockSchema:
       properties:
         id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        checksum:
+          type: string
+          title: Checksum
+          description: The block schema's unique checksum
+        fields:
+          additionalProperties: true
+          type: object
+          title: Fields
+          description: The block schema's field schema
+        block_type_id:
           anyOf:
           - type: string
             format: uuid
-          - type: string
-            const: '*'
-          title: Id
-          description: The actor id.
-        name:
-          type: string
-          title: Name
-          description: The actor name.
-        email:
-          anyOf:
-          - type: string
           - type: 'null'
-          title: Email
-          description: The actor email if they're a user, otherwise None.
-        type:
+          title: Block Type Id
+          description: A block type ID
+        block_type:
+          anyOf:
+          - $ref: '#/components/schemas/BlockType'
+          - type: 'null'
+          description: The associated block type
+        capabilities:
+          items:
+            type: string
+          type: array
+          title: Capabilities
+          description: A list of Block capabilities
+        version:
           type: string
-          enum:
-          - user
-          - service_account
-          - team
-          - '*'
-          title: Type
-          description: The actor type.
+          title: Version
+          description: Human readable identifier for the block schema
+          default: non-versioned
       type: object
       required:
-      - id
-      - name
-      - email
-      - type
-      title: ObjectActorAccess
-      description: Data describing an actor with object-level access.
-    BlockSchemaFilterBlockTypeId:
+      - checksum
+      - block_type_id
+      title: BlockSchema
+      description: An ORM representation of a block schema.
+    BlockTypeFilter:
       properties:
-        any_:
+        name:
           anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
+          - $ref: '#/components/schemas/BlockTypeFilterName'
           - type: 'null'
-          title: Any
-          description: A list of block type ids to include
+          description: Filter criteria for `BlockType.name`
+        slug:
+          anyOf:
+          - $ref: '#/components/schemas/BlockTypeFilterSlug'
+          - type: 'null'
+          description: Filter criteria for `BlockType.slug`
       additionalProperties: false
       type: object
-      title: BlockSchemaFilterBlockTypeId
-      description: Filter by `BlockSchema.block_type_id`.
-    Body_set_block_document_access_api_accounts__account_id__workspaces__workspace_id__block_documents__id__access_put:
-      properties:
-        access_control:
-          $ref: '#/components/schemas/ReplaceBlockDocumentAccess'
-      type: object
-      required:
-      - access_control
-      title: Body_set_block_document_access_api_accounts__account_id__workspaces__workspace_id__block_documents__id__access_put
-    BlockDocumentAccessControl:
-      properties:
-        manage_actors:
-          items:
-            $ref: '#/components/schemas/ObjectActorAccess'
-          type: array
-          title: Manage Actors
-          description: A list of actors with access to manage the block document.
-        view_actors:
-          items:
-            $ref: '#/components/schemas/ObjectActorAccess'
-          type: array
-          title: View Actors
-          description: A list of actors with access to view the block document.
-      type: object
-      title: BlockDocumentAccessControl
-      description: A representation of the access control for a block document.
+      title: BlockTypeFilter
+      description: Filter BlockTypes
     BlockType:
       properties:
         id:
@@ -1100,13 +944,59 @@ components:
       - slug
       title: BlockType
       description: An ORM representation of a block type
-    prefect_cloud__orion__schemas__filters__Operator:
-      type: string
-      enum:
-      - and_
-      - or_
-      title: Operator
-      description: Operators for combining filter criteria.
+    BlockSchemaFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of IDs to include
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilterId
+      description: Filter by BlockSchema.id
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BlockSchemaFilterVersion:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of block schema versions.
+          examples:
+          - - 2.0.0
+            - 2.1.0
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilterVersion
+      description: Filter by `BlockSchema.capabilities`
     HTTPValidationError:
       properties:
         detail:
@@ -1116,6 +1006,184 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    Body_count_block_documents_api_accounts__account_id__workspaces__workspace_id__block_documents_count_post:
+      properties:
+        block_documents:
+          anyOf:
+          - $ref: '#/components/schemas/BlockDocumentFilter'
+          - type: 'null'
+        block_types:
+          anyOf:
+          - $ref: '#/components/schemas/BlockTypeFilter'
+          - type: 'null'
+        block_schemas:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilter'
+          - type: 'null'
+      type: object
+      title: Body_count_block_documents_api_accounts__account_id__workspaces__workspace_id__block_documents_count_post
+    BlockDocumentFilterIsAnonymous:
+      properties:
+        eq_:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Eq
+          description: Filter block documents for only those that are or are not anonymous.
+      additionalProperties: false
+      type: object
+      title: BlockDocumentFilterIsAnonymous
+      description: Filter by `BlockDocument.is_anonymous`.
+    BlockDocumentFilterId:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of block ids to include
+      additionalProperties: false
+      type: object
+      title: BlockDocumentFilterId
+      description: Filter by `BlockDocument.id`.
+    BlockSchemaFilter:
+      properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
+        block_type_id:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterBlockTypeId'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.block_type_id`
+        block_capabilities:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterCapabilities'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.capabilities`
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterId'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.id`
+        version:
+          anyOf:
+          - $ref: '#/components/schemas/BlockSchemaFilterVersion'
+          - type: 'null'
+          description: Filter criteria for `BlockSchema.version`
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilter
+      description: Filter BlockSchemas
+    Body_read_actors_block_document_access_api_accounts__account_id__workspaces__workspace_id__block_documents_my_access_post:
+      properties:
+        block_document_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Block Document Ids
+      type: object
+      required:
+      - block_document_ids
+      title: Body_read_actors_block_document_access_api_accounts__account_id__workspaces__workspace_id__block_documents_my_access_post
+    BlockSchemaFilterCapabilities:
+      properties:
+        all_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: All
+          description: A list of block capabilities. Block entities will be returned only if an associated block schema has a superset of the defined capabilities.
+          examples:
+          - - write-storage
+            - read-storage
+      additionalProperties: false
+      type: object
+      title: BlockSchemaFilterCapabilities
+      description: Filter by `BlockSchema.capabilities`
+    BlockDocumentFilterName:
+      properties:
+        any_:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Any
+          description: A list of block names to include
+        like_:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Like
+          description: A string to match block names against. This can include SQL wildcard characters like `%` and `_`.
+          examples:
+          - my-block%
+      additionalProperties: false
+      type: object
+      title: BlockDocumentFilterName
+      description: Filter by `BlockDocument.name`.
+    ObjectActorAccess:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+            const: '*'
+          title: Id
+          description: The actor id.
+        name:
+          type: string
+          title: Name
+          description: The actor name.
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+          description: The actor email if they're a user, otherwise None.
+        type:
+          type: string
+          enum:
+          - user
+          - service_account
+          - team
+          - '*'
+          title: Type
+          description: The actor type.
+      type: object
+      required:
+      - id
+      - name
+      - email
+      - type
+      title: ObjectActorAccess
+      description: Data describing an actor with object-level access.
+    BlockDocumentAccessControl:
+      properties:
+        manage_actors:
+          items:
+            $ref: '#/components/schemas/ObjectActorAccess'
+          type: array
+          title: Manage Actors
+          description: A list of actors with access to manage the block document.
+        view_actors:
+          items:
+            $ref: '#/components/schemas/ObjectActorAccess'
+          type: array
+          title: View Actors
+          description: A list of actors with access to view the block document.
+      type: object
+      title: BlockDocumentAccessControl
+      description: A representation of the access control for a block document.
     BlockDocument:
       properties:
         id:
@@ -1190,72 +1258,6 @@ components:
       - block_type_id
       title: BlockDocument
       description: An ORM representation of a block document.
-    BlockTypeFilterName:
-      properties:
-        like_:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Like
-          description: A case-insensitive partial match. For example,  passing 'marvin' will match 'marvin', 'sad-Marvin', and 'marvin-robot'.
-          examples:
-          - marvin
-      additionalProperties: false
-      type: object
-      title: BlockTypeFilterName
-      description: Filter by `BlockType.name`
-    BlockSchemaFilter:
-      properties:
-        operator:
-          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
-          description: Operator for combining filter criteria. Defaults to 'and_'.
-          default: and_
-        block_type_id:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilterBlockTypeId'
-          - type: 'null'
-          description: Filter criteria for `BlockSchema.block_type_id`
-        block_capabilities:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilterCapabilities'
-          - type: 'null'
-          description: Filter criteria for `BlockSchema.capabilities`
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilterId'
-          - type: 'null'
-          description: Filter criteria for `BlockSchema.id`
-        version:
-          anyOf:
-          - $ref: '#/components/schemas/BlockSchemaFilterVersion'
-          - type: 'null'
-          description: Filter criteria for `BlockSchema.version`
-      additionalProperties: false
-      type: object
-      title: BlockSchemaFilter
-      description: Filter BlockSchemas
-    BlockDocumentUpdate:
-      properties:
-        block_schema_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Block Schema Id
-          description: A block schema ID
-        data:
-          additionalProperties: true
-          type: object
-          title: Data
-          description: The block document's data
-        merge_existing_data:
-          type: boolean
-          title: Merge Existing Data
-          default: true
-      additionalProperties: false
-      type: object
-      title: BlockDocumentUpdate
-      description: Data used by the Prefect REST API to update a block document.
     ReplaceBlockDocumentAccess:
       properties:
         manage_actor_ids:
@@ -1299,59 +1301,57 @@ components:
       - view_actor_ids
       title: ReplaceBlockDocumentAccess
       description: Data used to replace the existing deployment access.
-    BlockSchema:
+    BlockDocumentFilter:
       properties:
+        operator:
+          $ref: '#/components/schemas/prefect_cloud__orion__schemas__filters__Operator'
+          description: Operator for combining filter criteria. Defaults to 'and_'.
+          default: and_
         id:
-          type: string
-          format: uuid
-          title: Id
-        created:
           anyOf:
-          - type: string
-            format: date-time
+          - $ref: '#/components/schemas/BlockDocumentFilterId'
           - type: 'null'
-          title: Created
-        updated:
+          description: Filter criteria for `BlockDocument.id`
+        is_anonymous:
           anyOf:
-          - type: string
-            format: date-time
+          - $ref: '#/components/schemas/BlockDocumentFilterIsAnonymous'
           - type: 'null'
-          title: Updated
-        checksum:
-          type: string
-          title: Checksum
-          description: The block schema's unique checksum
-        fields:
-          additionalProperties: true
-          type: object
-          title: Fields
-          description: The block schema's field schema
+          description: Filter criteria for `BlockDocument.is_anonymous`. Defaults to excluding anonymous blocks.
+          default:
+            eq_: false
         block_type_id:
+          anyOf:
+          - $ref: '#/components/schemas/BlockDocumentFilterBlockTypeId'
+          - type: 'null'
+          description: Filter criteria for `BlockDocument.block_type_id`
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/BlockDocumentFilterName'
+          - type: 'null'
+          description: Filter criteria for `BlockDocument.name`
+      additionalProperties: false
+      type: object
+      title: BlockDocumentFilter
+      description: Filter BlockDocuments. Only BlockDocuments matching all criteria will be returned
+    BlockDocumentUpdate:
+      properties:
+        block_schema_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Block Type Id
-          description: A block type ID
-        block_type:
-          anyOf:
-          - $ref: '#/components/schemas/BlockType'
-          - type: 'null'
-          description: The associated block type
-        capabilities:
-          items:
-            type: string
-          type: array
-          title: Capabilities
-          description: A list of Block capabilities
-        version:
-          type: string
-          title: Version
-          description: Human readable identifier for the block schema
-          default: non-versioned
+          title: Block Schema Id
+          description: A block schema ID
+        data:
+          additionalProperties: true
+          type: object
+          title: Data
+          description: The block document's data
+        merge_existing_data:
+          type: boolean
+          title: Merge Existing Data
+          default: true
+      additionalProperties: false
       type: object
-      required:
-      - checksum
-      - block_type_id
-      title: BlockSchema
-      description: An ORM representation of a block schema.
+      title: BlockDocumentUpdate
+      description: Data used by the Prefect REST API to update a block document.

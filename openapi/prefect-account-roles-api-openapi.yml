@@ -161,6 +161,37 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    AccountRoleFilter:
+      properties:
+        name:
+          anyOf:
+          - $ref: '#/components/schemas/AccountRoleFilterName'
+          - type: 'null'
+          description: Filter criteria for AccountRole.name
+      additionalProperties: false
+      type: object
+      title: AccountRoleFilter
+    AccountRoleUpdate:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 5000
+          - type: 'null'
+          title: Name
+          description: The name of the account role.
+        permissions:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AccountPermission'
+            type: array
+          - type: 'null'
+          title: Permissions
+          description: The list of account permissions held by this role. Defines the actions account members assigned this role are allowed to take.
+      additionalProperties: false
+      type: object
+      title: AccountRoleUpdate
+      description: Data used by API to update an account role
     HTTPValidationError:
       properties:
         detail:
@@ -191,25 +222,6 @@ components:
       - msg
       - type
       title: ValidationError
-    Body_read_account_roles_api_accounts__account_id__account_roles_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        account_roles:
-          anyOf:
-          - $ref: '#/components/schemas/AccountRoleFilter'
-          - type: 'null'
-      type: object
-      title: Body_read_account_roles_api_accounts__account_id__account_roles_filter_post
     AccountRole:
       properties:
         id:
@@ -255,37 +267,19 @@ components:
       - name
       - permissions
       title: AccountRole
-    AccountRoleUpdate:
+    AccountRoleFilterName:
       properties:
-        name:
-          anyOf:
-          - type: string
-            maxLength: 5000
-          - type: 'null'
-          title: Name
-          description: The name of the account role.
-        permissions:
+        any_:
           anyOf:
           - items:
-              $ref: '#/components/schemas/AccountPermission'
+              type: string
             type: array
           - type: 'null'
-          title: Permissions
-          description: The list of account permissions held by this role. Defines the actions account members assigned this role are allowed to take.
+          title: Any
+          description: Only include account roles matching these names
       additionalProperties: false
       type: object
-      title: AccountRoleUpdate
-      description: Data used by API to update an account role
-    AccountRoleFilter:
-      properties:
-        name:
-          anyOf:
-          - $ref: '#/components/schemas/AccountRoleFilterName'
-          - type: 'null'
-          description: Filter criteria for AccountRole.name
-      additionalProperties: false
-      type: object
-      title: AccountRoleFilter
+      title: AccountRoleFilterName
     AccountPermission:
       type: string
       enum:
@@ -338,16 +332,22 @@ components:
       - update:integrations
       title: AccountPermission
       description: Enumerates possible permissions over an account
-    AccountRoleFilterName:
+    Body_read_account_roles_api_accounts__account_id__account_roles_filter_post:
       properties:
-        any_:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        account_roles:
           anyOf:
-          - items:
-              type: string
-            type: array
+          - $ref: '#/components/schemas/AccountRoleFilter'
           - type: 'null'
-          title: Any
-          description: Only include account roles matching these names
-      additionalProperties: false
       type: object
-      title: AccountRoleFilterName
+      title: Body_read_account_roles_api_accounts__account_id__account_roles_filter_post

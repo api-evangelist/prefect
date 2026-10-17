@@ -154,6 +154,86 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    WorkspaceTeamAccessResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created
+        updated:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+          description: The workspace id
+        workspace_role_id:
+          type: string
+          format: uuid
+          title: Workspace Role Id
+          description: The workspace role id
+        team_id:
+          type: string
+          format: uuid
+          title: Team Id
+          description: id of team assigned a workspace access
+        team_name:
+          type: string
+          title: Team Name
+          description: The name of the team assigned a workspace access
+      additionalProperties: false
+      type: object
+      required:
+      - workspace_id
+      - workspace_role_id
+      - team_id
+      - team_name
+      title: WorkspaceTeamAccessResponse
+      description: Data returned by the api after creating a new team workspace access
+    Body_read_workspace_team_accesses_api_accounts__account_id__workspaces__workspace_id__team_access_filter_post:
+      properties:
+        limit:
+          type: integer
+          maximum: 200.0
+          minimum: 0.0
+          title: Limit
+          default: 200
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+      type: object
+      title: Body_read_workspace_team_accesses_api_accounts__account_id__workspaces__workspace_id__team_access_filter_post
+    WorkspaceTeamAccessCreate:
+      properties:
+        team_id:
+          type: string
+          format: uuid
+          title: Team Id
+          description: The team id
+        workspace_role_id:
+          type: string
+          format: uuid
+          title: Workspace Role Id
+          description: The workspace role id
+      additionalProperties: false
+      type: object
+      required:
+      - team_id
+      - workspace_role_id
+      title: WorkspaceTeamAccessCreate
+      description: Data used by the api to create workspace team access
     ValidationError:
       properties:
         loc:
@@ -214,83 +294,3 @@ components:
       - workspace_id
       - workspace_role_id
       title: WorkspaceTeamAccess
-    Body_read_workspace_team_accesses_api_accounts__account_id__workspaces__workspace_id__team_access_filter_post:
-      properties:
-        limit:
-          type: integer
-          maximum: 200.0
-          minimum: 0.0
-          title: Limit
-          default: 200
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-      type: object
-      title: Body_read_workspace_team_accesses_api_accounts__account_id__workspaces__workspace_id__team_access_filter_post
-    WorkspaceTeamAccessResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created
-        updated:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated
-        workspace_id:
-          type: string
-          format: uuid
-          title: Workspace Id
-          description: The workspace id
-        workspace_role_id:
-          type: string
-          format: uuid
-          title: Workspace Role Id
-          description: The workspace role id
-        team_id:
-          type: string
-          format: uuid
-          title: Team Id
-          description: id of team assigned a workspace access
-        team_name:
-          type: string
-          title: Team Name
-          description: The name of the team assigned a workspace access
-      additionalProperties: false
-      type: object
-      required:
-      - workspace_id
-      - workspace_role_id
-      - team_id
-      - team_name
-      title: WorkspaceTeamAccessResponse
-      description: Data returned by the api after creating a new team workspace access
-    WorkspaceTeamAccessCreate:
-      properties:
-        team_id:
-          type: string
-          format: uuid
-          title: Team Id
-          description: The team id
-        workspace_role_id:
-          type: string
-          format: uuid
-          title: Workspace Role Id
-          description: The workspace role id
-      additionalProperties: false
-      type: object
-      required:
-      - team_id
-      - workspace_role_id
-      title: WorkspaceTeamAccessCreate
-      description: Data used by the api to create workspace team access

@@ -50,6 +50,29 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ResourceSpecification:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - items:
+            type: string
+          type: array
+      type: object
+      title: ResourceSpecification
+      description: 'A specification that may match zero, one, or many resources, used to target or
+
+        select a set of resources in a query or automation.  A resource must match at least
+
+        one value of all of the provided labels'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     PublicationResponse:
       properties:
         id:
@@ -109,15 +132,25 @@ components:
       - updated
       title: PublicationResponse
       description: Response model for a publication.
-    HTTPValidationError:
+    AssetPublicationCreate:
       properties:
-        detail:
+        resource_ids:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            type: string
           type: array
-          title: Detail
+          title: Resource Ids
       type: object
-      title: HTTPValidationError
+      required:
+      - resource_ids
+      title: AssetPublicationCreate
+      description: 'POST body for creating an asset publication.
+
+
+        The caller provides literal asset keys; the server constructs the underlying
+
+        PublicationCreate with the correct event patterns and resource spec so the
+
+        publication is visible to the Available Assets browse experience.'
     ValidationError:
       properties:
         loc:
@@ -139,36 +172,3 @@ components:
       - msg
       - type
       title: ValidationError
-    ResourceSpecification:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - items:
-            type: string
-          type: array
-      type: object
-      title: ResourceSpecification
-      description: 'A specification that may match zero, one, or many resources, used to target or
-
-        select a set of resources in a query or automation.  A resource must match at least
-
-        one value of all of the provided labels'
-    AssetPublicationCreate:
-      properties:
-        resource_ids:
-          items:
-            type: string
-          type: array
-          title: Resource Ids
-      type: object
-      required:
-      - resource_ids
-      title: AssetPublicationCreate
-      description: 'POST body for creating an asset publication.
-
-
-        The caller provides literal asset keys; the server constructs the underlying
-
-        PublicationCreate with the correct event patterns and resource spec so the
-
-        publication is visible to the Available Assets browse experience.'
